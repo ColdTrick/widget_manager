@@ -1,0 +1,167 @@
+<?php 
+
+	global $CONFIG;
+
+	$widget = $vars["entity"];
+	
+	// get widget settings
+	$count = (int) $widget->content_count;
+	if($count < 1){
+		$count = 8;
+	}
+	
+	$content_type = sanitise_string($widget->content_type);
+	if(empty($content_type)){
+		if(is_plugin_enabled("blog")){
+			$content_type = "blog";
+		} elseif(is_plugin_enabled("file")){
+			$content_type = "file";
+		} elseif(is_plugin_enabled("pages")){
+			$content_type = "page";
+		}
+	}
+	
+	if($content_type == "page"){
+		$content_type = array("page_top", "page");
+	} else {
+		$content_type = array($content_type);
+	}
+	
+	$tags_option = $widget->tags_option;
+	if(!in_array($tags_option, array("and", "or"))){
+		$tags_option = "and";
+	}
+	
+	$wheres = array();
+	$joins = array();
+	
+	
+	// will always want to join these tables if pulling metastrings.
+	$joins[] = "JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid";
+
+	// get names wheres and joins
+	$names_where = '';
+	$values_where = '';
+	
+	$names = array("tags", "universal_categories");
+	$values = string_to_tag_array($widget->tags);
+	
+	if(!empty($values)){
+		$sanitised_names = array();
+		foreach ($names as $name) {
+			// normalise to 0.
+			if (!$name) {
+				$name = '0';
+			}
+			$sanitised_names[] = '\'' . sanitise_string($name) . '\'';
+		}
+	
+		if ($names_str = implode(',', $sanitised_names)) {
+			$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msn on n_table.name_id = msn.id";
+			$names_where = "(msn.string IN ($names_str))";
+		}
+		
+		$sanitised_values = array();
+		foreach ($values as $value) {
+			// normalize to 0
+			if (!$value) {
+				$value = 0;
+			}
+			$sanitised_values[] = '\'' . sanitise_string($value) . '\'';
+		}	
+		
+		$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msv on n_table.value_id = msv.id";
+		
+		$values_where .= "(";
+		foreach($sanitised_values as $i => $value){
+			if($i !== 0){
+				if($tags_option == "and"){
+					// AND
+					
+					$joins[] = "JOIN {$CONFIG->dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
+					$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
+					$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
+	 
+					$values_where .= " AND (msn{$i}.string IN ($names_str) AND msv{$i}.string = $value)";
+					
+				} else {
+					$values_where .= " OR (msv.string = $value)";
+				}
+			} else {
+				$values_where .= "(msv.string = $value)";
+			}				
+		}
+		$values_where .= ")";
+	}
+	
+	$access = get_access_sql_suffix('n_table');
+	
+	if ($names_where && $values_where) {
+		$wheres[] = "($names_where AND $values_where AND $access)";
+	} elseif ($names_where) {
+		$wheres[] = "($names_where AND $access)";
+	} elseif ($values_where) {
+		$wheres[] = "($values_where AND $access)";
+	}
+	
+	// owner_guids
+	if(!empty($widget->owner_guids)){
+		$owner_guids = string_to_tag_array($widget->owner_guids);
+		if(!empty($owner_guids)){
+			foreach($owner_guids as $key => $guid){
+				$owner_guids[$key] = sanitise_int($guid);
+			}
+		}
+	}
+	
+	$options = array(
+		"type" => "object",
+		"subtypes" => $content_type,
+		"limit" => $count,
+		"full_view" => false,
+		"pagination" => false,
+		"view_type_toggle" => false,
+		"joins" => $joins,
+		"wheres" => $wheres,
+		"owner_guids" => $owner_guids
+	);
+	
+	$old_context = get_context();
+	set_context("search");
+	
+	if($widget->display_option == "slim"){
+		if($entities = elgg_get_entities($options)){		
+			$num_highlighted = (int) $widget->highlight_first;
+			foreach($entities as $index => $entity){
+				
+				if($index < $num_highlighted){
+					$icon = "<a href='" . $entity->getURL() .  "'><img src='" . $entity->getIcon("small") . "' /></a>";
+					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title, "class" => "output-url"));
+					$text .= "<br />";
+					$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
+					$description = elgg_get_excerpt($entity->description, 170);
+					$text .= $description;
+					if (elgg_substr($description, -3, 3) == '...') {
+						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
+					}
+					$result .= elgg_view_listing($icon, $text);
+				} else {
+					$result .= "<div>";		
+					$result .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
+					$result .= "</div>";	
+				}	
+						
+			}
+		}
+	} else {
+		$result = elgg_list_entities($options);
+	}
+	
+	if($result){
+		echo $result;
+	} else {
+		echo elgg_view("page_elements/contentwrapper", array("body" => elgg_echo("widgets:content_by_tag:no_result")));
+	}
+	
+	set_context($old_context);
+?>

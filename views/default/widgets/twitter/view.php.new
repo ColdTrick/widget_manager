@@ -1,0 +1,66 @@
+<?php 
+
+	$widget = $vars["entity"];
+	
+	static $twitter_script_loaded;
+	
+	$username = $widget->twitter_username;
+	$height = (int) $widget->heigth;
+	$background = $widget->background;
+	$count = (int) $widget->twitter_num;
+	
+	if(empty($height) || !is_int($height)){
+		$height = 300;
+	}
+	
+	if(empty($count) || !is_int($count)){
+		$count = 5;
+	}
+	
+	if(empty($background)){
+		$background = "4690d6";
+	}
+
+	//<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+	
+	if(!empty($username)){
+?>
+<div id="twittersearch_<?php echo $widget->getGUID(); ?>"></div>
+<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script type="text/javascript">
+	new TWTR.Widget({
+	  version: 2,
+	  id: "twittersearch_<?php echo $widget->getGUID(); ?>",
+	  type: "profile",
+	  rpp: <?php echo $count; ?>,
+	  interval: 10000,
+	  width: "auto",
+	  height: <?php echo $height; ?>,
+	  theme: {
+	    shell: {
+	      background: '#<?php echo $background; ?>',
+	      color: '#ffffff'
+	    },
+	    tweets: {
+	      background: '#ffffff',
+	      color: '#333333',
+	      links: '#4690d6'
+	    }
+	  },
+	  features: {
+	    scrollbar: true,
+	    loop: false,
+	    live: true,
+	    hashtags: true,
+	    timestamp: true,
+	    avatars: false,
+	    toptweets: true,
+	    behavior: "all"
+	  }
+	}).render().setUser('<?php echo $username; ?>').start();
+</script>
+<?php 
+	} else { 
+		echo elgg_view("page_elements/contentwrapper", array("body" => elgg_echo("widgets:twitter_search:not_configured")));
+	} 
+?>
