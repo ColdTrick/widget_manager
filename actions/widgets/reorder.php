@@ -34,20 +34,21 @@ $widget_order = array_keys($new_widgets);
 
 $current_widgets = get_entities_from_private_setting("context", $context, "object", "widget", $owner, "", 99999, 0, false, $CONFIG->site_guid);
 
-foreach($current_widgets as $pos => $db_widget){
-	$guid = $db_widget->getGUID();
-	$target_column = $new_widgets[$guid];
-	
-	if(!empty($target_column)){
-		$pos = array_search($guid, $widget_order);
-		$db_widget->column = $target_column;
-		$db_widget->order = ($pos + 1) * 10;
+if($current_widgets){
+	foreach($current_widgets as $pos => $db_widget){
+		$guid = $db_widget->getGUID();
+		$target_column = $new_widgets[$guid];
 		
-	} else {
-		// widget delete
-		$db_widget->delete();
-	} 
-	
+		if(!empty($target_column)){
+			$pos = array_search($guid, $widget_order);
+			$db_widget->column = $target_column;
+			$db_widget->order = ($pos + 1) * 10;
+			
+		} else {
+			// widget delete
+			$db_widget->delete();
+		} 
+		
+	}
 }
-
 exit();
