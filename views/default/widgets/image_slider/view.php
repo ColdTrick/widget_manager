@@ -20,97 +20,9 @@
 	}
 	
 	$object_id = "slider_" . $widget->getGUID();
-	
-	if($widget->canEdit()){
 ?>
-<script type="text/javascript">
-	$(document).ready(function() {
 
-		$(".image_slider_settings>h3").live("click", function(){
-			$(this).next().toggle();
-		});
-	});
-</script>
-<?php }?>
-
-<style type="text/css" media="screen">
-
-.image_slider_settings > span {
-	display: none;
-}
-
-.image_slider_settings > h3 {
-	cursor: pointer;
-}
-
-#<?php echo $object_id; ?> {
-	width: 100%; /* important to be same as image width */
-	height: <?php echo $slider_height; ?>px; /* important to be same as image height */
-	position: relative; /* important */
-	overflow: hidden; /* important */
-	float: left;
-}
-
-#<?php echo $object_id; ?>Content {
-	width: 100%; /* important to be same as image width or wider */
-	position: absolute;
-	top: 0;
-	margin: 0 0 0 -20px;
-	list-style-image: none !important;
-}
-
-.<?php echo $object_id; ?>Image {
-	float: left;
-	position: relative;
-	display: none;
-	width: 100%;
-}
-
-.<?php echo $object_id; ?>Image span {
-	position: absolute;
-	width: 100%;
-	background-color: #<?php echo $overlay_color; ?>;
-	filter: alpha(opacity = 80);
-	-moz-opacity: 0.8;
-	-khtml-opacity: 0.8;
-	opacity: 0.8;
-	color: #fff;
-	display: none;
-}
-
-.<?php echo $object_id; ?>Image span div {
-	padding: 10px 13px;
-}
-
-.<?php echo $object_id; ?>Image span strong {
-	font-size: 14px;
-}
-
-#<?php echo $object_id; ?>Content .top {
-	top: 0;
-	left: 0;
-}
-
-#<?php echo $object_id; ?>Content .bottom {
-	bottom: 0;
-	left: 0;
-}
-
-#<?php echo $object_id; ?>Content .left {
-	top: 0;
-	left: 0;
-	width: 180px !important;
-	height: <?php echo $slider_height; ?>px;
-}
-
-#<?php echo $object_id; ?>Content .right {
-	right: 0;
-	bottom: 0;
-	width: 180px !important;
-	height: <?php echo $slider_height; ?>px;
-}
-
-</style>
+<script	type="text/javascript" src="<?php echo $vars['url'];?>mod/widget_manager/widgets/image_slider/vendors/s3slider/s3Slider.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -119,8 +31,9 @@
         });
     });
 </script>
-<div id="<?php echo $object_id; ?>">
-	<ul id="<?php echo $object_id; ?>Content">
+
+<div id="<?php echo $object_id; ?>" class='widgets_image_slider' style="height: <?php echo $slider_height; ?>px;">
+	<ul class='widgets_image_slider_content' id="<?php echo $object_id; ?>Content">
 	
 		<?php 
 		
@@ -132,14 +45,18 @@
 			
 			if(!empty($url)){
 				
-				$custom_slider .= "<li class='" . $object_id . "Image'>";
+				$custom_slider .= "<li class='widgets_image_slider_image'>";
 				
+				$style = "background-color: #" . $overlay_color . ";";
 				
 				if(empty($text)){
-					$custom_slider .= "<span class='" . $direction ."' style='visibility: hidden;'>";	
-				} else {
-					$custom_slider .= "<span class='" . $direction ."'>";	
+					$style .= "visibility: hidden;";	
+				} 
+				if($direction == "left" || $direction == "right"){
+					$style .= "height: " . $slider_height . "px;";
 				}
+				
+				$custom_slider .= "<span class='" . $direction ."' style='" . $style . "'>";
 				
 				$custom_slider .= "<div>";
 				$custom_slider .= $text; 
@@ -162,9 +79,9 @@
 			echo $custom_slider;
 		} else {
 		?>
-			<li class="<?php echo $object_id; ?>Image">
+			<li class="widgets_image_slider_image">
 				<img src="http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/1.jpg">
-				<span class="top">
+				<span class="top" style="background-color: #<?php echo $overlay_color; ?>;">
 					<div>
 						<strong>Lorem ipsum dolor</strong><br>
 						Consectetuer adipiscing elit. Donec eu massa vitae arcu laoreet
@@ -172,36 +89,36 @@
 					</div>
 				</span>
 			</li>
-			<li class="<?php echo $object_id; ?>Image">
+			<li class="widgets_image_slider_image">
 				<img src="http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/2.jpg">
-				<span class="top">
+				<span class="top" style="background-color: #<?php echo $overlay_color; ?>;">
 					<div>
 						<strong>Praesent</strong><br>
 						Maecenas est erat, aliquam a, ornare eu, pretium nec, pede.
 					</div>
 				</span>
 			</li>
-			<li class="<?php echo $object_id; ?>Image">
+			<li class="widgets_image_slider_image">
 				<img src="http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/3.jpg">
-				<span class="bottom">
+				<span class="bottom" style="background-color: #<?php echo $overlay_color; ?>;">
 					<div>
 						<strong>In hac habitasse</strong><br>
 						Quisque ipsum est, fermentum quis, sodales nec, consectetuer sed, quam. Nulla feugiat lacinia odio.
 					</div>
 				</span>
 			</li>
-			<li class="<?php echo $object_id; ?>Image">
+			<li class="widgets_image_slider_image">
 				<img src="http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/4.jpg">
-				<span class="bottom">
+				<span class="bottom" style="background-color: #<?php echo $overlay_color; ?>;">
 					<div>
 						<strong>Fusce rhoncus</strong><br>
 						Praesent pellentesque nibh sed nibh. Sed ac libero. Etiam quis libero.
 					</div>
 				</span>
 			</li>
-			<li class="<?php echo $object_id; ?>Image">
+			<li class="widgets_image_slider_image">
 				<img src="http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/5.jpg">
-				<span class="top">
+				<span class="top" style="background-color: #<?php echo $overlay_color; ?>;">
 					<div>
 						<strong>Morbi malesuada</strong><br>
 						Vivamus molestie leo sed justo. In rhoncus, enim non imperdiet feugiat,	felis elit ultricies tortor.
@@ -209,7 +126,7 @@
 				</span>
 			</li>
 		<?php } ?>
-		<div class="clearfloat <?php echo $object_id; ?>Image"></div>
+		<div class="clearfloat widgets_image_slider_image"></div>
 	</ul>
 </div>
 <div class="clearfloat"></div>

@@ -27,10 +27,11 @@
 		
 		if(empty($fancybox_js_loaded)){
 			$fancybox_js_loaded = true;
-	?>
-	<script type="text/javascript" src="<?php echo $vars["url"];?>mod/widget_manager/vendors/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-	
-	<?php }?>
+			?>
+			<script type="text/javascript" src="<?php echo $vars["url"];?>mod/widget_manager/vendors/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+			<?php 
+		}
+		?>
 	<script type="text/javascript">
 		function saveNewWidget(name){
 			var guid = $("form[action='<?php echo $vars['url'];?>action/widgets/reorder'] input[name='owner']").val();
@@ -70,13 +71,6 @@
 					
 					$(elem).parents("div.collapsable_box").parent().toggleClass("free_widgets");
 					$(elem).parents("div.collapsable_box_header").toggleClass("fixed_widget").toggleClass("draggable_widget");
-
-					// refresh sortables
-					// the next bit should work, but maybe only in a newer version of jQuery.
-//					var cols = ['#widgets_left', '#widgets_middle', '#widgets_right', '#widgets_top'];
-//					var $cols = $(cols.toString());
-//
-//					$cols.sortable("refresh");
 				}
 			});
 		}

@@ -84,6 +84,10 @@ ToDo:
 ========================
 Version history:
 ========================
+x.x:
+	- changed: updated some js to be smaller 
+	- changed: loading of js and css of image_slider and twitter widget
+	
 3.6 (2011-06-21):
 	- added: auto cleanup for broken widgets (if broken -> delete)
 	- fixed: widget edit link is not showing if a widget is loaded collapsed

@@ -2,7 +2,7 @@
 /* init file for image_slider widget */
 
 function widget_image_slider_init(){
-	elgg_extend_view("metatags", "widgets/image_slider/metatags");
+	elgg_extend_view("css", "widgets/image_slider/css");
 	add_widget_type("image_slider", elgg_echo("widget_manager:widgets:image_slider:name"), elgg_echo("widget_manager:widgets:image_slider:description"), "index", true);
 }
 

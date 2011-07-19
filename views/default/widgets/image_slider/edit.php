@@ -64,3 +64,12 @@ for($i = 1; $i <= $max_slider_options; $i++){
 
 <div><?php echo elgg_echo("widget_manager:widgets:image_slider:overlay_color"); ?></div>
 <input type="text" name="params[overlay_color]" value="<?php echo elgg_view("output/text", array("value" => $overlay_color)); ?>" size="6" maxlength="6" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$(".image_slider_settings>h3").live("click", function(){
+			$(this).next().toggle();
+		});
+	});
+</script>
