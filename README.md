@@ -25,6 +25,7 @@ Features
 
 IMPORTANT:
 Since 3.0:
+
 * Previous default widgets configuration is no longer valid!!
 * Requires 1.7.7. or higher!
 * Includes migration from group custom layout (update of group custom layout needed after migration)
