@@ -14,7 +14,7 @@
 	$cloud = elgg_view_tagcloud($cloud_options);
 
 	if(empty($cloud)){
-		$cloud = elgg_echo("widgets:tag_cloud:no_data");
+		$cloud = elgg_echo("widgets:tagcloud:no_data");
 	}
 	
 	echo elgg_view("page_elements/contentwrapper", array("body" => $cloud));
