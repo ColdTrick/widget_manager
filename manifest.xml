@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="3.6" />
+	<field key="version" value="3.6.1" />
 	<field key="description" value="A widget manager" />
 	<field key="website" value="http://www.coldtrick.com/" />
 	<field key="copyright" value="(C) ColdTrick 2010" />
@@ -84,9 +84,11 @@ ToDo:
 ========================
 Version history:
 ========================
-x.x:
+3.6.1 (2011-07-22):
+	- changed: layout of tagcloud
 	- changed: updated some js to be smaller 
 	- changed: loading of js and css of image_slider and twitter widget
+	- fixed: wrong key when no data for tagcloud
 	
 3.6 (2011-06-21):
 	- added: auto cleanup for broken widgets (if broken -> delete)
