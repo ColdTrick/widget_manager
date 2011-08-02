@@ -133,7 +133,7 @@
 						echo elgg_echo('widgets:handlernotfound');
 					}
 				}
-				
+				if(is_plugin_enabled("profile")){
 				?>
 				
 				<script language="javascript">
@@ -143,7 +143,7 @@
 				</script>
 				
 				<?php
-				
+				}
 			}
 			
 			if(!$lazy_loading){
