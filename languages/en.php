@@ -297,6 +297,7 @@
 		'widgets:free_html:description' => "Type your own content in HTML",
 		
 		'widgets:free_html:settings:html_content' => "Please supply the HTML to display",
+		'widgets:free_html:settings:use_content_wrapper' => "Use a content wrapper",
 		'widgets:free_html:no_content' => "This widget is not yet configured",
 		
 	);
