@@ -26,6 +26,11 @@
 			$post_date = false;
 		}
 		
+		if (!class_exists('SimplePie')){
+			
+			require_once($CONFIG->pluginspath . 'widget_manager/widgets/rss/vendors/simplepie/simplepie.inc');
+		}
+		
 		$feed = new SimplePie($feed_url, WIDGETS_RSS_CACHE_LOCATION, WIDGETS_RSS_CACHE_DURATION);
 		
 		$num_posts_in_feed = $feed->get_item_quantity($num_items);

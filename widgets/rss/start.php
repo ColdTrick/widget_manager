@@ -4,10 +4,6 @@
 	function widget_rss_init(){
 		global $CONFIG;
 		
-		if (!class_exists('SimplePie')){
-			require_once(dirname(__FILE__) . '/vendors/simplepie/simplepie.inc');
-		}
-		
 		add_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
 		
 		// extend CSS
