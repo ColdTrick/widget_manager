@@ -37,7 +37,6 @@
 		'widget_manager:settings:target_column:left' => "Left",
 		'widget_manager:settings:target_column:middle' => "Middle",
 		'widget_manager:settings:target_column:right' => "Right",
-		'widget_manager:settings:edit_in_lightbox' => "Show the widget edit forms in a lightbox?",
 		
 		'widget_manager:settings:custom_index' => "Use Widget Manager custom index?",
 		'widget_manager:settings:custom_index:non_loggedin' => "For non-loggedin users only",

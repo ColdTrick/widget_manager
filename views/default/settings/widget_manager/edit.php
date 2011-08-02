@@ -46,14 +46,6 @@
 	</tr>
 	<tr>
 		<td>
-			<?php echo elgg_echo('widget_manager:settings:edit_in_lightbox'); ?>
-		</td>
-		<td>
-			<?php echo elgg_view("input/pulldown", array("internalname" => "params[edit_in_lightbox]", "value" => $plugin->edit_in_lightbox, "options_values" => $noyes_options)); ?>
-		</td>
-	</tr>
-	<tr>
-		<td>
 			<?php echo elgg_echo('widget_manager:settings:target_column'); ?>
 		</td>
 		<td>
