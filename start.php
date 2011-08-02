@@ -146,10 +146,6 @@
 				break;
 			case "widgets":
 				switch($page[1]){
-					
-					case "list":
-						include(dirname(__FILE__) . "/procedures/widgets/list.php");
-						break;
 					case "lightbox":
 						include(dirname(__FILE__) . "/procedures/widgets/lightbox.php");
 						break;
