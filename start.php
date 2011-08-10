@@ -81,9 +81,12 @@
 
 	function widget_manager_pagesetup(){
 		global $CONFIG;
-		trigger_elgg_event("widgets_pagesetup", "widget_manager");
 		
 		$context = get_context();
+		
+		if(widget_manager_valid_context($context)){
+			trigger_elgg_event("widgets_pagesetup", "widget_manager");
+		}
 		
 		if(isadminloggedin() && $context == "admin"){
 			// remove menu items from defaultwidgets
