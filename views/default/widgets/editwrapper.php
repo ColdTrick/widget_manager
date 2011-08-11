@@ -10,7 +10,6 @@ $guid = $vars['entity']->getGUID();
 
 $form_body = $vars['body'];
 
-
 $access_options = array('internalname' => 'params[access_id]','value' => $vars['entity']->access_id);
 
 $access_options["options"] = trigger_plugin_hook("widget_manager:widget:access", $vars['entity']->getOwnerEntity()->getType(), array("entity" => $vars["entity"]));

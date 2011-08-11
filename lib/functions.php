@@ -7,6 +7,21 @@
 			$context = get_context();
 		}
 		
+		static $widget_settings;
+		if(!isset($widget_settings)){
+			$widget_settings = array();
+		}
+		if(!isset($widget_settings[$context])){
+			$widget_settings[$context] = array();
+		}
+		if(!isset($widget_settings[$context][$widget_handler])){
+			$widget_settings[$context][$widget_handler] = array();
+		}
+		
+		if(isset($widget_settings[$context][$widget_handler][$setting])){
+			return $widget_settings[$context][$widget_handler][$setting];
+		}
+		
 		if(widget_manager_valid_context($context)){
 			if($plugin_setting = get_plugin_setting($context . "_" . $widget_handler . "_" . $setting, "widget_manager")){
 				if($plugin_setting == "yes"){
@@ -51,6 +66,8 @@
 				$result = true;
 			}
 		}
+		
+		$widget_settings[$context][$widget_handler][$setting] = $result;
 		
 		return $result;
 	}

@@ -13,14 +13,22 @@
 	
 	$widget = $vars["entity"];
 	if ($widget instanceof ElggWidget) {
+		$widget = new WidgetManagerWidget($widget->getGUID());
+		
+		$vars["entity"] = $widget;
 		
 		// need to have context sensitive get_widget_types to determine if it is still allowed
 		$old_context = get_context();
+		
+		$can_edit = $widget->canEdit();
+		$vars["can_edit"] = $can_edit;
+		
 		$temp_context = $widget->context;
 		$temp_context = str_replace("default_", "", $temp_context); 
 		set_context($temp_context);
 		
 		$widgettypes = get_widget_types();
+		$vars["widgettypes"] = $widgettypes;
 		
 		set_context($old_context);
 		
@@ -29,7 +37,7 @@
 		$callback = get_input('callback');
 		
 		if(get_plugin_setting("remove_broken_widgets", "widget_manager") == "yes"){
-			if(!array_key_exists($handler, $widgettypes) && $widget->canEdit()){
+			if(!array_key_exists($handler, $widgettypes) && $can_edit){
 				if($widget->delete()){
 					echo PHP_EOL; // need to return something or widget will be shown in default object view
 					return; // no need for the rest of the code
@@ -55,14 +63,14 @@
 		// check if widget is broken
 		if((!$show_broken_widgets && !array_key_exists($handler, $widgettypes)) || $hide_widget){
 			echo "<div class='widget_manager_broken_widget'>";
-			if ($widget->canEdit()) {
-				echo elgg_view('widgets/editwrapper', array('entity' => $widget));
+			if ($can_edit) {
+				echo elgg_view('widgets/editwrapper', $vars);
 			} 
 			echo "</div>";
 		} else {
 		
 			if ($callback != "true") {
-				if($widget->canEdit()){
+				if($can_edit){
 					$header_class = "";
 					
 					if(!$widget->fixed){
@@ -82,14 +90,14 @@
 		
 			<div id="widget<?php echo $widget->getGUID(); ?>" <?php echo $class;?>>
 			<div class="collapsable_box">
-			<?php if($widget->canEdit() || $widget->widget_manager_hide_header != "yes"){?>
+			<?php if($can_edit || $widget->widget_manager_hide_header != "yes"){?>
 			<div class="collapsable_box_header<?php echo $header_class; ?>">
-				<?php echo elgg_view("widgets/header", array("entity" => $widget, "widgettypes" => $widgettypes)); ?>
+				<?php echo elgg_view("widgets/header", $vars); ?>
 			</div>
 			<?php }?>
 			<?php
 		
-				if ($widget->canEdit()) {
+				if ($can_edit) {
 			
 			?>
 			<div class="collapsable_box_editpanel"><?php 
@@ -108,7 +116,7 @@
 			
 				if($widget->widget_manager_disable_widget_content_style == "yes"){
 					$widget_content_class = " widget_manager_disable_widget_content_style";
-				} elseif(!$widget->canEdit() && $widget->widget_manager_hide_header == "yes"){
+				} elseif(!$can_edit && $widget->widget_manager_hide_header == "yes"){
 					$widget_content_class = " widget_manager_hide_header";
 				}
 				?>

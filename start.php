@@ -5,6 +5,7 @@
 	define("ACCESS_LOGGED_OUT", -5);
 	
 	require_once(dirname(__FILE__) . "/lib/functions.php");
+	require_once(dirname(__FILE__) . "/lib/classes.php");
 
 	function widget_manager_plugins_boot(){
 		// Load widgets

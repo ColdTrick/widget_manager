@@ -6,10 +6,14 @@
  * @package Elgg
  * @subpackage Core
  */
-$area1widgets = get_widgets($vars["config"]->site_guid, get_context(), 1);
-$area2widgets = get_widgets($vars["config"]->site_guid, get_context(), 2);
-$area3widgets = get_widgets($vars["config"]->site_guid, get_context(), 3);
-$area4widgets = get_widgets($vars["config"]->site_guid, get_context(), 4);
+
+$context = get_context();
+$area1widgets = get_widgets($vars["config"]->site_guid, $context, 1);
+$area2widgets = get_widgets($vars["config"]->site_guid, $context, 2);
+$area3widgets = get_widgets($vars["config"]->site_guid, $context, 3);
+$area4widgets = get_widgets($vars["config"]->site_guid, $context, 4);
+
+$isadminloggedin = isadminloggedin();
 
 $layout = get_plugin_setting("widget_layout", "widget_manager");
 $full_first_row = false;
@@ -74,7 +78,7 @@ if($index_top_row == "full_row" || (in_array($index_top_row, array("two_column_l
 	$top_class = "frontpage_widgets_top_right frontpage_widgets_top_" . ($middle + $right);
 }
 
-if (isadminloggedin()) {
+if ($isadminloggedin) {
 
 ?>
 <form action="<?php echo $vars['url']; ?>action/widgets/reorder" method="post" id="widget_manager_frontpage_reorder_form">
@@ -83,7 +87,7 @@ if (isadminloggedin()) {
 	<textarea name="debugField3" id="debugField3"></textarea>
 	<textarea name="debugField4" id="debugField4"></textarea>
 	
-	<input type="hidden" name="context" value="<?php echo get_context(); ?>" />
+	<input type="hidden" name="context" value="<?php echo $context; ?>" />
 	<input type="hidden" name="owner" value="<?php echo $vars["config"]->site_guid; ?>" />
 	
 	<?php echo elgg_view("input/securitytoken"); ?>
@@ -123,7 +127,7 @@ if (isadminloggedin()) {
 	<?php } ?>
 	
 	<?php
-		if (isadminloggedin()) {
+		if ($isadminloggedin) {
 		?>
 			<div id="toggle_customise_edit_panel">
 				<!-- customise page button -->

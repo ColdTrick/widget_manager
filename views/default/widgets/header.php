@@ -5,6 +5,8 @@
 	$handler = $widget->handler;
 	$title = $widgettypes[$widget->handler]->name;
 	
+	$owner = $widget->getOwnerEntity();
+	
 	if($widget->widget_manager_custom_title){
 		$title = $widget->widget_manager_custom_title;
 	}
@@ -21,7 +23,7 @@
 	if (isset($widgettypes[$handler]->link)) {
 		$link = $widgettypes[$handler]->link;
 		/* Let's do some basic substitutions to the link */
-		$owner = $widget->getOwnerEntity();
+		
 		
 		/* [USERNAME] */
 		$link = preg_replace('#\[USERNAME\]#', $owner->username, $link);
@@ -59,17 +61,21 @@
 ?>	
 </h1>
 <?php 
-	if( ($widget->getOwnerEntity() instanceof ElggUser) || 
-		($widget->getOwnerEntity() instanceof ElggSite) || 
-		($widget->getOwnerEntity() instanceof ElggGroup)){
+	if(($owner instanceof ElggUser) || ($owner instanceof ElggSite) || ($owner instanceof ElggGroup)){
 		
-		if($widget->canEdit()){
+		if(isset($vars["can_edit"])){
+			$can_edit = $vars["can_edit"];
+		} else {
+			$can_edit = $widget->canEdit();
+		}
+			
+		if($can_edit){
 			$tools_class = "class='widget_tools_wrapper'";
 		}
 		
 		$tools = "";
 		
-		if ($configuring_defaults || ($widget->canEdit() && widget_manager_get_widget_setting($handler, "can_remove") && !$widget->fixed)) {
+		if ($configuring_defaults || ($can_edit && widget_manager_get_widget_setting($handler, "can_remove") && !$widget->fixed)) {
 			// if allow the deleting of a widget, display a remove button
 			$tools .= "<div onclick='deleteWidget(this);' id='deleter' class='widget_remove_button'></div>"; 
 		}
@@ -79,7 +85,7 @@
 			$tools .= "<a href='javascript:void(0);' class='toggle_box_contents'>-</a>";
 		}
 		 
-		if ($configuring_defaults || ($widget->canEdit() && ($widget->widget_manager_show_edit !== "no"))) {
+		if ($configuring_defaults || ($can_edit && ($widget->widget_manager_show_edit !== "no"))) {
 			$tools .= "<a href='javascript:void(0);' class='toggle_box_edit_panel'>" . elgg_echo('edit') . "</a>";
 		}
 		
