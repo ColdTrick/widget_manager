@@ -84,6 +84,9 @@ ToDo:
 ========================
 Version history:
 ========================
+3.7 (2011-08-11):
+	- changed: major performance gains
+
 3.6.1 (2011-07-22):
 	- changed: layout of tagcloud
 	- changed: updated some js to be smaller 
