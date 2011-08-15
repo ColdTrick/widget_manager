@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="3.7" />
+	<field key="version" value="3.7.1" />
 	<field key="description" value="A widget manager" />
 	<field key="website" value="http://www.coldtrick.com/" />
 	<field key="copyright" value="(C) ColdTrick 2010" />
@@ -34,7 +34,6 @@ Since 3.0:
 	- Previous default widgets configuration is no longer valid!!
 	- Requires 1.7.7. or higher!
 	- Includes migration from group custom layout (update of group custom layout needed after migration)
-
 	
 ========================
 General widgets:
@@ -43,6 +42,7 @@ General widgets:
  - Content (blog, file, pages) by tag
  - rss
  - tagcloud
+ - free html
  
 ========================
 Index widgets:
@@ -53,8 +53,6 @@ Index widgets:
  - files
  - blogs
  - pages
- - free HTML
- - The Wire
  - bookmarks
  - groups
  - activity
@@ -65,9 +63,7 @@ Group widgets
 ========================
  - event calendar
  - forum topics
- - free html
  - files
- - forum topics
  - izap_videos
  - tidypics
  - videolist
@@ -79,11 +75,13 @@ ToDo:
  - more custom index layouts
  - widget categories
  - widget repository
- - better twitter widget 
-
+ 
 ========================
 Version history:
 ========================
+3.7.1 (2011-08-15):
+	- removed: all the wire widgets (moved to thewire_tools plugin)
+	
 3.7 (2011-08-11):
 	- changed: major performance gains
 
