@@ -53,12 +53,6 @@
 		elgg_extend_view("css", "fancybox/css");
 		elgg_extend_view("js/initialise_elgg", "widget_manager/js");
 		
-		// adds wire post form to the wire widget
-		if(get_plugin_setting("extend_thewire", "widget_manager") != "no"){
-			elgg_extend_view("widgets/thewire/view", "extends/thewire_post", 400);
-			elgg_extend_view("widgets/index_thewire/view", "extends/thewire_post", 400);
-		}
-		
 		// register page handler for nice URLs
 		register_page_handler("widget_manager", "widget_manager_page_handler");
 		

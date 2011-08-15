@@ -66,8 +66,7 @@
 		'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 		'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 
-		'widget_manager:settings:other:extend_thewire' => "Extend The Wire widget with the option to post update directly from the widget",
-	
+		
 		// views
 		// manage form
 		'widget_manager:dashboard:title' => "Dashboard widgets configuration",
@@ -161,13 +160,6 @@
 		
 		'widget_manager:widgets:index_pages:no_result' => "No pages were found",
 		
-		// index_thewire
-		'widget_manager:widgets:index_thewire:name' => "The Wire",
-		'widget_manager:widgets:index_thewire:description' => "Show the latest Wire posts on your community",
-		
-		'widget_manager:widgets:index_thewire:wire_count' => "How many posts to show",
-		
-		'widget_manager:widgets:index_thewire:no_result' => "No Wire posts were found",
 		
 		// index_bookmarks
 		'widget_manager:widgets:index_bookmarks:name' => "Bookmarks",
@@ -333,16 +325,7 @@
 	);
 	add_translation("en", $group_videolist);
 	
-	$thewire_post = array(
-		// thewire_post widget
-		'widgets:thewire_post:title' => "Update the Wire",
-		'widgets:thewire_post:description' => "Update your status on the wire from this widget",
-		
-	);
-	add_translation("en", $thewire_post);
-	
 	$tagcloud = array(
-		// thewire_post widget
 		'widgets:tagcloud:title' => "Tagcloud",
 		'widgets:tagcloud:description' => "Shows a tagcloud based on all the content on the site, in the group or from the user",
 		'widgets:tagcloud:no_data' => "No data available to display a tagcloud",

@@ -148,12 +148,4 @@
 			<h3 class="settings"><?php echo elgg_echo('widget_manager:settings:other'); ?></h3>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<?php echo elgg_echo('widget_manager:settings:other:extend_thewire'); ?>
-		</td>
-		<td>
-			<?php echo elgg_view("input/pulldown", array("internalname" => "params[extend_thewire]", "value" => $plugin->extend_thewire, "options_values" => $yesno_options)); ?>
-		</td>
-	</tr>
 </table>
