@@ -31,6 +31,11 @@ if($vars['entity']->context == "index"){
 	$form_body .= "<p><label>" . elgg_echo('widget_manager:widgets:edit:show_edit') . ": " . elgg_view('input/pulldown', array('internalname' => 'params[widget_manager_show_edit]','value' => $vars['entity']->widget_manager_show_edit, 'options_values' => array("yes" => elgg_echo("option:yes"), "no" => elgg_echo("option:no")))) . "</label></p>";
 	$form_body .= "<p><label>" . elgg_echo('widget_manager:widgets:edit:show_toggle') . ": " . elgg_view('input/pulldown', array('internalname' => 'params[widget_manager_show_toggle]','value' => $vars['entity']->widget_manager_show_toggle, 'options_values' => array("yes" => elgg_echo("option:yes"), "no" => elgg_echo("option:no")))) . "</label></p>";
 }
+$widget_context = $vars['entity']->context;
+
+if($widget_context == "index" || $widget_context == "default_profile" || $widget_context == "default_dashboard"){
+	$form_body .= "<p><label>" . elgg_echo('widget_manager:widgets:edit:custom_class') . ": " . elgg_view('input/text', array('internalname' => 'params[widget_manager_custom_class]','value' => $vars['entity']->widget_manager_custom_class)) . "</label></p>";
+}
 
 $form_body .= "</span>";
 

@@ -156,5 +156,19 @@ add_translation("nl", $language);
 	);
 	
 	add_translation("nl", $content_by_tag);
+	
+	$group_news = array(
+		// group_news widget
+		"widgets:group_news:title" => "Groep Niews", 
+		"widgets:group_news:description" => "Toont de laatste blogs vanuit verschillende groepen", 
+		"widgets:group_news:no_projects" => "Geen groepen ingesteld", 
+		"widgets:group_news:no_news" => "Geen blogs in deze groep", 
+		"widgets:group_news:settings:project" => "Groep", 
+		"widgets:group_news:settings:no_project" => "Selecteer een groep",
+		"widgets:group_news:settings:blog_count" => "Maximum aantal blogs",
+		"widgets:group_news:settings:slide_timeout" => "Overgang timeout"
+	
+	);
+	add_translation("en", $group_news);
 
 ?>

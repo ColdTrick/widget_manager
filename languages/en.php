@@ -10,6 +10,7 @@
 		'widget_manager:widgets:edit:custom_title' => "Custom title",
 		'widget_manager:widgets:edit:custom_url' => "Custom title link",
 		'widget_manager:widgets:edit:hide_header' => "Hide header",
+		'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 		'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
 		'widget_manager:widgets:edit:show_edit' => "User can edit widget settings", 
 		'widget_manager:widgets:edit:show_toggle' => "Widget can be minimized", 
@@ -339,7 +340,10 @@
 		"widgets:group_news:no_projects" => "No groups configured", 
 		"widgets:group_news:no_news" => "No blogs for this group", 
 		"widgets:group_news:settings:project" => "Group", 
-		"widgets:group_news:settings:no_project" => "Select a group" 
+		"widgets:group_news:settings:no_project" => "Select a group",
+		"widgets:group_news:settings:blog_count" => "Max number of blogs",
+		"widgets:group_news:settings:slide_timeout" => "Slide timeout"
+	
 	);
 	add_translation("en", $group_news);
 	

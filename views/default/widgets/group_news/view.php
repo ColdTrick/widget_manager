@@ -13,6 +13,14 @@
 		}
 	}
 	
+	$blog_count = (int) $widget->blog_count;
+	if($blog_count < 1){
+		$blog_count = 5;
+	}
+	$slide_timeout = (int) $widget->slide_timeout;
+	if($slide_timeout < 1){
+		$slide_timeout = 10; //seconds
+	}
 ?>
 
 <div class="contentWrapper">
@@ -30,7 +38,7 @@
 			
 			echo "<h3>" . $group->name . "</h3>";
 			
-			$group_news = elgg_get_entities(array("type" => "object", "subtype" => "blog", "container_guid" => $group->getGUID()));
+			$group_news = elgg_get_entities(array("type" => "object", "subtype" => "blog", "container_guid" => $group->getGUID(), "limit" => $blog_count));
 			if(!empty($group_news)){
 				echo "<ul>";
 				foreach($group_news as $news){
@@ -79,7 +87,7 @@
 					$("#" + active).show();
 				});
 				
-				setInterval (rotateProjectNews, 10000);
+				setInterval (rotateProjectNews, <?php echo $slide_timeout * 1000;?>);
 	
 			});
 		</script>

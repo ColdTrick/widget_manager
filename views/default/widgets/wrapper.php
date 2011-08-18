@@ -75,7 +75,7 @@
 					
 					if(!$widget->fixed){
 						$header_class .= " draggable_widget";
-						$class = "class='free_widgets'";
+						$class = "free_widgets";
 					}
 					
 					if($widget->widget_manager_hide_header == "yes"){
@@ -85,6 +85,13 @@
 				
 				if($widget->fixed){
 					$header_class .= " fixed_widget";
+				}
+				
+				if($widget->widget_manager_custom_class){
+					$class .= " " . $widget->widget_manager_custom_class;
+				}
+				if(!empty($class)){
+					$class = "class='" . trim($class) . "'";
 				}
 		?>
 		
