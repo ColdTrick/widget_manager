@@ -41,10 +41,7 @@
 			TWTR = window.TWTR || {};
 			
 			if(!($.isFunction(TWTR.Widget))){
-				var s = document.createElement("script");
-				s.type = "text/javascript";
-				s.src = "<?php echo $twitter_script_src; ?>";
-				$("head").append(s);
+				$.getScript("<?php echo $twitter_script_src; ?>");
 			}
 		</script>
 		
