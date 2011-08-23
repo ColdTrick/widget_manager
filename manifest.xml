@@ -79,6 +79,9 @@ ToDo:
 ========================
 Version history:
 ========================
+x.x:
+	- fixed: icon error in content_by_tag widget in slim mode
+
 3.7.1 (2011-08-15):
 	- removed: all the wire widgets (moved to thewire_tools plugin)
 	
