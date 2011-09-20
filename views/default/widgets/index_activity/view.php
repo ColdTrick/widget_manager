@@ -12,6 +12,6 @@
 	}
 
 ?>
-<div class="contentWrapper">
+<div class="widget_more_wrapper">
 	<?php echo $activity; ?>
 </div>
