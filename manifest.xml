@@ -81,6 +81,7 @@ Version history:
 ========================
 x.x:
 	- fixed: icon error in content_by_tag widget in slim mode
+	- fixed: group widget access pulldown not showing correct groupname
 	- changed: moved event functions to different file
 	- changed: moved pluginhook functions to different file
 

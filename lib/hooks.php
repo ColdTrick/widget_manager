@@ -56,26 +56,26 @@
 			if($entity_type == "site"){
 				if($entity->context == "default_profile" || $entity->context == "default_dashboard"){
 					$result = array(
-					ACCESS_PRIVATE => elgg_echo("PRIVATE"),
-					ACCESS_FRIENDS => elgg_echo("access:friends:label"),
-					ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-					ACCESS_PUBLIC => elgg_echo("PUBLIC")
+						ACCESS_PRIVATE => elgg_echo("PRIVATE"),
+						ACCESS_FRIENDS => elgg_echo("access:friends:label"),
+						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+						ACCESS_PUBLIC => elgg_echo("PUBLIC")
 					);
 				} elseif(isadminloggedin()){
 					$result = array(
-					ACCESS_PRIVATE => elgg_echo("access:admin_only"),
-					ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-					ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
-					ACCESS_PUBLIC => elgg_echo("PUBLIC")
+						ACCESS_PRIVATE => elgg_echo("access:admin_only"),
+						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+						ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
+						ACCESS_PUBLIC => elgg_echo("PUBLIC")
 					);
 				}
 			} elseif($entity_type == "group") {
 				$group = $entity->getOwnerEntity();
-				if($acl = get_access_collection($group->group_acl)){
+				if(!empty($group->group_acl)){
 					$result = array(
-					ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-					ACCESS_PUBLIC => elgg_echo("PUBLIC"),
-					$acl->id => $acl->name
+						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+						ACCESS_PUBLIC => elgg_echo("PUBLIC"),
+						$group->group_acl => elgg_echo("groups:group") . ": " . $group->name
 					);
 				}
 			}
