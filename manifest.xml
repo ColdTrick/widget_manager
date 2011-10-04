@@ -82,6 +82,7 @@ Version history:
 x.x:
 	- fixed: icon error in content_by_tag widget in slim mode
 	- changed: moved event functions to different file
+	- changed: moved pluginhook functions to different file
 
 3.7.1 (2011-08-15):
 	- removed: all the wire widgets (moved to thewire_tools plugin)
