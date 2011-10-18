@@ -54,7 +54,6 @@ function toggleWidgetContent() {
 	if (targetContent.css('display') === 'none') {
 		targetContent.slideDown(400);
 		$(this).html('-');
-		$(this).parents('div.collapsable_box').find("a.toggle_box_edit_panel").fadeIn('medium');
 		
 		// set cookie for widget panel open-state
 		var thisWidgetName = $(this).parents('div.collapsable_box').parent().attr('id');
@@ -63,7 +62,7 @@ function toggleWidgetContent() {
 	} else {
 		targetContent.slideUp(400);
 		$(this).html('+');
-		$(this).parents('div.collapsable_box').find("a.toggle_box_edit_panel").fadeOut('medium');
+		
 		// make sure edit pane is closed
 		$(this).parents('div.collapsable_box').children("[class=collapsable_box_editpanel]").hide();
 		

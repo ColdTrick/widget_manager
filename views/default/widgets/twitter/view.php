@@ -26,8 +26,11 @@ if ($username) {
 <div id="twitter_widget">
 	<ul id="twitter_update_list"></ul>
 	<p class="visit_twitter"><a href="http://twitter.com/<?php echo $username; ?>"><?php echo elgg_echo("twitter:visit"); ?></a></p>
-	<script type="text/javascript" src="<?php echo $js_url; ?>"></script>
-	<script type="text/javascript" src="<?php echo $api_url; ?>"></script>
+	
+	<script type="text/javascript">
+		$.getScript("<?php echo $js_url; ?>");
+		$.getScript("<?php echo $api_url; ?>");
+	</script>
 </div>
 
 <?php

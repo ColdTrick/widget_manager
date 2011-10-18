@@ -227,16 +227,40 @@ a.toggle_customise_edit_panel{
 }
 
 .collapsable_box_header div.widget_remove_button {
-	margin: 2px 0 0 4px;
+	margin: 0px;
 	float:right;
 	cursor: pointer;
-	width:14px;
-	height:14px;
-	background: url("<?php echo $vars['url']; ?>_graphics/icon_customise_remove.png") no-repeat 0 0;
+	width:16px;
+	height:16px;
+	background: url("<?php echo $vars['url']; ?>mod/widget_manager/_graphics/widget_sprites.png") no-repeat 0 -16px;
 }
 
 .collapsable_box_header div.widget_remove_button:hover {
-	background-position: 0 -16px;
+	background-position: 0 0px;
+}
+
+.collapsable_box_header a.toggle_box_edit_panel {
+	width:16px;
+	height:16px;
+	background: url("<?php echo $vars['url']; ?>mod/widget_manager/_graphics/widget_sprites.png") no-repeat 0 -48px;
+	margin: 0px;
+	display: block !important;
+}
+
+.collapsable_box_header a.toggle_box_edit_panel:hover {
+	background-position: 0 -32px;
+}
+
+.collapsable_box_header .widget_tools_wrapper {
+	float: right;
+	width: 32px;
+}
+
+.collapsable_box_header a.toggle_box_contents {
+	float: left;
+	line-height: 18px;
+	margin: 0;
+	width: 14px;
 }
 
 #widgets_top .widget_manager_broken_widget,
@@ -259,33 +283,6 @@ a.toggle_customise_edit_panel{
 #widgets_right .collapsable_box_header h1 a:hover {
 	text-decoration: none;
 	<!--  background: transparent;  --> /* ie fix */
-}
-
-#widgets_top .collapsable_box_header h1,
-#widgets_left .collapsable_box_header h1,
-#widgets_middle .collapsable_box_header h1,
-#widgets_right .collapsable_box_header h1 {
-	float: left;
-	
-}
-
-.collapsable_box_header .widget_tools_wrapper {
-	background: url("<?php echo $vars['url']; ?>mod/widget_manager/_graphics/tools.gif") no-repeat top right;
-	float: right;
-	min-width: 16px;
-	<!--  margin-right: 10px; --> /* ie fix */
-}
-
-.collapsable_box_header:hover .widget_tools_wrapper {
-	background: none;
-}
-
-.collapsable_box_header .widget_tools_wrapper .widget_tools{
-	visibility: hidden;
-}
-
-.collapsable_box_header:hover .widget_tools_wrapper .widget_tools{
-	visibility: visible;
 }
 
 /* Groups widgets */

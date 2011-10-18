@@ -39,8 +39,35 @@
 		$configuring_defaults = true;
 	}
 	
-?>
+	
+	if ($configuring_defaults || ($widget->widget_manager_show_toggle !== "no")) {
+		echo "<a href='javascript:void(0);' class='toggle_box_contents'>-</a>";
+	}
 
+	if(($owner instanceof ElggUser) || ($owner instanceof ElggSite) || ($owner instanceof ElggGroup)){
+		
+		if(isset($vars["can_edit"])){
+			$can_edit = $vars["can_edit"];
+		} else {
+			$can_edit = $widget->canEdit();
+		}
+			
+		
+		$tools = "";
+		
+		if ($configuring_defaults || ($can_edit && widget_manager_get_widget_setting($handler, "can_remove") && !$widget->fixed)) {
+			// if allow the deleting of a widget, display a remove button
+			$tools .= "<div onclick='deleteWidget(this);' id='deleter' class='widget_remove_button'></div>"; 
+		}
+		 
+		if ($configuring_defaults || ($can_edit && ($widget->widget_manager_show_edit !== "no"))) {
+			$tools .= "<a href='javascript:void(0);' class='toggle_box_edit_panel' title='" . elgg_echo('edit') . "'></a>";
+		}
+		if(!empty($tools)){
+			echo "<div class='widget_tools_wrapper'>" . $tools . "</div>";
+		}
+	} 
+?>
 <h1>
 <?php
 
@@ -60,43 +87,5 @@
 	}
 ?>	
 </h1>
-<?php 
-	if(($owner instanceof ElggUser) || ($owner instanceof ElggSite) || ($owner instanceof ElggGroup)){
-		
-		if(isset($vars["can_edit"])){
-			$can_edit = $vars["can_edit"];
-		} else {
-			$can_edit = $widget->canEdit();
-		}
-			
-		if($can_edit){
-			$tools_class = "class='widget_tools_wrapper'";
-		}
-		
-		$tools = "";
-		
-		if ($configuring_defaults || ($can_edit && widget_manager_get_widget_setting($handler, "can_remove") && !$widget->fixed)) {
-			// if allow the deleting of a widget, display a remove button
-			$tools .= "<div onclick='deleteWidget(this);' id='deleter' class='widget_remove_button'></div>"; 
-		}
-		
-		if ($configuring_defaults || ($widget->widget_manager_show_toggle !== "no")) {
-			// if fixed 
-			$tools .= "<a href='javascript:void(0);' class='toggle_box_contents'>-</a>";
-		}
-		 
-		if ($configuring_defaults || ($can_edit && ($widget->widget_manager_show_edit !== "no"))) {
-			$tools .= "<a href='javascript:void(0);' class='toggle_box_edit_panel'>" . elgg_echo('edit') . "</a>";
-		}
-		
-		if(!empty($tools)){
-			echo "<span " . $tools_class . ">";
-			echo "<span class='widget_tools'>";
-			echo $tools;
-			echo "</span>";
-			echo "<div class='clearfloat'></div>";
-			echo "</span>";
-		}
-	} 
-?>
+
 <div class="clearfloat"></div>
