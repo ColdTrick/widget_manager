@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="3.7.1" />
+	<field key="version" value="3.7.2" />
 	<field key="description" value="A widget manager" />
 	<field key="website" value="http://www.coldtrick.com/" />
 	<field key="copyright" value="(C) ColdTrick 2010" />
@@ -80,6 +80,12 @@ ToDo:
 ========================
 Version history:
 ========================
+3.7.2 (2011-10-04):
+	- fixed: icon error in content_by_tag widget in slim mode
+	- fixed: group widget access pulldown not showing correct groupname
+	- changed: moved event functions to different file
+	- changed: moved pluginhook functions to different file
+
 3.7.1 (2011-08-15):
 	- removed: all the wire widgets (moved to thewire_tools plugin)
 	

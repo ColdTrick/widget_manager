@@ -135,7 +135,8 @@
 			foreach($entities as $index => $entity){
 				
 				if($index < $num_highlighted){
-					$icon = "<a href='" . $entity->getURL() .  "'><img src='" . $entity->getIcon("small") . "' /></a>";
+					$icon = "<a href='" . $entity->getURL() .  "'><img src='" . $entity->getOwnerEntity()->getIcon("small") . "' /></a>";
+					
 					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title, "class" => "output-url"));
 					$text .= "<br />";
 					$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
@@ -144,6 +145,7 @@
 					if (elgg_substr($description, -3, 3) == '...') {
 						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
 					}
+					
 					$result .= elgg_view_listing($icon, $text);
 				} else {
 					$result .= "<div>";		
