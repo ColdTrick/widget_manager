@@ -347,4 +347,3 @@
 	);
 	add_translation("en", $group_news);
 	
-?>
