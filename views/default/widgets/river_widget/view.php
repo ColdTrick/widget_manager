@@ -1,0 +1,50 @@
+<?php
+/**
+ * View the widget
+ *
+ * @package ElggRiverDash
+ */
+
+$owner = page_owner_entity();
+
+//get the type - mine or friends
+$type = $vars['entity']->content_type;
+if (!$type) {
+	$type = "mine";
+}
+
+//based on type grab the correct content type
+if ($type == "mine") {
+	$content_type = '';
+} else {
+	$content_type = 'friend';
+}
+
+//get the number of items to display
+$limit = $vars['entity']->num_display;
+if (!$limit) {
+	$limit = 5;
+}
+
+$type = "";
+$subtype = "";
+
+if(!empty( $vars['entity']->activity_content)){
+	list($type, $subtype) = explode(",",  $vars['entity']->activity_content);
+}
+if($type == "all"){
+	$type = "";
+	$subtype = "";	
+}
+
+
+//grab the river
+$river = elgg_view_river_items($owner->getGuid(), 0, $content_type, $type, $subtype, '', $limit, 0, 0, FALSE);
+
+//display
+echo "<div class=\"contentWrapper\">";
+if ($type != 'mine') {
+	echo "<div class='content_area_user_title'><h2>" . elgg_echo("friends") . "</h2></div>";
+}
+echo $river;
+echo "</div>";
