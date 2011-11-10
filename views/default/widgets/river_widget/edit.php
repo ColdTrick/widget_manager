@@ -44,6 +44,7 @@ if (!empty($vars['config']->registered_entities)) {
 	<select name="params[content_type]">
 		<option value="mine" <?php if ($content_type == 'mine') echo " selected=\"yes\" "; ?>><?php echo elgg_echo("river:widgets:mine");?></option>
 		<option value="friends" <?php if ($content_type != 'mine') echo " selected=\"yes\" "; ?>><?php echo elgg_echo("river:widgets:friends");?></option>
+		<option value="all" <?php if ($content_type == 'all') echo " selected=\"yes\" "; ?>><?php echo elgg_echo("all");?></option>
 	</select>
 </p>
 

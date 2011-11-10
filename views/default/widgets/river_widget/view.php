@@ -8,16 +8,21 @@
 $owner = page_owner_entity();
 
 //get the type - mine or friends
-$type = $vars['entity']->content_type;
-if (!$type) {
-	$type = "mine";
+$content_type = $vars['entity']->content_type;
+
+if (!$content_type) {
+	$content_type = "mine";
 }
 
+$river_owner = 0;
+$river_content_type = "";
+
 //based on type grab the correct content type
-if ($type == "mine") {
-	$content_type = '';
-} else {
-	$content_type = 'friend';
+if ($content_type == "mine") {
+	$river_owner = $owner->getGuid();
+} elseif($content_type == "friends") {
+	$river_owner = $owner->getGuid();
+	$river_content_type = 'friend';
 }
 
 //get the number of items to display
@@ -37,14 +42,12 @@ if($type == "all"){
 	$subtype = "";	
 }
 
-
 //grab the river
-$river = elgg_view_river_items($owner->getGuid(), 0, $content_type, $type, $subtype, '', $limit, 0, 0, FALSE);
-
+$river = elgg_view_river_items($river_owner, 0, $river_content_type, $type, $subtype, '', $limit, 0, 0, FALSE);
+if(empty($river)){
+	$river = elgg_echo("notfound");
+}
 //display
 echo "<div class=\"contentWrapper\">";
-if ($type != 'mine') {
-	echo "<div class='content_area_user_title'><h2>" . elgg_echo("friends") . "</h2></div>";
-}
 echo $river;
 echo "</div>";
