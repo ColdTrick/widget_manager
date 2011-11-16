@@ -36,50 +36,43 @@
 		}
 		
 		?>
-		
-		<script type="text/javascript">
-			TWTR = window.TWTR || {};
-			
-			if(!($.isFunction(TWTR.Widget))){
-				$.getScript("<?php echo $twitter_script_src; ?>");
-			}
-		</script>
-		
 		<div id="twittersearch_<?php echo $widget->getGUID(); ?>"></div>
 		
 		<script type="text/javascript">
-			new TWTR.Widget({
-			  version: 2,
-			  id: "twittersearch_<?php echo $widget->getGUID(); ?>",
-			  type: "search",
-			  search: "<?php echo $query; ?>",
-			  interval: 10000,
-			  title: "<?php echo $title; ?>",
-			  subject: "<?php echo $sub; ?>",
-			  width: "auto",
-			  height: <?php echo $height; ?>,
-			  theme: {
-			    shell: {
-			      background: '#<?php echo $background; ?>',
-			      color: '#ffffff'
-			    },
-			    tweets: {
-			      background: '#ffffff',
-			      color: '#333333',
-			      links: '#4690d6'
-			    }
-			  },
-			  features: {
-			    scrollbar: true,
-			    loop: false,
-			    live: true,
-			    hashtags: true,
-			    timestamp: true,
-			    avatars: true,
-			    toptweets: true,
-			    behavior: "all"
-			  }
-			}).render().start();
+			$.getScript("<?php echo $twitter_script_src; ?>", function(){
+				new TWTR.Widget({
+					  version: 2,
+					  id: "twittersearch_<?php echo $widget->getGUID(); ?>",
+					  type: "search",
+					  search: "<?php echo $query; ?>",
+					  interval: 10000,
+					  title: "<?php echo $title; ?>",
+					  subject: "<?php echo $sub; ?>",
+					  width: "auto",
+					  height: <?php echo $height; ?>,
+					  theme: {
+					    shell: {
+					      background: '#<?php echo $background; ?>',
+					      color: '#ffffff'
+					    },
+					    tweets: {
+					      background: '#ffffff',
+					      color: '#333333',
+					      links: '#4690d6'
+					    }
+					  },
+					  features: {
+					    scrollbar: true,
+					    loop: false,
+					    live: true,
+					    hashtags: true,
+					    timestamp: true,
+					    avatars: true,
+					    toptweets: true,
+					    behavior: "all"
+					  }
+					}).render().start();
+			});
 		</script>
 <?php 
 	} else { 
