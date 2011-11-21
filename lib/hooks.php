@@ -18,8 +18,8 @@
 				$handler = $params["handler"];
 				$widget = $params["widget"];
 	
-				$allowed_index_handlers = array("twitter", "twitter_search", "content_by_tag", "event_calendar");
-				$allowed_groups_handlers = array("bookmarks", "pages", "twitter_search", "blog", "twitter");
+				$allowed_index_handlers = array("twitter", "content_by_tag", "event_calendar");
+				$allowed_groups_handlers = array("bookmarks", "pages", "blog", "twitter");
 	
 				switch($context){
 					case "index":
