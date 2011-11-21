@@ -19,6 +19,7 @@
 .flexslider {width: 100%; margin: 0 0 15px 0; padding: 0;}
 .flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
 .flexslider .slides img {max-width: 100%; display: block;}
+.flexslider a { text-decoration: none;}
 .flex-pauseplay span {text-transform: capitalize;}
 
 /* Clearfix for the .slides element */
