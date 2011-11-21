@@ -258,6 +258,7 @@
 		'widgets:rss:settings:rssfeed' => "URL of the RSS feed",
 		'widgets:rss:settings:show_feed_title' => "Show feed title",
 		'widgets:rss:settings:excerpt' => "Show an excerpt",
+		'widgets:rss:settings:show_item_icon' => "Show item icon (if available)",
 		'widgets:rss:settings:post_date' => "Show post date",
 		'widgets:rss:settings:post_date:option:friendly' => "Show friendly time",
 		'widgets:rss:settings:post_date:option:date' => "Show date",

@@ -13,6 +13,12 @@
 			$exerpt = false;
 		}
 		
+		if($widget->show_item_icon == "yes"){
+			$show_item_icon = true;
+		} else {
+			$show_item_icon = false;
+		}
+		
 		$num_items = (int) $widget->rss_count;
 		if($num_items < 1){
 			$num_items = 4;
@@ -44,12 +50,21 @@
 			$body = elgg_echo('widgets:rss:error:notfind');
 		} else {
 			foreach ($feed->get_items(0, $num_posts_in_feed) as $item){
-				
-				
-				 
 				if ($excerpt){
 					$body .= "<div class='widgets_rss_feed_item'>";
 					$body .= "<div><a href='" . $item->get_permalink() . "' target='_blank'>" . $item->get_title() . "</a></div>";
+					
+					if($show_item_icon){
+						if($enclosures = $item->get_enclosures()){
+							foreach($enclosures as $enclosure){
+								if(substr($enclosure->type,0,6) == "image/"){
+									$body .= "<a href='" . $item->get_permalink() . "' target='_blank'><img class='widgets_rss_feed_item_image' src='" . $enclosure->link . "' /></a>";
+									break;			
+								}
+							}
+						}
+					}
+					
 					$body .=  strip_tags($item->get_description(true), $blog_tags);
 					if ($post_date == "friendly"){
 						$body .= "<div class='widgets_rss_feed_timestamp'>" . friendly_time($item->get_date('U')) . "</div>";

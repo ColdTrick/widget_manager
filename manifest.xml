@@ -76,10 +76,14 @@ ToDo:
  - widget categories
  - widget repository
  - messages widget
+ - dutch translation
  
 ========================
 Version history:
 ========================
+x.x:
+	- added: images to rss feed items (only if showing excerpt) in rss widget
+	
 3.8 (2011-11-09):
 	- added: new widget header layout (getting used to Elgg 1.8)
 	- added: optional filter for index_activity and river_widget to filter content based on type/subtype
