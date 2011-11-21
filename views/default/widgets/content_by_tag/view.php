@@ -35,7 +35,6 @@
 	$wheres = array();
 	$joins = array();
 	
-	
 	// will always want to join these tables if pulling metastrings.
 	$joins[] = "JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid";
 
@@ -114,6 +113,10 @@
 		}
 	}
 	
+	if($widget->context == "groups"){
+		$container_guids = array($widget->container_guid);
+	}
+	
 	$options = array(
 		"type" => "object",
 		"subtypes" => $content_type,
@@ -123,7 +126,8 @@
 		"view_type_toggle" => false,
 		"joins" => $joins,
 		"wheres" => $wheres,
-		"owner_guids" => $owner_guids
+		"owner_guids" => $owner_guids,
+		"container_guids" => $container_guids
 	);
 	
 	$old_context = get_context();
@@ -166,4 +170,4 @@
 	}
 	
 	set_context($old_context);
-?>
+	

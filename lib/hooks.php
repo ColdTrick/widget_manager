@@ -18,7 +18,7 @@
 				$handler = $params["handler"];
 				$widget = $params["widget"];
 	
-				$allowed_index_handlers = array("twitter", "content_by_tag", "event_calendar");
+				$allowed_index_handlers = array("twitter", "event_calendar");
 				$allowed_groups_handlers = array("bookmarks", "pages", "blog", "twitter");
 	
 				switch($context){
