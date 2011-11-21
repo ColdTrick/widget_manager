@@ -26,6 +26,11 @@
 		"left" => elgg_echo("widget_manager:widgets:image_slider:direction:left"),
 	);
 	
+	$slider_type_options = array(
+			"s3slider" => elgg_echo("widget_manager:widgets:image_slider:slider_type:s3slider"),
+			"flexslider" => elgg_echo("widget_manager:widgets:image_slider:slider_type:flexslider"),
+		);
+	
 for($i = 1; $i <= $max_slider_options; $i++){
 		
 	$direction = $widget->get("slider_" . $i . "_direction");
@@ -56,6 +61,9 @@ for($i = 1; $i <= $max_slider_options; $i++){
 	
 ?>
 <hr />
+<div><?php echo elgg_echo("widget_manager:widgets:image_slider:slider_type"); ?></div>
+<?php echo elgg_view("input/pulldown", array("internalname" => "params[slider_type]", "value" => $widget->slider_type, "options_values" => $slider_type_options));?>
+
 <div><?php echo elgg_echo("widget_manager:widgets:image_slider:seconds_per_slide"); ?></div>
 <input type="text" name="params[seconds_per_slide]" value="<?php echo elgg_view("output/text", array("value" => $seconds_per_slide)); ?>" size="4" maxlength="4" />
 

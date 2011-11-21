@@ -189,6 +189,9 @@
 		// image_slider
 		'widget_manager:widgets:image_slider:name' => "Image Slider",
 		'widget_manager:widgets:image_slider:description' => "Show an Image Slider",
+		'widget_manager:widgets:image_slider:slider_type' => "Slider Type",
+		'widget_manager:widgets:image_slider:slider_type:s3slider' => "s3Slider",
+		'widget_manager:widgets:image_slider:slider_type:flexslider' => "FlexSlider",
 		'widget_manager:widgets:image_slider:seconds_per_slide' => "Seconds per slide",
 		'widget_manager:widgets:image_slider:slider_height' => "Height of slides (pixels)",
 		'widget_manager:widgets:image_slider:overlay_color' => "Overlay Color (hex)",
