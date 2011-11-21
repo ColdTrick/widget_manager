@@ -86,6 +86,7 @@ x.x:
 	- added: images to rss feed items (only if showing excerpt) in rss widget
 	- added: flexslider as a new slider type for image slider widget
 	- changed: content_by_tag widget now also available as group widget
+	- changed: activity widgets can be filtered by multiple type/subtypes
 	
 3.8 (2011-11-09):
 	- added: new widget header layout (getting used to Elgg 1.8)

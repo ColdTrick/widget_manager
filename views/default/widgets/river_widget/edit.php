@@ -12,7 +12,6 @@ if (!$vars['entity']->content_type) {
 }
 
 $contents = array();
-$contents['all'] = 'all';
 if (!empty($vars['config']->registered_entities)) {
 	foreach ($vars['config']->registered_entities as $type => $ar) {
 		if (count($vars['config']->registered_entities[$type])) {
@@ -49,15 +48,15 @@ if (!empty($vars['config']->registered_entities)) {
 </p>
 
 <div><?php echo elgg_echo("filter"); ?></div>
-<select name="params[activity_content]">
-<?php
-	foreach($contents as $label => $content) {
-		if (($widget->activity_content == $content)) {
-			$selected = 'selected="selected"';
-		} else {
-			$selected = '';
-		}
-		echo "<option value=\"{$content}\" {$selected}>" . elgg_echo($label) . "</option>";
+<?php 
+
+$activity_content = $vars["entity"]->getMetadata("activity_content");
+
+echo elgg_view("input/hidden", array("internalname" => "params[activity_content][]", "value" => "")); // needed to be able to store no selection
+foreach($contents as $label => $content){
+	if(in_array($content, $activity_content)){
+		echo "<input type='checkbox' name='params[activity_content][]' checked='checked' value='" . $content . "'>" . elgg_echo($label) . "<br />";
+	} else {
+		echo "<input type='checkbox' name='params[activity_content][]' value='" . $content . "'>" . elgg_echo($label) . "<br />";
 	}
-?>
-</select>
+}
