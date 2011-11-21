@@ -82,6 +82,7 @@ ToDo:
 Version history:
 ========================
 x.x:
+	- added: entity_statistics widget (index only)
 	- added: images to rss feed items (only if showing excerpt) in rss widget
 	- added: flexslider as a new slider type for image slider widget
 	- changed: content_by_tag widget now also available as group widget

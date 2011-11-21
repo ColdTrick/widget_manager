@@ -350,4 +350,13 @@
 	
 	);
 	add_translation("en", $group_news);
+
+	$entity_statistics = array(
+		// entity_statistics widget
+		"widgets:entity_statistics:title" => "Statistics", 
+		"widgets:entity_statistics:description" => "Shows site statistics", 
+		"widgets:entity_statistics:settings:selected_entities" => "Select the entities you wish to show", 
+	
+	);
+	add_translation("en", $entity_statistics);
 	
