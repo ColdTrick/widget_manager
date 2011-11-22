@@ -360,3 +360,13 @@
 	);
 	add_translation("en", $entity_statistics);
 	
+	$messages = array(
+		// messages widget
+		"widgets:messages:title" => "Messages", 
+		"widgets:messages:description" => "Shows your latest messages", 
+		"widgets:messages:not_logged_in" => "You need to be logged in to use this widget", 
+		"widgets:messages:settings:max_messages" => "Max messages",
+		"widgets:messages:settings:only_unread" => "Only show unread messages",
+	);
+	add_translation("en", $messages);
+	

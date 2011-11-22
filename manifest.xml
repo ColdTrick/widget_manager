@@ -82,6 +82,7 @@ ToDo:
 Version history:
 ========================
 x.x:
+	- added: messages widget (show new messages from inbox)
 	- added: entity_statistics widget (index only)
 	- added: images to rss feed items (only if showing excerpt) in rss widget
 	- added: flexslider as a new slider type for image slider widget
