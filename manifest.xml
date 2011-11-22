@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin_manifest>
 	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="3.8" />
+	<field key="version" value="3.9" />
 	<field key="description" value="A widget manager" />
 	<field key="website" value="http://www.coldtrick.com/" />
 	<field key="copyright" value="(C) ColdTrick 2010" />
@@ -81,7 +81,7 @@ ToDo:
 ========================
 Version history:
 ========================
-x.x:
+3.9 (2011-11-22):
 	- added: messages widget (show new messages from inbox)
 	- added: entity_statistics widget (index only)
 	- added: images to rss feed items (only if showing excerpt) in rss widget
