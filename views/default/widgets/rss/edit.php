@@ -35,17 +35,17 @@
 	echo "</div>";
 	
 	echo "<div>";
-	echo elgg_echo("widgets:rss:settings:show_item_icon") . " "; 
-	echo elgg_view("input/pulldown", array("internalname" => "params[show_item_icon]", "options_values" => array_reverse($yesno_options), "value" => $entity->show_item_icon));
+	echo elgg_echo("widgets:rss:settings:excerpt") . " "; 
+	echo elgg_view("input/pulldown", array("internalname" => "params[excerpt]", "options_values" => $yesno_options, "value" => $entity->excerpt));
 	echo "</div>";
 	
 	echo "<div>";
-	echo elgg_echo("widgets:rss:settings:excerpt") . " "; 
-	echo elgg_view("input/pulldown", array("internalname" => "params[excerpt]", "options_values" => $yesno_options, "value" => $entity->excerpt));
+	echo elgg_echo("widgets:rss:settings:show_item_icon") . " "; 
+	echo elgg_view("input/pulldown", array("internalname" => "params[show_item_icon]", "options_values" => array_reverse($yesno_options), "value" => $entity->show_item_icon));
 	echo "</div>";
 	
 	echo "<div>";
 	echo elgg_echo("widgets:rss:settings:post_date") . " "; 
 	echo elgg_view("input/pulldown", array("internalname" => "params[post_date]", "options_values" => $post_date_options, "value" => $entity->post_date));
 	echo "</div>";
-?>
+	

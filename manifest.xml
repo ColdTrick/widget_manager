@@ -43,6 +43,7 @@ General widgets:
  - rss
  - tagcloud
  - free html
+ - messages
  
 ========================
 Index widgets:
@@ -75,7 +76,6 @@ ToDo:
  - more custom index layouts
  - widget categories
  - widget repository
- - messages widget
  - dutch translation
  
 ========================
