@@ -141,7 +141,7 @@ table#chart tr.disabled td a {
 </style>
 
 
-  <div class="contentWrapper" style="margin:0;">
+  <div style="margin:0;">
 
 <div id="elggreturn">
   <a href="javascript:history.go(-1)">Return to Tools Administration</a>

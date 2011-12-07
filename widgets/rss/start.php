@@ -4,7 +4,7 @@
 	function widget_rss_init(){
 		global $CONFIG;
 		
-		add_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
+		elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
 		
 		// extend CSS
 		elgg_extend_view("css", "widgets/rss/css");
@@ -37,7 +37,7 @@
 	}
 	
 	// register widget init
-	register_elgg_event_handler("widgets_init", "widget_manager", "widget_rss_init");
+	elgg_register_event_handler("widgets_init", "widget_manager", "widget_rss_init");
 	
 	// register cron for cleanup
-	register_plugin_hook("cron", "daily", "widget_rss_cron_handler");
+	elgg_register_plugin_hook_handler("cron", "daily", "widget_rss_cron_handler");

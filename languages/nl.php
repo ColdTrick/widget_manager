@@ -93,8 +93,6 @@ $language = array (
   'widget_manager:menu:profile' => 'Profiel widgets',
   'widget_manager:settings:lazy_loading_disabled' => 'Lazy Loading uitschakelen?',
   'widget_manager:settings:use_widget_lightbox' => 'Gebruik een lightbox voor het toevoegen van widgets?',
-  'widget_manager:settings:remove_broken_widgets' => "Verwijder gebroken widgets?",
-  'widget_manager:settings:show_broken_widgets' => 'Toon gebroken widgets?',
   'widget_manager:settings:target_column' => 'Selecteer de kolom voor nieuwe widgets',
   'widget_manager:settings:target_column:left' => 'Links',
   'widget_manager:settings:target_column:middle' => 'Midden',
@@ -112,13 +110,11 @@ $language = array (
   'widget_manager:button:add' => 'Voeg toe',
   'widget_manager:widgets:lightbox:title:dashboard' => 'Voeg widgets toe aan je dashboard',
   'widget_manager:widgets:lightbox:title:profile' => 'Voeg widgets toe aan je profiel',
-  'widget_manager:widgets:lightbox:not_allowed' => 'maximum bereikt',
   'widget_manager:action:manage:error:context' => 'Ongeldige context voor het opslaan van de widget configuratie',
   'widget_manager:action:manage:error:save_setting' => 'Fout tijdens het opslaan van instelling %s voor widget %s',
   'widget_manager:action:manage:error:save_placement' => 'Fout tijdens het opslaan van de indeling van kolom: %s',
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
   'widget_manager:add' => 'Widget toevoegen',
-  'widget_manager:delete' => 'Weet je zeker dat je deze widget wilt verwijderen?',
 );
 add_translation("nl", $language);
 

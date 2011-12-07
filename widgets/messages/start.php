@@ -2,13 +2,13 @@
 /* init file for widget */
 
 function widget_messages_init(){
-	if(is_plugin_enabled("messages")){
+	if(elgg_is_active_plugin("messages")){
 		// extend CSS
 		elgg_extend_view("css", "widgets/messages/css");
 		
-		add_widget_type("messages", elgg_echo("widgets:messages:title"), elgg_echo("widgets:messages:description"), "dashboard,index", false);
-		add_widget_title_link("messages", "[BASEURL]pg/messages/inbox/[USERNAME]");
+		elgg_register_widget_type("messages", elgg_echo("widgets:messages:title"), elgg_echo("widgets:messages:description"), "dashboard,index", false);
+		widget_manager_add_widget_title_link("messages", "[BASEURL]messages/inbox/[USERNAME]");
 	}
 }
 
-register_elgg_event_handler("widgets_init", "widget_manager", "widget_messages_init");
+elgg_register_event_handler("widgets_init", "widget_manager", "widget_messages_init");

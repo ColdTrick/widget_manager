@@ -4,10 +4,10 @@
 	
 	define("ACCESS_LOGGED_OUT", -5);
 	
+	require_once(dirname(__FILE__) . "/lib/deprecated.php");
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/events.php");
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
-	require_once(dirname(__FILE__) . "/lib/classes.php");
 
 	function widget_manager_plugins_boot(){
 		// Load widgets
@@ -17,115 +17,72 @@
 	function widget_manager_init(){
 		global $CONFIG;
 		
-		// version upgrade
-		if(isadminloggedin()){
-			run_function_once("widget_manager_run_once_3_0");
-		}
+		elgg_trigger_event("widgets_init", "widget_manager");
 		
-		// fix class handler
-		if(get_subtype_class("object", "widget") != "ElggWidget"){
-			run_function_once("widget_manager_run_once_class");
-		}
-		
-		trigger_elgg_event("widgets_init", "widget_manager");
-		
-		if(get_plugin_setting("group_enable", "widget_manager") == "yes" && is_plugin_enabled("groups")){
+		if(elgg_get_plugin_setting("group_enable", "widget_manager") == "yes" && elgg_is_active_plugin("groups")){
 			// add the widget manager tool option
 			
 			$group_option_enabled = false;
-			if(get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes"){
+			if(elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes"){
 				$group_option_enabled = true;	
 			}
 			
-			if(get_plugin_setting("group_option_admin_only", "widget_manager") != "yes"){
+			if(elgg_get_plugin_setting("group_option_admin_only", "widget_manager") != "yes"){
 				// add the tool option for group admins
 				add_group_tool_option('widget_manager',elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-			} elseif(isadminloggedin()) {
+			} elseif(elgg_is_admin_logged_in()) {
 				add_group_tool_option('widget_manager',elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
 			} elseif($group_option_enabled) {
 				// register event to make sure newly created groups have the group option enabled
-				register_elgg_event_handler("create", "group", "widget_manager_create_group_event_handler");
+				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
 			}
 			
-			set_view_location("groups/profileitems", $CONFIG->pluginspath . "widget_manager/views_custom/");
+			elgg_set_view_location("groups/profileitems", $CONFIG->pluginspath . "widget_manager/views_custom/");
 		}
 		
 		// extend CSS
-		elgg_extend_view("css", "widget_manager/css");
-		elgg_extend_view("css", "fancybox/css");
-		elgg_extend_view("js/initialise_elgg", "widget_manager/js");
+		elgg_extend_view("css/elgg", "widget_manager/css/global");
+		elgg_extend_view("css/admin", "widget_manager/css/global");
+		elgg_extend_view("js/elgg", "widget_manager/js/site");
+		elgg_extend_view("js/admin", "widget_manager/js/admin");
 		
 		// register page handler for nice URLs
-		register_page_handler("widget_manager", "widget_manager_page_handler");
+		elgg_register_page_handler("widget_manager", "widget_manager_page_handler");
 		
-		if(is_plugin_enabled("defaultwidgets")){
-			// overrule page handler of defaultwidgets
-			register_page_handler("defaultwidgets", "widget_manager_defaultwidgets_page_handler");
-		}
+		// register a widget title url handler
+		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
 		
-		// register a new context for widgets
-		use_widgets("index");
-		use_widgets("groups");
-		use_widgets("default_profile");
-		use_widgets("default_dashboard");
-		
-		// add titles to the widgets
-		widget_manager_widget_titles();
-		
-		// overrule widgets/reorder action
-		register_action("widgets/reorder", false, dirname(__FILE__) . "/actions/widgets/reorder.php");
 	}
 
 	function widget_manager_pagesetup(){
 		global $CONFIG;
 		
-		$context = get_context();
+		$context = elgg_get_context();
 		
-		if(widget_manager_valid_context($context)){
-			trigger_elgg_event("widgets_pagesetup", "widget_manager");
-		}
-		
-		if(isadminloggedin() && $context == "admin"){
-			// remove menu items from defaultwidgets
-			if(is_plugin_enabled("defaultwidgets")){
-				$submenu = $CONFIG->submenu;
-				
-				foreach($submenu as $group => $items){
-					if(!empty($items)){
-						foreach($items as $index => $item){
-							if($item->name == elgg_echo("defaultwidgets:menu:profile") || $item->name == elgg_echo("defaultwidgets:menu:dashboard")){
-								unset($submenu[$group][$index]);
-							}
-						}
-					}
-				}
-				
-				$CONFIG->submenu = $submenu;
-			}
+		if(elgg_is_admin_logged_in() && $context == "admin"){
+			// move defaultwidgets menu item
+			elgg_unregister_menu_item("page", "appearance:default_widgets");
+			elgg_register_menu_item('page', array(
+					'name' => "appearance:default_widgets",
+					'href' => "admin/appearance/default_widgets",
+					'text' => elgg_echo("admin:appearance:default_widgets"),
+					'context' => 'admin',
+					'parent_name' => "widgets",
+					'section' => "configure"
+			));
 			
 			// add own menu items
-			add_submenu_item(elgg_echo("widget_manager:menu:manage"), $CONFIG->wwwroot . "pg/widget_manager/manage", "w");
+			elgg_register_admin_menu_item('configure', 'manage', 'widgets');
 			
-			add_submenu_item(elgg_echo("widget_manager:menu:dashboard"), $CONFIG->wwwroot . "pg/widget_manager/dashboard", "w");
-			add_submenu_item(elgg_echo("widget_manager:menu:profile"), $CONFIG->wwwroot . "pg/widget_manager/profile", "w");
-			
-			if($setting = get_plugin_setting("custom_index", "widget_manager")){
-				if($setting == "1|0"){
-					// a special link to manage homepages that are only available if logged out
-					add_submenu_item(elgg_echo("widget_manager:menu:index"), $CONFIG->wwwroot . "pg/widget_manager/custom_index", "w");
-				}
+			if(elgg_get_plugin_setting("custom_index", "widget_manager") == "1|0"){	
+				// a special link to manage homepages that are only available if logged out
+				add_submenu_item(elgg_echo("widget_manager:menu:index"), $CONFIG->wwwroot . "widget_manager/custom_index", "w");
+				elgg_register_admin_menu_item('configure', 'index', 'widgets');
 			}
 		}
 		
 		if(widget_manager_valid_context($context)){
-			// check if widget presence needs to be updated
-			if(get_input("shell") != "no"){
-				// no action required when in display widgets
-				widget_manager_update_widgets($context, page_owner_entity());
-			}
-			
-			// js for dragging/adding of widgets
-			elgg_extend_view('metatags', 'widget_manager/metatags');
+			elgg_trigger_event("widgets_pagesetup", "widget_manager");
 		}
 	}
 	
@@ -133,58 +90,22 @@
 		global $CONFIG;
 		
 		switch($page[0]){
-			case "dashboard":
-			case "profile":
-				set_input("widget_context", $page[0]);
-				
-				include(dirname(__FILE__) . "/pages/default.php");
-				break;
 			case "manage":
 				set_input("widget_context", $page[0]);
 				
 				include(dirname(__FILE__) . "/pages/manage.php");
-				break;
-			case "widgets":
-				switch($page[1]){
-					case "lightbox":
-						include(dirname(__FILE__) . "/procedures/widgets/lightbox.php");
-						break;
-					case "add":
-						include(dirname(__FILE__) . "/procedures/widgets/add.php");
-						break;
-				}
-			
 				break;
 			case "custom_index":
 				include(dirname(__FILE__) . "/pages/custom_index.php");
 				break;
 			default:
 				// you came here with a invalid url
-				forward($CONFIG->wwwroot . "pg/widget_manager/manage");
+				forward("widget_manager/manage");
 				break;
 		}
+		return true;
 	}
-	
-	/**
-	 * Page handler
-	 * 
-	 * @param $page
-	 * @return unknown_type
-	 */
-	function widget_manager_defaultwidgets_page_handler($page){
-		global $CONFIG;
 		
-		switch($page[0]){
-			case "dashboard":
-				forward($CONFIG->wwwroot . "pg/widget_manager/dashboard");
-				break;
-			case "profile":
-			default:
-				forward($CONFIG->wwwroot . "pg/widget_manager/profile");
-				break;
-		}
-	}
-	
 	/**
 	 * Hook to take over the index page
 	 * 
@@ -197,10 +118,10 @@
 	function widget_manager_custom_index($hook_name, $entity_type, $return_value, $parameters){
 		$result = $return_value;
 		
-		if(empty($result) && ($setting = get_plugin_setting("custom_index", "widget_manager"))){
+		if(empty($result) && ($setting = elgg_get_plugin_setting("custom_index", "widget_manager"))){
 			list($non_loggedin, $loggedin) = explode("|", $setting);
 			
-			if((!isloggedin() && !empty($non_loggedin)) || (isloggedin() && !empty($loggedin))){
+			if((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin))){
 				include(dirname(__FILE__) . "/pages/custom_index.php");
 				$result = true;
 			}
@@ -210,26 +131,20 @@
 	}
 	
 	// register default Elgg events
-	register_elgg_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
-	register_elgg_event_handler("init", "system", "widget_manager_init");
-	register_elgg_event_handler("pagesetup", "system", "widget_manager_pagesetup");
-	
-	// register create user event hook
-	register_elgg_event_handler("create", "user", "widget_manager_new_user");
-	
+	elgg_register_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
+	elgg_register_event_handler("init", "system", "widget_manager_init");
+	elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
+		
 	// register plugin hooks
-	register_plugin_hook("widget_manager:context:filter", "widget", "widget_manager_widget_context_filter");
-	register_plugin_hook("widget_manager:widget:access", "all", "widget_manager_widget_access_hook", 1); // need to be first
-	register_plugin_hook("access:collections:read", "all", "widget_manager_read_access_hook", 9999); // need to be the last
+	elgg_register_plugin_hook_handler("widget_manager:widget:access", "all", "widget_manager_widget_access_hook", 1); // need to be first
+	elgg_register_plugin_hook_handler("access:collections:read", "all", "widget_manager_read_access_hook", 9999); // need to be the last
 	
-	register_plugin_hook("action", "widgets/save", "widget_manager_widgets_save_hook"); // need to be the last
+	elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
 	
 	// register on custom index
-	register_plugin_hook('index', 'system', 'widget_manager_custom_index', 50); // must be very early
+	elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early
 	
 	// register actions
-	register_action("widget_manager/manage", false, dirname(__FILE__) . "/actions/manage.php", true);
-	register_action("widget_manager/widgets/toggle_fix", false, dirname(__FILE__) . "/actions/widgets/toggle_fix.php", true);
-	register_action("widget_manager/update_timestamp", false, dirname(__FILE__) . "/actions/update_timestamp.php", true);
-
-?>
+	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
+	elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
+	elgg_register_action("widget_manager/update_timestamp", dirname(__FILE__) . "/actions/update_timestamp.php", "admin");

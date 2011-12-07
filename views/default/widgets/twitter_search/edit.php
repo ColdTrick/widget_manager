@@ -18,14 +18,14 @@
 
 ?>
 <div><?php echo elgg_echo("widgets:twitter_search:query"); ?></div>
-<?php echo elgg_view("input/text", array("internalname" => "params[query]", "value" => $query)); ?>
+<?php echo elgg_view("input/text", array("name" => "params[query]", "value" => $query)); ?>
 <div style="text-align:right"><a href="http://search.twitter.com/operators" target="_blank"><?php echo elgg_echo("widgets:twitter_search:query:help"); ?></a></div>
 
 <div><?php echo elgg_echo("widgets:twitter_search:title"); ?></div>
-<?php echo elgg_view("input/text", array("internalname" => "params[tw_title]", "value" => $title)); ?>
+<?php echo elgg_view("input/text", array("name" => "params[tw_title]", "value" => $title)); ?>
 
 <div><?php echo elgg_echo("widgets:twitter_search:subtitle"); ?></div>
-<?php echo elgg_view("input/text", array("internalname" => "params[tw_subtitle]", "value" => $sub)); ?>
+<?php echo elgg_view("input/text", array("name" => "params[tw_subtitle]", "value" => $sub)); ?>
 
 <div><?php echo elgg_echo("widgets:twitter_search:height"); ?></div>
 <input type="text" name="params[height]" value="<?php echo elgg_view("output/text", array("value" => $height)); ?>" size="4" maxlength="4" />

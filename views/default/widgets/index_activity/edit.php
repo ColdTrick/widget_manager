@@ -29,7 +29,7 @@
 <?php 
 $activity_content = $vars["entity"]->getMetadata("activity_content");
 
-echo elgg_view("input/hidden", array("internalname" => "params[activity_content][]", "value" => "")); // needed to be able to store no selection
+echo elgg_view("input/hidden", array("name" => "params[activity_content][]", "value" => "")); // needed to be able to store no selection
 foreach($contents as $label => $content){
 	if(in_array($content, $activity_content)){
 		echo "<input type='checkbox' name='params[activity_content][]' checked='checked' value='" . $content . "'>" . elgg_echo($label) . "<br />";

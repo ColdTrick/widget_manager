@@ -16,7 +16,7 @@
 }
 </style>
 
-<div class="contentWrapper" style="margin:0; min-height:340px;">
+<div style="margin:0; min-height:340px;">
 
 <div id="elggreturn">
   <a href="javascript:history.go(-1)">Return to Tools Administration</a>
@@ -40,4 +40,3 @@
   $content = ob_get_clean();
   $body = elgg_view_layout('one_column', $content);
   echo page_draw(null, $body);
-?>

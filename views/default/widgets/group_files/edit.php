@@ -9,6 +9,6 @@
 <div>
 	<?php 
 		echo elgg_echo("widgets:group_files:settings:file_count"); 
-		echo elgg_view("input/pulldown", array("internalname" => "params[file_count]", "options" => range(1, 10), "value" => $file_count));
+		echo elgg_view("input/dropdown", array("name" => "params[file_count]", "options" => range(1, 10), "value" => $file_count));
 	?>
 </div>

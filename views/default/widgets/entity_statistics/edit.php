@@ -29,7 +29,7 @@ foreach ($entity_stats as $k => $entry) {
 $selected_entities = $vars["entity"]->getMetadata("selected_entities");
 
 echo "<div>" . elgg_echo("widgets:entity_statistics:settings:selected_entities") . "</div>";
-echo elgg_view("input/hidden", array("internalname" => "params[selected_entities][]", "value" => "")); // needed to be able to store no selection
+echo elgg_view("input/hidden", array("name" => "params[selected_entities][]", "value" => "")); // needed to be able to store no selection
 foreach($options_values as $key => $label){
 	if(in_array($key, $selected_entities)){
 		echo "<input type='checkbox' name='params[selected_entities][]' checked='checked' value='" . $key . "'>" . $label . "<br />";

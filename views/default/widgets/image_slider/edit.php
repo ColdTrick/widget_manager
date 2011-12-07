@@ -42,16 +42,16 @@ for($i = 1; $i <= $max_slider_options; $i++){
 		<h3><?php echo elgg_echo("widget_manager:widgets:image_slider:title"); ?> - <?php echo $i; ?></h3>
 		<span>
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:url"); ?></div>
-			<?php echo elgg_view("input/text", array("internalname" => "params[slider_" . $i . "_url]", "value" => $widget->get("slider_" . $i . "_url"))); ?>
+			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_url]", "value" => $widget->get("slider_" . $i . "_url"))); ?>
 			
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:text"); ?></div>
-			<?php echo elgg_view("input/text", array("internalname" => "params[slider_" . $i . "_text]", "value" => $widget->get("slider_" . $i . "_text"))); ?>
+			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_text]", "value" => $widget->get("slider_" . $i . "_text"))); ?>
 			
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:link"); ?></div>
-			<?php echo elgg_view("input/text", array("internalname" => "params[slider_" . $i . "_link]", "value" => $widget->get("slider_" . $i . "_link"))); ?>
+			<?php echo elgg_view("input/text", array("name" => "params[slider_" . $i . "_link]", "value" => $widget->get("slider_" . $i . "_link"))); ?>
 			
 			<div><?php echo elgg_echo("widget_manager:widgets:image_slider:label:direction"); ?></div>
-			<?php echo elgg_view("input/pulldown", array("internalname" => "params[slider_" . $i . "_direction]", "options_values" => $direction_options_values, "value" => $direction)); ?>
+			<?php echo elgg_view("input/dropdown", array("name" => "params[slider_" . $i . "_direction]", "options_values" => $direction_options_values, "value" => $direction)); ?>
 			
 		</span>
 	</div>
@@ -62,7 +62,7 @@ for($i = 1; $i <= $max_slider_options; $i++){
 ?>
 <hr />
 <div><?php echo elgg_echo("widget_manager:widgets:image_slider:slider_type"); ?></div>
-<?php echo elgg_view("input/pulldown", array("internalname" => "params[slider_type]", "value" => $widget->slider_type, "options_values" => $slider_type_options));?>
+<?php echo elgg_view("input/dropdown", array("name" => "params[slider_type]", "value" => $widget->slider_type, "options_values" => $slider_type_options));?>
 
 <div><?php echo elgg_echo("widget_manager:widgets:image_slider:seconds_per_slide"); ?></div>
 <input type="text" name="params[seconds_per_slide]" value="<?php echo elgg_view("output/text", array("value" => $seconds_per_slide)); ?>" size="4" maxlength="4" />

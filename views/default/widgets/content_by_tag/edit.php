@@ -10,13 +10,13 @@
 	$content_type = $widget->content_type;
 	
 	$content_options_values = array();
-	if(is_plugin_enabled("blog")){
+	if(elgg_is_active_plugin("blog")){
 		$content_options_values["blog"] = elgg_echo("item:object:blog");
 	}
-	if(is_plugin_enabled("file")){
+	if(elgg_is_active_plugin("file")){
 		$content_options_values["file"] = elgg_echo("item:object:file");
 	}
-	if(is_plugin_enabled("pages")){
+	if(elgg_is_active_plugin("pages")){
 		$content_options_values["page"] = elgg_echo("item:object:page");
 	}
 	
@@ -45,10 +45,10 @@
 	if(elgg_view_exists("input/user_autocomplete")){
 		echo "<div>". elgg_echo("widgets:content_by_tag:owner_guids") . "</div>";
 		
-		echo elgg_view("input/user_autocomplete", array("internalname" => "owner_guids", "value" => string_to_tag_array($widget->owner_guids), "include_self" => true));		
-		echo elgg_view("input/hidden", array("internalname" => "params[owner_guids]", "value" => $widget->owner_guids));		
+		echo elgg_view("input/user_autocomplete", array("name" => "owner_guids", "value" => string_to_tag_array($widget->owner_guids), "include_self" => true));		
+		echo elgg_view("input/hidden", array("name" => "params[owner_guids]", "value" => $widget->owner_guids));		
 	} else {
-		if($user = get_loggedin_user()){
+		if($user = elgg_get_logged_in_user_entity()){
 			$options_values = array($user->getGUID() => $user->name);
 			if($friends = $user->getFriends("", false)){
 				foreach($friends as $friend){
@@ -67,7 +67,7 @@
 			natcasesort($options_values);
 			$options_values = array(""=> elgg_echo("all")) + $options_values;
 			echo "<div>". elgg_echo("widgets:content_by_tag:owner_guids") . "</div>";
-			echo elgg_view("input/pulldown", array("internalname" => "params[owner_guids]", "options_values" => $options_values,"value" => $widget->owner_guids));
+			echo elgg_view("input/dropdown", array("name" => "params[owner_guids]", "options_values" => $options_values,"value" => $widget->owner_guids));
 		}
 	}
 ?>
@@ -75,13 +75,13 @@
 <input type="text" name="params[content_count]" value="<?php echo elgg_view("output/text", array("value" => $count)); ?>" size="4" maxlength="4" />
 
 <div><?php echo elgg_echo("widgets:content_by_tag:entities"); ?></div>
-<?php echo elgg_view("input/pulldown", array("internalname" => "params[content_type]", "options_values" => $content_options_values, "value" => $content_type)); ?>
+<?php echo elgg_view("input/dropdown", array("name" => "params[content_type]", "options_values" => $content_options_values, "value" => $content_type)); ?>
 
 <div><?php echo elgg_echo("widgets:content_by_tag:tags"); ?></div>
-<?php echo elgg_view("input/text", array("internalname" => "params[tags]", "value" => $tags)); ?>
+<?php echo elgg_view("input/text", array("name" => "params[tags]", "value" => $tags)); ?>
 
 <div><?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?></div>
-<?php echo elgg_view("input/pulldown", array("internalname" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
+<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
 <?php 
 	if(elgg_view_exists("input/user_autocomplete")){
 		?>
@@ -99,6 +99,6 @@
 	}
 ?>
 <div><?php echo elgg_echo("widgets:content_by_tag:display_option"); ?></div>
-<?php echo elgg_view("input/pulldown", array("internalname" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
+<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
 <div><?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?></div>
-<?php echo elgg_view("input/text", array("internalname" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
+<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>

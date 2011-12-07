@@ -7,15 +7,15 @@
  * @subpackage Core
  */
 
-$context = get_context();
+$context = elgg_get_context();
 $area1widgets = get_widgets($vars["config"]->site_guid, $context, 1);
 $area2widgets = get_widgets($vars["config"]->site_guid, $context, 2);
 $area3widgets = get_widgets($vars["config"]->site_guid, $context, 3);
 $area4widgets = get_widgets($vars["config"]->site_guid, $context, 4);
 
-$isadminloggedin = isadminloggedin();
+$isadminloggedin = elgg_is_admin_logged_in();
 
-$layout = get_plugin_setting("widget_layout", "widget_manager");
+$layout = elgg_get_plugin_setting("widget_layout", "widget_manager");
 $full_first_row = false;
 
 switch($layout){
@@ -68,7 +68,7 @@ switch($layout){
 		break;
 }
 
-$index_top_row = get_plugin_setting("index_top_row", "widget_manager");
+$index_top_row = elgg_get_plugin_setting("index_top_row", "widget_manager");
 
 if($index_top_row == "full_row" || (in_array($index_top_row, array("two_column_left", "two_column_right")) && $full_first_row)){
 	$top_class = "frontpage_widgets_top_full";

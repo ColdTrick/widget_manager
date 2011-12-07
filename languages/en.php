@@ -5,7 +5,11 @@
 		// special access level
 		'LOGGED_OUT' => "Logged out users",
 		'access:admin_only' => "Administrators only",
-	
+		
+		// admin menu items
+		'admin:widgets' => "Widgets",
+		'admin:widgets:manage' => "Manage",
+		
 		// widget edit wrapper
 		'widget_manager:widgets:edit:custom_title' => "Custom title",
 		'widget_manager:widgets:edit:custom_url' => "Custom title link",
@@ -16,11 +20,9 @@
 		'widget_manager:widgets:edit:show_toggle' => "Widget can be minimized", 
 	
 		// menu items
-		'widget_manager:menu:manage' => "Manage widgets",
-		'widget_manager:menu:dashboard' => "Dashboard widgets",
-		'widget_manager:menu:profile' => "Profile widgets",
 		'widget_manager:menu:index' => "Index widgets",
 		
+		// group
 		'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",
 	
 		// admin settings
@@ -29,15 +31,6 @@
 		'widget_manager:settings:index' => "Index",
 		'widget_manager:settings:group' => "Group",
 		'widget_manager:settings:other' => "Other",
-	
-		'widget_manager:settings:lazy_loading_disabled' => "Disable Lazy Loading?",
-		'widget_manager:settings:use_widget_lightbox' => "Use a lightbox for adding widgets?",
-		'widget_manager:settings:remove_broken_widgets' => "Remove broken widgets?",
-		'widget_manager:settings:show_broken_widgets' => "Show broken widgets?",
-		'widget_manager:settings:target_column' => "Select the column for new widgets",
-		'widget_manager:settings:target_column:left' => "Left",
-		'widget_manager:settings:target_column:middle' => "Middle",
-		'widget_manager:settings:target_column:right' => "Right",
 		
 		'widget_manager:settings:custom_index' => "Use Widget Manager custom index?",
 		'widget_manager:settings:custom_index:non_loggedin' => "For non-loggedin users only",
@@ -67,36 +60,18 @@
 		'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 		'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 
-		
 		// views
-		// manage form
-		'widget_manager:dashboard:title' => "Dashboard widgets configuration",
-		'widget_manager:profile:title' => "Profile widgets configuration",
-		'widget_manager:groups:title' => "Groups widgets configuration",
-		
-		'widget_manager:defaults:info' => "Here you can configure the default widgets. You can also configure the settings of the widgets. If you like to enforce the presence of a widget on the dashboard or the profile, just pin the widget to fix it. Fixed widgets will always be on top of the users widget columns.<br /><br />The configuration (placement and settings) of widgets will be automatically copied to new users. If you like to force the presence of widgets for existing users, you need to press the links below to update the timestamps. These timestamps will be compared to a timestamp of the user. If the users timestamp is older, the widgets will be updated.",
-		'widget_manager:defaults:timestamp' => "Update timestamp for %s widgets is: %s",
-		'widget_manager:defaults:never' => "Never",
-		
-		'widget_manager:manage:form:nav:settings' => "Widget settings",
-		
 		// settings
 		'widget_manager:forms:settings:no_widgets' => "No widgets to manage",
 		'widget_manager:forms:settings:can_add' => "Can be added",
-		'widget_manager:forms:settings:can_remove' => "Can be removed",
-		'widget_manager:forms:settings:allow_multiple' => "Multiple",
 		'widget_manager:forms:settings:hide' => "Hide",
 
 		// lightbox
 		'widget_manager:button:add' => "Add widget",
 		'widget_manager:widgets:lightbox:title:dashboard' => "Add widgets to your personal dashboard",
-		'widget_manager:widgets:lightbox:title:default_dashboard' => "Add widgets to the DEFAULT dashboard",
 		'widget_manager:widgets:lightbox:title:profile' => "Add widgets to your public profile",
-		'widget_manager:widgets:lightbox:title:default_profile' => "Add widgets to the DEFAULT profile",
 		'widget_manager:widgets:lightbox:title:index' => "Add widgets to the index",
 		'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
-		'widget_manager:widgets:lightbox:not_allowed' => "can't add more",
-		'widget_manager_widgets_search' => "Type to search",
 		
 		// actions
 		// manage
@@ -106,10 +81,9 @@
 		
 		// widgets
 		'widget_manager:add' => "Click to add a new widget",
-		'widget_manager:delete' => "Are you sure you wish to delete this widget?",
 		'widget_manager:widgets:edit:advanced' => "Advanced",
 			
-			// index_login
+		// index_login
 		'widget_manager:widgets:index_login:name' => "Login",
 		'widget_manager:widgets:index_login:description' => "Show a login box",
 		'widget_manager:widgets:index_login:welcome' => "<b>%s</b> welcome on the <b>%s</b> community",
@@ -117,72 +91,45 @@
 		// index_members
 		'widget_manager:widgets:index_members:name' => "Members",
 		'widget_manager:widgets:index_members:description' => "Show the members of your site",
-		
 		'widget_manager:widgets:index_members:member_count' => "How many members to show",
-		
 		'widget_manager:widgets:index_members:user_icon' => "Must the users have a profileicon",
-		
 		'widget_manager:widgets:index_members:no_result' => "No users found",
 		
 		// index_memebers_online
 		'widget_manager:widgets:index_members_online:name' => "Online members",
 		'widget_manager:widgets:index_members_online:description' => "Show the online members of your site",
-		
 		'widget_manager:widgets:index_members_online:member_count' => "How many members to show",
-		
 		'widget_manager:widgets:index_members_online:user_icon' => "Must the users have a profileicon",
-		
 		'widget_manager:widgets:index_members_online:no_result' => "No users found",
 		
 		// index_file
 		'widget_manager:widgets:index_file:name' => "Files",
 		'widget_manager:widgets:index_file:description' => "Show the latest files on your community",
-		
 		'widget_manager:widgets:index_file:file_count' => "How many files to show",
-		
 		'widget_manager:widgets:index_file:no_result' => "No files were found",
-		
-		// index_blog
-		'widget_manager:widgets:index_blog:name' => "Blogs",
-		'widget_manager:widgets:index_blog:description' => "Show the latest blogs on your community",
-		
-		'widget_manager:widgets:index_blog:blog_count' => "How many blogs to show",
-		'widget_manager:widgets:index_blog:view_mode' => "How to view the blogs",
-		'widget_manager:widgets:index_blog:view_mode:list' => "List",
-		'widget_manager:widgets:index_blog:view_mode:preview' => "Preview",
-		
-		'widget_manager:widgets:index_blog:no_result' => "No blogs were found",
 		
 		// index_pages
 		'widget_manager:widgets:index_pages:name' => "Pages",
 		'widget_manager:widgets:index_pages:description' => "Show the latest pages on your community",
-		
 		'widget_manager:widgets:index_pages:pages_count' => "How many pages to show",
-		
 		'widget_manager:widgets:index_pages:no_result' => "No pages were found",
-		
 		
 		// index_bookmarks
 		'widget_manager:widgets:index_bookmarks:name' => "Bookmarks",
 		'widget_manager:widgets:index_bookmarks:description' => "Show the latest bookmarks on your community",
-		
 		'widget_manager:widgets:index_bookmarks:bookmark_count' => "How many bookmarks to show",
-		
 		'widget_manager:widgets:index_bookmarks:no_result' => "No bookmarks were found",
 		
 		// index_groups
 		'widget_manager:widgets:index_groups:name' => "Groups",
 		'widget_manager:widgets:index_groups:description' => "Show the latest groups on your community",
-		
 		'widget_manager:widgets:index_groups:group_count' => "How many groups to show",
 		'widget_manager:widgets:index_groups:featured' => "Show only featured groups",
-		
 		'widget_manager:widgets:index_groups:no_result' => "No groups were found",
 		
 		// index_activity
 		'widget_manager:widgets:index_activity:name' => "Activity",
 		'widget_manager:widgets:index_activity:description' => "Show the latest activity on your site",
-		
 		'widget_manager:widgets:index_activity:activity_count' => "How many activity items to show",
 		'widget_manager:widgets:index_activity:no_results' => "No activity found",
 	
@@ -200,7 +147,6 @@
 		'widget_manager:widgets:image_slider:label:text' => "Text",
 		'widget_manager:widgets:image_slider:label:link' => "Link",
 		'widget_manager:widgets:image_slider:label:direction' => "Direction",
-		
 		'widget_manager:widgets:image_slider:direction:top' => "Top",
 		'widget_manager:widgets:image_slider:direction:right' => "Right",
 		'widget_manager:widgets:image_slider:direction:bottom' => "Bottom",
@@ -291,21 +237,12 @@
 		// Free HTML
 		'widgets:free_html:title' => "Free HTML",
 		'widgets:free_html:description' => "Type your own content in HTML",
-		
 		'widgets:free_html:settings:html_content' => "Please supply the HTML to display",
 		'widgets:free_html:settings:use_content_wrapper' => "Use a content wrapper",
 		'widgets:free_html:no_content' => "This widget is not yet configured",
 		
 	);
 	add_translation("en", $free_html);
-	
-	$group_event_calendar = array(
-		// Event Calendar widget
-		'widgets:group_event_calendar:title' => "Event Calendar",
-		'widgets:group_event_calendar:description' => "Show the upcomming events",
-		
-	);
-	add_translation("en", $group_event_calendar);
 	
 	$group_izap_videos = array(
 		// iZap Videos widget

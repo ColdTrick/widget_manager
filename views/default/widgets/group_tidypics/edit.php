@@ -10,6 +10,6 @@
 <div>
 	<?php 
 		echo elgg_echo("tidypics:widget:num_albums"); 
-		echo elgg_view("input/pulldown", array("internalname" => "params[album_count]", "options" => range(1, 10), "value" => $album_count));
+		echo elgg_view("input/dropdown", array("name" => "params[album_count]", "options" => range(1, 10), "value" => $album_count));
 	?>
 </div>

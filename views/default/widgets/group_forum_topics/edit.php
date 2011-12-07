@@ -9,5 +9,5 @@
 ?>
 <div>
 	<?php echo elgg_echo("widgets:group_forum_topics:settings:topic_count"); ?>
-	<?php echo elgg_view("input/pulldown", array("internalname" => "params[topic_count]", "options" => range(1, 10), "value" => $topic_count)); ?>
+	<?php echo elgg_view("input/dropdown", array("name" => "params[topic_count]", "options" => range(1, 10), "value" => $topic_count)); ?>
 </div>

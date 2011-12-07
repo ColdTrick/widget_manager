@@ -3,11 +3,11 @@
 	$group = $vars["entity"];
 
 	if($group->widget_manager_enable == "yes"){
-		$area1widgets = get_widgets($group->getGUID(), get_context(), 1);
-		$area2widgets = get_widgets($group->getGUID(), get_context(), 2);
-		$area3widgets = get_widgets($group->getGUID(), get_context(), 3);
+		$area1widgets = get_widgets($group->getGUID(), elgg_get_context(), 1);
+		$area2widgets = get_widgets($group->getGUID(), elgg_get_context(), 2);
+		$area3widgets = get_widgets($group->getGUID(), elgg_get_context(), 3);
 	}
-	$context = get_context();
+	$context = elgg_get_context();
 	
 	$widget_manager_enable = false;
 	if($group->widget_manager_enable == "yes"){
@@ -30,7 +30,7 @@
 		</form>
 
 		<div id="toggle_customise_edit_panel">
-			<a href="<?php echo $vars["url"]; ?>pg/widget_manager/widgets/lightbox?context=<?php echo $context; ?>&owner_guid=<?php echo $group->getGUID(); ?>" class="toggle_customise_edit_panel_override">
+			<a href="<?php echo $vars["url"]; ?>widget_manager/widgets/lightbox?context=<?php echo $context; ?>&owner_guid=<?php echo $group->getGUID(); ?>" class="toggle_customise_edit_panel_override">
 				<?php echo elgg_echo("widget_manager:add");?>
 			</a>
 		</div>
@@ -84,15 +84,3 @@
 	echo "</div>";
 	echo "<div class=\"clearfloat\"></div>";	 
 	echo "</div>";
-	
-	if($widget_manager_enable){
-		// fix for problematic styling in default groups plugin
-		echo "<style type='text/css'>\n";
-		echo "#fullcolumn .contentWrapper { \n";
-		echo "margin: 0 10px 5px; \n";
-		echo "padding: 10px; \n";
-		echo "}\n";	
-		echo "</style>\n";
-	}
-	
-?>

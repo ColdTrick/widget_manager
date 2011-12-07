@@ -23,16 +23,16 @@
 		echo $widget->get($metadata_name);
 		echo "<div>";
 		echo elgg_echo("widgets:group_news:settings:project") . " ";
-		echo elgg_view("input/pulldown", array("options_values" => $options_values, "internalname" => "params[" . $metadata_name . "]", "value" => $widget->$metadata_name));
+		echo elgg_view("input/dropdown", array("options_values" => $options_values, "name" => "params[" . $metadata_name . "]", "value" => $widget->$metadata_name));
 		echo "</div>";	
 	}
 	
 	echo "<div>";
 	echo elgg_echo("widgets:group_news:settings:blog_count") . " ";
-	echo elgg_view("input/pulldown", array("options" => array(1,2,3,4,5,6,7,8,9,10,15,20), "internalname" => "params[blog_count]", "value" => $blog_count));
+	echo elgg_view("input/dropdown", array("options" => array(1,2,3,4,5,6,7,8,9,10,15,20), "name" => "params[blog_count]", "value" => $blog_count));
 	echo "</div>";	
 	
 	echo "<div>";
 	echo elgg_echo("widgets:group_news:settings:slide_timeout") . " ";
-	echo elgg_view("input/pulldown", array("options" => array(5,10,15,20,30), "internalname" => "params[slide_timeout]", "value" => $slide_timeout));
+	echo elgg_view("input/dropdown", array("options" => array(5,10,15,20,30), "name" => "params[slide_timeout]", "value" => $slide_timeout));
 	echo "</div>";
