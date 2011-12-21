@@ -10,6 +10,5 @@ if(!function_exists("add_widget_title_link")){
 		elgg_deprecated_notice("add_widget_title_link() was deprecated by widget_manager_add_widget_title_link()", "1.7");
 		list_entities();
 		widget_manager_add_widget_title_link($handler, $link);
-	}
-		
+	}	
 }

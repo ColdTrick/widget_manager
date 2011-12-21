@@ -84,7 +84,7 @@
 					$body .= "<a href='" . $item->get_permalink() . "' target='_blank'>" . $item->get_title() . "</a>";
 					$body .= "</div>";
 				}
-				
+				$body .= "<div class='clearfix'></div>";
 				
 				
 			}

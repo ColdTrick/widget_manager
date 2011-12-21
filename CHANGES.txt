@@ -3,6 +3,8 @@
 4.0 beta ():
 
 - added: support for Elgg 1.8
+- added: widget sortable tolerance changes to pointer instead of intersect (needed for index widgets top row) 
+- added: widget usage statistics page
 - removed: run_once fix for elgg widget object/subtype class (obsolete)
 - removed: run_once migration from group_custom_layout plugin
 - removed: lazy loading plugin setting
@@ -12,6 +14,7 @@
 - removed: option to configure if a widget is multiple or single (this is now handled correct by Elgg core)
 - removed: option to configure if a widget is deletable (use 'fix widget' instead)
 - removed: group_event_calendar widget
+- removed: top row 2 column right option for index page
 
 3.9 (2011-11-22):
 

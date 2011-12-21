@@ -5,7 +5,7 @@ function widget_group_forum_topics_pagesetup(){
 	$page_owner = elgg_get_page_owner_entity();
 	if(($page_owner instanceof ElggGroup) && ($page_owner->forum_enable == "no")){
 		// unset if not enabled for this plugin
-		remove_widget_type("group_forum_topics");
+		elgg_unregister_widget_type("group_forum_topics");
 	}
 }
 

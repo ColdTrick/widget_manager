@@ -6,12 +6,11 @@ function widget_group_tidypics_pagesetup(){
 	
 	if(($page_owner instanceof ElggGroup) && ($page_owner->photos_enable == "no")){
 		// unset if not enabled for this plugin
-		remove_widget_type("group_tidypics");
+		elgg_unregister_widget_type("group_tidypics");
 	}
 }
 
 function widget_group_tidypics_init(){
-	
 	if(elgg_is_active_plugin("tidypics")){
 		elgg_register_widget_type("group_tidypics", elgg_echo("widgets:group_tidypics:title"), elgg_echo("widgets:group_tidypics:description"), "groups");
 		widget_manager_add_widget_title_link("group_tidypics", "[BASEURL]photos/owned/[USERNAME]");

@@ -13,3 +13,10 @@ function widget_manager_widgets_search(q){
 		$("#widget_manager_widgets_select .widget_manager_widgets_lightbox_wrapper:Contains('" + q + "')").show();
 	}
 }
+
+function widget_manager_init(){
+	// reset draggable functionality to pointer
+	$(".elgg-widgets").sortable("option", "tolerance", 'pointer');
+}
+
+elgg.register_hook_handler('init', 'system', widget_manager_init);

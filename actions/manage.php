@@ -6,7 +6,7 @@
 		$error_count = 0;
 		
 		if($widgets = elgg_get_widget_types($widget_context)){
-			$toggle_settings = array("can_add", "can_remove", "allow_multiple", "hide");
+			$toggle_settings = array("can_add", "hide");
 			
 			foreach($widgets as $handler => $widget){
 				
@@ -29,4 +29,4 @@
 		register_error(elgg_echo("widget_manager:action:manage:error:context"));
 	}
 	
-	forward($_SERVER["HTTP_REFERER"]);
+	forward(REFERER);

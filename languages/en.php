@@ -9,6 +9,8 @@
 		// admin menu items
 		'admin:widgets' => "Widgets",
 		'admin:widgets:manage' => "Manage",
+		'admin:widgets:manage:index' => "Manage Index",
+		'admin:statistics:widgets' => "Widget Usage",
 		
 		// widget edit wrapper
 		'widget_manager:widgets:edit:custom_title' => "Custom title",
@@ -18,19 +20,13 @@
 		'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
 		'widget_manager:widgets:edit:show_edit' => "User can edit widget settings", 
 		'widget_manager:widgets:edit:show_toggle' => "Widget can be minimized", 
-	
-		// menu items
-		'widget_manager:menu:index' => "Index widgets",
-		
+			
 		// group
 		'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",
 	
 		// admin settings
-		
-		'widget_manager:settings:general' => "General",
 		'widget_manager:settings:index' => "Index",
 		'widget_manager:settings:group' => "Group",
-		'widget_manager:settings:other' => "Other",
 		
 		'widget_manager:settings:custom_index' => "Use Widget Manager custom index?",
 		'widget_manager:settings:custom_index:non_loggedin' => "For non-loggedin users only",
@@ -52,7 +48,6 @@
 		'widget_manager:settings:index_top_row:none' => "No top row",
 		'widget_manager:settings:index_top_row:full_row' => "Full width row",
 		'widget_manager:settings:index_top_row:two_column_left' => "Two column aligned left",
-		'widget_manager:settings:index_top_row:two_column_right' => "Two column aligned right",
 		
 		'widget_manager:settings:disable_free_html_filter' => "Disable HTML filtering for Free HTML widgets on index (ADMIN ONLY)",
 		
@@ -106,7 +101,6 @@
 		'widget_manager:widgets:index_file:name' => "Files",
 		'widget_manager:widgets:index_file:description' => "Show the latest files on your community",
 		'widget_manager:widgets:index_file:file_count' => "How many files to show",
-		'widget_manager:widgets:index_file:no_result' => "No files were found",
 		
 		// index_pages
 		'widget_manager:widgets:index_pages:name' => "Pages",
@@ -180,7 +174,6 @@
 		'widgets:content_by_tag:description' => "Find content by a tag",
 		
 		'widgets:content_by_tag:owner_guids' => "Who needs to write the items",
-		'widgets:content_by_tag:content_count' => "How many items to show",
 		'widgets:content_by_tag:entities' => "Which entities to show",
 		'widgets:content_by_tag:tags' => "Tag(s) (comma separated)",
 		'widgets:content_by_tag:tags_option' => "How to use the tag(s)",
@@ -201,7 +194,7 @@
 		'widgets:rss:title' => "RSS Feed",
 		'widgets:rss:description' => "Show a RSS feed (based on SimplePie)",
 		'widgets:rss:error:notset' => "No RSS Feed URL provided",
-		'widgets:rss:error:notfind' => "No Items found",
+		'widgets:rss:error:notfind' => "No items found",
 		
 		'widgets:rss:settings:rss_count' => "Number of feeds to show",
 		'widgets:rss:settings:rssfeed' => "URL of the RSS feed",

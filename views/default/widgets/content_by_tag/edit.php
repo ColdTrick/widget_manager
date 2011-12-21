@@ -49,7 +49,10 @@
 		echo elgg_view("input/hidden", array("name" => "params[owner_guids]", "value" => $widget->owner_guids));		
 	} else {
 		if($user = elgg_get_logged_in_user_entity()){
-			$options_values = array($user->getGUID() => $user->name);
+			$options_values = array(
+							"" => elgg_echo("all"),
+							$user->getGUID() => $user->name
+						);
 			if($friends = $user->getFriends("", false)){
 				foreach($friends as $friend){
 					$options_values[$friend->guid] = $friend->name;
@@ -65,23 +68,33 @@
 			}
 			
 			natcasesort($options_values);
-			$options_values = array(""=> elgg_echo("all")) + $options_values;
-			echo "<div>". elgg_echo("widgets:content_by_tag:owner_guids") . "</div>";
-			echo elgg_view("input/dropdown", array("name" => "params[owner_guids]", "options_values" => $options_values,"value" => $widget->owner_guids));
+			
+			echo "<div>";
+			echo elgg_echo("widgets:content_by_tag:owner_guids") . "<br />";
+			echo elgg_view("input/dropdown", array("name" => "params[owner_guids]", "options_values" => $options_values, "value" => $widget->owner_guids));
+			echo "</div>";
 		}
 	}
 ?>
-<div><?php echo elgg_echo("widgets:content_by_tag:content_count"); ?></div>
-<input type="text" name="params[content_count]" value="<?php echo elgg_view("output/text", array("value" => $count)); ?>" size="4" maxlength="4" />
+<div>
+	<?php echo elgg_echo("widget:numbertodisplay"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[content_count]", "value" => $count, "size" => "4", "maxlength" => "4"));?>
+</div>
 
-<div><?php echo elgg_echo("widgets:content_by_tag:entities"); ?></div>
-<?php echo elgg_view("input/dropdown", array("name" => "params[content_type]", "options_values" => $content_options_values, "value" => $content_type)); ?>
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:entities"); ?><br />
+	<?php echo elgg_view("input/dropdown", array("name" => "params[content_type]", "options_values" => $content_options_values, "value" => $content_type)); ?>
+</div>
 
-<div><?php echo elgg_echo("widgets:content_by_tag:tags"); ?></div>
-<?php echo elgg_view("input/text", array("name" => "params[tags]", "value" => $tags)); ?>
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:tags"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[tags]", "value" => $tags)); ?>
+</div>
 
-<div><?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?></div>
-<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?></div>
+	<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
+</div>
 <?php 
 	if(elgg_view_exists("input/user_autocomplete")){
 		?>

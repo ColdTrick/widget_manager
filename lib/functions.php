@@ -27,12 +27,6 @@
 				if($plugin_setting == "yes"){
 					$result = true;
 				}
-			} elseif($setting == "allow_multiple") {
-				$widgets = elgg_get_widget_types($context);
-				if(array_key_exists($widget_handler, $widgets)){
-					$result = $widgets[$widget_handler]->multiple;
-				}
-				
 			} elseif($setting == "can_add" || $setting == "can_remove"){
 				$result = true;
 			}
@@ -127,61 +121,67 @@
 	/* handles widget title urls */
 	function widget_manager_widget_url_handler($widget){
 		$result = false;
-		$handler = $widget->handler;
-		$owner = $widget->getOwnerEntity();
 		
-		// configures some widget titles for non widgetmanager widgets
-		$widget_titles = array(
-							"thewire" => "[BASEURL]thewire/owner/[USERNAME]",
-							"friends" => "[BASEURL]friends/[USERNAME]",
-							"album_view" => "[BASEURL]photos/owned/[USERNAME]",
-							"latest" => "[BASEURL]photos/mostrecent/[USERNAME]",
-							"latest_photos" => "[BASEURL]photos/mostrecent/[USERNAME]",
-							"messageboard" => "[BASEURL]messageboard/[USERNAME]",
-							"a_users_groups" => "[BASEURL]groups/member/[USERNAME]",
-							"event_calendar" => "[BASEURL]event_calendar/",
-							"filerepo" => "[BASEURL]file/owner/[USERNAME]",
-							"pages" => "[BASEURL]pages/owned/[USERNAME]",
-							"bookmarks" => "[BASEURL]bookmarks/owner/[USERNAME]",
-							"izap_videos" => "[BASEURL]izap_videos/[USERNAME]",
-							"river_widget" => "[BASEURL]activity/",
-							"blog" => "[BASEURL]blog/owner/[USERNAME]");
-		
-		if(!empty($widget->widget_manager_custom_url)){
-			$link = $widget->widget_manager_custom_url;
-		} elseif(isset($widgettypes[$handler]->link)) {
-			$link = $widgettypes[$handler]->link;
-		} elseif(array_key_exists($handler, $widget_titles)){
-			$link = $widget_titles[$handler];
-		}
-		
-		if (!empty($link)) {
-			/* Let's do some basic substitutions to the link */
-		
-			/* [USERNAME] */
-			$link = preg_replace('#\[USERNAME\]#', $owner->username, $link);
-		
-			/* [GUID] */
-			$link = preg_replace('#\[GUID\]#', $owner->getGUID(), $link);
-		
-			/* [BASEURL] */
-			$link = preg_replace('#\[BASEURL\]#', elgg_get_site_url(), $link);
+		if($widget instanceof ElggWidget){
+			$handler = $widget->handler;
 			
-			$result = $link;
+			// configures some widget titles for non widgetmanager widgets
+			$widget_titles = array(
+								"thewire" => "[BASEURL]thewire/owner/[USERNAME]",
+								"friends" => "[BASEURL]friends/[USERNAME]",
+								"album_view" => "[BASEURL]photos/owned/[USERNAME]",
+								"latest" => "[BASEURL]photos/mostrecent/[USERNAME]",
+								"latest_photos" => "[BASEURL]photos/mostrecent/[USERNAME]",
+								"messageboard" => "[BASEURL]messageboard/[USERNAME]",
+								"a_users_groups" => "[BASEURL]groups/member/[USERNAME]",
+								"event_calendar" => "[BASEURL]event_calendar/",
+								"filerepo" => "[BASEURL]file/owner/[USERNAME]",
+								"pages" => "[BASEURL]pages/owned/[USERNAME]",
+								"bookmarks" => "[BASEURL]bookmarks/owner/[USERNAME]",
+								"izap_videos" => "[BASEURL]izap_videos/[USERNAME]",
+								"river_widget" => "[BASEURL]activity/",
+								"blog" => "[BASEURL]blog/owner/[USERNAME]");
+			
+			if(!empty($widget->widget_manager_custom_url)){
+				$link = $widget->widget_manager_custom_url;
+			} elseif(array_key_exists($handler, $widget_titles)){
+				$link = $widget_titles[$handler];
+			} else {
+				elgg_push_context($widget->context);
+				$widgettypes = elgg_get_widget_types();
+				elgg_pop_context();
+				
+				if(isset($widgettypes[$handler]->link)) {
+					$link = $widgettypes[$handler]->link;
+				}
+			}
+			
+			if (!empty($link)) {
+				$owner = $widget->getOwnerEntity();
+				/* Let's do some basic substitutions to the link */
+			
+				/* [USERNAME] */
+				$link = preg_replace('#\[USERNAME\]#', $owner->username, $link);
+			
+				/* [GUID] */
+				$link = preg_replace('#\[GUID\]#', $owner->getGUID(), $link);
+			
+				/* [BASEURL] */
+				$link = preg_replace('#\[BASEURL\]#', elgg_get_site_url(), $link);
+				
+				$result = $link;
+			}
 		}
-		
+			
 		return $result;
 	}
 	
 	/* load widget manager widgets */
 	function widget_manager_load_widgets(){
-		global $CONFIG;
-		
-		$widgets_folder = $CONFIG->pluginspath . "widget_manager/widgets";
+		$widgets_folder = elgg_get_plugins_path() . "widget_manager/widgets";
 		$widgets_folder_contents = scandir($widgets_folder);
 		 
 		foreach($widgets_folder_contents as $widget){
-			
 			if(is_dir($widgets_folder . "/" . $widget) && $widget !== "." && $widget !== ".."){
 				if(file_exists($widgets_folder . "/" . $widget . "/start.php")){
 					$widget_folder = $widgets_folder . "/" . $widget; 

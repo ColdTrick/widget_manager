@@ -22,7 +22,7 @@
 	if($files = elgg_list_entities($options)){
 		echo $files;
 	} else {
-		echo elgg_echo("widget_manager:widgets:index_file:no_result");
+		echo elgg_echo("file:none");
 	}
 
 	elgg_pop_context();

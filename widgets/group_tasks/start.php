@@ -6,12 +6,11 @@ function widget_group_tasks_pagesetup(){
 	
 	if(($page_owner instanceof ElggGroup) && ($page_owner->tasks_enable == "no")){
 		// unset if not enabled for this plugin
-		remove_widget_type("group_tasks");
+		elgg_unregister_widget_type("group_tasks");
 	}
 }
 
 function widget_group_tasks_init(){
-	
 	if(elgg_is_active_plugin("tasks")){
 		elgg_register_widget_type("group_tasks", elgg_echo("tasks:group"), "", "groups");
 		widget_manager_add_widget_title_link("group_tasks", "[BASEURL]tasks/[USERNAME]/items");

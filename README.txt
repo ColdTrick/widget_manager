@@ -1,26 +1,17 @@
 = Features: =
-
- - Integrated Draggable Widgets
- - Integrated Eager widgets (by Cash) (admin option)
- - Integrated Widget Titles
- - Integrated Default widgets
+ - Adding widgets from a lightbox 
+ - Index widgets
+ - Group widgets
+ - Provides a lot of new widgets (see below for the widget list)
+ 
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
- - Option to allow multiple versions of a widget (no multiple widgets allowed by default)
- - Option to hide the visibility of a widget (will even hide widget already placed on profile/dashboard)
- - Adding widgets from a lightbox
- - Drag and Drop reordering of widgets (without page reload) 
- - hides broken widgets (optional)
- - automatically removes broken widgets (optional)
- - select target column for adding widgets (default right)
- - make a custom index with widgets (for logged out, logged in or all users) 
- - Groups widgets (Replaces group widgets from group custom layout plugin)
+ - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
 
 IMPORTANT:
-Since 3.0:
+Since 4.0:
 
 - Previous default widgets configuration is no longer valid!!
-- Requires 1.7.7. or higher!
-- Includes migration from group custom layout (update of group custom layout needed after migration)
+- Requires Elgg 1.8.1 or higher!
 	
 = Widgets =	
 
@@ -45,10 +36,10 @@ Since 3.0:
  - groups
  - activity
  - image slider
+ - community stats
    
 == Group widgets ==
 
- - event calendar
  - forum topics
  - files
  - izap_videos
@@ -58,7 +49,6 @@ Since 3.0:
  
 = ToDo: =
 
- - more custom index layouts
- - widget categories
- - widget repository
- - dutch translation
+ - check all widget title for 1.8 (group + index + user)
+ - check available widget and saving of widget manage page on a clean install
+ - test migrating from 1.7 to 1.8 

@@ -9,29 +9,21 @@
 	 * @param $params
 	 * @return unknown_type
 	 */
-	function widget_manager_widget_access_hook($hook_name, $entity_type, $return_value, $params){
-	
+	function widget_manager_write_access_hook($hook_name, $entity_type, $return_value, $params){
 		$result = $return_value;
-	
-		if($entity = $params["entity"]){
-			if($entity_type == "site"){
-				if($entity->context == "default_profile" || $entity->context == "default_dashboard"){
-					$result = array(
-						ACCESS_PRIVATE => elgg_echo("PRIVATE"),
-						ACCESS_FRIENDS => elgg_echo("access:friends:label"),
-						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-						ACCESS_PUBLIC => elgg_echo("PUBLIC")
-					);
-				} elseif(elgg_is_admin_logged_in()){
-					$result = array(
-						ACCESS_PRIVATE => elgg_echo("access:admin_only"),
-						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-						ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
-						ACCESS_PUBLIC => elgg_echo("PUBLIC")
-					);
-				}
-			} elseif($entity_type == "group") {
-				$group = $entity->getOwnerEntity();
+		
+		if(elgg_in_context("widgets")){
+			if(elgg_in_context("index") && elgg_is_admin_logged_in()){				
+				// admins only have the following options for index widgets
+				$result = array(
+					ACCESS_PRIVATE => elgg_echo("access:admin_only"),
+					ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+					ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
+					ACCESS_PUBLIC => elgg_echo("PUBLIC")
+				);
+				
+			} elseif(elgg_in_context("groups")) {
+				$group = elgg_get_page_owner_entity();
 				if(!empty($group->group_acl)){
 					$result = array(
 						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
@@ -44,7 +36,6 @@
 	
 		return $result;
 	}
-	
 	
 	/**
 	 * Creates the ability to see content only for logged_out users
@@ -82,17 +73,39 @@
 	 * @param $params
 	 */
 	function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_value, $params){
-		if(elgg_is_admin_logged_in()){
-			if(elgg_get_plugin_setting("disable_free_html_filter", "widget_manager") == "yes"){
-				$guid = get_input("guid");
-	
-				if($widget = get_entity($guid)){
-					if($widget->getSubtype() == "widget"){
-						if(($widget->context == "index") && ($widget->handler == "free_html")){
-							elgg_unregister_plugin_hook_handler("validate", "input", "htmlawed_filter_tags");
-						}
+		if(elgg_is_admin_logged_in() && elgg_get_plugin_setting("disable_free_html_filter", "widget_manager") == "yes"){
+			$guid = get_input("guid");
+
+			if($widget = get_entity($guid)){
+				if($widget instanceof ElggWidget){
+					if(($widget->context == "index") && ($widget->handler == "free_html")){
+						elgg_unregister_plugin_hook_handler("validate", "input", "htmlawed_filter_tags");
 					}
 				}
 			}
 		}
+	}
+	
+	/**
+	* Hook to take over the index page
+	*
+	* @param $hook_name
+	* @param $entity_type
+	* @param $return_value
+	* @param $parameters
+	* @return unknown_type
+	*/
+	function widget_manager_custom_index($hook_name, $entity_type, $return_value, $parameters){
+		$result = $return_value;
+	
+		if(empty($result) && ($setting = elgg_get_plugin_setting("custom_index", "widget_manager"))){
+			list($non_loggedin, $loggedin) = explode("|", $setting);
+				
+			if((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input("override") == true))){
+				include(elgg_get_plugins_path() . "/widget_manager/pages/custom_index.php");
+				$result = true;
+			}
+		}
+	
+		return $result;
 	}

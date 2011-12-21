@@ -21,7 +21,7 @@
 		$list .= "<th class='center'>" . elgg_echo("widget_manager:forms:settings:hide") . "</th>";
 		$list .= "</tr>";
 		
-		foreach($widgets as $handler => $widget){
+		foreach($widgets as $handler => $widget){			
 			$check_add = "";
 			$check_hide = "";
 			
