@@ -45,7 +45,6 @@
 	}
 
 	function widget_manager_pagesetup(){
-		
 		$context = elgg_get_context();
 		
 		if(elgg_is_admin_logged_in() && $context == "admin"){
@@ -80,6 +79,23 @@
 		if(widget_manager_valid_context($context)){
 			elgg_trigger_event("widgets_pagesetup", "widget_manager");
 		}
+		
+		// update fixed widgets if needed
+		if(in_array($context, array("profile", "dashboard")) && ($page_owner_guid = elgg_get_page_owner_guid())){
+			// only check things if you are viewing a profile or dashboard page
+			$fixed_ts = elgg_get_plugin_setting($context . "_fixed_ts", "widget_manager");
+			if(empty($fixed_ts)){
+				// there should always be a fixed ts, so fix it now. This situation only occurs after activating widget_manager the first time.
+				$fixed_ts = time();
+				elgg_set_plugin_setting($context . "_fixed_ts", $fixed_ts, "widget_manager");
+			}
+			
+			// get the ts of the profile/dashboard you are viewing
+			$user_fixed_ts = elgg_get_plugin_user_setting($context. "_fixed_ts", $page_owner_guid, "widget_manager");
+			if($user_fixed_ts < $fixed_ts){
+				widget_manager_update_fixed_widgets($context, $page_owner_guid);
+			}
+		}
 	}
 	
 	/* enables widget that are not specifically registered for groups or index widget, but do work */
@@ -92,12 +108,14 @@
 		if(is_array($CONFIG->widgets->handlers)){
 			foreach($allowed_group_widgets as $handler){
 				if(array_key_exists($handler, $CONFIG->widgets->handlers)){
-					
 					$CONFIG->widgets->handlers[$handler]->context[] = "groups";
-					
 				}
 			}
-			
+			foreach($allowed_index_widgets as $handler){
+				if(array_key_exists($handler, $CONFIG->widgets->handlers)){
+					$CONFIG->widgets->handlers[$handler]->context[] = "index";
+				}
+			}
 		}
 	}
 	
@@ -106,6 +124,7 @@
 	elgg_register_event_handler("init", "system", "widget_manager_init");
 	elgg_register_event_handler("init", "system", "widget_manager_reset_widget_context",9999); // needs to be last
 	elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
+	elgg_register_event_handler("all", "object", "widget_manager_update_widget");
 		
 	// register plugin hooks
 	elgg_register_plugin_hook_handler("access:collections:write", "user", "widget_manager_write_access_hook");

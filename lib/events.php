@@ -11,3 +11,24 @@
 		}
 	}
 	
+	function widget_manager_update_widget($event, $object_type, $object) {
+		if(($object instanceof ElggWidget) && in_array($event, array("create", "update", "delete"))){
+			if(stristr($_SERVER["HTTP_REFERER"], "/admin/appearance/default_widgets")){
+				// on create set a parent guid
+				if($event == "create"){
+					$object->fixed_parent_guid = $object->guid;
+				}
+				
+				// update time stamp
+				$context = $object->context;
+				if(empty($context)){
+					// only situation is on create probably, as context is metadata and saved after creation of the object, this is the fallback
+					$context = get_input("context", false);
+				}
+				
+				if($context){
+					elgg_set_plugin_setting($context . "_fixed_ts", time(), "widget_manager");
+				}
+			}
+		}
+	}

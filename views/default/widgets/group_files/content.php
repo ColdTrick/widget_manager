@@ -3,7 +3,7 @@
 	$widget = $vars["entity"];
 	$group = $widget->getOwnerEntity();
 
-	$number = $widget->file_count;
+	$number = sanitise_int($widget->file_count, false);
 	if(empty($number)){
 		$number = 4;
 	}
@@ -15,8 +15,7 @@
 		"container_guid" => $group->getGUID(),
 		"limit" => $number,
 		"pagination" => false,
-		"full_view" => false,
-		"view_type_toggle" => false
+		"full_view" => false
 	);
 
 	elgg_push_context("search");
@@ -24,13 +23,15 @@
 	if ($files = elgg_list_entities($options)) {
 		//display in list mode
 		echo $files;
-		
-		// read more link
-		echo "<div class='widget_more_wrapper'>";
-		echo elgg_view("output/url", array("href" => $vars["url"] . "file/owner/" .  $group->username, "text" => elgg_echo('file:more')));
-		echo "</div>";
 	} else {
-		echo "<div class='widget_more_wrapper'>" . elgg_echo("file:none") . "</div>";
+		echo elgg_echo("file:none");
 	}
+	
+	$new_link = elgg_view('output/url', array(
+				'href' => "file/add/$group->guid",
+				'text' => elgg_echo('file:add'),
+				'is_trusted' => true,
+	));
+	echo "<div>" . $new_link . "</div>";
 	
 	elgg_pop_context();

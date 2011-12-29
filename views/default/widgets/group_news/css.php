@@ -1,11 +1,13 @@
 #widget_group_news_container > div {
 	display: none;
 }
+
 #widget_group_news_navigator {
 	border-top: 1px dotted #CCCCCC;
 	padding-top: 5px;
 	text-align: center;
 }
+
 #widget_group_news_navigator > span {
 	border: 1px solid #CCCCCC;
 	cursor: pointer;
@@ -21,7 +23,7 @@
 #widget_group_news_navigator > span.active {
 	cursor: auto;
 }
-#widget_group_news_container .groupicon{
-	float: left;
+
+#widget_group_news_container img {
 	margin-right: 20px;
 }

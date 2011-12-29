@@ -18,8 +18,6 @@
 		'widget_manager:widgets:edit:hide_header' => "Hide header",
 		'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 		'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
-		'widget_manager:widgets:edit:show_edit' => "User can edit widget settings", 
-		'widget_manager:widgets:edit:show_toggle' => "Widget can be minimized", 
 			
 		// group
 		'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",
@@ -67,6 +65,7 @@
 		'widget_manager:widgets:lightbox:title:profile' => "Add widgets to your public profile",
 		'widget_manager:widgets:lightbox:title:index' => "Add widgets to the index",
 		'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
+		'widget_manager:widgets:lightbox:title:admin' => "Add widgets to your admin dashboard",
 		
 		// actions
 		// manage
@@ -75,18 +74,16 @@
 		'widget_manager:action:manage:success' => "Widget configuration saved successfully",
 		
 		// widgets
-		'widget_manager:add' => "Click to add a new widget",
 		'widget_manager:widgets:edit:advanced' => "Advanced",
+		'widget_manager:widgets:fix' => "Fix this widget on the dashboard/profile",
 			
 		// index_login
-		'widget_manager:widgets:index_login:name' => "Login",
 		'widget_manager:widgets:index_login:description' => "Show a login box",
 		'widget_manager:widgets:index_login:welcome' => "<b>%s</b> welcome on the <b>%s</b> community",
 		
 		// index_members
 		'widget_manager:widgets:index_members:name' => "Members",
 		'widget_manager:widgets:index_members:description' => "Show the members of your site",
-		'widget_manager:widgets:index_members:member_count' => "How many members to show",
 		'widget_manager:widgets:index_members:user_icon' => "Must the users have a profileicon",
 		'widget_manager:widgets:index_members:no_result' => "No users found",
 		
@@ -98,34 +95,20 @@
 		'widget_manager:widgets:index_members_online:no_result' => "No users found",
 		
 		// index_file
-		'widget_manager:widgets:index_file:name' => "Files",
 		'widget_manager:widgets:index_file:description' => "Show the latest files on your community",
-		'widget_manager:widgets:index_file:file_count' => "How many files to show",
 		
 		// index_pages
-		'widget_manager:widgets:index_pages:name' => "Pages",
 		'widget_manager:widgets:index_pages:description' => "Show the latest pages on your community",
-		'widget_manager:widgets:index_pages:pages_count' => "How many pages to show",
-		'widget_manager:widgets:index_pages:no_result' => "No pages were found",
 		
 		// index_bookmarks
-		'widget_manager:widgets:index_bookmarks:name' => "Bookmarks",
 		'widget_manager:widgets:index_bookmarks:description' => "Show the latest bookmarks on your community",
-		'widget_manager:widgets:index_bookmarks:bookmark_count' => "How many bookmarks to show",
-		'widget_manager:widgets:index_bookmarks:no_result' => "No bookmarks were found",
 		
 		// index_groups
-		'widget_manager:widgets:index_groups:name' => "Groups",
 		'widget_manager:widgets:index_groups:description' => "Show the latest groups on your community",
-		'widget_manager:widgets:index_groups:group_count' => "How many groups to show",
 		'widget_manager:widgets:index_groups:featured' => "Show only featured groups",
-		'widget_manager:widgets:index_groups:no_result' => "No groups were found",
 		
 		// index_activity
-		'widget_manager:widgets:index_activity:name' => "Activity",
 		'widget_manager:widgets:index_activity:description' => "Show the latest activity on your site",
-		'widget_manager:widgets:index_activity:activity_count' => "How many activity items to show",
-		'widget_manager:widgets:index_activity:no_results' => "No activity found",
 	
 		// image_slider
 		'widget_manager:widgets:image_slider:name' => "Image Slider",
@@ -210,18 +193,14 @@
 	
 	$group_files = array(
 		// Files widget
-		'widgets:group_files:title' => "Group Files",
 		'widgets:group_files:description' => "Show the latest group files",
-		'widgets:group_files:settings:file_count' => "Number of files to show",
 		
 	);
 	add_translation("en", $group_files);
 	
 	$group_forum_topics = array(
 		// Forum topic widget
-		'widgets:group_forum_topics:title' => "Forum Topics",
-		'widgets:group_forum_topics:description' => "Show the latest forum topics",
-		'widgets:group_forum_topics:settings:topic_count' => "Number of topics to show",
+		'widgets:group_forum_topics:description' => "Show the latest discussions",
 		
 	);
 	add_translation("en", $group_forum_topics);
@@ -231,37 +210,12 @@
 		'widgets:free_html:title' => "Free HTML",
 		'widgets:free_html:description' => "Type your own content in HTML",
 		'widgets:free_html:settings:html_content' => "Please supply the HTML to display",
-		'widgets:free_html:settings:use_content_wrapper' => "Use a content wrapper",
 		'widgets:free_html:no_content' => "This widget is not yet configured",
 		
 	);
 	add_translation("en", $free_html);
 	
-	$group_izap_videos = array(
-		// iZap Videos widget
-		'widgets:group_izap_videos:title' => "iZap Videos",
-		'widgets:group_izap_videos:description' => "Show the latest iZap Videos",
-		
-	);
-	add_translation("en", $group_izap_videos);
-	
-	$group_tidypics = array(
-		// Tidypics widget
-		'widgets:group_tidypics:title' => "Tidypics",
-		'widgets:group_tidypics:description' => "Show the latest Tidypics album",
-	);
-	add_translation("en", $group_tidypics);
-	
-	$group_videolist = array(
-		// videolist widget
-		'widgets:group_videolist:title' => "Videolist",
-		'widgets:group_videolist:description' => "Show the latest video's from this group",
-		
-	);
-	add_translation("en", $group_videolist);
-	
 	$tagcloud = array(
-		'widgets:tagcloud:title' => "Tagcloud",
 		'widgets:tagcloud:description' => "Shows a tagcloud based on all the content on the site, in the group or from the user",
 		'widgets:tagcloud:no_data' => "No data available to display a tagcloud",
 	);
@@ -292,10 +246,8 @@
 	
 	$messages = array(
 		// messages widget
-		"widgets:messages:title" => "Messages", 
 		"widgets:messages:description" => "Shows your latest messages", 
 		"widgets:messages:not_logged_in" => "You need to be logged in to use this widget", 
-		"widgets:messages:settings:max_messages" => "Max messages",
 		"widgets:messages:settings:only_unread" => "Only show unread messages",
 	);
 	add_translation("en", $messages);

@@ -4,7 +4,7 @@ $entity_stats = get_entity_statistics();
 $selected_entities = $vars["entity"]->getMetadata("selected_entities");
 
 ?>
-<table>
+<table class='elgg-table'>
 	<?php
 		foreach ($entity_stats as $k => $entry) {
 			arsort($entry);

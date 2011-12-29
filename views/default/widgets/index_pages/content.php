@@ -1,12 +1,7 @@
 <?php 
 
-	$widget = $vars["entity"];
-	
-	elgg_push_context("search");
-	
-	// get widget settings
-	$count = (int) $widget->pages_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($vars["entity"]->pages_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 
@@ -15,14 +10,12 @@
 		"subtype" => "page_top",
 		"limit" => $count,
 		"full_view" => false,
-		"pagination" => false,
-		"view_type_toggle" => false
+		"pagination" => false
 	);
 	
-	if($pages = elgg_list_entities($options)){
-		echo $pages;
-	} else {
-		echo elgg_echo("widget_manager:widgets:index_pages:no_result");
+	if(!($result = elgg_list_entities($options))){
+		$result =  elgg_echo("pages:none");
 	}
 
-	elgg_pop_context();
+	echo $result;
+	

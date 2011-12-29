@@ -2,8 +2,8 @@
 
 	$widget = $vars["entity"];
 	
-	$count = (int) $widget->member_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($widget->member_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 	
@@ -13,8 +13,12 @@
 	);
 	
 ?>
-<div><?php echo elgg_echo("widget_manager:widgets:index_members_online:member_count"); ?></div>
-<input type="text" name="params[member_count]" value="<?php echo elgg_view("output/text", array("value" => $count)); ?>" size="4" maxlength="4" />
+<div>
+	<?php echo elgg_echo("widget_manager:widgets:index_members_online:member_count"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[member_count]", "value" => $count, "size" => "4", "maxlength" => "4")); ?>
+</div>
 
-<div><?php echo elgg_echo("widget_manager:widgets:index_members_online:user_icon"); ?></div>
-<?php echo elgg_view("input/dropdown", array("name" => "params[user_icon]", "options_values" => $user_icon_options_values, "value" => $widget->user_icon)); ?>
+<div>
+	<?php echo elgg_echo("widget_manager:widgets:index_members_online:user_icon"); ?><br />
+	<?php echo elgg_view("input/dropdown", array("name" => "params[user_icon]", "options_values" => $user_icon_options_values, "value" => $widget->user_icon)); ?>
+</div>

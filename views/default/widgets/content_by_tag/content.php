@@ -5,13 +5,14 @@
 	$widget = $vars["entity"];
 	
 	// get widget settings
-	$count = (int) $widget->content_count;
-	if($count < 1){
+	$count = sanitise_int($widget->content_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 	
 	$content_type = sanitise_string($widget->content_type);
 	if(empty($content_type)){
+		// set default content type filter
 		if(elgg_is_active_plugin("blog")){
 			$content_type = "blog";
 		} elseif(elgg_is_active_plugin("file")){
@@ -22,6 +23,7 @@
 	}
 	
 	if($content_type == "page"){
+		// merge top and bottom pages
 		$content_type = array("page_top", "page");
 	} else {
 		$content_type = array($content_type);
@@ -82,7 +84,6 @@
 					$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
 	 
 					$values_where .= " AND (msn{$i}.string IN ($names_str) AND msv{$i}.string = $value)";
-					
 				} else {
 					$values_where .= " OR (msv.string = $value)";
 				}
@@ -112,23 +113,21 @@
 			}
 		}
 	}
+		
+	$options = array(
+			"type" => "object",
+			"subtypes" => $content_type,
+			"limit" => $count,
+			"full_view" => false,
+			"pagination" => false,
+			"joins" => $joins,
+			"wheres" => $wheres,
+			"owner_guids" => $owner_guids
+		);
 	
 	if($widget->context == "groups"){
-		$container_guids = array($widget->container_guid);
+		$options["container_guids"] = array($widget->container_guid);
 	}
-	
-	$options = array(
-		"type" => "object",
-		"subtypes" => $content_type,
-		"limit" => $count,
-		"full_view" => false,
-		"pagination" => false,
-		"view_type_toggle" => false,
-		"joins" => $joins,
-		"wheres" => $wheres,
-		"owner_guids" => $owner_guids,
-		"container_guids" => $container_guids
-	);
 	
 	elgg_push_context("search");
 	
@@ -138,9 +137,10 @@
 			foreach($entities as $index => $entity){
 				
 				if($index < $num_highlighted){
-					$icon = "<a href='" . $entity->getURL() .  "'><img src='" . $entity->getOwnerEntity()->getIcon("small") . "' /></a>";
 					
-					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title, "class" => "output-url"));
+					$icon = elgg_view_entity_icon($entity->getOwnerEntity(), "small");
+					
+					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title));
 					$text .= "<br />";
 					$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
 					$description = elgg_get_excerpt($entity->description, 170);
@@ -149,7 +149,7 @@
 						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
 					}
 					
-					$result .= elgg_view_listing($icon, $text);
+					$result .= elgg_view_image_block($icon, $text);
 				} else {
 					$result .= "<div>";		
 					$result .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
@@ -162,11 +162,10 @@
 		$result = elgg_list_entities($options);
 	}
 	
-	if($result){
-		echo $result;
-	} else {
-		echo elgg_echo("widgets:content_by_tag:no_result");
+	if(empty($result)){
+		$result = elgg_echo("widgets:content_by_tag:no_result");
 	}
+	echo $result;
 	
 	elgg_pop_context();
 	

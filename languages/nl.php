@@ -78,7 +78,7 @@ $language = array (
   'widget_manager:widgets:index_groups:name' => 'Groepen',
   'widget_manager:widgets:index_groups:description' => 'Toon de laatste groepen van je community',
   'widget_manager:widgets:index_groups:group_count' => 'Hoeveel groepen moeten er getoond worden',
-  'widget_manager:widgets:index_groups:featured' => 'Toon alleen featured groepn',
+  'widget_manager:widgets:index_groups:featured' => 'Toon alleen featured groepen',
   'widget_manager:widgets:index_groups:no_result' => 'Geen groepen gevonden',
   'widget_manager:widgets:index_freehtml:name' => 'Vrije HTML',
   'widget_manager:widgets:index_freehtml:description' => 'Type je eigen HTML content',
@@ -125,7 +125,7 @@ add_translation("nl", $language);
   		'widgets:twitter_search:description' => 'Toon een zoekopdracht op Twitter',
   		'widgets:twitter_search:query' => 'Zoekopdracht',
   		'widgets:twitter_search:query:help' => 'probeer geavanceerde zoekopdrachten',
-  		'widgets:twitter_search:title' => 'Widgett titel (optioneel)',
+  		'widgets:twitter_search:title' => 'Widget titel (optioneel)',
   		'widgets:twitter_search:subtitle' => 'Widget subtitel (optioneel)',
   		'widgets:twitter_search:height' => 'Widget hoogte (pixels)',
   		'widgets:twitter_search:background' => 'Stel een achtergrondkleur in (HEX bijv. 4690d6)',
@@ -154,7 +154,7 @@ add_translation("nl", $language);
 	
 	$group_news = array(
 		// group_news widget
-		"widgets:group_news:title" => "Groep Niews", 
+		"widgets:group_news:title" => "Groep Nieuws", 
 		"widgets:group_news:description" => "Toont de laatste blogs vanuit verschillende groepen", 
 		"widgets:group_news:no_projects" => "Geen groepen ingesteld", 
 		"widgets:group_news:no_news" => "Geen blogs in deze groep", 

@@ -1,10 +1,10 @@
 <?php ?>
 
-.image_slider_settings > span {
+.image_slider_settings > div {
 	display: none;
 }
 
-.image_slider_settings > h3 {
+.image_slider_settings > label {
 	cursor: pointer;
 }
 
@@ -19,7 +19,6 @@
 	width: 100%; /* important to be same as image width or wider */
 	position: absolute;
 	top: 0;
-	margin: 0 0 0 -20px;
 	list-style-image: none !important;
 }
 

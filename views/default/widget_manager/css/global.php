@@ -47,3 +47,38 @@
 .elgg-module-widget a.widget-manager-widget-title-link {
 	width: auto;
 }
+
+.widget_manager_hide_header_admin > .elgg-head {
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+}
+
+.elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-body,
+.widget_manager_hide_header > .elgg-body {
+	border-top: 0px;
+}
+
+.elgg-module-widget.widget_manager_disable_widget_content_style {
+	background: none;
+	padding: 0px;
+}
+
+.elgg-module-widget.widget_manager_disable_widget_content_style .elgg-widget-content {
+	padding: 0px;
+}
+
+.elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-head {
+	border: 2px solid #DEDEDE;
+}
+
+.widget-manager-fix {
+	right: 45px;
+}
+
+.elgg-icon-widget-manager-push-pin {
+	background: url("<?php echo elgg_get_site_url(); ?>_graphics/elgg_sprites.png") no-repeat scroll 0px -738px transparent;
+}
+
+.widget-manager-fix.fixed > .elgg-icon-widget-manager-push-pin {
+	background-position: 0px -720px;
+}

@@ -3,7 +3,7 @@
 
 function widget_index_pages_init(){
 	if(elgg_is_active_plugin("pages")){
-		elgg_register_widget_type("index_pages", elgg_echo("widget_manager:widgets:index_pages:name"), elgg_echo("widget_manager:widgets:index_pages:description"), "index", true);
+		elgg_register_widget_type("index_pages", elgg_echo("pages"), elgg_echo("widget_manager:widgets:index_pages:description"), "index", true);
 		widget_manager_add_widget_title_link("index_pages", "[BASEURL]pages/all/");
 	}
 }

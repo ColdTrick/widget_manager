@@ -3,27 +3,19 @@
 	$widget = $vars["entity"];
 	
 	$query = $widget->query;
-	$title = $widget->tw_title;
-	$sub = $widget->tw_subtitle;
-	$height = (int) $widget->heigth;
-	$background = $widget->background;
+	$title = addslashes($widget->tw_title);
+	$sub = addslashes($widget->tw_subtitle);
 	
-	if(!empty($title)){
-		$title = addslashes($title);
-	}
-	
-	if(!empty($sub)){
-		$sub = addslashes($sub);
-	}
-	
-	if(empty($height) || !is_int($height)){
+	$height = sanitise_int($widget->heigth, false);
+	if(empty($height)){
 		$height = 300;
 	}
 	
+	$background = $widget->background;
 	if(empty($background)){
 		$background = "4690d6";
 	}
-
+	
 	if(!empty($query)){
 
 		// Load Twitter JS

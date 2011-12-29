@@ -3,15 +3,23 @@
 	
 	$widget = $vars["entity"];
 	
-	$count = (int) $widget->activity_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($widget->activity_count, false);
+	if(empty($count)){
 		$count = 10;
 	}
 	
-	$activity_content = $widget->getMetadata("activity_content");
+	//$activity_content = $widget->getMetadata("activity_content");
+	
+	$river_options = array(
+			"pagination" => false,
+			"limit" => $count
+		);
+	
 	if(empty($activity_content)){
-		$activity = elgg_view_river_items(0, 0, "", "", "", '', $count, 0, 0, FALSE);
+		$activity = elgg_list_river($river_options);
+		//$activity = elgg_view_river_items(0, 0, "", "", "", '', $count, 0, 0, FALSE);
 	} else {
+		/*
 		// Construct 'where' clauses for the river
 		$where = array();
 		// river table does not have columns expected by get_access_sql_suffix so we modify its output
@@ -49,14 +57,12 @@
 				'items' => $riveritems,
 				'pagination' => false
 			));
-		}
+		}*/
 	}
 	
 	if(empty($activity)){
-		$activity = elgg_echo("widget_manager:widgets:index_activity:no_results");
+		$activity = elgg_echo("river:none");
 	}
-
-?>
-<div class="widget_more_wrapper">
-	<?php echo $activity; ?>
-</div>
+	
+	echo $activity; 
+	

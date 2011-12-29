@@ -10,8 +10,8 @@ function widget_group_forum_topics_pagesetup(){
 }
 
 function widget_group_forum_topics_init(){
-	elgg_register_widget_type("group_forum_topics", elgg_echo("widgets:group_forum_topics:title"), elgg_echo("widgets:group_forum_topics:description"), "groups");
-	widget_manager_add_widget_title_link("group_forum_topics", "[BASEURL]groups/forum/[GUID]/");
+	elgg_register_widget_type("group_forum_topics", elgg_echo("discussion:group"), elgg_echo("widgets:group_forum_topics:description"), "groups");
+	widget_manager_add_widget_title_link("group_forum_topics", "[BASEURL]discussion/owner/[GUID]");
 }
 
 elgg_register_event_handler("widgets_init", "widget_manager", "widget_group_forum_topics_init");

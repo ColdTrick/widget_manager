@@ -16,7 +16,7 @@
 					
 					if(!widget_manager_set_widget_setting($handler, $setting, $widget_context, $value)){
 						$error_count++;
-						register_error(sprintf(elgg_echo("widget_manager:action:manage:error:save_setting"), $setting, $widget->name));
+						register_error(elgg_echo("widget_manager:action:manage:error:save_setting", array($setting, $widget->name)));
 					}
 				}
 			}

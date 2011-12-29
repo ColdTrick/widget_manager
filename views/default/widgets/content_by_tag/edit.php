@@ -2,8 +2,8 @@
 
 	$widget = $vars["entity"];
 	
-	$count = (int) $widget->content_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($widget->content_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 	
@@ -92,9 +92,10 @@
 </div>
 
 <div>
-	<?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?></div>
+	<?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?><br />
 	<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
 </div>
+
 <?php 
 	if(elgg_view_exists("input/user_autocomplete")){
 		?>
@@ -111,7 +112,12 @@
 		<?php 		
 	}
 ?>
-<div><?php echo elgg_echo("widgets:content_by_tag:display_option"); ?></div>
-<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
-<div><?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?></div>
-<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:display_option"); ?><br />
+	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
+</div>
+
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
+</div>

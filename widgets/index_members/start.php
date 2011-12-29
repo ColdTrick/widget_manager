@@ -3,7 +3,7 @@
 
 function widget_index_members_init(){
 	elgg_register_widget_type("index_members", elgg_echo("widget_manager:widgets:index_members:name"), elgg_echo("widget_manager:widgets:index_members:description"), "index", true);
-		
+
 	if(widget_manager_is_page_handler_registered("members")){
 		widget_manager_add_widget_title_link("index_members", "[BASEURL]members");
 	}

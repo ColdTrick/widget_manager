@@ -1,12 +1,12 @@
 <?php 
 
-	$widget = $vars["entity"];
-	
-	$count = (int) $widget->bookmark_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($vars["entity"]->bookmark_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 
 ?>
-<div><?php echo elgg_echo("widget_manager:widgets:index_bookmarks:bookmark_count"); ?></div>
-<input type="text" name="params[bookmark_count]" value="<?php echo elgg_view("output/text", array("value" => $count)); ?>" size="4" maxlength="4" />
+<div>
+	<?php echo elgg_echo("widget:numbertodisplay"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[bookmark_count]", "value" => $count, "size" => "4", "maxlength" => "4")); ?>
+</div>

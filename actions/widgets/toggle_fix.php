@@ -4,12 +4,14 @@
 	if($entity = get_entity($entity_guid)){
 		if($entity instanceof ElggWidget){
 			$current = $entity->fixed;
-			var_dump($current);
 			if($current){
 				$entity->fixed = false;
 			} else {
 				$entity->fixed = true;
 			}
+			
+			// trigger save event for registration of change to status
+			$entity->save();
 		}		
 	} 
 	exit();

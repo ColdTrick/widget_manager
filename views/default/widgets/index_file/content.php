@@ -1,12 +1,8 @@
 <?php 
 
-	$widget = $vars["entity"];
-	
-	elgg_push_context("search");
-	
 	// get widget settings
-	$count = (int) $widget->file_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($vars["entity"]->file_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 
@@ -15,8 +11,7 @@
 		"subtype" => "file",
 		"limit" => $count,
 		"full_view" => false,
-		"pagination" => false,
-		"view_type_toggle" => false
+		"pagination" => false
 	);
 	
 	if($files = elgg_list_entities($options)){
@@ -24,5 +19,3 @@
 	} else {
 		echo elgg_echo("file:none");
 	}
-
-	elgg_pop_context();

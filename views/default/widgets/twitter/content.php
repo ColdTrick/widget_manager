@@ -32,7 +32,11 @@ if ($username) {
 		$.getScript("<?php echo $api_url; ?>");
 	</script>
 </div>
-
+<style type="text/css">
+	#twitter_widget {
+		margin: 0px;
+	}
+</style>
 <?php
 } else {
 

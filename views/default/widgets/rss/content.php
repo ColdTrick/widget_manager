@@ -1,6 +1,4 @@
 <?php
-	global $CONFIG;
-	
 	$widget = $vars["entity"];
 	
 	$blog_tags = '<a><p><br><b><i><em><del><pre><strong><ul><ol><li>';
@@ -19,9 +17,9 @@
 			$show_item_icon = false;
 		}
 		
-		$num_items = (int) $widget->rss_count;
-		if($num_items < 1){
-			$num_items = 4;
+		$rss_count = sanitise_int($widget->rss_count, false);
+		if(empty($rss_count)){
+			$rss_count = 4;
 		}
 		
 		if($widget->post_date == "yes" || $widget->post_date == "friendly"){
@@ -33,18 +31,18 @@
 		}
 		
 		if (!class_exists('SimplePie')){
-			
-			require_once($CONFIG->pluginspath . 'widget_manager/widgets/rss/vendors/simplepie/simplepie.inc');
+			require_once(elgg_get_plugins_path() . 'widget_manager/widgets/rss/vendors/simplepie/simplepie.inc');
 		}
 		
 		$feed = new SimplePie($feed_url, WIDGETS_RSS_CACHE_LOCATION, WIDGETS_RSS_CACHE_DURATION);
 		
-		$num_posts_in_feed = $feed->get_item_quantity($num_items);
+		$num_posts_in_feed = $feed->get_item_quantity($rss_count);
 		
 		if(($feed_title = $feed->get_title()) && ($widget->show_feed_title != "no")){
-			$title = "<h3><a href='" . $feed->get_permalink() . "' target='_blank'>" .$feed_title . "</a></h3>";
-			echo $title;
+			echo "<h3><a href='" . $feed->get_permalink() . "' target='_blank'>" .$feed_title . "</a></h3>";
 		}
+		
+		$body = "";
 		
 		if (empty($num_posts_in_feed)){
 			$body = elgg_echo('widgets:rss:error:notfind');
@@ -65,7 +63,7 @@
 						}
 					}
 					
-					$body .=  strip_tags($item->get_description(true), $blog_tags);
+					$body .= strip_tags($item->get_description(true), $blog_tags);
 					if ($post_date == "friendly"){
 						$body .= "<div class='widgets_rss_feed_timestamp'>" . elgg_view_friendly_time($item->get_date('U')) . "</div>";
 					} elseif ($post_date == "date"){
@@ -85,8 +83,6 @@
 					$body .= "</div>";
 				}
 				$body .= "<div class='clearfix'></div>";
-				
-				
 			}
 		}
 		

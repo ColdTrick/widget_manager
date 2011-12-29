@@ -12,8 +12,8 @@ function widget_group_files_pagesetup(){
 
 function widget_group_files_init(){	
 	if(elgg_is_active_plugin("file")){
-		elgg_register_widget_type("group_files", elgg_echo("widgets:group_files:title"), elgg_echo("widgets:group_files:description"), "groups");
-		widget_manager_add_widget_title_link("group_files", "[BASEURL]file/owner/[USERNAME]");
+		elgg_register_widget_type("group_files", elgg_echo("file:group"), elgg_echo("widgets:group_files:description"), "groups");
+		widget_manager_add_widget_title_link("group_files", "[BASEURL]file/group/[GUID]/all");
 	}
 }
 

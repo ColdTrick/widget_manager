@@ -11,3 +11,17 @@ function widget_manager_fix_widget(elem, guid){
 			}
 		});
 }
+
+$(document).ready(function(){
+	$(".widget-manager-fix").live("click", function(event){
+		$(this).toggleClass("fixed");
+		guid = $(this).attr("href").replace("#", "");
+		
+		elgg.action('widget_manager/widgets/toggle_fix', {
+				data: {
+					guid: guid
+				}
+			});
+		event.stopPropagation();
+	});
+});

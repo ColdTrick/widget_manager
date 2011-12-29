@@ -5,7 +5,7 @@
 		elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
 		
 		// extend CSS
-		elgg_extend_view("css", "widgets/rss/css");
+		elgg_extend_view("css/elgg", "widgets/rss/css");
 		
 		// make cache directory
 		if(!is_dir(elgg_get_data_path() . "/widgets/")){

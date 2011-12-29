@@ -77,6 +77,19 @@
 			array_multisort($name, SORT_STRING, $widgets);
 		}
 	}
+
+	/* returns a given array of widgets with the guids as key*/
+	function widget_manager_sort_widgets_guid(&$widgets){
+		if(!empty($widgets)){
+			$new_widgets = array();
+			
+			foreach($widgets as $row){
+				$new_widgets[$row->guid] = $row; 
+			}
+			
+			$widgets = $new_widgets;
+		}
+	}
 	
 	function widget_manager_set_configured_widgets($context, $column, $value){
 		$result = false;
@@ -158,6 +171,12 @@
 			
 			if (!empty($link)) {
 				$owner = $widget->getOwnerEntity();
+				if($owner instanceof ElggSite){
+					if(elgg_is_logged_in()){
+						// index widgets sometimes use usernames in widget titles
+						$owner = elgg_get_logged_in_user_entity();
+					}
+				}
 				/* Let's do some basic substitutions to the link */
 			
 				/* [USERNAME] */
@@ -193,4 +212,136 @@
  				}	
 			}
 		}
+	}
+	
+	/* 
+	 * Updates the fixed widgets for a given context and user
+	 */
+	function widget_manager_update_fixed_widgets($context, $user_guid){
+		// need to be able to access everything
+		$old_ia = elgg_set_ignore_access(true);
+		elgg_push_context('create_default_widgets');
+		
+		$options = array(
+				'type' => 'object',
+				'subtype' => 'widget',
+				'owner_guid' => elgg_get_site_entity()->guid,
+				'private_setting_name_value_pairs' => array(
+					'context' => $context,
+					'fixed' => 1
+					),
+				'limit' => 0
+			);
+		
+		// see if there are configured fixed widgets
+		$configured_fixed_widgets = elgg_get_entities_from_private_settings($options);
+		widget_manager_sort_widgets_guid($configured_fixed_widgets);
+		
+		// fetch all currently configured widgets fixed AND not fixed
+		$options["private_setting_name_value_pairs"] = array('context' => $context);
+		$options["owner_guid"] = $user_guid;
+		
+		$user_widgets = elgg_get_entities_from_private_settings($options);
+		widget_manager_sort_widgets_guid($user_widgets);
+		
+		$default_widget_guids = array();
+		
+		// update current widgets
+		if($user_widgets){
+			foreach($user_widgets as $guid => $widget){
+				$widget_fixed = $widget->fixed;
+				$default_widget_guid = $widget->fixed_parent_guid;
+				$default_widget_guids[] = $default_widget_guid;
+				
+				if(!empty($default_widget_guid)){
+					if($widget_fixed && !array_key_exists($default_widget_guid, $configured_fixed_widgets)){
+						// remove fixed status
+						$widget->fixed = false;
+					} elseif(!$widget_fixed && array_key_exists($default_widget_guid, $configured_fixed_widgets)) {
+						// add fixed status
+						$widget->fixed = true;					
+					}
+					
+					// need to recheck the fixed status as it could have been changed
+					if($widget->fixed && array_key_exists($default_widget_guid, $configured_fixed_widgets)){
+						// update settings for currently configured widgets
+						
+						// pull in settings
+						$settings = get_all_private_settings($configured_fixed_widgets[$default_widget_guid]->guid);
+						foreach ($settings as $name => $value) {
+							$widget->$name = $value;
+						}
+						
+						// access is no setting, but could also be controlled from the default widget
+						$widget->access = $configured_fixed_widgets[$default_widget_guid]->access;
+						
+						// save the widget (needed for access update)
+						$widget->save();
+					}
+				}
+			}
+		}
+		
+		// add new fixed widgets
+		if($configured_fixed_widgets){
+			foreach($configured_fixed_widgets as $guid => $widget){
+				if(!in_array($guid, $default_widget_guids)){
+					// if no widget is found which is already linked to this default widget, clone the widget to the user
+					$new_widget = clone $widget;
+					$new_widget->container_guid = $user_guid;
+					$new_widget->owner_guid = $user_guid;
+					
+					// pull in settings
+					$settings = get_all_private_settings($guid);
+					
+					foreach ($settings as $name => $value) {
+						$new_widget->$name = $value;
+					}
+					
+					$new_widget->save();
+				}
+			}
+		}
+		
+		// fixing order on all columns for this context, fixed widgets should always stay on top of other 'free' widgets
+		foreach(array(1,2,3) as $column){
+			// reuse previous declared options with a minor adjustment
+			$options["private_setting_name_value_pairs"] = array(
+				'context' => $context,
+				'column' => $column
+			);
+			
+			$column_widgets = elgg_get_entities_from_private_settings($options);
+			
+			$free_widgets = array();
+			$fixed_rank = 0;
+			
+			if($column_widgets){
+				foreach($column_widgets as $widget){
+					if($widget->fixed){
+						$widget->order = $fixed_rank;
+						$fixed_rank += 10;
+					} else {
+						$free_widgets[$widget->order] = $widget; 
+					}
+				}
+				
+				if(!empty($fixed_rank) && !empty($free_widgets)){
+					// get them in the correct order
+					ksort($free_widgets);
+					
+					foreach($free_widgets as $widget){
+						$widget->order = $fixed_rank;
+						$fixed_rank += 10;
+					}
+				}
+			}
+		}
+		
+		// revert access
+		elgg_set_ignore_access($old_ia);
+		elgg_pop_context();
+		
+		// set the user timestamp
+		elgg_set_plugin_user_setting($context . "_fixed_ts", time(), $user_guid, "widget_manager");
 	}

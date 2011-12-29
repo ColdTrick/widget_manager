@@ -3,19 +3,16 @@
 	$widget = $vars["entity"];
 	
 	// get widget settings
-	$count = (int) $widget->group_count;
-	if(empty($count) || !is_int($count)){
+	$count = sanitise_int($widget->group_count, false);
+	if(empty($count)){
 		$count = 8;
 	}
 
-	elgg_push_context("search");
-	
 	$options = array(
 		"type" => "group",
 		"limit" => $count,
 		"full_view" => false,
-		"pagination" => false,
-		"view_type_toggle" => false
+		"pagination" => false
 	);
 	
 	if($widget->featured == "yes"){
@@ -26,7 +23,5 @@
 	if($groups = elgg_list_entities_from_metadata($options)){
 		echo $groups;
 	} else {
-		echo elgg_echo("widget_manager:widgets:index_groups:no_result");
+		echo elgg_echo("groups:none");
 	}
-
-	elgg_pop_context();
