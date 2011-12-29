@@ -24,20 +24,5 @@
 		<priority>after</priority>
 	</requires>
 	
-	<screenshot>
-		<description>Edit Profile Fields</description>
-		<path>screenshots/edit_profile_fields.png</path>
-	</screenshot>
-
-	<screenshot>
-		<description>New Profile Field</description>
-		<path>screenshots/new_profile_field.png</path>
-	</screenshot>
-
-	<screenshot>
-		<description>Accordion Profile View</description>
-		<path>screenshots/accordion_profile_view.png</path>
-	</screenshot>
- 	
  	<category>ColdTrick</category>
 </plugin_manifest>
