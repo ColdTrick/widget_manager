@@ -9,7 +9,7 @@
 	if(elgg_in_context("dashboard") && widget_manager_multi_dashboard_enabled()){
 		echo elgg_view('output/url', array(
 			'id' => 'widget-manager-multi-dashboard',
-			'href' => '#widget_manager_multi_dashboard_select',
+			'href' => 'multi_dashboard/edit',
 			'text' => elgg_echo('widget_manager:multi_dashboard:add'),
 			'class' => 'elgg-button elgg-button-action',
 			'is_trusted' => true,
@@ -31,7 +31,7 @@
 		$("#widget-manager-multi-dashboard").fancybox({ 
 			autoDimensions: false, 
 			width: 400, 
-			height: 400
+			height: 350
 		});	
 	});
 </script>

@@ -40,7 +40,6 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 		);
 	
 	$md_entities = elgg_get_entities($options);
-	
 	echo elgg_view("widget_manager/multi_dashboard/navigation", array("entities" => $md_entities));
 }
 
