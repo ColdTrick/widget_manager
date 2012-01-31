@@ -63,7 +63,7 @@ if (elgg_in_context('default_widgets')) {
 
 $widget_id = "elgg-widget-$widget->guid";
 $widget_instance = "elgg-widget-instance-$handler";
-$widget_class = "elgg-module-widget";
+$widget_class = "elgg-module elgg-module-widget";
 
 if ($can_edit) {
 	$widget_class .= " elgg-state-draggable $widget_instance";
@@ -90,8 +90,9 @@ if($widget->widget_manager_disable_widget_content_style == "yes"){
 
 if(($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()){
 	$widget_header = <<<HEADER
-		<h3>$title</h3>
+		<div class="elgg-widget-handle clearfix"><h3>$title</h3>
 		$controls
+		</div>
 HEADER;
 } 
 
