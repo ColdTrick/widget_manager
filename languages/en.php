@@ -70,6 +70,9 @@
 		'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
 		'widget_manager:widgets:lightbox:title:admin' => "Add widgets to your admin dashboard",
 		
+		// multi dashboard
+		'widget_manager:multi_dashboard:add' => "New Tab",
+		
 		// actions
 		// manage
 		'widget_manager:action:manage:error:context' => "Invalid context to save widget configuration",

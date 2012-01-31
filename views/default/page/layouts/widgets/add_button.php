@@ -6,6 +6,16 @@
 ?>
 <div class="elgg-widget-add-control">
 <?php
+	if(elgg_in_context("dashboard") && widget_manager_multi_dashboard_enabled()){
+		echo elgg_view('output/url', array(
+			'id' => 'widget-manager-multi-dashboard',
+			'href' => '#widget_manager_multi_dashboard_select',
+			'text' => elgg_echo('widget_manager:multi_dashboard:add'),
+			'class' => 'elgg-button elgg-button-action',
+			'is_trusted' => true,
+		));
+		echo " ";
+	}
 	echo elgg_view('output/url', array(
 		'id' => 'widgets-add-panel',
 		'href' => '#widget_manager_widgets_select',
