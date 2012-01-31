@@ -71,7 +71,7 @@
 	border: 2px solid #DEDEDE;
 }
 
-.widget-manager-fix {
+.elgg-menu-widget .elgg-menu-item-fix {
 	right: 45px;
 }
 

@@ -109,3 +109,51 @@
 	
 		return $result;
 	}
+	
+	/*
+	* adds an optional fix link to the menu
+	*/
+	function widget_manager_register_widget_menu($hook_name, $entity_type, $return, $params){
+		$widget = $params['entity'];
+		
+		if(elgg_is_admin_logged_in() && elgg_in_context("default_widgets") && in_array($widget->context, array("profile", "dashboard")) && $widget->fixed_parent_guid){
+			$class = "widget-manager-fix";
+			if($widget->fixed){
+				$class .= " fixed";
+			}
+			$params = array(
+					'name' => "fix",
+					'text' => elgg_view_icon('widget-manager-push-pin'),
+					'title' => elgg_echo('widget_manager:widgets:fix'),
+					'href' => "#$widget->guid",
+					'class' => $class
+			);
+				
+			$item = ElggMenuItem::factory($params);
+			$return[] = $item;
+		}
+	
+		return $return;
+	}
+	
+	/*
+	 * optionally removes the edit and delete links from the menu
+	*/
+	function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return, $params){
+		if(is_array($return)){
+			$widget = $params["entity"];
+			if($widget->fixed && !elgg_in_context("default_widgets")){
+				foreach($return as $section_key => $section){
+					foreach($section as $item_key => $item){
+						if(in_array($item->getName(), array("delete", "settings"))){
+							unset($return[$section_key][$item_key]);
+						}
+					}
+				}
+			}
+		}
+		return $return;
+	}
+	
+	
+	

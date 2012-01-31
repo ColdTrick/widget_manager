@@ -132,6 +132,9 @@
 	elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
 	elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early
 	
+	elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
+	elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
+	
 	// register actions
 	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
 	elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
