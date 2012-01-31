@@ -7,6 +7,10 @@
 			case "edit":
 				$result = true;
 				
+				if(!empty($page[1])){
+					set_input("guid", $page[1]);
+				}
+				
 				include(dirname(dirname(__FILE__)) . "/pages/multi_dashboard/edit.php");
 				break;
 		}
