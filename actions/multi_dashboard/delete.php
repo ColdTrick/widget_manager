@@ -3,7 +3,7 @@
 	$guid = (int) get_input("guid");
 	
 	if(!empty($guid)){
-		if(($entity = get_entity($guid) && $entity->canEdit())){
+		if(($entity = get_entity($guid)) && $entity->canEdit()){
 			if(elgg_instanceof($entity, "object", MultiDashboard::SUBTYPE)){
 				$title = $entity->title;
 				
