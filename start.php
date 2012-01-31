@@ -122,68 +122,6 @@
 		}
 	}
 	
-	function widget_manager_menu_setup($hook, $type, $return, $params) {
-		$widget = $params['entity'];
-		$show_edit = elgg_extract('show_edit', $params, true);
-
-		$collapse = array(
-			'name' => 'collapse',
-			'text' => ' ',
-			'href' => "#elgg-widget-content-$widget->guid",
-			'class' => 'elgg-widget-collapse-button',
-			'rel' => 'toggle',
-			'priority' => 1
-		);
-		$return[] = ElggMenuItem::factory($collapse);
-
-		if ($widget->canEdit() && (!$widget->fixed || elgg_is_admin_logged_in())) {
-			$delete = array(
-				'name' => 'delete',
-				'text' => elgg_view_icon('delete-alt'),
-				'title' => elgg_echo('widget:delete', array($widget->getTitle())),
-				'href' => "action/widgets/delete?widget_guid=$widget->guid",
-				'is_action' => true,
-				'is_trusted' => true,
-				'class' => 'elgg-widget-delete-button',
-				'id' => "elgg-widget-delete-button-$widget->guid",
-				'priority' => 900
-			);
-			$return[] = ElggMenuItem::factory($delete);
-
-			if ($show_edit) {
-				$edit = array(
-					'name' => 'settings',
-					'text' => elgg_view_icon('settings-alt'),
-					'title' => elgg_echo('widget:edit'),
-					'href' => "#widget-edit-$widget->guid",
-					'class' => "elgg-widget-edit-button",
-					'rel' => 'toggle',
-					'priority' => 800,
-				);
-				$return[] = ElggMenuItem::factory($edit);
-			}
-
-		  if(elgg_in_context("default_widgets") && in_array($widget->context, array("profile", "dashboard")) && $widget->fixed_parent_guid){
-				$class = "widget-manager-fix";
-				if($widget->fixed){
-					$class .= " fixed";
-				}
-				$fix = array(
-					'name' => 'fixed',
-					'text' => elgg_view_icon('widget-manager-push-pin'),
-					'title' => elgg_echo('widget_manager:widgets:fix'),
-					'href' => "#$widget->guid",
-					'class' => $class,
-					'rel' => 'toggle',
-					'priority' => 700,
-				);
-				$return[] = ElggMenuItem::factory($fix);
-			}
-		}
-
-		return $return;
-	}
-
 	// register default Elgg events
 	elgg_register_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
 	elgg_register_event_handler("init", "system", "widget_manager_init");
