@@ -25,3 +25,13 @@
 	));
 ?>
 </div>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$("#widget-manager-multi-dashboard").fancybox({ 
+			autoDimensions: false, 
+			width: 400, 
+			height: 400
+		});	
+	});
+</script>
