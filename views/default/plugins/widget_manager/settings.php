@@ -109,5 +109,22 @@
 			<?php echo elgg_view("input/dropdown", array("name" => "params[group_option_admin_only]", "value" => $plugin->group_option_admin_only, "options_values" => $noyes_options)); ?>
 		</td>
 	</tr>
+	<tr>
+		<td colspan="2">
+			<div class='elgg-module-inline'>
+				<div class='elgg-head'>
+					<h3><?php echo elgg_echo("widget_manager:settings:multi_dashboard"); ?></h3>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<?php echo elgg_echo('widget_manager:settings:multi_dashboard:enable'); ?>
+		</td>
+		<td>
+			<?php echo elgg_view("input/dropdown", array("name" => "params[multi_dashboard_enabled]", "value" => $plugin->multi_dashboard_enabled, "options_values" => $noyes_options)); ?>
+		</td>
+	</tr>
 </table>
 <br />

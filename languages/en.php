@@ -53,6 +53,9 @@
 		'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 		'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 
+		'widget_manager:settings:multi_dashboard' => "Multi Dashboard",
+		'widget_manager:settings:multi_dashboard:enable' => "Enable multiple dashboards",
+
 		// views
 		// settings
 		'widget_manager:forms:settings:no_widgets' => "No widgets to manage",
