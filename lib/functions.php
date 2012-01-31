@@ -345,3 +345,17 @@
 		// set the user timestamp
 		elgg_set_plugin_user_setting($context . "_fixed_ts", time(), $user_guid, "widget_manager");
 	}
+	
+	function widget_manager_multi_dashboard_enabled(){
+		static $result;
+		
+		if(!isset($result)){
+			$result = false;
+			
+			if(elgg_is_active_plugin("dashboard") && (elgg_get_plugin_setting("multi_dashboard_enabled", "widget_manager") == "yes")){
+				$result = true;
+			}
+		}
+		
+		return $result;
+	}
