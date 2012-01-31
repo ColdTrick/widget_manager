@@ -42,6 +42,9 @@
 		
 		// register a widget title url handler
 		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");	
+
+		elgg_unregister_plugin_hook_handler('register', 'menu:widget', 'elgg_widget_menu_setup');
+		elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_menu_setup');
 	}
 
 	function widget_manager_pagesetup(){
