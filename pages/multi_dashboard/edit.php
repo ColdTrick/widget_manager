@@ -21,7 +21,8 @@
 	}
 	
 	$form_vars = array(
-		"id" => "widget_manager_multi_dashboard_edit"
+		"id" => "widget_manager_multi_dashboard_edit",
+		"class" => "elgg-form-alt"
 	);
 	
 	$body_vars = array(
@@ -30,4 +31,4 @@
 	
 	$form = elgg_view_form("multi_dashboard/edit", $form_vars, $body_vars);
 	
-	echo elgg_view_module("aside", $title_text, $form);
+	echo elgg_view_module("info", $title_text, $form);
