@@ -82,3 +82,7 @@
 .widget-manager-fix.fixed > .elgg-icon-widget-manager-push-pin {
 	background-position: 0px -720px;
 }
+
+#widget-manager-multi-dashboard-tabs {
+	float: left;
+}
