@@ -10,9 +10,7 @@
 		);
 		
 		protected function initializeAttributes() {
-			if(!parent::initializeAttributes()){
-				return false;
-			}
+			parent::initializeAttributes();
 			
 			$this->attributes["subtype"] = self::SUBTYPE;
 		}

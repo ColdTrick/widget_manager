@@ -45,6 +45,8 @@
 		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
 
 		// multi dashboard support
+		add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
+		
 		if(widget_manager_multi_dashboard_enabled()){
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
