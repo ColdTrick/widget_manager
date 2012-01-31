@@ -3,7 +3,6 @@
  - Index widgets (with a few different layouts)
  - Group widgets (instead of group profile modules)
  - Provides a lot of new widgets (see below for the widget list)
- 
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
  - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
 
@@ -64,6 +63,16 @@ You can fix widgets on a dashboard or profile page. Fixing widgets can be done b
 A user can always add his or hers own widgets. They will always be added below the last fixed widget in the destination column.
  
 = ToDo: =
+
+== General ==
+
  - check available widget and saving of widget manage page on a clean install
  - test migrating from 1.7 to 1.8 
  - test different browser (only FF 8 tested)
+ 
+== Multi Dashboard ==
+ 
+ - fluid layout
+ - borderless columns
+ - colored tabs
+ - dashboard background
