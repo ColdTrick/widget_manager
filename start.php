@@ -6,6 +6,7 @@
 	require_once(dirname(__FILE__) . "/lib/functions.php");
 	require_once(dirname(__FILE__) . "/lib/events.php");
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
+	require_once(dirname(__FILE__) . "/lib/page_handlers.php");
 
 	function widget_manager_plugins_boot(){
 		// Load widgets
@@ -41,7 +42,15 @@
 		elgg_extend_view("js/admin", "widget_manager/js/admin");
 		
 		// register a widget title url handler
-		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");	
+		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
+
+		// multi dashboard support
+		if(widget_manager_multi_dashboard_enabled()){
+			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
+			
+			elgg_register_action("multi_dashboard/edit", dirname(__FILE__) . "/actions/multi_dashboard/edit.php");
+			elgg_register_action("multi_dashboard/delete", dirname(__FILE__) . "/actions/multi_dashboard/delete.php");
+		}
 	}
 
 	function widget_manager_pagesetup(){
