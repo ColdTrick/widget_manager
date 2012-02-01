@@ -108,13 +108,19 @@
 		}
 		
 		function getInternalUrl(){
-			return $this->internal_url;
-		}
-		
-		function getWidgets(){
 			$result = false;
 			
-			if($this->getDashboardType() == "widgets"){
+			if($url = $this->internal_url){
+				$result = elgg_http_add_url_query_elements($url, array("internal_dashboard" => "yes"));
+			}
+			
+			return $result;
+		}
+		
+		function getWidgets($check_type = true){
+			$result = false;
+			
+			if(($check_type && ($this->getDashboardType() == "widgets")) || !$check_type){
 				$result = array();
 				
 				$options = array(
