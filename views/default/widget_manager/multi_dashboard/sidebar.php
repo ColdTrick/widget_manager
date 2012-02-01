@@ -9,7 +9,7 @@
 		$('#widget-manager-multi_dashboard-extras').fancybox({
 			"autoDimensions" : false,
 			"width": 400,
-			"height": 350,
+			"height": 200,
 			"titleShow" : false,
 			"href": $('#widget-manager-multi_dashboard-extras').attr("href") + "&title=" + escape(document.title)
 		});
