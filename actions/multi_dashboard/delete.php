@@ -8,9 +8,9 @@
 				$title = $entity->title;
 				
 				if($entity->delete()){
-					system_message(elgg_echo("entity:delete:success", array($title)));
+					system_message(elgg_echo("widget_manager:actions:multi_dashboard:delete:success", array($title)));
 				} else {
-					register_error(elgg_echo("entity:delete:fail", array($title)));
+					register_error(elgg_echo("widget_manager:actions:multi_dashboard:delete:error:delete", array($title)));
 				}
 			} else {
 				register_error(elgg_echo("InvalidClassException:NotValidElggStar", array($guid, MultiDashboard::SUBTYPE)));
