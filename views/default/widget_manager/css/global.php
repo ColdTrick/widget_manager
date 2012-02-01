@@ -84,5 +84,20 @@
 }
 
 #widget-manager-multi-dashboard-tabs {
-	float: left;
+	position: absolute;
+	top: 20px;
+}
+
+.widget-manager-multi-dashboard-tabs-edit {
+	display: none;
+	vertical-align: middle;
+}
+
+#widget-manager-multi-dashboard-tabs li:hover > a {
+	padding-right: 5px;
+}
+
+#widget-manager-multi-dashboard-tabs li:hover .widget-manager-multi-dashboard-tabs-edit {
+	display: inline-block;
+	margin-left: 5px;
 }

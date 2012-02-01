@@ -36,7 +36,8 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 		"type" => "object",
 		"subtype" => MultiDashboard::SUBTYPE,
 		"limit"=> false,
-		"owner_guid" => elgg_get_logged_in_user_guid()
+		"owner_guid" => elgg_get_logged_in_user_guid(),
+		"order_by" => "e.time_created ASC"
 		);
 	
 	$md_entities = elgg_get_entities($options);
