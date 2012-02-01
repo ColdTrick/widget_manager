@@ -13,7 +13,7 @@ if($md_entities){
 	$default_tab = array(
 		"text" => elgg_echo("default"),
 		"href" => "dashboard",
-		"title" => elgg_echo("dashboard"),
+		"title" => elgg_echo("dashboard")
 // 		"id" => $entity->getContext(),	
 // 		"rel" => $entity->getGUID()
 	);
@@ -41,7 +41,8 @@ if($md_entities){
 				"title" => $entity->title,
 				"id" => $entity->getContext(),
 				"selected" => $selected,
-				"rel" => $entity->getGUID()
+				"rel" => $entity->getGUID(),
+				"class" => "widget-manager-multi-dashboard-tab"
 			);
 	}
 	
