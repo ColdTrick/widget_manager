@@ -50,6 +50,8 @@
 		if(widget_manager_multi_dashboard_enabled()){
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
+			elgg_register_plugin_hook_handler("route", "dashboard", "widget_manager_dashboard_route_handler");
+			
 			elgg_register_action("multi_dashboard/edit", dirname(__FILE__) . "/actions/multi_dashboard/edit.php");
 			elgg_register_action("multi_dashboard/delete", dirname(__FILE__) . "/actions/multi_dashboard/delete.php");
 		}

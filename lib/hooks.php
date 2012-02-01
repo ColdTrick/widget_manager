@@ -155,5 +155,12 @@
 		return $return;
 	}
 	
-	
+	function widget_manager_dashboard_route_handler($hook_name, $entity_type, $return, $params){
+		
+		if($page = elgg_extract("segments", $return)){
+			if(!empty($page[0])){
+				set_input("multi_dashboard_guid", $page[0]);
+			}
+		}
+	}
 	
