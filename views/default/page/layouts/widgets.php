@@ -49,11 +49,14 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 
 
 if(!empty($md_object)){
-	//$widgets = $md_object->getWidgets();
+	$widgets = $md_object->getWidgets();
 } else {
-	//$widgets = elgg_get_widgets($owner->guid, $widget_context);
-	// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
-	$widgets = widget_manager_get_widgets($owner->guid, $widget_context);
+	if($context == "dashboard"){
+		// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
+		$widgets = widget_manager_get_widgets($owner->guid, $widget_context);
+	} else {
+		$widgets = elgg_get_widgets($owner->guid, $widget_context);
+	}
 }
 
 if (elgg_can_edit_widget_layout($context)) {
