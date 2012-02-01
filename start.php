@@ -123,6 +123,12 @@
 				widget_manager_update_fixed_widgets($context, $page_owner_guid);
 			}
 		}
+		
+		if(widget_manager_multi_dashboard_enabled()){
+			if(get_input("internal_dashboard") == "yes"){
+				elgg_set_view_location("page/default", dirname(__FILE__) . "/views_alt/");
+			}
+		}
 	}
 	
 	/* enables widget that are not specifically registered for groups or index widget, but do work */

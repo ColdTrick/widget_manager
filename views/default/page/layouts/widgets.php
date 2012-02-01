@@ -28,7 +28,8 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 	if(!empty($md_guid)){
 		$md_object = get_entity($md_guid);
 		if($md_object){
-			if($md_object->getDashboardType() == "iframe"){
+			$md_type = $md_object->getDashboardType();
+			if(in_array($md_type, array("iframe", "internal"))){
 				elgg_push_context("iframe_dashboard");
 			} else {
 				$num_columns = $md_object->getNumColumns();
@@ -77,10 +78,27 @@ if(elgg_in_context("iframe_dashboard")){
 	// undo iframe context
 	elgg_pop_context();
 	
-	$url = $md_object->getIframeUrl();
-	$height = $md_object->getIframeHeight();
-	
-	echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
+	if($md_object->getDashboardType() == "iframe"){
+		$url = $md_object->getIframeUrl();
+		$height = $md_object->getIframeHeight();
+		
+		echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
+		
+	} elseif($md_object->getDashboardType() == "internal"){
+		$url = $md_object->getInternalUrl();
+		
+		?>
+		<div id='widget-manager-multi-dashboard-internal-content'><?php echo elgg_view('graphics/ajax_loader', array("hidden" => false));?></div>
+		<script type="text/javascript">
+
+			$(document).ready(function(){
+				$("#widget-manager-multi-dashboard-internal-content").load("<?php echo $url; ?>");
+			});
+
+		</script>
+		<?php 
+		
+	}
 } else {
 	if(empty($widgets) || $context !== "dashboard"){
 		echo $vars['content'];
