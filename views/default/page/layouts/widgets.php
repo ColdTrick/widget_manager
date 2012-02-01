@@ -18,7 +18,7 @@ $owner = elgg_get_page_owner_entity();
 
 $widget_types = elgg_get_widget_types();
 
-$context = $widget_context = elgg_get_context();
+$context = elgg_get_context();
 
 elgg_push_context('widgets');
 
@@ -28,7 +28,9 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 	if(!empty($md_guid)){
 		$md_object = get_entity($md_guid);
 		if($md_object){
-			$widget_context = $md_object->getContext();
+			if($md_object->getDashboardType() == "iframe"){
+				elgg_push_context("iframe_dashboard");
+			}
 		}
 	}
 	
@@ -44,7 +46,17 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 	echo elgg_view("widget_manager/multi_dashboard/navigation", array("entities" => $md_entities));
 }
 
-$widgets = elgg_get_widgets($owner->guid, $widget_context);
+
+if(!empty($md_object)){
+	$widgets = $md_object->getWidgets();
+} else {
+	if($context == "dashboard"){
+		// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
+		$widgets = widget_manager_get_widgets($owner->guid, $context);
+	} else {
+		$widgets = elgg_get_widgets($owner->guid, $context);
+	}
+}
 
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
@@ -53,31 +65,40 @@ if (elgg_can_edit_widget_layout($context)) {
 	
 	$params = array(
 		'widgets' => $widgets,
-		'context' => $widget_context,
+		'context' => $context,
 		'exact_match' => $exact_match,
 	);
 	echo elgg_view('page/layouts/widgets/add_panel', $params);
 }
 
-echo $vars['content'];
-
-$widget_class = "elgg-col-1of{$num_columns}";
-for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
-	if (isset($widgets[$column_index])) {
-		$column_widgets = $widgets[$column_index];
-	} else {
-		$column_widgets = array();
+if(elgg_in_context("iframe_dashboard")){
+	$url = $md_object->getIframeUrl();
+	$height = $md_object->getIframeHeight();
+	
+	echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
+} else {
+	if(empty($widgets)){
+		echo $vars['content'];
 	}
-
-	echo "<div class=\"$widget_class elgg-widgets\" id=\"elgg-widget-col-$column_index\">";
-	if (sizeof($column_widgets) > 0) {
-		foreach ($column_widgets as $widget) {
-			if (array_key_exists($widget->handler, $widget_types)) {
-				echo elgg_view_entity($widget, array('show_access' => $show_access));
+	
+	$widget_class = "elgg-col-1of{$num_columns}";
+	for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
+		if (isset($widgets[$column_index])) {
+			$column_widgets = $widgets[$column_index];
+		} else {
+			$column_widgets = array();
+		}
+	
+		echo "<div class=\"$widget_class elgg-widgets\" id=\"elgg-widget-col-$column_index\">";
+		if (sizeof($column_widgets) > 0) {
+			foreach ($column_widgets as $widget) {
+				if (array_key_exists($widget->handler, $widget_types)) {
+					echo elgg_view_entity($widget, array('show_access' => $show_access));
+				}
 			}
 		}
+		echo '</div>';
 	}
-	echo '</div>';
 }
 
 elgg_pop_context();

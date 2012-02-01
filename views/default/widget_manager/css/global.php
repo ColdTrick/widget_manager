@@ -93,11 +93,11 @@
 	vertical-align: middle;
 }
 
-#widget-manager-multi-dashboard-tabs li:hover > a {
+.widget-manager-multi-dashboard-tab:hover > a {
 	padding-right: 5px;
 }
 
-#widget-manager-multi-dashboard-tabs li:hover .widget-manager-multi-dashboard-tabs-edit {
+.widget-manager-multi-dashboard-tab:hover .widget-manager-multi-dashboard-tabs-edit {
 	display: inline-block;
 	margin-left: 5px;
 }

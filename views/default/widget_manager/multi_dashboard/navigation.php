@@ -8,15 +8,26 @@ $selected_guid = get_input("multi_dashboard_guid");
 if($md_entities){
 	
 	$tabs = array();
+	
+	// add the default tab
+	$default_tab = array(
+		"text" => elgg_echo("dashboard"),
+		"href" => "dashboard",
+		"title" => elgg_echo("dashboard")
+	);
+	
+	if(empty($selected_guid)){
+		$default_tab["selected"] = true;
+	}
+	
+	$tabs[] = $default_tab;
+	
 	foreach($md_entities as $key => $entity){
 		
 		$selected = false;
 		if($entity->getGUID() == get_input("multi_dashboard_guid")){
 			$selected = true;
-		} elseif($key == 0 && empty($selected_guid)){
-			$selected = true;
-		}
-		
+		} 
 		$tab_title = $entity->title;
 		if(strlen($tab_title) > $max_tab_title_length){
 			$tab_title = substr($tab_title, 0, $max_tab_title_length);
@@ -26,9 +37,9 @@ if($md_entities){
 				"text" => $tab_title . elgg_view_icon("settings-alt", "widget-manager-multi-dashboard-tabs-edit"),
 				"href" => $entity->getURL(),
 				"title" => $entity->title,
-				"id" => $entity->getContext(),
 				"selected" => $selected,
-				"rel" => $entity->getGUID()
+				"rel" => $entity->getGUID(),
+				"class" => "widget-manager-multi-dashboard-tab"
 			);
 	}
 	
