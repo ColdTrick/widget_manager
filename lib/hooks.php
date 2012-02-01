@@ -159,7 +159,11 @@
 		
 		if($page = elgg_extract("segments", $return)){
 			if(!empty($page[0])){
-				set_input("multi_dashboard_guid", $page[0]);
+				if(get_entity($page[0])){
+					set_input("multi_dashboard_guid", $page[0]);
+				} else {
+					register_error(elgg_echo("changebookmark"));
+				}
 			}
 		}
 	}
