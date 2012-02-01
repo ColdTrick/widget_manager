@@ -359,3 +359,45 @@
 		
 		return $result;
 	}
+
+	/*
+	 * This function replaces default Elgg function elgg_widgets
+	 * Default dashboard tab widgets have no relationship with a custom dashboard
+	 */
+	function widget_manager_get_widgets($user_guid, $context) {
+		global $CONFIG;
+		
+		$options = array(
+			'type' => 'object',
+			'subtype' => 'widget',
+			'owner_guid' => $user_guid,
+			'private_setting_name' => 'context',
+			'private_setting_value' => $context,
+			'wheres' => array(
+						"NOT EXISTS (
+							SELECT 1 FROM {$CONFIG->dbprefix}entity_relationships r
+							WHERE r.guid_one = e.guid
+								AND r.relationship = '" . MultiDashboard::WIDGET_RELATIONSHIP . "')"
+					),
+			'limit' => 0
+		);
+		
+		$widgets = elgg_get_entities_from_private_settings($options);
+		if (!$widgets) {
+			return array();
+		}
+	
+		$sorted_widgets = array();
+		foreach ($widgets as $widget) {
+			if (!isset($sorted_widgets[(int)$widget->column])) {
+				$sorted_widgets[(int)$widget->column] = array();
+			}
+			$sorted_widgets[(int)$widget->column][$widget->order] = $widget;
+		}
+	
+		foreach ($sorted_widgets as $col => $widgets) {
+			ksort($sorted_widgets[$col]);
+		}
+	
+		return $sorted_widgets;
+	}
