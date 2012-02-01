@@ -74,6 +74,9 @@ if (elgg_can_edit_widget_layout($context)) {
 }
 
 if(elgg_in_context("iframe_dashboard")){
+	// undo iframe context
+	elgg_pop_context();
+	
 	$url = $md_object->getIframeUrl();
 	$height = $md_object->getIframeHeight();
 	
