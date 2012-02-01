@@ -30,6 +30,8 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 		if($md_object){
 			if($md_object->getDashboardType() == "iframe"){
 				elgg_push_context("iframe_dashboard");
+			} else {
+				$num_columns = $md_object->getNumColumns();
 			}
 		}
 	}
