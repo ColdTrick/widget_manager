@@ -79,7 +79,7 @@ if(elgg_in_context("iframe_dashboard")){
 	
 	echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
 } else {
-	if(empty($widgets)){
+	if(empty($widgets) || $context !== "dashboard"){
 		echo $vars['content'];
 	}
 	
