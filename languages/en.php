@@ -72,6 +72,7 @@
 		
 		// multi dashboard
 		'widget_manager:multi_dashboard:add' => "New Tab",
+		'widget_manager:multi_dashboard:extras' => "Add as dashboard tab",
 		
 		// multi dashboard - edit
 		'widget_manager:multi_dashboard:new' => "Create a new dashboard",

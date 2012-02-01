@@ -80,6 +80,7 @@
 		$form_data .= "</div>";
 	} else {
 		$form_data .= elgg_view("input/hidden", array("name" => "internal_url", "value" => urlencode($internal_url)));
+		$form_data .= elgg_view("input/hidden", array("name" => "dashboard_type", "value" => "internal"));
 	}
 	
 	$form_data .= "<div class='elgg-foot'>";
