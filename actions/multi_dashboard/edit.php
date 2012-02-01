@@ -44,6 +44,7 @@
 				case "internal":
 					$entity->setDashboardType("internal");
 					
+					$internal_url = urldecode($internal_url);
 					$entity->setInternalUrl($internal_url);
 					break;
 				case "widgets":
