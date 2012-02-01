@@ -39,6 +39,19 @@
 			return $result;
 		}
 		
+		function delete($recursive = true){
+			if($widgets = $this->getWidgets(false)){
+				foreach($widgets as $col => $col_widgets){
+					if(!empty($col_widgets)){
+						foreach($col_widgets as $widget){
+							$widget->delete();
+						}
+					}
+				}
+			}
+			return parent::delete($recursive);
+		}
+		
 		function setDashboardType($type = "widgets"){
 			$result = false;
 			
