@@ -78,8 +78,9 @@ if(elgg_in_context("iframe_dashboard")){
 	
 	echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
 } else {
-
-	echo $vars['content'];
+	if(empty($widgets)){
+		echo $vars['content'];
+	}
 	
 	$widget_class = "elgg-col-1of{$num_columns}";
 	for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
