@@ -32,3 +32,14 @@
 			}
 		}
 	}
+	
+	function widget_manager_create_object_handler($event, $type, $object){
+		
+		if(elgg_instanceof($object, "object", "widget", "ElggWidget")){
+			if($dashboard_guid = get_input("multi_dashboard_guid")){
+				if(($dashboard = get_entity($dashboard_guid)) && elgg_instanceof($dashbaord, "object", MultiDashboard::SUBTYPE, "MultiDashboard")){
+					add_entity_relationship($object->getGUID(), MultiDashboard::WIDGET_RELATIONSHIP, $dashboard->getGUID());
+				}
+			}
+		}
+	}

@@ -61,7 +61,10 @@
 			
 			elgg_extend_view("page/elements/sidebar", "widget_manager/multi_dashboard/sidebar", 400);
 			
+			elgg_register_event_handler("create", "object", "widget_manager_create_object_handler");
+			
 			elgg_register_plugin_hook_handler("route", "dashboard", "widget_manager_dashboard_route_handler");
+			elgg_register_plugin_hook_handler("action", "widgets/add", "widget_manager_widgets_add_action_handler");
 			
 			elgg_register_action("multi_dashboard/edit", dirname(__FILE__) . "/actions/multi_dashboard/edit.php");
 			elgg_register_action("multi_dashboard/delete", dirname(__FILE__) . "/actions/multi_dashboard/delete.php");
