@@ -9,7 +9,11 @@ if(elgg_get_plugin_setting("group_enable", "widget_manager") == "yes" && $vars["
 				'num_columns' => 2,
 				'exact_match' => true
 	);
+	
+	// need context = groups to fix the issue with the new group_profile context
+	elgg_push_context("groups");
 	echo elgg_view_layout('widgets', $params);
+	elgg_pop_context();
 } else {
 	// traditional view
 	
