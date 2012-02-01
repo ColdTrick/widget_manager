@@ -4,10 +4,17 @@ elgg_load_css('lightbox');
 
 $context = $vars["context"];
 
-$params = array(
-		'name' => 'widget_context',
-		'value' => $context
-);
+if($md_guid = get_input("multi_dashboard_guid")){
+	$params = array(
+				'name' => 'widget_context',
+				'value' => $context . "_" . $md_guid
+	);
+} else {
+	$params = array(
+			'name' => 'widget_context',
+			'value' => $context
+	);
+}
 echo elgg_view('input/hidden', $params);
 
 ?>
@@ -66,7 +73,6 @@ echo elgg_view('input/hidden', $params);
 		}
 	}
 	
-
 	if(!empty($widgets)){
 		$title = "<div id='widget_manager_widgets_search'>";
 		$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='widget_manager_widgets_search($(this).val());'></input>";

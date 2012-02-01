@@ -18,7 +18,7 @@ $owner = elgg_get_page_owner_entity();
 
 $widget_types = elgg_get_widget_types();
 
-$context = $widget_context = elgg_get_context();
+$context = elgg_get_context();
 
 elgg_push_context('widgets');
 
@@ -28,7 +28,6 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 	if(!empty($md_guid)){
 		$md_object = get_entity($md_guid);
 		if($md_object){
-			$widget_context = $md_object->getContext();
 			if($md_object->getDashboardType() == "iframe"){
 				elgg_push_context("iframe_dashboard");
 			}
@@ -53,9 +52,9 @@ if(!empty($md_object)){
 } else {
 	if($context == "dashboard"){
 		// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
-		$widgets = widget_manager_get_widgets($owner->guid, $widget_context);
+		$widgets = widget_manager_get_widgets($owner->guid, $context);
 	} else {
-		$widgets = elgg_get_widgets($owner->guid, $widget_context);
+		$widgets = elgg_get_widgets($owner->guid, $context);
 	}
 }
 
@@ -66,7 +65,7 @@ if (elgg_can_edit_widget_layout($context)) {
 	
 	$params = array(
 		'widgets' => $widgets,
-		'context' => $widget_context,
+		'context' => $context,
 		'exact_match' => $exact_match,
 	);
 	echo elgg_view('page/layouts/widgets/add_panel', $params);

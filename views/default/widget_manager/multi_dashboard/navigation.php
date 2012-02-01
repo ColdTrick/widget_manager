@@ -14,8 +14,6 @@ if($md_entities){
 		"text" => elgg_echo("dashboard"),
 		"href" => "dashboard",
 		"title" => elgg_echo("dashboard")
-// 		"id" => $entity->getContext(),	
-// 		"rel" => $entity->getGUID()
 	);
 	
 	if(empty($selected_guid)){
@@ -39,7 +37,6 @@ if($md_entities){
 				"text" => $tab_title . elgg_view_icon("settings-alt", "widget-manager-multi-dashboard-tabs-edit"),
 				"href" => $entity->getURL(),
 				"title" => $entity->title,
-				"id" => $entity->getContext(),
 				"selected" => $selected,
 				"rel" => $entity->getGUID(),
 				"class" => "widget-manager-multi-dashboard-tab"
