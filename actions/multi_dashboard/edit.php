@@ -6,6 +6,7 @@
 	$num_columns = (int) get_input("num_columns", 3);
 	$iframe_url = get_input("iframe_url");
 	$iframe_height = (int) get_input("iframe_height");
+	$internal_url = get_input("internal_url");
 	
 	$forward_url = REFERER;
 	
@@ -39,6 +40,11 @@
 					$entity->setIframeUrl($iframe_url);
 					$entity->setIframeHeight($iframe_height);
 					
+					break;
+				case "internal":
+					$entity->setDashboardType("internal");
+					
+					$entity->setInternalUrl($internal_url);
 					break;
 				case "widgets":
 				default:

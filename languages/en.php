@@ -93,7 +93,7 @@
 		
 		// multi dashboard - edit
 		'widget_manager:actions:multi_dashboard:edit:error:input' => "Invalid input, please submit a title",
-		'widget_manager:actions:multi_dashboard:edit:success' => "Succesfully creates/edited a dashboard",
+		'widget_manager:actions:multi_dashboard:edit:success' => "Succesfully created/edited a dashboard",
 		
 		// multi dashboard - delete
 		'widget_manager:actions:multi_dashboard:delete:error:delete' => "Unable to remove dashboard %s",

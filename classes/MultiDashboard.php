@@ -6,7 +6,8 @@
 		
 		private $allowed_dashboard_types = array(
 			"widgets",
-			"iframe"
+			"iframe",
+			"internal"
 		);
 		
 		protected function initializeAttributes() {
@@ -93,6 +94,20 @@
 		
 		function getIframeHeight(){
 			return $this->iframe_height;
+		}
+		
+		function setInternalUrl($url){
+			$result = false;
+			
+			if(!empty($url)){
+				$result = $this->set("internal_url", $url);
+			}
+			
+			return $result;
+		}
+		
+		function getInternalUrl(){
+			return $this->internal_url;
 		}
 		
 		function getContext(){
