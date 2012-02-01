@@ -11,7 +11,7 @@ if($md_entities){
 	
 	// add the default tab
 	$default_tab = array(
-		"text" => elgg_echo("default"),
+		"text" => elgg_echo("dashboard"),
 		"href" => "dashboard",
 		"title" => elgg_echo("dashboard")
 // 		"id" => $entity->getContext(),	

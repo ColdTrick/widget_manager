@@ -16,13 +16,15 @@
 		));
 		echo " ";
 	}
-	echo elgg_view('output/url', array(
-		'id' => 'widgets-add-panel',
-		'href' => '#widget_manager_widgets_select',
-		'text' => elgg_echo('widgets:add'),
-		'class' => 'elgg-button elgg-button-action',
-		'is_trusted' => true,
-	));
+	if(!elgg_in_context("iframe_dashboard")){
+		echo elgg_view('output/url', array(
+			'id' => 'widgets-add-panel',
+			'href' => '#widget_manager_widgets_select',
+			'text' => elgg_echo('widgets:add'),
+			'class' => 'elgg-button elgg-button-action',
+			'is_trusted' => true,
+		));
+	}
 ?>
 </div>
 <script type="text/javascript">
