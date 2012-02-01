@@ -148,14 +148,4 @@
 			
 			return $result;
 		}
-		
-		function getContext(){
-			$result = false;
-			
-			if($this->guid){
-				$result = "dashboard_" . $this->guid;
-			}
-			
-			return $result;
-		}
 	}
