@@ -12,6 +12,8 @@
 		
 		$dashboard_type = $entity->getDashboardType();
 		
+		$internal_url = $entity->getInternalUrl();
+		
 		$num_columns = $entity->getNumColumns();
 		
 		$iframe_url = $entity->getIframeUrl();
@@ -20,9 +22,16 @@
 		$submit_text = elgg_echo("update");
 	} else {
 		$edit = false;
-		$title = "";
+		$title = get_input("title", "");
+		if(!empty($title)){
+			$title = str_replace(elgg_get_site_entity()->name . ": ", "", $title);
+		}
 		
-		$dashboard_type = "widgets";
+		if($internal_url = get_input("internal_url")){
+			$dashboard_type = "internal";
+		} else {
+			$dashboard_type = "widgets";
+		}
 		
 		$num_columns = 3;
 		
@@ -49,25 +58,29 @@
 	$form_data .= elgg_view("input/text", array("name" => "title", "value" => $title));
 	$form_data .= "</div>";
 	
-	$form_data .= "<div>";
-	$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:types:title") . "</label>";
-	$form_data .= "&nbsp;" . elgg_view("input/dropdown", array("name" => "dashboard_type", "options_values" => $dashboard_type_options, "value" => $dashboard_type, "onchange" => "widget_manager_change_dashboard_type(this);"));
-	$form_data .= "</div>";
+	if($dashboard_type != "internal"){
+		$form_data .= "<div>";
+		$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:types:title") . "</label>";
+		$form_data .= "&nbsp;" . elgg_view("input/dropdown", array("name" => "dashboard_type", "options_values" => $dashboard_type_options, "value" => $dashboard_type, "onchange" => "widget_manager_change_dashboard_type(this);"));
+		$form_data .= "</div>";
 	
-	$form_data .= "<div class='widget-manager-multi-dashboard-types-widgets " . $widgets_class . "'>";
-	$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:num_columns:title") . "</label>";
-	$form_data .= "&nbsp;" . elgg_view("input/dropdown", array("name" => "num_columns", "options" => range(1, 6), "value" => $num_columns));
-	$form_data .= "</div>";
-	
-	$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
-	$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:iframe_url:title") . "</label>";
-	$form_data .= elgg_view("input/url", array("name" => "iframe_url", "value" => $iframe_url));
-	$form_data .= "</div>";
-	
-	$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
-	$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:iframe_height:title") . "</label>";
-	$form_data .= elgg_view("input/text", array("name" => "iframe_height", "value" => $iframe_height, "size" => "5", "maxlength" => "6", "style" => "width: 100px;")) . "px";
-	$form_data .= "</div>";
+		$form_data .= "<div class='widget-manager-multi-dashboard-types-widgets " . $widgets_class . "'>";
+		$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:num_columns:title") . "</label>";
+		$form_data .= "&nbsp;" . elgg_view("input/dropdown", array("name" => "num_columns", "options" => range(1, 6), "value" => $num_columns));
+		$form_data .= "</div>";
+		
+		$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
+		$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:iframe_url:title") . "</label>";
+		$form_data .= elgg_view("input/url", array("name" => "iframe_url", "value" => $iframe_url));
+		$form_data .= "</div>";
+		
+		$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
+		$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:iframe_height:title") . "</label>";
+		$form_data .= elgg_view("input/text", array("name" => "iframe_height", "value" => $iframe_height, "size" => "5", "maxlength" => "6", "style" => "width: 100px;")) . "px";
+		$form_data .= "</div>";
+	} else {
+		$form_data .= elgg_view("input/hidden", array("name" => "internal_url", "value" => urlencode($internal_url)));
+	}
 	
 	$form_data .= "<div class='elgg-foot'>";
 	$form_data .= elgg_view("input/submit", array("value" => $submit_text));

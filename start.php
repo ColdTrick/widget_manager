@@ -50,6 +50,17 @@
 		if(widget_manager_multi_dashboard_enabled()){
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
+			elgg_register_menu_item("extras", array(
+				"name" => "multi_dashboard",
+				"text" => elgg_view_icon("list"),
+				"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
+				"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
+				"rel" => "nofollow",
+				"id" => "widget-manager-multi_dashboard-extras"
+			));
+			
+			elgg_extend_view("page/elements/sidebar", "widget_manager/multi_dashboard/sidebar", 400);
+			
 			elgg_register_plugin_hook_handler("route", "dashboard", "widget_manager_dashboard_route_handler");
 			
 			elgg_register_action("multi_dashboard/edit", dirname(__FILE__) . "/actions/multi_dashboard/edit.php");

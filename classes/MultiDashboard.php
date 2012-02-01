@@ -3,10 +3,12 @@
 	class MultiDashboard extends ElggObject {
 		
 		const SUBTYPE = "multi_dashboard";
+		const WIDGET_RELATIONSHIP = "on_dashboard";
 		
 		private $allowed_dashboard_types = array(
 			"widgets",
-			"iframe"
+			"iframe",
+			"internal"
 		);
 		
 		protected function initializeAttributes() {
@@ -93,6 +95,58 @@
 		
 		function getIframeHeight(){
 			return $this->iframe_height;
+		}
+		
+		function setInternalUrl($url){
+			$result = false;
+			
+			if(!empty($url)){
+				$result = $this->set("internal_url", $url);
+			}
+			
+			return $result;
+		}
+		
+		function getInternalUrl(){
+			return $this->internal_url;
+		}
+		
+		function getWidgets(){
+			$result = false;
+			
+			if($this->getDashboardType() == "widgets"){
+				$result = array();
+				
+				$options = array(
+					"type" => "object",
+					"subtype" => "widgets",
+					"limit" => false,
+					"owner_guid" => $this->owner_guid,
+					"relationship" => self::WIDGET_RELATIONSHIP,
+					"relationship_guid" => $this->guid,
+					"inverse_relationship" => true
+				);
+				
+				if($widgets = elgg_get_entities_from_relationship($options)){
+					
+					foreach($widgets as $widget){
+						$col = (int) $widget->column;
+						$order = (int) $widget->order;
+						
+						if(!isset($result[$col])){
+							$result[$col] = array();
+						}
+						
+						$result[$col][$order] = $widget;
+					}
+					
+					foreach($result as $col => $widgets){
+						ksort($result[$col]);
+					}
+				}
+			}
+			
+			return $result;
 		}
 		
 		function getContext(){
