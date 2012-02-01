@@ -119,7 +119,7 @@
 				
 				$options = array(
 					"type" => "object",
-					"subtype" => "widgets",
+					"subtype" => "widget",
 					"limit" => false,
 					"owner_guid" => $this->owner_guid,
 					"relationship" => self::WIDGET_RELATIONSHIP,

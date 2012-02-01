@@ -170,12 +170,12 @@
 	
 	function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $return, $params){
 		
-		if($widget_context = get_input("widget_context")){
+		if($widget_context = get_input("context")){
 			// dashboard_<guid>;
-			if(stristr("dashboard_", $widget_context) !== false){
+			if(stristr($widget_context, "dashboard_") !== false){
 				list($context, $guid) = explode("_", $widget_context);
 				
-				set_input("widget_context", $context);
+				set_input("context", $context);
 				set_input("multi_dashboard_guid", $guid);
 			}
 		}
