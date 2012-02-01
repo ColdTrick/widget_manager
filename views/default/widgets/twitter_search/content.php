@@ -6,7 +6,7 @@
 	$title = addslashes($widget->tw_title);
 	$sub = addslashes($widget->tw_subtitle);
 	
-	$height = sanitise_int($widget->heigth, false);
+	$height = sanitise_int($widget->height, false);
 	if(empty($height)){
 		$height = 300;
 	}
