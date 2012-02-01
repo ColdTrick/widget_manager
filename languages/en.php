@@ -73,11 +73,31 @@
 		// multi dashboard
 		'widget_manager:multi_dashboard:add' => "New Tab",
 		
+		// multi dashboard - edit
+		'widget_manager:multi_dashboard:new' => "Create a new dashboard",
+		'widget_manager:multi_dashboard:edit' => "Edit dashboard: %s",
+		
+		'widget_manager:multi_dashboard:types:title' => "Select a dashboard type",
+		'widget_manager:multi_dashboard:types:widgets' => "Widgets",
+		'widget_manager:multi_dashboard:types:iframe' => "iFrame",
+		
+		'widget_manager:multi_dashboard:num_columns:title' => "Number of columns",
+		'widget_manager:multi_dashboard:iframe_url:title' => "iFrame URL",
+		'widget_manager:multi_dashboard:iframe_height:title' => "iFrame height",
+		
 		// actions
 		// manage
 		'widget_manager:action:manage:error:context' => "Invalid context to save widget configuration",
 		'widget_manager:action:manage:error:save_setting' => "Error while saving the setting %s for widget %s",
 		'widget_manager:action:manage:success' => "Widget configuration saved successfully",
+		
+		// multi dashboard - edit
+		'widget_manager:actions:multi_dashboard:edit:error:input' => "Invalid input, please submit a title",
+		'widget_manager:actions:multi_dashboard:edit:success' => "Succesfully creates/edited a dashboard",
+		
+		// multi dashboard - delete
+		'widget_manager:actions:multi_dashboard:delete:error:delete' => "Unable to remove dashboard %s",
+		'widget_manager:actions:multi_dashboard:delete:success' => "Dashboard %s succesfully removed",
 		
 		// widgets
 		'widget_manager:widgets:edit:advanced' => "Advanced",
