@@ -3,7 +3,6 @@
 	<name>Widget Manager</name>
 	<author>ColdTrick IT Solutions</author>
 	<version>4.0beta</version>
-	<blurb>A Widget Manager</blurb>
 	<description>Manage your widgets</description>
 	<website>http://www.coldtrick.com/</website>
 	<copyright>(C) ColdTrick IT Solutions 2009 - 2011</copyright>
@@ -11,18 +10,29 @@
  	
  	<requires>
 		<type>elgg_version</type>
-		<version>2011061200</version>
+		<version>2011123101</version>
 	</requires>
+	
 	<requires>
 		<type>priority</type>
 		<plugin>profile</plugin>
 		<priority>after</priority>
 	</requires>
+	
+	<suggests>
+		<type>plugin</type>
+		<name>groups</name>
+	</suggests>
 	<requires>
 		<type>priority</type>
 		<plugin>groups</plugin>
 		<priority>after</priority>
 	</requires>
+	
+	<suggests>
+		<type>plugin</type>
+		<name>dashboard</name>
+	</suggests>
 	
  	<category>ColdTrick</category>
 </plugin_manifest>
