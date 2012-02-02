@@ -1,4 +1,9 @@
 = Version history: =
+x.x:
+
+- added: Multi Dashbaord support
+- changed: updated the Dutch language file
+- changed: required Elgg version to 1.8.3
 
 4.0 beta (29-12-2011):
 
