@@ -52,7 +52,7 @@
 			
 			elgg_register_menu_item("extras", array(
 				"name" => "multi_dashboard",
-				"text" => elgg_view_icon("list"),
+				"text" => elgg_view_icon("home"),
 				"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
 				"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
 				"rel" => "nofollow",
