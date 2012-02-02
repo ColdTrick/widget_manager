@@ -101,3 +101,10 @@
 	display: inline-block;
 	margin-left: 5px;
 }
+
+#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-active {
+	border-color: #666666;
+}
+#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-hover {
+	border-color: #333333;
+}

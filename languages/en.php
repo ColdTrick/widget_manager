@@ -84,7 +84,10 @@
 		
 		'widget_manager:multi_dashboard:num_columns:title' => "Number of columns",
 		'widget_manager:multi_dashboard:iframe_url:title' => "iFrame URL",
+		'widget_manager:multi_dashboard:iframe_url:description' => "Note: please make sure the URL begins with http:// or https://. Not all sites may support the use of iFrames",
 		'widget_manager:multi_dashboard:iframe_height:title' => "iFrame height",
+		
+		'widget_manager:multi_dashboard:required' => "Items marked with a * are required",
 		
 		// actions
 		// manage
@@ -99,6 +102,13 @@
 		// multi dashboard - delete
 		'widget_manager:actions:multi_dashboard:delete:error:delete' => "Unable to remove dashboard %s",
 		'widget_manager:actions:multi_dashboard:delete:success' => "Dashboard %s succesfully removed",
+		
+		// multi dashboard - drop
+		'widget_manager:actions:multi_dashboard:drop:success' => "The widget has successfully been moved the the new dashboard",
+		
+		// multi dashboard - reorder
+		'widget_manager:actions:multi_dashboard:reorder:error:order' => "Please supply a new order",
+		'widget_manager:actions:multi_dashboard:reorder:success' => "Dashboard reordered successfully",
 		
 		// widgets
 		'widget_manager:widgets:edit:advanced' => "Advanced",

@@ -68,6 +68,8 @@
 			
 			elgg_register_action("multi_dashboard/edit", dirname(__FILE__) . "/actions/multi_dashboard/edit.php");
 			elgg_register_action("multi_dashboard/delete", dirname(__FILE__) . "/actions/multi_dashboard/delete.php");
+			elgg_register_action("multi_dashboard/drop", dirname(__FILE__) . "/actions/multi_dashboard/drop.php");
+			elgg_register_action("multi_dashboard/reorder", dirname(__FILE__) . "/actions/multi_dashboard/reorder.php");
 		}
 	}
 

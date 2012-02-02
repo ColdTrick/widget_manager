@@ -54,7 +54,7 @@
 	}
 	
 	$form_data = "<div>";
-	$form_data .= "<label>" . elgg_echo("title") . "</label>";
+	$form_data .= "<label>" . elgg_echo("title") . "*</label>";
 	$form_data .= elgg_view("input/text", array("name" => "title", "value" => $title));
 	$form_data .= "</div>";
 	
@@ -72,6 +72,7 @@
 		$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
 		$form_data .= "<label>" . elgg_echo("widget_manager:multi_dashboard:iframe_url:title") . "</label>";
 		$form_data .= elgg_view("input/url", array("name" => "iframe_url", "value" => $iframe_url));
+		$form_data .= "<div class='elgg-subtext'>" . elgg_echo("widget_manager:multi_dashboard:iframe_url:description") . "</div>";
 		$form_data .= "</div>";
 		
 		$form_data .= "<div class='widget-manager-multi-dashboard-types-iframe " . $iframe_class . "'>";
@@ -84,12 +85,15 @@
 	}
 	
 	$form_data .= "<div class='elgg-foot'>";
+	$form_data .= "<div class='elgg-subtext'>" . elgg_echo("widget_manager:multi_dashboard:required") . "</div>";
+	
 	$form_data .= elgg_view("input/submit", array("value" => $submit_text));
 	
 	if($edit){
 		$form_data .= elgg_view("input/hidden", array("name" => "guid", "value" => $guid));
 		$form_data .= elgg_view("output/confirmlink", array("href" => elgg_get_site_url() . "action/multi_dashboard/delete?guid=" . $guid, "text" => elgg_echo("delete"), "class" => "elgg-button elgg-button-delete"));
 	}
+	
 	$form_data .= "</div>";
 	
 	echo $form_data;
