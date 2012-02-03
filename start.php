@@ -1,6 +1,7 @@
 <?php 
 
 	define("ACCESS_LOGGED_OUT", -5);
+	define("MULTI_DASHBOARD_MAX_TABS", 7);
 	
 	require_once(dirname(__FILE__) . "/lib/deprecated.php");
 	require_once(dirname(__FILE__) . "/lib/functions.php");
@@ -50,14 +51,24 @@
 		if(widget_manager_multi_dashboard_enabled()){
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
-			elgg_register_menu_item("extras", array(
-				"name" => "multi_dashboard",
-				"text" => elgg_view_icon("home"),
-				"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
-				"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
-				"rel" => "nofollow",
-				"id" => "widget-manager-multi_dashboard-extras"
-			));
+			$options = array(
+							"type" => "object",
+							"subtype" => MultiDashboard::SUBTYPE,
+							"owner_guid" => elgg_get_logged_in_user_guid(),
+							"count" => true
+			);
+			$tab_count = elgg_get_entities($options);
+			
+			if($tab_count < MULTI_DASHBOARD_MAX_TABS){
+				elgg_register_menu_item("extras", array(
+					"name" => "multi_dashboard",
+					"text" => elgg_view_icon("home"),
+					"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
+					"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
+					"rel" => "nofollow",
+					"id" => "widget-manager-multi_dashboard-extras"
+				));
+			}
 			
 			elgg_extend_view("page/elements/sidebar", "widget_manager/multi_dashboard/sidebar", 400);
 			
