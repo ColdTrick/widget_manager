@@ -1,5 +1,5 @@
 = Version history: =
-x.x:
+4.1 (12-02-2012):
 
 - added: Multi Dashbaord support
 - changed: updated the Dutch language file
