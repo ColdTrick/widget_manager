@@ -28,8 +28,9 @@ $yesno_options = array(
 
 $noyes_options = array_reverse($yesno_options, true);
 
-$advanced = "<a rel='toggle' href='#widget-manager-widget-edit-advanced-" . $widget->getGUID() . "'>" . elgg_echo("widget_manager:widgets:edit:advanced") . "</a>";
-$advanced .= "<div class='hidden' id='widget-manager-widget-edit-advanced-" . $widget->getGUID() . "'>";
+$advanced = "<div class='hidden' id='widget-manager-widget-edit-advanced-" . $widget->getGUID() . "'>";
+
+$advanced .= "<h3>" . elgg_echo("widget_manager:widgets:edit:advanced") . "</h3>";
 $advanced .= "<fieldset>";
 
 $advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_title') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_title]', 'value' => $widget->widget_manager_custom_title)) . "</div>";
@@ -46,6 +47,8 @@ if($widget_context == "index"){
 
 $advanced .= "</fieldset>";
 $advanced .= "</div>";
+$advanced .= "<a rel='toggle' class='elgg-button elgg-button-action float-alt' href='#widget-manager-widget-edit-advanced-" . $widget->getGUID() . "'>" . elgg_echo("widget_manager:widgets:edit:advanced") . "</a>";
+
 
 $hidden = elgg_view('input/hidden', array('name' => 'guid', 'value' => $widget->guid));
 $submit = elgg_view('input/submit', array('value' => elgg_echo('save')));
@@ -55,9 +58,8 @@ $body = <<<___END
 	<div>
 		$access
 	</div>
-	<div>
+	
 		$advanced
-	</div>
 	<div class="elgg-foot">
 		$hidden
 		$submit
