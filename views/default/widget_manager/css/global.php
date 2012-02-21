@@ -83,6 +83,10 @@
 	background-position: 0px -720px;
 }
 
+#widget-manager-multi-dashboard {
+	background: #CCC;
+}
+
 #widget-manager-multi-dashboard-tabs {
 	position: absolute;
 	top: 20px;

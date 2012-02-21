@@ -5,24 +5,23 @@
 	$md_entities = elgg_extract("entities", $vars);
 	$selected_guid = (int) get_input("multi_dashboard_guid", 0);
 	
+	$tabs = array();
+	
+	// add the default tab
+	$default_tab = array(
+				"text" => elgg_echo("dashboard"),
+				"href" => "dashboard",
+				"title" => elgg_echo("dashboard"),
+				"class" => "widget-manager-multi-dashboard-tab-widgets"
+	);
+	
+	if(empty($selected_guid)){
+		$default_tab["selected"] = true;
+	}
+	
+	$tabs[0] = $default_tab;
+	
 	if(!empty($md_entities)){
-		
-		$tabs = array();
-		
-		// add the default tab
-		$default_tab = array(
-			"text" => elgg_echo("dashboard"),
-			"href" => "dashboard",
-			"title" => elgg_echo("dashboard"),
-			"class" => "widget-manager-multi-dashboard-tab-widgets"
-		);
-		
-		if(empty($selected_guid)){
-			$default_tab["selected"] = true;
-		}
-		
-		$tabs[0] = $default_tab;
-		
 		foreach($md_entities as $key => $entity){
 			
 			$selected = false;
@@ -46,23 +45,40 @@
 				"class" => "widget-manager-multi-dashboard-tab widget-manager-multi-dashboard-tab-" . $entity->getDashboardType()
 			);
 		}
-		
-		ksort($tabs);
-		
-		echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-tabs", "tabs" => $tabs));
 	}
+	
+	ksort($tabs);
+	
+	// add tab tab
+	if(is_array($md_entities) && count($md_entities) < MULTI_DASHBOARD_MAX_TABS){
+		$tabs[] = array(
+			"text" => elgg_view_icon("round-plus", "widget-manager-multi-dashboard-tabs-add"),
+			"href" => "multi_dashboard/edit",
+			"title" => elgg_echo('widget_manager:multi_dashboard:add'),
+			"id" => "widget-manager-multi-dashboard"
+		);
+	}
+	
+	echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-tabs", "tabs" => $tabs));
 ?>
 <script type="text/javascript">
 	var widget_manger_multi_dashboard_dropped = false;
 
 	$(document).ready(function(){
+		$("#widget-manager-multi-dashboard a").fancybox({ 
+			autoDimensions: false, 
+			width: 400, 
+			height: 360,
+			titleShow: false
+		});	
+		
 		$("#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tabs-edit").click(function(event){
 			var id = $(this).parent().attr("rel");
 			$.fancybox({
-				"href" : "<?php echo elgg_get_site_url(); ?>multi_dashboard/edit/" + id,
+				"href" : elgg.get_site_url() + "multi_dashboard/edit/" + id,
 				"autoDimensions" : false,
 				"width": 400,
-				"height": 350
+				"height": 360
 				});
 			event.preventDefault();
 		});
