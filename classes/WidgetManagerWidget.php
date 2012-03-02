@@ -9,7 +9,8 @@ class WidgetManagerWidget extends ElggWidget {
 		"widget_manager_show_edit" => NULL,
 		"widget_manager_custom_title" => NULL,
 		"widget_manager_custom_url" => NULL,
-		"widget_manager_disable_widget_content_style" => NULL
+		"widget_manager_disable_widget_content_style" => NULL,
+		"widget_manager_custom_class" => NULL
 	);
 	public function __construct($guid = null) {
 		parent::__construct($guid);
