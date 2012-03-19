@@ -1,11 +1,18 @@
 = Version history: =
-4.1 (12-02-2012):
+
+4.1.1 (2012-03-19):
+
+- changed: button styling on advanced widget settings
+- changed: add tab is now a tab instead of a button
+- fixed: group admins can not add/edit widgets on a group profile page
+
+4.1 (2012-02-12):
 
 - added: Multi Dashbaord support
 - changed: updated the Dutch language file
 - changed: required Elgg version to 1.8.3
 
-4.0 beta (29-12-2011):
+4.0 beta (2011-12-29):
 
 - added: support for Elgg 1.8
 - added: widget sortable tolerance changes to pointer instead of intersect (needed for index widgets top row) 
