@@ -181,3 +181,13 @@
 		}
 	}
 	
+	function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return, $params){
+		$group = elgg_extract("page_owner", $params); 
+		$user = elgg_extract("user", $params); 
+		
+		if(!$return && ($group instanceof ElggGroup) && ($user instanceof ElggUser) && $group->canEdit($user->getGUID())){
+			$return = true;
+		}
+		
+		return $return;
+	}

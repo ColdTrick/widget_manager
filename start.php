@@ -180,6 +180,8 @@
 	
 	elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
 	elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
+
+	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
 	
 	// register actions
 	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
