@@ -289,3 +289,10 @@
 	);
 	add_translation("en", $messages);
 	
+	$discussion = array(
+	// discussion widget
+			"widgets:discussion:description" => "Shows the latest messages discussion", 
+			"widgets:discussion:settings:group_only" => "Only show discussion from groups you are member of", 
+	);
+	add_translation("en", $discussion);
+	
