@@ -27,6 +27,7 @@
 		
 		$list = "";
 		if($messages = elgg_get_entities_from_metadata($options)){
+			$list .= "<ul class='elgg-list'>";
 			foreach($messages as $message){
 				$icon = "";
 				if ($user = get_user(($message->fromId))){
@@ -48,8 +49,9 @@
 				
 				$body = '<div>' . $subject_info . '</div><div class="elgg-subtext">' . $timestamp . '</div>';
 				
-				$list .= elgg_view_image_block($icon, $body, array('class' => $class));
+				$list .= "<li>" . elgg_view_image_block($icon, $body, array('class' => $class)) . "</li>";
 			}
+			$list .= "</ul>";
 		}
 		
 		if(!empty($list)){
