@@ -26,9 +26,9 @@
 				$group = elgg_get_page_owner_entity();
 				if(!empty($group->group_acl)){
 					$result = array(
+						$group->group_acl => elgg_echo("groups:group") . ": " . $group->name,
 						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-						ACCESS_PUBLIC => elgg_echo("PUBLIC"),
-						$group->group_acl => elgg_echo("groups:group") . ": " . $group->name
+						ACCESS_PUBLIC => elgg_echo("PUBLIC")						
 					);
 				}
 			}
