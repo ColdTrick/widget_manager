@@ -48,7 +48,7 @@
 		// multi dashboard support
 		add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
 		
-		if(widget_manager_multi_dashboard_enabled()){
+		if(widget_manager_multi_dashboard_enabled() && elgg_is_logged_in()){
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
 			$options = array(
