@@ -257,7 +257,13 @@
 		'widgets:tagcloud:no_data' => "No data available to display a tagcloud",
 	);
 	add_translation("en", $tagcloud);
-	
+
+	$group_activity = array(
+		// group_activity widget
+		"widgets:group_activity:description" => "Shows latest activity in group",
+	);
+	add_translation("en", $group_activity);
+
 	$group_news = array(
 		// group_news widget
 		"widgets:group_news:title" => "Group News", 

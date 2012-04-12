@@ -43,6 +43,7 @@ Since 4.0:
    
 == Group widgets ==
 
+ - activity
  - forum topics
  - files
  - izap_videos
