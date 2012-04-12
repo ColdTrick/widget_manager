@@ -272,6 +272,11 @@
 	);
 	add_translation("en", $group_news);
 
+    $group_polls = array(
+        "widgets:group_polls:description" => "Shows latest polls in group",
+    );
+    add_translation("en", $group_polls);
+
 	$entity_statistics = array(
 		// entity_statistics widget
 		"widgets:entity_statistics:title" => "Statistics", 
