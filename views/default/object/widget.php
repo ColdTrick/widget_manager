@@ -65,7 +65,7 @@ $widget_id = "elgg-widget-$widget->guid";
 $widget_instance = "elgg-widget-instance-$handler";
 $widget_class = "elgg-module elgg-module-widget";
 
-if ($can_edit) {
+if ($can_edit || elgg_is_admin_logged_in()) {
 	$widget_class .= " elgg-state-draggable $widget_instance";
 } else {
 	$widget_class .= " elgg-state-fixed $widget_instance";

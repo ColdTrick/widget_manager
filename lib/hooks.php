@@ -142,7 +142,7 @@
 	function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return, $params){
 		if(is_array($return)){
 			$widget = $params["entity"];
-			if($widget->fixed && !elgg_in_context("default_widgets")){
+			if($widget->fixed && !elgg_in_context("default_widgets") && !elgg_is_admin_logged_in()){
 				foreach($return as $section_key => $section){
 					foreach($section as $item_key => $item){
 						if(in_array($item->getName(), array("delete", "settings"))){
