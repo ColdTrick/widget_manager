@@ -267,7 +267,9 @@
 		"widgets:group_news:settings:project" => "Group", 
 		"widgets:group_news:settings:no_project" => "Select a group",
 		"widgets:group_news:settings:blog_count" => "Max number of blogs",
-		"widgets:group_news:settings:slide_timeout" => "Slide timeout"
+		"widgets:group_news:settings:group_icon_size" => "Group icon size",
+		"widgets:group_news:settings:group_icon_size:small" => "Small",
+		"widgets:group_news:settings:group_icon_size:medium" => "Medium"
 	
 	);
 	add_translation("en", $group_news);
