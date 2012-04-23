@@ -22,7 +22,7 @@ $context = elgg_get_context();
 
 elgg_push_context('widgets');
 
-if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
+if($context == "dashboard" && widget_manager_multi_dashboard_enabled() && !elgg_in_context("admin")){
 	$md_guid = get_input("multi_dashboard_guid");
 	
 	if(!empty($md_guid)){
@@ -53,7 +53,7 @@ if($context == "dashboard" && widget_manager_multi_dashboard_enabled()){
 if(!empty($md_object)){
 	$widgets = $md_object->getWidgets();
 } else {
-	if($context == "dashboard"){
+	if(($context == "dashboard") && !elgg_in_context("admin")){
 		// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
 		$widgets = widget_manager_get_widgets($owner->guid, $context);
 	} else {
