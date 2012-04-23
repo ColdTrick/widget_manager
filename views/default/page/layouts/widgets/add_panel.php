@@ -67,9 +67,14 @@ echo elgg_view('input/hidden', $params);
 	widget_manager_sort_widgets($widgets);
 
 	$current_handlers = array();
-	foreach ($vars["widgets"] as $column_widgets) {
-		foreach ($column_widgets as $widget) {
-			$current_handlers[] = $widget->handler;
+	if(!empty($vars["widgets"])){
+		// check for already used widgets
+		foreach ($vars["widgets"] as $column_widgets) {
+			// foreach column
+			foreach ($column_widgets as $widget) {
+				// for each widgets
+				$current_handlers[] = $widget->handler;
+			}
 		}
 	}
 	
