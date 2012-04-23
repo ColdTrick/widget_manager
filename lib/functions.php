@@ -114,23 +114,6 @@
 		return $result;
 	}
 	
-	/* checks if for a given handler a pagehandler function exists */
-	function widget_manager_is_page_handler_registered($handler){
-		global $CONFIG;
-		
-		$result = false;
-		
-		if(!empty($handler)){
-			if(array_key_exists($handler, $CONFIG->pagehandler)){
-				if(is_callable($CONFIG->pagehandler[$handler])){
-					$result = true;
-				}
-			}
-		}
-		
-		return $result;
-	}
-	
 	/* handles widget title urls */
 	function widget_manager_widget_url_handler($widget){
 		$result = false;
