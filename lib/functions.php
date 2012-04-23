@@ -22,7 +22,7 @@
 			return $widget_settings[$context][$widget_handler][$setting];
 		}
 		
-		if(widget_manager_valid_context($context)){
+		if(!empty($widget_handler) && !empty($setting)){
 			if($plugin_setting = elgg_get_plugin_setting($context . "_" . $widget_handler . "_" . $setting, "widget_manager")){
 				if($plugin_setting == "yes"){
 					$result = true;
@@ -30,9 +30,9 @@
 			} elseif($setting == "can_add" || $setting == "can_remove"){
 				$result = true;
 			}
+			
+			$widget_settings[$context][$widget_handler][$setting] = $result;
 		}
-		
-		$widget_settings[$context][$widget_handler][$setting] = $result;
 		
 		return $result;
 	}
@@ -40,7 +40,7 @@
 	function widget_manager_set_widget_setting($widget_handler, $setting, $context, $value){
 		$result = false;
 		
-		if(!empty($widget_handler) && !empty($setting) && widget_manager_valid_context($context)){
+		if(!empty($widget_handler) && !empty($setting)){
 			$widget_setting = $context . "_" . $widget_handler . "_" . $setting;
 			
 			if(elgg_set_plugin_setting($widget_setting, $value, "widget_manager")){
@@ -94,21 +94,10 @@
 	function widget_manager_set_configured_widgets($context, $column, $value){
 		$result = false;
 		
-		if(widget_manager_valid_context($context) && !empty($column)){
+		if(!empty($context) && !empty($column)){
 			if(elgg_set_plugin_setting($context . "_" . $column, $value, "widget_manager")){
 				$result = true;
 			}
-		}
-		
-		return $result;
-	}
-	
-	function widget_manager_valid_context($context){
-		$result = false;
-		$valid_contexts = array("profile", "dashboard", "index", "groups","admin", "default_dashboard", "default_profile");
-		
-		if(!empty($context) && in_array($context, $valid_contexts)){
-			$result = true;
 		}
 		
 		return $result;

@@ -116,9 +116,7 @@
 			}
 		}
 		
-		if(widget_manager_valid_context($context)){
-			elgg_trigger_event("widgets_pagesetup", "widget_manager");
-		}
+		elgg_trigger_event("widgets_pagesetup", "widget_manager");
 		
 		// update fixed widgets if needed
 		if(in_array($context, array("profile", "dashboard")) && ($page_owner_guid = elgg_get_page_owner_guid())){
