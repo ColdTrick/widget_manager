@@ -79,7 +79,7 @@
 			if($widget = get_entity($guid)){
 				if($widget instanceof ElggWidget){
 					if($widget->handler == "free_html"){
-						$advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("widget" => $widget), array("index"));
+						$advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("entity" => $widget), array("index"));
 						
 						if(is_array($advanced_context) && in_array($widget->context, $advanced_context)){
 							elgg_unregister_plugin_hook_handler("validate", "input", "htmlawed_filter_tags");

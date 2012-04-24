@@ -51,22 +51,6 @@
 		return $result;
 	}
 	
-	/**
-	 * Register a widget title 
-	 * 
-	 * @param $handler
-	 * @param $link
-	 */
-	function widget_manager_add_widget_title_link($handler, $link){
-		global $CONFIG;
-		
-		if (!empty($handler) && !empty($link)) {
-			if (isset($CONFIG->widgets) && isset($CONFIG->widgets->handlers) && isset($CONFIG->widgets->handlers[$handler])) {
-				$CONFIG->widgets->handlers[$handler]->link = $link;
-			}	
-		}
-	}
-	
 	/* sorts a given array of widgets alphabetically based on the widget name */
 	function widget_manager_sort_widgets(&$widgets){
 		if(!empty($widgets)){
@@ -108,59 +92,58 @@
 		$result = false;
 		
 		if($widget instanceof ElggWidget){
-			$handler = $widget->handler;
+			$result = elgg_trigger_plugin_hook("widget_url", "widget_manager", array("entity" => $widget), false);
 			
-			// configures some widget titles for non widgetmanager widgets
-			$widget_titles = array(
-								"thewire" => "[BASEURL]thewire/owner/[USERNAME]",
-								"friends" => "[BASEURL]friends/[USERNAME]",
-								"album_view" => "[BASEURL]photos/owner/[USERNAME]",
-								"latest" => "[BASEURL]photos/owner/[USERNAME]",
-								"latest_photos" => "[BASEURL]photos/owner/[USERNAME]",
-								"messageboard" => "[BASEURL]messageboard/[USERNAME]",
-								"a_users_groups" => "[BASEURL]groups/member/[USERNAME]",
-								"event_calendar" => "[BASEURL]event_calendar/",
-								"filerepo" => "[BASEURL]file/owner/[USERNAME]",
-								"pages" => "[BASEURL]pages/owner/[USERNAME]",
-								"bookmarks" => "[BASEURL]bookmarks/owner/[USERNAME]",
-								"izap_videos" => "[BASEURL]izap_videos/[USERNAME]",
-								"river_widget" => "[BASEURL]activity/",
-								"blog" => "[BASEURL]blog/owner/[USERNAME]");
-			
-			if(!empty($widget->widget_manager_custom_url)){
-				$link = $widget->widget_manager_custom_url;
-			} elseif(array_key_exists($handler, $widget_titles)){
-				$link = $widget_titles[$handler];
-			} else {
-				elgg_push_context($widget->context);
-				$widgettypes = elgg_get_widget_types();
-				elgg_pop_context();
+			if(empty($result)){
+				$handler = $widget->handler;
 				
-				if(isset($widgettypes[$handler]->link)) {
-					$link = $widgettypes[$handler]->link;
-				}
-			}
-			
-			if (!empty($link)) {
-				$owner = $widget->getOwnerEntity();
-				if($owner instanceof ElggSite){
-					if(elgg_is_logged_in()){
-						// index widgets sometimes use usernames in widget titles
-						$owner = elgg_get_logged_in_user_entity();
+				// configures some widget titles for non widgetmanager widgets
+				$widget_titles = array(
+									"thewire" => "[BASEURL]thewire/owner/[USERNAME]",
+									"friends" => "[BASEURL]friends/[USERNAME]",
+									"album_view" => "[BASEURL]photos/owner/[USERNAME]",
+									"latest" => "[BASEURL]photos/owner/[USERNAME]",
+									"latest_photos" => "[BASEURL]photos/owner/[USERNAME]",
+									"messageboard" => "[BASEURL]messageboard/[USERNAME]",
+									"a_users_groups" => "[BASEURL]groups/member/[USERNAME]",
+									"event_calendar" => "[BASEURL]event_calendar/",
+									"filerepo" => "[BASEURL]file/owner/[USERNAME]",
+									"pages" => "[BASEURL]pages/owner/[USERNAME]",
+									"bookmarks" => "[BASEURL]bookmarks/owner/[USERNAME]",
+									"izap_videos" => "[BASEURL]izap_videos/[USERNAME]",
+									"river_widget" => "[BASEURL]activity/",
+									"blog" => "[BASEURL]blog/owner/[USERNAME]");
+				
+				if(array_key_exists($handler, $widget_titles)){
+					$link = $widget_titles[$handler];
+				} else {
+					$widgettypes = elgg_get_config("widgets");
+					if(isset($widgettypes->handlers[$handler]->link)) {
+						$link = $widgettypes->handlers[$handler]->link;
 					}
 				}
-				/* Let's do some basic substitutions to the link */
-			
-				/* [USERNAME] */
-				$link = preg_replace('#\[USERNAME\]#', $owner->username, $link);
-			
-				/* [GUID] */
-				$link = preg_replace('#\[GUID\]#', $owner->getGUID(), $link);
-			
-				/* [BASEURL] */
-				$link = preg_replace('#\[BASEURL\]#', elgg_get_site_url(), $link);
 				
-				$result = $link;
+				if (!empty($link)) {
+					$owner = $widget->getOwnerEntity();
+					if($owner instanceof ElggSite){
+						if(elgg_is_logged_in()){
+							// index widgets sometimes use usernames in widget titles
+							$owner = elgg_get_logged_in_user_entity();
+						}
+					}
+					/* Let's do some basic substitutions to the link */
+					 	
+					/* [USERNAME] */
+					$link = preg_replace('#\[USERNAME\]#', $owner->username, $link);
+						
+					/* [GUID] */
+					$link = preg_replace('#\[GUID\]#', $owner->getGUID(), $link);
+						
+					/* [BASEURL] */
+					$link = preg_replace('#\[BASEURL\]#', elgg_get_site_url(), $link);
+				
+					$result = $link;
+				}
 			}
 		}
 			

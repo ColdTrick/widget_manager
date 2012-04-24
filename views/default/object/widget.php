@@ -21,9 +21,6 @@ $widget_types = elgg_get_widget_types('all');
 $handler = $widget->handler;
 
 $title = $widget->getTitle();
-if($custom_title = $widget->widget_manager_custom_title){
-	$title = $custom_title;
-}
 
 $widget_title_link = $widget->getURL();
 if($widget_title_link !== elgg_normalize_url("view/" . $widget->getGUID())){

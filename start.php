@@ -116,8 +116,6 @@
 			}
 		}
 		
-		elgg_trigger_event("widgets_pagesetup", "widget_manager");
-		
 		// update fixed widgets if needed
 		if(in_array($context, array("profile", "dashboard")) && ($page_owner_guid = elgg_get_page_owner_guid())){
 			// only check things if you are viewing a profile or dashboard page
@@ -140,6 +138,8 @@
 				elgg_set_view_location("page/default", dirname(__FILE__) . "/views_alt/");
 			}
 		}
+		
+		elgg_trigger_event("widgets_pagesetup", "widget_manager");
 	}
 	
 	/* enables widget that are not specifically registered for groups or index widget, but do work */

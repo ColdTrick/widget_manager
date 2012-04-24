@@ -39,4 +39,20 @@ class WidgetManagerWidget extends ElggWidget {
 			$this->pre_load();
 		}
 	}
+	
+	public function getTitle(){
+		if($custom_title = $this->widget_manager_custom_title){
+			return $custom_title;
+		} else {
+			return parent::getTitle();
+		}
+	}
+	
+	public function getURL(){
+		if($custom_url = $this->widget_manager_custom_url){
+			return $custom_url;
+		} else {
+			return parent::getURL();
+		}
+	}
 }

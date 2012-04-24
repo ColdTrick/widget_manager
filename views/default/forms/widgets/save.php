@@ -36,7 +36,7 @@ $advanced .= "<fieldset>";
 $advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_title') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_title]', 'value' => $widget->widget_manager_custom_title)) . "</div>";
 $advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_url') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_url]', 'value' => $widget->widget_manager_custom_url)) . "</div>";
 
-$advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("widget" => $widget), array("index")); 
+$advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("entity" => $widget), array("index")); 
 
 if(is_array($advanced_context) && in_array($widget_context, $advanced_context)){
 	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:hide_header') . ": " . elgg_view('input/dropdown', array('name' => 'params[widget_manager_hide_header]', 'value' => $widget->widget_manager_hide_header, 'options_values' =>$noyes_options)) . "</div>";
