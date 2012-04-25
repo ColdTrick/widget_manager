@@ -112,3 +112,12 @@
 #widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-hover {
 	border-color: #333333;
 }
+
+.widget-manager-groups-widgets-top-row {
+	width: 100%;
+	min-height: 0px !important;
+}
+
+.widget-manager-groups-widgets-top-row-highlight {
+	min-height: 50px !important;
+}

@@ -104,6 +104,19 @@ if(elgg_in_context("iframe_dashboard")){
 		echo $vars['content'];
 	}
 	
+	if($context == "groups"){
+		echo "<div class=\"elgg-col-1of1 elgg-widgets widget-manager-groups-widgets-top-row\" id=\"elgg-widget-col-3\">";
+		
+		if (sizeof($widgets[3]) > 0) {
+			foreach ($widgets[3] as $widget) {
+				if (array_key_exists($widget->handler, $widget_types)) {
+					echo elgg_view_entity($widget, array('show_access' => $show_access));
+				}
+			}
+		}
+		echo '</div>';
+	}
+	
 	$widget_class = "elgg-col-1of{$num_columns}";
 	for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 		if (isset($widgets[$column_index])) {

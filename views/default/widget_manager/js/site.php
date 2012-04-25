@@ -16,7 +16,16 @@ function widget_manager_widgets_search(q){
 
 function widget_manager_init(){
 	// reset draggable functionality to pointer
-	$(".elgg-widgets").sortable("option", "tolerance", 'pointer');
+	$(".elgg-widgets").sortable("option", "tolerance", "pointer");
+	
+	$(".elgg-widgets").bind({
+		sortstart: function(event, ui){
+			$(".widget-manager-groups-widgets-top-row").addClass("widget-manager-groups-widgets-top-row-highlight");
+		},
+		sortstop: function(event, ui){
+			$(".widget-manager-groups-widgets-top-row").removeClass("widget-manager-groups-widgets-top-row-highlight");
+		}
+	});
 }
 
 elgg.register_hook_handler('init', 'system', widget_manager_init);
