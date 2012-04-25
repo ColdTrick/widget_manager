@@ -33,6 +33,13 @@
 		}
 	}
 	
+	/**
+	 * Adds a relation between a widget and a multidashboard object
+	 * 
+	 * @param unknown_type $event
+	 * @param unknown_type $type
+	 * @param unknown_type $object
+	 */
 	function widget_manager_create_object_handler($event, $type, $object){
 		
 		if(elgg_instanceof($object, "object", "widget", "ElggWidget")){

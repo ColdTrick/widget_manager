@@ -92,6 +92,7 @@
 		$result = false;
 		
 		if($widget instanceof ElggWidget){
+			/* plugins should use the following hook for setting the correct widget title */
 			$result = elgg_trigger_plugin_hook("widget_url", "widget_manager", array("entity" => $widget), false);
 			
 			if(empty($result)){
@@ -124,6 +125,8 @@
 				}
 				
 				if (!empty($link)) {
+					/* this substitution loop will be deprecated in a future version */
+					
 					$owner = $widget->getOwnerEntity();
 					if($owner instanceof ElggSite){
 						if(elgg_is_logged_in()){
