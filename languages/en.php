@@ -166,11 +166,9 @@
 		'widget_manager:widgets:image_slider:direction:bottom' => "Bottom",
 		'widget_manager:widgets:image_slider:direction:left' => "Left",
 	);
-	
 	add_translation("en", $english);
 
 	$twitter_search = array(
-		
 		// twitter_search
 		'widgets:twitter_search:name' => "Twitter search",
 		'widgets:twitter_search:description' => "Display a custom search from Twitter",
@@ -181,14 +179,11 @@
 		'widgets:twitter_search:subtitle' => "Widget subtitle (optional)",
 		'widgets:twitter_search:height' => "Widget height (pixels)",
 		'widgets:twitter_search:background' => "Set a custom background color (HEX eq 4690d6)",
-		
 		'widgets:twitter_search:not_configured' => "This widget is not yet configured",
-		
 	);
 	add_translation("en", $twitter_search);
 	
 	$content_by_tag = array(
-		
 		// content_by_tag
 		'widgets:content_by_tag:name' => "Content by tag",
 		'widgets:content_by_tag:description' => "Find content by a tag",
@@ -203,9 +198,6 @@
 		'widgets:content_by_tag:display_option:normal' => "Normal",
 		'widgets:content_by_tag:display_option:slim' => "Slim (single line)",
 		'widgets:content_by_tag:highlight_first' => "Number of highlighted items (slim only)",
-		
-		'widgets:content_by_tag:no_result' => "No results were found",
-		
 	);
 	add_translation("en", $content_by_tag);
 	
@@ -214,7 +206,6 @@
 		'widgets:rss:title' => "RSS Feed",
 		'widgets:rss:description' => "Show a RSS feed (based on SimplePie)",
 		'widgets:rss:error:notset' => "No RSS Feed URL provided",
-		'widgets:rss:error:notfind' => "No items found",
 		
 		'widgets:rss:settings:rss_count' => "Number of feeds to show",
 		'widgets:rss:settings:rssfeed' => "URL of the RSS feed",
@@ -224,21 +215,18 @@
 		'widgets:rss:settings:post_date' => "Show post date",
 		'widgets:rss:settings:post_date:option:friendly' => "Show friendly time",
 		'widgets:rss:settings:post_date:option:date' => "Show date",
-		
 	);
 	add_translation("en", $rss);
 	
 	$group_files = array(
 		// Files widget
 		'widgets:group_files:description' => "Show the latest group files",
-		
 	);
 	add_translation("en", $group_files);
 	
 	$group_forum_topics = array(
 		// Forum topic widget
 		'widgets:group_forum_topics:description' => "Show the latest discussions",
-		
 	);
 	add_translation("en", $group_forum_topics);
 	
@@ -292,9 +280,9 @@
 	add_translation("en", $messages);
 	
 	$discussion = array(
-	// discussion widget
-			"widgets:discussion:description" => "Shows the latest messages discussion", 
-			"widgets:discussion:settings:group_only" => "Only show discussion from groups you are member of", 
+		// discussion widget
+		"widgets:discussion:description" => "Shows the latest discussions", 
+		"widgets:discussion:settings:group_only" => "Only show discussions from groups you are member of", 
 	);
 	add_translation("en", $discussion);
 	

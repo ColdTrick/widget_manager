@@ -38,14 +38,14 @@
 		
 		$num_posts_in_feed = $feed->get_item_quantity($rss_count);
 		
-		if(($feed_title = $feed->get_title()) && ($widget->show_feed_title != "no")){
+		if(($feed_title = $feed->get_title()) && ($widget->show_feed_title == "yes")){
 			echo "<h3><a href='" . $feed->get_permalink() . "' target='_blank'>" .$feed_title . "</a></h3>";
 		}
 		
 		$body = "";
 		
 		if (empty($num_posts_in_feed)){
-			$body = elgg_echo('widgets:rss:error:notfind');
+			$body = elgg_echo('notfound');
 		} else {
 			foreach ($feed->get_items(0, $num_posts_in_feed) as $item){
 				if ($excerpt){

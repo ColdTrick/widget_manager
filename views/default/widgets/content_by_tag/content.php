@@ -163,7 +163,7 @@
 	}
 	
 	if(empty($result)){
-		$result = elgg_echo("widgets:content_by_tag:no_result");
+		$result = elgg_echo("notfound");
 	}
 	echo $result;
 	
