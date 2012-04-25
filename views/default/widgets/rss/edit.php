@@ -32,7 +32,7 @@
 <div>
 	<?php 	
 		echo elgg_echo("widgets:rss:settings:show_feed_title") . " "; 
-		echo elgg_view("input/dropdown", array("name" => "params[show_feed_title]", "options_values" => $yesno_options, "value" => $widget->show_feed_title));
+		echo elgg_view("input/dropdown", array("name" => "params[show_feed_title]", "options_values" => array_reverse($yesno_options), "value" => $widget->show_feed_title));
 	?>
 </div>
 
