@@ -16,11 +16,21 @@
 			mkdir(elgg_get_data_path() . "/widgets/rss/");
 		}
 		
+		elgg_register_library("simplepie", elgg_get_plugins_path() . "widget_manager/widgets/rss/vendors/simplepie/simplepie.inc");
+		
 		// set cache settings
 		define("WIDGETS_RSS_CACHE_LOCATION", elgg_get_data_path() . "widgets/rss/");
 		define("WIDGETS_RSS_CACHE_DURATION", 600);
 	}
 	
+	/**
+	 * Removes cached rss feeds
+	 * 
+	 * @param unknown_type $hook
+	 * @param unknown_type $type
+	 * @param unknown_type $params
+	 * @param unknown_type $return_value
+	 */
 	function widget_rss_cron_handler($hook, $type, $params, $return_value){		
 		if($fh = opendir(WIDGETS_RSS_CACHE_LOCATION)){
 			while($filename = readdir($fh)){

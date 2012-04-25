@@ -30,9 +30,7 @@
 			$post_date = false;
 		}
 		
-		if (!class_exists('SimplePie')){
-			require_once(elgg_get_plugins_path() . 'widget_manager/widgets/rss/vendors/simplepie/simplepie.inc');
-		}
+		elgg_load_library("simplepie");
 		
 		$feed = new SimplePie($feed_url, WIDGETS_RSS_CACHE_LOCATION, WIDGETS_RSS_CACHE_DURATION);
 		
