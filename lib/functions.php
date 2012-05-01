@@ -98,30 +98,9 @@
 			if(empty($result)){
 				$handler = $widget->handler;
 				
-				// configures some widget titles for non widgetmanager widgets
-				$widget_titles = array(
-									"thewire" => "[BASEURL]thewire/owner/[USERNAME]",
-									"friends" => "[BASEURL]friends/[USERNAME]",
-									"album_view" => "[BASEURL]photos/owner/[USERNAME]",
-									"latest" => "[BASEURL]photos/owner/[USERNAME]",
-									"latest_photos" => "[BASEURL]photos/owner/[USERNAME]",
-									"messageboard" => "[BASEURL]messageboard/[USERNAME]",
-									"a_users_groups" => "[BASEURL]groups/member/[USERNAME]",
-									"event_calendar" => "[BASEURL]event_calendar/",
-									"filerepo" => "[BASEURL]file/owner/[USERNAME]",
-									"pages" => "[BASEURL]pages/owner/[USERNAME]",
-									"bookmarks" => "[BASEURL]bookmarks/owner/[USERNAME]",
-									"izap_videos" => "[BASEURL]izap_videos/[USERNAME]",
-									"river_widget" => "[BASEURL]activity/",
-									"blog" => "[BASEURL]blog/owner/[USERNAME]");
-				
-				if(array_key_exists($handler, $widget_titles)){
-					$link = $widget_titles[$handler];
-				} else {
-					$widgettypes = elgg_get_config("widgets");
-					if(isset($widgettypes->handlers[$handler]->link)) {
-						$link = $widgettypes->handlers[$handler]->link;
-					}
+				$widgettypes = elgg_get_config("widgets");
+				if(isset($widgettypes->handlers[$handler]->link)) {
+					$link = $widgettypes->handlers[$handler]->link;
 				}
 				
 				if (!empty($link)) {

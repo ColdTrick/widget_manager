@@ -195,3 +195,59 @@
 		
 		return $return;
 	}
+	
+	/**
+	 * Fallback widget title urls for non widget manager widgets
+	 * 
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return Ambigous <string, unknown>
+	 */
+	function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $params){
+		$result = $return_value;
+		$widget = $params["entity"];
+		
+		if(empty($result) && ($widget instanceof ElggWidget)){
+			$owner = $widget->getOwnerEntity();
+			switch($widget->handler){
+				case "friends":
+					$result = "/friends/" . $owner->username;
+					break;
+				case "album_view":
+					if($owner instanceof ElggGroup){
+						$result = "/photos/group/" . $owner->getGUID() . "/all";
+					} else {
+						$result = "/photos/owner/" . $owner->username;
+					}
+					break;
+				case "latest":
+					$result = "/photos/owner/" . $owner->username;
+					break;
+				case "latest_photos":
+					$result = "/photos/owner/" . $owner->username;
+					break;
+				case "messageboard":
+					$result = "/messageboard/" . $owner->username;
+					break;
+				case "event_calendar":
+					$result = "/event_calendar";
+					break;
+				case "izap_videos":
+					$result = "/izap_videos/" . $owner->username;
+					break;
+				case "river_widget":
+					$result = "/activity";
+					break;
+				case "bookmarks":
+					if($owner instanceof ElggGroup){
+						$result = "/bookmarks/group/" . $owner->getGUID() . "/all";
+					} else {
+						$result = "/bookmarks/owner/" . $owner->username;
+					}
+					break;
+			}
+		}
+		return $result;
+	}
