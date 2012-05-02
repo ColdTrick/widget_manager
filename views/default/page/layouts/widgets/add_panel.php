@@ -78,14 +78,13 @@ echo elgg_view('input/hidden', $params);
 		}
 	}
 	
+	$title = "<div id='widget_manager_widgets_search'>";
+	$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='widget_manager_widgets_search($(this).val());'></input>";
+	$title .= "</div>";
+	$title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
+	
+	$body = "";
 	if(!empty($widgets)){
-		$title = "<div id='widget_manager_widgets_search'>";
-		$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='widget_manager_widgets_search($(this).val());'></input>";
-		$title .= "</div>";
-		$title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
-		
-		$body = "";
-		
 		foreach($widgets as $handler => $widget){
 			$can_add = widget_manager_get_widget_setting($handler, "can_add", $widget_context);
 			$allow_multiple = $widget->multiple;
@@ -119,11 +118,13 @@ echo elgg_view('input/hidden', $params);
 				$body .= "</div>";
 			}
 		}
-		
-		$module_type = "info";
-		if(elgg_in_context("admin")){
-			$module_type = "inline";
-		} 
-		
-		echo "<div class='elgg-widgets-add-panel hidden'>" . elgg_view_module($module_type, $title, $body, array("id" => "widget_manager_widgets_select")) . "</div>";
+	} else {
+		$body = elgg_echo("notfound");
 	}
+	
+	$module_type = "info";
+	if(elgg_in_context("admin")){
+		$module_type = "inline";
+	} 
+
+	echo "<div class='elgg-widgets-add-panel hidden'>" . elgg_view_module($module_type, $title, $body, array("id" => "widget_manager_widgets_select")) . "</div>";
