@@ -101,7 +101,7 @@ if(elgg_in_context("iframe_dashboard")){
 	}
 } else {
 	if(empty($widgets) || $context !== "dashboard"){
-		echo $vars['content'];
+		echo elgg_extract("content", $vars);
 	}
 	
 	if($context == "groups"){

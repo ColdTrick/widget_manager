@@ -46,7 +46,7 @@
 			if($key !== 0){
 				$class .= " hidden";
 			}
-			echo elgg_view_image_block($icon, $title . $body, array("class" => $class));
+			echo elgg_view_image_block($icon, $body, array("class" => $class));
 		}
 		
 		echo "</div>";
