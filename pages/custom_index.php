@@ -14,6 +14,7 @@
 	
 	$index_top_row = elgg_get_plugin_setting("index_top_row", "widget_manager");
 	$style = "";
+	$top_row = "";
 	
 	switch($layout){
 		case "33|33|33":
