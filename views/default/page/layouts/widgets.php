@@ -115,6 +115,16 @@ if(elgg_in_context("iframe_dashboard")){
 			}
 		}
 		echo '</div>';
+	} elseif($context == "index" && $num_columns == 2){
+		if(!isset($widgets[2])){
+			$widgets[2] = array();
+		}
+		if(!isset($widgets[3])){
+			$widgets[3] = array();
+		}
+		// add column 3 widgets to the second column
+		$widgets[2] = array_merge($widgets[3], $widgets[2]);
+		unset($widgets[3]);
 	}
 	
 	$widget_class = "elgg-col-1of{$num_columns}";
