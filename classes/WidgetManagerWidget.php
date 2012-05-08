@@ -55,4 +55,13 @@ class WidgetManagerWidget extends ElggWidget {
 			return parent::getURL();
 		}
 	}
+	
+	public function canEdit($user_guid = 0){
+		$result = parent::canEdit($user_guid);
+		
+		if($result && ($this->fixed && !elgg_is_admin_logged_in())){
+			$result = false;
+		}
+		return $result;
+	}
 }

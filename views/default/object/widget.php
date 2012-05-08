@@ -11,7 +11,7 @@ if (!elgg_instanceof($widget, 'object', 'widget')) {
 	return true;
 }
 
-$widget = new WidgetManagerWidget($widget->getGUID());
+$widget = new WidgetManagerWidget($widget->getGUID()); // @todo improve by registering a specific class for widgets
 
 $show_access = elgg_extract('show_access', $vars, true);
 
@@ -31,11 +31,7 @@ if($widget_title_link !== elgg_normalize_url("view/" . $widget->getGUID())){
 $edit_area = '';
 $can_edit = $widget->canEdit();
 
-if($can_edit && $widget->fixed){
-	// fixed widgets are not editable
-	$can_edit = false;
-}
-if ($can_edit || elgg_is_admin_logged_in()) {
+if ($can_edit) {
 	$edit_area = elgg_view('object/widget/elements/settings', array(
 		'widget' => $widget,
 		'show_access' => $show_access,
@@ -62,7 +58,7 @@ $widget_id = "elgg-widget-$widget->guid";
 $widget_instance = "elgg-widget-instance-$handler";
 $widget_class = "elgg-module elgg-module-widget";
 
-if ($can_edit || elgg_is_admin_logged_in()) {
+if ($can_edit) {
 	$widget_class .= " elgg-state-draggable $widget_instance";
 } else {
 	$widget_class .= " elgg-state-fixed $widget_instance";
