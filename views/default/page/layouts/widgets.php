@@ -16,9 +16,11 @@ $show_access = elgg_extract('show_access', $vars, true);
 
 $owner = elgg_get_page_owner_entity();
 
-$widget_types = elgg_get_widget_types();
-
 $context = elgg_get_context();
+
+$available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", array(), $context);
+
+$widget_types = elgg_get_widget_types($available_widgets_context);
 
 elgg_push_context('widgets');
 
@@ -107,7 +109,7 @@ if(elgg_in_context("iframe_dashboard")){
 	if($context == "groups"){
 		echo "<div class=\"elgg-col-1of1 elgg-widgets widget-manager-groups-widgets-top-row\" id=\"elgg-widget-col-3\">";
 		
-		if (sizeof($widgets[3]) > 0) {
+		if (isset($widgets[3]) && (sizeof($widgets[3]) > 0)) {
 			foreach ($widgets[3] as $widget) {
 				if (array_key_exists($widget->handler, $widget_types)) {
 					echo elgg_view_entity($widget, array('show_access' => $show_access));

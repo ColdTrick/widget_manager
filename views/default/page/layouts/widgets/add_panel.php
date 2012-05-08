@@ -63,7 +63,9 @@ echo elgg_view('input/hidden', $params);
 	
 	$widget_context = str_replace("default_", "", $context);
 	
-	$widgets = elgg_get_widget_types($widget_context, $vars["exact_match"]);
+	$available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", array(), $widget_context);
+	
+	$widgets = elgg_get_widget_types($available_widgets_context, $vars["exact_match"]);
 	widget_manager_sort_widgets($widgets);
 
 	$current_handlers = array();
