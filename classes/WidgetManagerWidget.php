@@ -1,7 +1,7 @@
 <?php
 
 class WidgetManagerWidget extends ElggWidget {
-	protected $settings_cache;
+	protected $settings_cache = array();
 	protected $settings_defaults = array(
  		"fixed" => NULL,
 		"widget_manager_hide_header" => NULL,
@@ -27,7 +27,6 @@ class WidgetManagerWidget extends ElggWidget {
 		$query = "SELECT * from " . elgg_get_config("dbprefix"). "private_settings where entity_guid = {$guid}";
 		$result = get_data($query);
 		if ($result) {
-			$this->settings_cache = array();
 			foreach ($result as $r) {
 				$this->settings_cache[$r->name] = $r->value;
 			}
@@ -38,16 +37,35 @@ class WidgetManagerWidget extends ElggWidget {
 
 	public function get($name) {
 		if(is_array($this->settings_cache) && array_key_exists($name, $this->settings_cache)){
-			return $this->settings_cache[$name];
+			$result = $this->settings_cache[$name];
 		} elseif (array_key_exists($name, $this->settings_defaults)){
-			return $this->settings_defaults[$name];
+			$result = $this->settings_defaults[$name];
 		}
-		return parent::get($name);
+		
+		if(!isset($result)){
+			$result = parent::get($name);
+		}
+		// check if it should be an array
+		$decoded_result = json_decode($result, true);
+		if(is_array($decoded_result)){
+			$result = $decoded_result;
+		}
+		
+		return $result;		
 	}
 
 	public function set($name, $value){
+		if(is_array($value)){
+			if(empty($value)){
+				$value = null;
+			} else {
+				$value = json_encode($value);
+			}
+			
+		}
+		
 		if(parent::set($name, $value)){
-			$this->pre_load();
+			$this->settings_cache[$name] = $value;
 		}
 	}
 	
@@ -74,5 +92,31 @@ class WidgetManagerWidget extends ElggWidget {
 			$result = false;
 		}
 		return $result;
+	}
+	
+	/* need to take over from ElggWidget to allow saving arrays */
+	public function saveSettings($params) {
+		if (!$this->canEdit()) {
+			return false;
+		}
+	
+		// plugin hook handlers should return true to indicate the settings have
+		// been saved so that default code does not run
+		$hook_params = array(
+				'widget' => $this,
+				'params' => $params
+		);
+		if (elgg_trigger_plugin_hook('widget_settings', $this->handler, $hook_params, false) == true) {
+			return true;
+		}
+	
+		if (is_array($params) && count($params) > 0) {
+			foreach ($params as $name => $value) {
+				$this->$name = $value;
+			}
+			$this->save();
+		}
+	
+		return true;
 	}
 }
