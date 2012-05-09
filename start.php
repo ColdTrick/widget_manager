@@ -9,12 +9,17 @@
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
 	require_once(dirname(__FILE__) . "/lib/page_handlers.php");
 
-	function widget_manager_plugins_boot(){
+	function widget_manager_plugins_boot(){		
 		// Load widgets
 		widget_manager_load_widgets();
 	}
 	
-	function widget_manager_init(){
+	function widget_manager_init(){		
+		// check valid WidgetManagerWidget class
+		if(get_subtype_class("object", "widget") == "ElggWidget"){
+			update_subtype("object", "widget", "WidgetManagerWidget");
+		}
+		
 		elgg_trigger_event("widgets_init", "widget_manager");
 		
 		if(elgg_is_active_plugin("groups") && (elgg_get_plugin_setting("group_enable", "widget_manager") == "yes")){

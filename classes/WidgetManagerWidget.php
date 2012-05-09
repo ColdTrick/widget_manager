@@ -12,16 +12,27 @@ class WidgetManagerWidget extends ElggWidget {
 		"widget_manager_disable_widget_content_style" => NULL,
 		"widget_manager_custom_class" => NULL
 	);
-	public function __construct($guid = null) {
-		parent::__construct($guid);
-		if($this->getGUID()){
-			$this->pre_load();
+	
+	protected function load($guid) {
+		// Load data from entity table if needed
+		if (!parent::load($guid)) {
+			return false;
 		}
-	}
-	protected function pre_load() {
-
-		$this->settings_cache =  get_all_private_settings($this->getGUID());
-
+		
+		// Only work with GUID from here
+		if ($guid instanceof stdClass) {
+			$guid = $guid->guid;
+		}
+		
+		$query = "SELECT * from " . elgg_get_config("dbprefix"). "private_settings where entity_guid = {$guid}";
+		$result = get_data($query);
+		if ($result) {
+			$this->settings_cache = array();
+			foreach ($result as $r) {
+				$this->settings_cache[$r->name] = $r->value;
+			}
+		}
+		
 		return true;
 	}
 
