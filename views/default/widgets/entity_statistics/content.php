@@ -1,7 +1,7 @@
 <?php
 // Get entity statistics
 $entity_stats = get_entity_statistics();
-$selected_entities = $vars["entity"]->getMetadata("selected_entities");
+$selected_entities = $vars["entity"]->selected_entities;
 
 ?>
 <table class='elgg-table'>

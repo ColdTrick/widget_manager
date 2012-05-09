@@ -9,8 +9,8 @@
 	<license>GNU Public License version 2</license>
  	
  	<requires>
-		<type>elgg_version</type>
-		<version>2011123101</version>
+		<type>elgg_release</type>
+		<version>1.8.2</version>
 	</requires>
 	
 	<requires>
