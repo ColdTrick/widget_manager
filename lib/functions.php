@@ -167,7 +167,7 @@
 					'context' => $context,
 					'fixed' => 1
 					),
-				'limit' => 0
+				'limit' => false
 			);
 		
 		// see if there are configured fixed widgets
@@ -251,25 +251,21 @@
 			$column_widgets = elgg_get_entities_from_private_settings($options);
 			
 			$free_widgets = array();
-			$fixed_rank = 0;
+			$max_fixed_order = 0;
 			
 			if($column_widgets){
 				foreach($column_widgets as $widget){
 					if($widget->fixed){
-						$widget->order = $fixed_rank;
-						$fixed_rank += 10;
+						if($widget->order > $max_fixed_order){
+							$max_fixed_order = $widget->order;
+						}
 					} else {
-						$free_widgets[$widget->order] = $widget; 
+						$free_widgets[] = $widget; 
 					}
 				}
-				
-				if(!empty($fixed_rank) && !empty($free_widgets)){
-					// get them in the correct order
-					ksort($free_widgets);
-					
+				if(!empty($max_fixed_order) && !empty($free_widgets)){
 					foreach($free_widgets as $widget){
-						$widget->order = $fixed_rank;
-						$fixed_rank += 10;
+						$widget->order += $max_fixed_order;
 					}
 				}
 			}
