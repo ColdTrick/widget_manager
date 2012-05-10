@@ -1,5 +1,27 @@
 = Version history: =
 
+4.2: (2012-05-10):
+- added: re-enabled index_activity widget
+- added: widget class now is able to handle arrays as widget settings
+- added: re-enabled entity statistics widget
+- changed: now admin can always drag and edit/remove fixed widgets
+- changed: better/extendable check for advanced widget features
+- changed: widget title links can now be set with a hook
+- changed: default hide feed title in rss widget
+- changed: reduced language keys by replacing them with default core language keys
+- changed: available widgets context is now adjustable with a plugin hook
+- changed: widgetmanager controls widget class
+- removed: unnecessary widget context check, we trust all contexts
+- removed: group related widgets (moved to group_tools plugin)
+- fixed: a lot of php notices / warnings
+- fixed: group top row missing
+- fixed: a nasty z-index in twitter search widget
+- fixed: 2 column index layout do not merge column 2 and 3
+- fixed: multidashboards are showing on the admin side
+- fixed: edit twitter search not remembering height param
+- fixed: some default core widget title urls
+- fixed: only show multidashboard extras button when logged in
+
 4.1.1 (2012-03-19):
 
 - changed: button styling on advanced widget settings
