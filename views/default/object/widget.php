@@ -11,8 +11,6 @@ if (!elgg_instanceof($widget, 'object', 'widget')) {
 	return true;
 }
 
-$widget = new WidgetManagerWidget($widget->getGUID()); // @todo improve by registering a specific class for widgets
-
 $show_access = elgg_extract('show_access', $vars, true);
 
 // @todo catch for disabled plugins
