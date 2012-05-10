@@ -140,10 +140,6 @@
 		// index_bookmarks
 		'widget_manager:widgets:index_bookmarks:description' => "Show the latest bookmarks on your community",
 		
-		// index_groups
-		'widget_manager:widgets:index_groups:description' => "Show the latest groups on your community",
-		'widget_manager:widgets:index_groups:featured' => "Show only featured groups",
-		
 		// index_activity
 		'widget_manager:widgets:index_activity:description' => "Show the latest activity on your site",
 	
@@ -224,12 +220,6 @@
 	);
 	add_translation("en", $group_files);
 	
-	$group_forum_topics = array(
-		// Forum topic widget
-		'widgets:group_forum_topics:description' => "Show the latest discussions",
-	);
-	add_translation("en", $group_forum_topics);
-	
 	$free_html = array(
 		// Free HTML
 		'widgets:free_html:title' => "Free HTML",
@@ -246,22 +236,6 @@
 	);
 	add_translation("en", $tagcloud);
 	
-	$group_news = array(
-		// group_news widget
-		"widgets:group_news:title" => "Group News", 
-		"widgets:group_news:description" => "Shows latest 5 blogs from various groups", 
-		"widgets:group_news:no_projects" => "No groups configured", 
-		"widgets:group_news:no_news" => "No blogs for this group", 
-		"widgets:group_news:settings:project" => "Group", 
-		"widgets:group_news:settings:no_project" => "Select a group",
-		"widgets:group_news:settings:blog_count" => "Max number of blogs",
-		"widgets:group_news:settings:group_icon_size" => "Group icon size",
-		"widgets:group_news:settings:group_icon_size:small" => "Small",
-		"widgets:group_news:settings:group_icon_size:medium" => "Medium"
-	
-	);
-	add_translation("en", $group_news);
-
 	$entity_statistics = array(
 		// entity_statistics widget
 		"widgets:entity_statistics:title" => "Statistics", 
@@ -278,11 +252,4 @@
 		"widgets:messages:settings:only_unread" => "Only show unread messages",
 	);
 	add_translation("en", $messages);
-	
-	$discussion = array(
-		// discussion widget
-		"widgets:discussion:description" => "Shows the latest discussions", 
-		"widgets:discussion:settings:group_only" => "Only show discussions from groups you are member of", 
-	);
-	add_translation("en", $discussion);
 	

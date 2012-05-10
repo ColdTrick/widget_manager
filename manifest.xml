@@ -33,6 +33,10 @@
 		<type>plugin</type>
 		<name>dashboard</name>
 	</suggests>
+	<suggests>
+		<type>plugin</type>
+		<name>group_tools</name>
+	</suggests>
 	
  	<category>ColdTrick</category>
 </plugin_manifest>
