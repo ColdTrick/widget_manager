@@ -1,6 +1,11 @@
 = Version history: =
 
+x.x:
+
+- removed: index_file and group_files widgets moved to file_tools plugin
+
 4.2: (2012-05-10):
+
 - added: re-enabled index_activity widget
 - added: widget class now is able to handle arrays as widget settings
 - added: re-enabled entity statistics widget
