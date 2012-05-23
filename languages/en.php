@@ -131,9 +131,6 @@
 		'widget_manager:widgets:index_members_online:user_icon' => "Must the users have a profileicon",
 		'widget_manager:widgets:index_members_online:no_result' => "No users found",
 		
-		// index_file
-		'widget_manager:widgets:index_file:description' => "Show the latest files on your community",
-		
 		// index_pages
 		'widget_manager:widgets:index_pages:description' => "Show the latest pages on your community",
 		
@@ -213,12 +210,6 @@
 		'widgets:rss:settings:post_date:option:date' => "Show date",
 	);
 	add_translation("en", $rss);
-	
-	$group_files = array(
-		// Files widget
-		'widgets:group_files:description' => "Show the latest group files",
-	);
-	add_translation("en", $group_files);
 	
 	$free_html = array(
 		// Free HTML
