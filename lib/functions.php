@@ -57,6 +57,7 @@
 			foreach($widgets as $key => $row){
 				$name[$key] = $row->name; 
 			}
+			$name = array_map('strtolower', $name); 
 			
 			array_multisort($name, SORT_STRING, $widgets);
 		}
