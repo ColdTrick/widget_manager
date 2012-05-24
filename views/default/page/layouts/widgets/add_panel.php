@@ -114,8 +114,13 @@ echo elgg_view('input/hidden', $params);
 				$body .= "</li>";
 				$body .= "</span>";
 				
+				$description = $widget->description;
+				if(empty($description)){
+					$description = "&nbsp;"; // need to fill up for correct layout
+				}
+				
 				$body .= "<div><b>" . $widget->name . "</b></div>";
-				$body .= "<div class='elgg-quiet'>" . $widget->description . "</div>";
+				$body .= "<div class='elgg-quiet'>" . $description . "</div>";
 				
 				$body .= "</div>";
 			}
