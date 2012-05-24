@@ -87,6 +87,7 @@ echo elgg_view('input/hidden', $params);
 	
 	$body = "";
 	if(!empty($widgets)){
+		
 		foreach($widgets as $handler => $widget){
 			$can_add = widget_manager_get_widget_setting($handler, "can_add", $widget_context);
 			$allow_multiple = $widget->multiple;
@@ -108,10 +109,10 @@ echo elgg_view('input/hidden', $params);
 				}
 				
 				$body .= "<span class='widget_manager_widgets_lightbox_actions'>";
-				$body .= '<li class="' . $class . '" id="elgg-widget-type-'. $handler . '">';
+				$body .= '<ul><li class="' . $class . '" id="elgg-widget-type-'. $handler . '">';
 				$body .= "<span class='elgg-quiet'>" . elgg_echo('widget:unavailable') . "</span>";
 				$body .= elgg_view("input/button", array("class" => "elgg-button-submit", "value" => elgg_echo("widget_manager:button:add")));
-				$body .= "</li>";
+				$body .= "</li></ul>";
 				$body .= "</span>";
 				
 				$description = $widget->description;
@@ -124,7 +125,7 @@ echo elgg_view('input/hidden', $params);
 				
 				$body .= "</div>";
 			}
-		}
+		}		
 	} else {
 		$body = elgg_echo("notfound");
 	}
