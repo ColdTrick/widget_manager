@@ -1674,7 +1674,7 @@ function embed_wmedia(width, height, link) {
 						else
 						{
 							$this->error = "A feed could not be found at $this->feed_url";
-							SimplePie_Misc::error($this->error, E_USER_NOTICE, __FILE__, __LINE__);
+							// SimplePie_Misc::error($this->error, E_USER_NOTICE, __FILE__, __LINE__); // no need for flooding apache error logs with this error message
 							return false;
 						}
 					}
