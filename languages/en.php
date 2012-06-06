@@ -182,6 +182,7 @@
 		'widgets:content_by_tag:description' => "Find content by a tag",
 		
 		'widgets:content_by_tag:owner_guids' => "Who needs to write the items",
+		'widgets:content_by_tag:group_only' => "Only show content from this group",
 		'widgets:content_by_tag:entities' => "Which entities to show",
 		'widgets:content_by_tag:tags' => "Tag(s) (comma separated)",
 		'widgets:content_by_tag:tags_option' => "How to use the tag(s)",

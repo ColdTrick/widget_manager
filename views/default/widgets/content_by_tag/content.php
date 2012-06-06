@@ -125,7 +125,7 @@
 			"owner_guids" => $owner_guids
 		);
 	
-	if($widget->context == "groups"){
+	if(($widget->context == "groups") && ($widget->group_only !== "no")){
 		$options["container_guids"] = array($widget->container_guid);
 	}
 	

@@ -75,6 +75,13 @@
 			echo "</div>";
 		}
 	}
+	
+	if($widget->context == "groups"){
+		echo "<div>";
+		echo elgg_echo("widgets:content_by_tag:group_only") . "<br />";
+		echo elgg_view("input/dropdown", array("name" => "params[group_only]", "options_values" => array("yes" => elgg_echo("option:yes"), "no" => elgg_echo("option:no")), "value" => $widget->group_only));
+		echo "</div>";
+	}
 ?>
 <div>
 	<?php echo elgg_echo("widget:numbertodisplay"); ?><br />

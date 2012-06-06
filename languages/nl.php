@@ -24,6 +24,7 @@ $language = array (
   'widgets:rss:settings:post_date' => 'Toon datum van bericht',
   'widgets:rss:settings:post_date:option:friendly' => 'Toon relatieve tijd',
   'widgets:rss:settings:post_date:option:date' => 'Toon datum',
+  'widgets:content_by_tag:group_only' => 'Alleen content uit deze groep',
   'widgets:content_by_tag:display_option' => 'Hoe moet de inhoud getoond worden',
   'widgets:content_by_tag:display_option:normal' => 'Normaal',
   'widgets:content_by_tag:display_option:slim' => 'Klein (enkele regel)',
