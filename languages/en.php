@@ -131,9 +131,6 @@
 		'widget_manager:widgets:index_members_online:user_icon' => "Must the users have a profileicon",
 		'widget_manager:widgets:index_members_online:no_result' => "No users found",
 		
-		// index_pages
-		'widget_manager:widgets:index_pages:description' => "Show the latest pages on your community",
-		
 		// index_bookmarks
 		'widget_manager:widgets:index_bookmarks:description' => "Show the latest bookmarks on your community",
 		

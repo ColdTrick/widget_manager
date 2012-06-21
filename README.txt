@@ -32,9 +32,6 @@ Since 4.0:
  - login box
  - members
  - online members
- - files
- - blogs
- - pages
  - bookmarks
  - groups
  - activity
@@ -76,3 +73,7 @@ A user can always add his or hers own widgets. They will always be added below t
  - borderless columns
  - colored tabs
  - dashboard background
+ 
+ == Widgets ==
+ 
+ - slider widget could auto resize / scale images
