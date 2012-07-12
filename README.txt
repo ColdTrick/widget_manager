@@ -2,7 +2,7 @@
  - Adding widgets from a lightbox 
  - Index widgets (with a few different layouts)
  - Group widgets (instead of group profile modules)
- - Provides a lot of new widgets (see below for the widget list)
+ - Provides a few new widgets (see below for the widget list)
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
  - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
 
@@ -33,19 +33,9 @@ Since 4.0:
  - members
  - online members
  - bookmarks
- - groups
  - activity
  - image slider
  - community stats
-   
-== Group widgets ==
-
- - forum topics
- - files
- - izap_videos
- - tidypics
- - videolist
- - tasks
  
 = Info about the fix mechanisme for Default Widgets = 
 Fixed widgets always
@@ -77,3 +67,7 @@ A user can always add his or hers own widgets. They will always be added below t
  == Widgets ==
  
  - slider widget could auto resize / scale images
+ 
+ = Known Issues =
+ 
+ - Adding group widget with a default access level not the group or higher could cause issues. Widgets could dissapear or only show for the person who added it. Keep default access on logged in or higher to prevent this issues. Will provide a fix once default access hook in elgg core is implemented.
