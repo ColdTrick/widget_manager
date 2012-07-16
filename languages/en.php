@@ -187,6 +187,7 @@
 		'widgets:content_by_tag:tags_option:or' => "OR",
 		'widgets:content_by_tag:display_option' => "How to list the content",
 		'widgets:content_by_tag:display_option:normal' => "Normal",
+		'widgets:content_by_tag:display_option:simple' => "Simple",
 		'widgets:content_by_tag:display_option:slim' => "Slim (single line)",
 		'widgets:content_by_tag:highlight_first' => "Number of highlighted items (slim only)",
 	);

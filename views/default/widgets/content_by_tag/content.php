@@ -131,32 +131,53 @@
 	
 	elgg_push_context("search");
 	
-	if($widget->display_option == "slim"){
+	$display_option = $widget->display_option;
+	if(in_array($display_option, array("slim","simple"))){
 		if($entities = elgg_get_entities($options)){		
 			$num_highlighted = (int) $widget->highlight_first;
+			$result .= "<ul class='elgg-list'>";
+			
 			foreach($entities as $index => $entity){
+				$icon = "";
+				$body = "";
 				
-				if($index < $num_highlighted){
-					
-					$icon = elgg_view_entity_icon($entity->getOwnerEntity(), "small");
+				$result .= "<li class='elgg-item'>";
+				
+				if($display_option == "slim"){
+					if($index < $num_highlighted){
+						
+						$icon = elgg_view_entity_icon($entity->getOwnerEntity(), "small");
+						
+						$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title));
+						$text .= "<br />";
+						$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
+						$description = elgg_get_excerpt($entity->description, 170);
+						$text .= $description;
+						if (elgg_substr($description, -3, 3) == '...') {
+							$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
+						}
+						
+						$result .= elgg_view_image_block($icon, $text);
+					} else {
+						$result .= "<div>";		
+						$result .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
+						$result .= "</div>";	
+					}
+				} else {
+					$owner = $entity->getOwnerEntity();
+					$icon = elgg_view_entity_icon($owner, "small");
 					
 					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title));
 					$text .= "<br />";
-					$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
-					$description = elgg_get_excerpt($entity->description, 170);
-					$text .= $description;
-					if (elgg_substr($description, -3, 3) == '...') {
-						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
-					}
-					
+					$text .= "<a href='" . $owner->getURL() . "'>" . $owner->name . "</a> ";
+					$text .= "<span class='elgg-quiet'>" . elgg_view_friendly_time($entity->time_created) . "</span>";
 					$result .= elgg_view_image_block($icon, $text);
-				} else {
-					$result .= "<div>";		
-					$result .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
-					$result .= "</div>";	
-				}	
-						
+				}
+				
+				$result .= "</li>";
 			}
+			
+			$result .= "</ul>";
 		}
 	} else {
 		$result = elgg_list_entities($options);

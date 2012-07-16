@@ -27,6 +27,7 @@ $language = array (
   'widgets:content_by_tag:group_only' => 'Alleen content uit deze groep',
   'widgets:content_by_tag:display_option' => 'Hoe moet de inhoud getoond worden',
   'widgets:content_by_tag:display_option:normal' => 'Normaal',
+  'widgets:content_by_tag:display_option:simple' => "Simpel",
   'widgets:content_by_tag:display_option:slim' => 'Klein (enkele regel)',
   'widgets:content_by_tag:highlight_first' => 'Aantal uitgelichte items (alleen in kleine weergave)',
   'admin:widgets' => 'Widgets',
