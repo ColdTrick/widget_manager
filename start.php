@@ -143,8 +143,6 @@
 				elgg_set_view_location("page/default", dirname(__FILE__) . "/views_alt/");
 			}
 		}
-		
-		elgg_trigger_event("widgets_pagesetup", "widget_manager");
 	}
 	
 	/* enables widget that are not specifically registered for groups or index widget, but do work */
