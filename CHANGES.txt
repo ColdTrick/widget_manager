@@ -1,11 +1,24 @@
 = Version history: =
 
-x.x:
+4.3 (2012-07-26):
 
 - added: favorites widget
+- added: updates widget titles without page refresh (thanks to Matt Beckett)
+- added: new 'simple' layout in content_by_tag widget
+- changed: freehtml is now contained within a div with elgg-output class (better styling)	
+- changed: manifest requirements (needs to be after twitter and tagcloud plugins)
+- changed: Natural sorting of widgets (for example in add panel)
+- changed: content by tag widget now allows to show all site content from within a group
 - removed: index_file and group_files widgets moved to file_tools plugin
+- removed: unused language keys
+- removed: index_pages widget (moved to pages_tools plugin)
+- removed: widgets_pagesetup event trigger
+- fixed: support for old widget settings in index_activity widget
+- fixed: add panel keeps correct layout if no widget description is given
+- fixed: some layout issues when using IE7
+- fixed: no need for flooding apache error logs with the error message that a rss feed could not be found (SimplePie)
 
-4.2: (2012-05-10):
+4.2 (2012-05-10):
 
 - added: re-enabled index_activity widget
 - added: widget class now is able to handle arrays as widget settings
@@ -36,7 +49,7 @@ x.x:
 
 4.1 (2012-02-12):
 
-- added: Multi Dashbaord support
+- added: Multi Dashboard support
 - changed: updated the Dutch language file
 - changed: required Elgg version to 1.8.3
 

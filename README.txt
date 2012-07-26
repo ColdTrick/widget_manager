@@ -58,7 +58,6 @@ A user can always add his or hers own widgets. They will always be added below t
 == General ==
 
  - check available widget and saving of widget manage page on a clean install
- - test different browser (only FF 8 tested)
  - split css site/admin
  
 == Multi Dashboard ==
