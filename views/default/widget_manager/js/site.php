@@ -33,24 +33,15 @@ function widget_manager_init(){
  
       var widgetId = $(this).siblings('input:hidden[name="guid"]').val();
       var customTitle = $('#widget-manager-widget-edit-advanced-'+widgetId+' input:text[name="params[widget_manager_custom_title]"]').val();
-      var originalTitle = $('#elgg-widget-'+widgetId+' .elgg-widget-handle h3 a').text();
-      if (originalTitle.length == 0) {
-        originalTitle = $('#elgg-widget-'+widgetId+' .elgg-widget-handle h3').text();
-      }
       
       var customUrl = $('#widget-manager-widget-edit-advanced-'+widgetId+' input:text[name="params[widget_manager_custom_url]"]').val();
-      var originalUrl = $('#elgg-widget-'+widgetId+' .elgg-widget-handle h3 a').attr("href");
 	  
 	  // clean custom title, prevent scripting
 	  var cleanText = $('<div class="stripHTMLClass">text</div>');
 	  customTitle = cleanText.text(customTitle).html();
       
       if (customTitle.length == 0) {
-        customTitle = originalTitle;
-      }
-      
-      if (customUrl.length == 0) {
-        customUrl = originalUrl;
+        return;
       }
       
       // big long regex provided by the jquery validation plugin
