@@ -37,6 +37,10 @@ Since 4.0:
  - image slider
  - community stats
  
+== Dashboard widgets ==
+
+ - favorites (favorite community pages)
+ 
 = Info about the fix mechanisme for Default Widgets = 
 Fixed widgets always
 

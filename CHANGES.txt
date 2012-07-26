@@ -2,6 +2,7 @@
 
 x.x:
 
+- added: favorites widget
 - removed: index_file and group_files widgets moved to file_tools plugin
 
 4.2: (2012-05-10):
