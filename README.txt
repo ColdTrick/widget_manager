@@ -66,6 +66,7 @@ A user can always add his or hers own widgets. They will always be added below t
  - borderless columns
  - colored tabs
  - dashboard background
+ - fix the js issues when embedding internal community pages (see github issue #10)
  
  == Widgets ==
  
