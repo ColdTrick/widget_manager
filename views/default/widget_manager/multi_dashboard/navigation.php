@@ -28,7 +28,8 @@
 			if($entity->getGUID() == $selected_guid){
 				$selected = true;
 			} 
-			$tab_title = $entity->title;
+			$tab_title = elgg_strip_tags($entity->title);
+			
 			if(strlen($tab_title) > $max_tab_title_length){
 				$tab_title = substr($tab_title, 0, $max_tab_title_length);
 			}
