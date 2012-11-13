@@ -202,7 +202,7 @@
 					}
 					
 					echo "<img src='" . $slide["url"] . "'>";
-					if(!empty($link)){
+					if(!empty($slide["link"])){
 						echo "</a>";
 					}
 					echo "</li>";
