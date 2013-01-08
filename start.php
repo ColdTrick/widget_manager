@@ -106,7 +106,6 @@
 			
 			// add own menu items
 			elgg_register_admin_menu_item('configure', 'manage', 'widgets');
-			elgg_register_admin_menu_item('administer', 'widgets', 'statistics');
 			
 			if(elgg_get_plugin_setting("custom_index", "widget_manager") == "1|0"){	
 				// a special link to manage homepages that are only available if logged out
