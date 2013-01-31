@@ -3,6 +3,7 @@ elgg_load_js('lightbox');
 elgg_load_css('lightbox');
 
 $context = $vars["context"];
+$show_access = (int) $vars["show_access"];
 
 if($md_guid = get_input("multi_dashboard_guid")){
 	$params = array(
@@ -16,6 +17,8 @@ if($md_guid = get_input("multi_dashboard_guid")){
 	);
 }
 echo elgg_view('input/hidden', $params);
+
+echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_access));
 
 ?>
 <script type="text/javascript">
