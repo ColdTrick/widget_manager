@@ -1,5 +1,14 @@
 = Version history: =
 
+4.4 (2013-04-05):
+
+- added: experimental likes widget
+- changed: use system cache for some widget settings
+- removed: widget statistics in favor of advanced_statistics plugin
+- fixed: access options should not show up after adding a widget to dashboard
+- fixed: tags are stripped from dashboard title
+- fixed: slider output not closing anchor when using link
+
 4.3 (2012-07-26):
 
 - added: favorites widget
