@@ -20,6 +20,8 @@
 					}
 				}
 			}
+			
+			elgg_get_system_cache()->delete("widget_manager_widget_settings");
 		}
 		
 		if($error_count == 0){

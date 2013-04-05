@@ -1,6 +1,6 @@
 <?php 
 
-	function widget_manager_get_widget_setting($widget_handler, $setting, $context = null){
+function widget_manager_get_widget_setting($widget_handler, $setting, $context = null){
 		$result = false;
 		
 		if(is_null($context)){
@@ -8,8 +8,14 @@
 		}
 		
 		static $widget_settings;
+				
 		if(!isset($widget_settings)){
-			$widget_settings = array();
+			$widget_settings = elgg_load_system_cache("widget_manager_widget_settings");
+			if($widget_settings === null){
+				$widget_settings = array();
+			} else {
+				$widget_settings = unserialize($widget_settings);
+			}
 		}
 		if(!isset($widget_settings[$context])){
 			$widget_settings[$context] = array();
@@ -33,6 +39,8 @@
 			
 			$widget_settings[$context][$widget_handler][$setting] = $result;
 		}
+		
+		elgg_save_system_cache("widget_manager_widget_settings", serialize($widget_settings));
 		
 		return $result;
 	}
