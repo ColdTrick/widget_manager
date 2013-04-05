@@ -47,11 +47,11 @@ function widget_favorites_has_widget($owner_guid = 0){
 			"subtype" => "widget",
 			"private_setting_name_value_pairs" => array("handler" => "favorites"),
 			"count" => true,
-			"owner" => $owner_guid
+			"owner_guid" => $owner_guid
 		);
 		
 		if(elgg_get_entities_from_private_settings($options)){
-			$result =true;
+			$result = true;
 		}
 	}
 	
