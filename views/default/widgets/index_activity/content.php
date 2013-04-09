@@ -6,12 +6,13 @@
 		$count = 10;
 	}
 	
-	$activity_content = $widget->activity_content;
-	if(!is_array($activity_content)){
-		if($activity_content == "all"){
-			unset($activity_content);
-		} else {
-			$activity_content = explode(",", $activity_content);
+	if ($activity_content = $widget->activity_content){
+		if(!is_array($activity_content)){
+			if($activity_content == "all"){
+				unset($activity_content);
+			} else {
+				$activity_content = explode(",", $activity_content);
+			}
 		}
 	}
 	
