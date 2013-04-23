@@ -279,3 +279,10 @@
 			
 	);
 	add_translation("en", $likes);
+	
+	$user_search = array(
+		// user search widget
+		"widgets:user_search:title" => "User Search", 
+		"widgets:user_search:description" => "Search all user on your site (including disabled and unvalidated users)", 	
+	);
+	add_translation("en", $user_search);

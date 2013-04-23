@@ -90,6 +90,10 @@ $language = array (
   'widgets:content_by_tag:tags_option' => 'Hoe moeten de tag(s) gezocht worden',
   'widgets:content_by_tag:tags_option:and' => 'EN',
   'widgets:content_by_tag:tags_option:or' => 'OF',
+
+  'widgets:user_search:title' => 'Gebruikers zoeken',
+  'widgets:user_search:description' => 'Zoek alle gebruikers (inclusief geblokkeerde of ongevalideerde)',
+		
   'widgets:twitter_search:name' => 'Twitter zoekopdracht',
   'widgets:twitter_search:description' => 'Toon een zoekopdracht op Twitter',
   'widgets:twitter_search:query' => 'Zoekopdracht',
