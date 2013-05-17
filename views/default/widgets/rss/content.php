@@ -8,7 +8,7 @@
 		if($widget->excerpt == "yes"){
 			$excerpt = true;
 		} else {
-			$exerpt = false;
+			$excerpt = false;
 		}
 		
 		if($widget->show_item_icon == "yes"){
