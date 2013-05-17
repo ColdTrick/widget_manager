@@ -72,7 +72,6 @@ A user can always add his or hers own widgets. They will always be added below t
  == Widgets ==
  
  - slider widget could auto resize / scale images
- - update usage of SimplePie in rss widgets
  
  = Known Issues =
  
