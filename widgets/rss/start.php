@@ -2,6 +2,9 @@
 	/* init file for rss widget */
 	
 	function widget_rss_init(){
+		// load SimplePie autoloader
+		require_once(elgg_get_plugins_path() . "widget_manager/widgets/rss/vendors/simplepie/autoloader.php");
+		
 		elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
 		
 		// extend CSS
@@ -15,8 +18,6 @@
 		if(!is_dir(elgg_get_data_path() . "/widgets/rss/")){
 			mkdir(elgg_get_data_path() . "/widgets/rss/");
 		}
-		
-		elgg_register_library("simplepie", elgg_get_plugins_path() . "widget_manager/widgets/rss/vendors/simplepie/simplepie.inc");
 		
 		// set cache settings
 		define("WIDGETS_RSS_CACHE_LOCATION", elgg_get_data_path() . "widgets/rss/");
