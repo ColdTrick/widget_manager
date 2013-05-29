@@ -19,6 +19,9 @@
 	if(elgg_is_active_plugin("pages")){
 		$content_options_values["page"] = elgg_echo("item:object:page");
 	}
+	if(elgg_is_active_plugin("bookmarks")){
+		$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
+	}
 	
 	$tags = $widget->tags;
 	$tags_option = $widget->tags_option;

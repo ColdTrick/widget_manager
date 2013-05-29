@@ -19,6 +19,8 @@
 			$content_type = "file";
 		} elseif(elgg_is_active_plugin("pages")){
 			$content_type = "page";
+		} elseif(elgg_is_active_plugin("bookmarks")){
+			$content_type = "page";
 		}
 	}
 	
@@ -104,16 +106,6 @@
 		$wheres[] = "($values_where AND $access)";
 	}
 	
-	// owner_guids
-	if(!empty($widget->owner_guids)){
-		$owner_guids = string_to_tag_array($widget->owner_guids);
-		if(!empty($owner_guids)){
-			foreach($owner_guids as $key => $guid){
-				$owner_guids[$key] = sanitise_int($guid);
-			}
-		}
-	}
-		
 	$options = array(
 			"type" => "object",
 			"subtypes" => $content_type,
@@ -121,9 +113,19 @@
 			"full_view" => false,
 			"pagination" => false,
 			"joins" => $joins,
-			"wheres" => $wheres,
-			"owner_guids" => $owner_guids
+			"wheres" => $wheres
 		);
+	
+	// owner_guids
+	if(!empty($widget->owner_guids)){
+		$owner_guids = string_to_tag_array($widget->owner_guids);
+		if(!empty($owner_guids)){
+			foreach($owner_guids as $key => $guid){
+				$owner_guids[$key] = sanitise_int($guid);
+			}
+			$options["owner_guids"] = $owner_guids;
+		}
+	}
 	
 	if(($widget->context == "groups") && ($widget->group_only !== "no")){
 		$options["container_guids"] = array($widget->container_guid);
