@@ -132,3 +132,9 @@
 	<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
 	<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
 </div>
+
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:show_search_link"); ?><br />
+	<?php echo elgg_view("input/dropdown", array("name" => "params[show_search_link]", "options_values" => array_reverse($yesno_options, true), "value" => $widget->show_search_link)); ?>
+	<div class="elgg-subtext"><?php echo elgg_echo("widgets:content_by_tag:show_search_link:disclaimer"); ?></div>
+</div>
