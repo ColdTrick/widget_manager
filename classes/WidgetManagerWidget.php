@@ -66,6 +66,15 @@ class WidgetManagerWidget extends ElggWidget {
 		
 		if(parent::set($name, $value)){
 			$this->settings_cache[$name] = $value;
+			
+			// If memcache is available then delete this entry from the cache
+			static $newentity_cache;
+			if ((!$newentity_cache) && (is_memcache_available())) {
+				$newentity_cache = new ElggMemcache('new_entity_cache');
+			}
+			if ($newentity_cache) {
+				$newentity_cache->delete($this->getGUID());
+			}
 		}
 	}
 	
