@@ -18,6 +18,7 @@
 		'widget_manager:widgets:edit:hide_header' => "Hide header",
 		'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 		'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
+		'widget_manager:widgets:edit:fixed_height' => "Fixed widget height (in pixels)",
 			
 		// group
 		'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",

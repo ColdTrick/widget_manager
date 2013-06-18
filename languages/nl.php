@@ -48,6 +48,7 @@ $language = array (
   'admin:statistics:widgets' => 'Widget gebruik',
   'widget_manager:widgets:edit:custom_url' => 'Aangepaste titel link',
   'widget_manager:widgets:edit:custom_class' => 'Aangepaste CSS class',
+  'widget_manager:widgets:edit:fixed_height' => "Vaste widget hoogte (in pixels)",
   'widget_manager:groups:enable_widget_manager' => 'Schakelen het beheer van widgets in',
   'widget_manager:settings:index' => 'Startpagina',
   'widget_manager:settings:group' => 'Groep',

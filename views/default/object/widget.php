@@ -87,12 +87,17 @@ if(($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()){
 HEADER;
 } 
 
-$widget_body = <<<BODY
-	$edit_area
-	<div class="elgg-widget-content" id="elgg-widget-content-$widget->guid">
-		$content
-	</div>
-BODY;
+$fixed_height = sanitize_int($widget->widget_manager_fixed_height, false);
+
+$widget_body = $edit_area;
+$widget_body .= "<div class='elgg-widget-content'";
+if ($fixed_height) { 
+	$widget_body .= " style='height: " . $fixed_height . "px; overflow-y: auto;'";
+}
+$widget_body .= " id='elgg-widget-content-" . $widget->guid . "'>";
+$widget_body .= $content;
+$widget_body .= "</div>";
+
 echo elgg_view('page/components/module', array(
 	'class' => $widget_class,
 	'id' => $widget_id,
