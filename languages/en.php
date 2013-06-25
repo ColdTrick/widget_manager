@@ -164,12 +164,10 @@
 		'widgets:twitter_search:name' => "Twitter search",
 		'widgets:twitter_search:description' => "Display a custom search from Twitter",
 		
-		'widgets:twitter_search:query' => "Search query",
-		'widgets:twitter_search:query:help' => "try some advanced queries",
-		'widgets:twitter_search:title' => "Widget title (optional)",
-		'widgets:twitter_search:subtitle' => "Widget subtitle (optional)",
+		'widgets:twitter_search:embed_code' => "Twitter Widget Embed Code",
+		'widgets:twitter_search:embed_code:help' => "Create a widget on Twitter.com and paste your embed code here",
+		'widgets:twitter_search:embed_code:error' => "Could not extract the widget id from the embed code",
 		'widgets:twitter_search:height' => "Widget height (pixels)",
-		'widgets:twitter_search:background' => "Set a custom background color (HEX eq 4690d6)",
 		'widgets:twitter_search:not_configured' => "This widget is not yet configured",
 	);
 	add_translation("en", $twitter_search);
