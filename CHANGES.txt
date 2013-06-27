@@ -1,5 +1,14 @@
 = Version history: =
 
+4.6 (2013-06-27):
+
+- added: content_by_tag widget also support bookmarks
+- added: content_by_tag widget has an optional search link
+- added: optional fixed widget height
+- changed: twitter_search widget now uses twitters new widget embed code
+- changed: rss widget uses new version of SimplePie library
+- fixed: memcache reset on widget settings save
+
 4.5 (2013-05-06):
 
 - added: admin users search widget (also searches disabled/blocked/unvalidated users and by email)
