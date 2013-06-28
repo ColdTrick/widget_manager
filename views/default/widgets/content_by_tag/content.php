@@ -162,7 +162,7 @@
 						$result .= elgg_view_image_block($icon, $text);
 					} else {
 						$result .= "<div>";		
-						$result .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
+						$result .= "<span title='" . strftime("%c", $entity->time_created) . "'>" . strftime("%d %b", $entity->time_created) . "</span> - <a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";		
 						$result .= "</div>";	
 					}
 				} else {
