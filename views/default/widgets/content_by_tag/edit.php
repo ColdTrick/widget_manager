@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 	$widget = $vars["entity"];
-	
+
 	$count = sanitise_int($widget->content_count, false);
 	if(empty($count)){
 		$count = 8;
 	}
-	
+
 	$content_type = $widget->content_type;
-	
+
 	$content_options_values = array();
 	if(elgg_is_active_plugin("blog")){
 		$content_options_values["blog"] = elgg_echo("item:object:blog");
@@ -22,14 +22,14 @@
 	if(elgg_is_active_plugin("bookmarks")){
 		$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
 	}
-	
+
 	$tags = $widget->tags;
 	$tags_option = $widget->tags_option;
-	
+
 	if(empty($tags_option)){
 		$tags_option = "and";
 	}
-	
+
 	$yesno_options = array(
 		"yes" => elgg_echo("option:yes"),
 		"no" => elgg_echo("option:no")
@@ -39,18 +39,18 @@
 		"and" => elgg_echo("widgets:content_by_tag:tags_option:and"),
 		"or" => elgg_echo("widgets:content_by_tag:tags_option:or")
 	);
-	
+
 	$display_option_options_values = array(
 		"normal" => elgg_echo("widgets:content_by_tag:display_option:normal"),
 		"simple" => elgg_echo("widgets:content_by_tag:display_option:simple"),
 		"slim" => elgg_echo("widgets:content_by_tag:display_option:slim")
 	);
-	
+
 	if(elgg_view_exists("input/user_autocomplete")){
 		echo "<div>". elgg_echo("widgets:content_by_tag:owner_guids") . "</div>";
-		
-		echo elgg_view("input/user_autocomplete", array("name" => "owner_guids", "value" => string_to_tag_array($widget->owner_guids), "include_self" => true));		
-		echo elgg_view("input/hidden", array("name" => "params[owner_guids]", "value" => $widget->owner_guids));		
+
+		echo elgg_view("input/user_autocomplete", array("name" => "owner_guids", "value" => string_to_tag_array($widget->owner_guids), "include_self" => true));
+		echo elgg_view("input/hidden", array("name" => "params[owner_guids]", "value" => $widget->owner_guids));
 	} else {
 		if($user = elgg_get_logged_in_user_entity()){
 			$options_values = array(
@@ -62,24 +62,24 @@
 					$options_values[$friend->guid] = $friend->name;
 				}
 			}
-			
+
 			if($owner_guid = $widget->owner_guids){
 				if(!array_key_exists($owner_guid, $options_values)){
 					if($configured_user = get_user($owner_guid)){
-						$options_values[$owner_guid] = $configured_user->name; 
+						$options_values[$owner_guid] = $configured_user->name;
 					}
 				}
 			}
-			
+
 			natcasesort($options_values);
-			
+
 			echo "<div>";
 			echo elgg_echo("widgets:content_by_tag:owner_guids") . "<br />";
 			echo elgg_view("input/dropdown", array("name" => "params[owner_guids]", "options_values" => $options_values, "value" => $widget->owner_guids));
 			echo "</div>";
 		}
 	}
-	
+
 	if($widget->context == "groups"){
 		echo "<div>";
 		echo elgg_echo("widgets:content_by_tag:group_only") . "<br />";
@@ -107,34 +107,55 @@
 	<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
 </div>
 
-<?php 
-	if(elgg_view_exists("input/user_autocomplete")){
-		?>
-		<script type="text/javascript">
-			$("#widgetform<?php echo $widget->getGUID(); ?>").submit(function(){
-				var newVal = "";
-				$(this).find("input[name='owner_guids[]']").each(function(index, elem){
-					newVal += $(elem).val() + ",";
-				});
-				newVal = newVal.substr(0, (newVal.length - 1));
-				$(this).find("input[name='params[owner_guids]']").val(newVal);
-			});
-		</script>
-		<?php 		
-	}
-?>
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:display_option"); ?><br />
-	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
-</div>
-
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
-</div>
-
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:show_search_link"); ?><br />
 	<?php echo elgg_view("input/dropdown", array("name" => "params[show_search_link]", "options_values" => array_reverse($yesno_options, true), "value" => $widget->show_search_link)); ?>
 	<div class="elgg-subtext"><?php echo elgg_echo("widgets:content_by_tag:show_search_link:disclaimer"); ?></div>
 </div>
+
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:display_option"); ?><br />
+	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
+</div>
+
+<div class="widgets-content-by-tag-display-options">
+	<div class="widgets-content-by-tag-display-options-slim">
+		<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
+		<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
+	</div>
+
+	<div class="widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim">
+		<?php echo elgg_echo("widgets:content_by_tag:show_avatar"); ?><br />
+		<?php echo elgg_view("input/dropdown", array("name" => "params[show_avatar]", "options_values" => $yesno_options, "value" => $widget->show_avatar)); ?>
+	</div>
+
+	<div class="widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim">
+		<?php echo elgg_echo("widgets:content_by_tag:show_timestamp"); ?><br />
+		<?php echo elgg_view("input/dropdown", array("name" => "params[show_timestamp]", "options_values" => $yesno_options, "value" => $widget->show_timestamp)); ?>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#elgg-widget-<?php echo $widget->getGUID(); ?> [name='params[display_option]']").change(function(){
+				$("#elgg-widget-<?php echo $widget->getGUID(); ?> .widgets-content-by-tag-display-options > div").hide();
+				$("#elgg-widget-<?php echo $widget->getGUID(); ?> .widgets-content-by-tag-display-options-" + $(this).val()).show();
+			}).change();
+		});
+	</script>
+</div>
+<?php
+
+if(elgg_view_exists("input/user_autocomplete")){
+	?>
+	<script type="text/javascript">
+		$("#widgetform<?php echo $widget->getGUID(); ?>").submit(function(){
+			var newVal = "";
+			$(this).find("input[name='owner_guids[]']").each(function(index, elem){
+				newVal += $(elem).val() + ",";
+			});
+			newVal = newVal.substr(0, (newVal.length - 1));
+			$(this).find("input[name='params[owner_guids]']").val(newVal);
+		});
+	</script>
+	<?php
+}
