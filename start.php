@@ -38,6 +38,7 @@
 			} elseif($group_option_enabled) {
 				// register event to make sure newly created groups have the group option enabled
 				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
+				elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
 			}
 		}
 		
