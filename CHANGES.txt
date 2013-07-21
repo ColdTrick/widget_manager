@@ -2,7 +2,7 @@
 
 4.7 ():
 - added: group default widget support
-(thanks to Connecting Conservation - griffingroups.com)
+(thanks to Connecting Conservation)
 
 4.6 (2013-06-27):
 

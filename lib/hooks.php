@@ -270,7 +270,7 @@
 		$return_value[] = array(
 			'name' => elgg_echo('groups'),
 			'widget_context' => 'groups',
-			'widget_columns' => 3,
+			'widget_columns' => 2,
 			'event' => 'create',
 			'entity_type' => 'group',
 			'entity_subtype' => NULL
