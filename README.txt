@@ -5,6 +5,7 @@
  - Provides a few new widgets (see below for the widget list)
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
  - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
+ - Create group default widgets
 
 Version 4.0 is only for 1.8 and higher
 Version 3.9.x will be used for 1.7 patches
