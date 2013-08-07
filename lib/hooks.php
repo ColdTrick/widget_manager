@@ -262,7 +262,7 @@
 	 * @param unknown_type $params
 	 * @return Ambigous <string, unknown>
 	 */
-	function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $params) {
+	function widget_manager_group_widgets_default_list($hook_name, $entity_type, $return_value, $params) {
 		if (!is_array($return_value)) {
 			$return_value = array();
 		}
