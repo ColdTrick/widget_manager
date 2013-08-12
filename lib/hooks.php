@@ -251,3 +251,30 @@
 		}
 		return $result;
 	}
+	
+	
+	/**
+	 * Allow for group default widgets
+	 * 
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return Ambigous <string, unknown>
+	 */
+	function widget_manager_group_widgets_default_list($hook_name, $entity_type, $return_value, $params) {
+		if (!is_array($return_value)) {
+			$return_value = array();
+		}
+    
+		$return_value[] = array(
+			'name' => elgg_echo('groups'),
+			'widget_context' => 'groups',
+			'widget_columns' => 2,
+			'event' => 'create',
+			'entity_type' => 'group',
+			'entity_subtype' => NULL
+		);
+    
+		return $return_value;
+	}

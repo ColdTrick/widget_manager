@@ -1,5 +1,9 @@
 = Version history: =
 
+4.7 ():
+- added: group default widget support
+(thanks to Connecting Conservation)
+
 4.6 (2013-06-27):
 
 - added: content_by_tag widget also support bookmarks
