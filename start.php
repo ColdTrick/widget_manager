@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	define("ACCESS_LOGGED_OUT", -5);
 	define("MULTI_DASHBOARD_MAX_TABS", 7);
@@ -9,12 +9,12 @@
 	require_once(dirname(__FILE__) . "/lib/hooks.php");
 	require_once(dirname(__FILE__) . "/lib/page_handlers.php");
 
-	function widget_manager_plugins_boot(){		
+	function widget_manager_plugins_boot(){
 		// Load widgets
 		widget_manager_load_widgets();
 	}
 	
-	function widget_manager_init(){		
+	function widget_manager_init(){
 		// check valid WidgetManagerWidget class
 		if(get_subtype_class("object", "widget") == "ElggWidget"){
 			update_subtype("object", "widget", "WidgetManagerWidget");
@@ -27,7 +27,7 @@
 			
 			$group_option_enabled = false;
 			if(elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes"){
-				$group_option_enabled = true;	
+				$group_option_enabled = true;
 			}
 			
 			if(elgg_get_plugin_setting("group_option_admin_only", "widget_manager") != "yes"){
@@ -38,8 +38,10 @@
 			} elseif($group_option_enabled) {
 				// register event to make sure newly created groups have the group option enabled
 				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
-				elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
 			}
+			
+			// make default widget management available
+			elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
 		}
 		
 		// extend CSS
@@ -108,7 +110,7 @@
 			// add own menu items
 			elgg_register_admin_menu_item('configure', 'manage', 'widgets');
 			
-			if(elgg_get_plugin_setting("custom_index", "widget_manager") == "1|0"){	
+			if(elgg_get_plugin_setting("custom_index", "widget_manager") == "1|0"){
 				// a special link to manage homepages that are only available if logged out
 				elgg_register_menu_item('page', array(
 									'name' => "admin:widgets:manage:index",
