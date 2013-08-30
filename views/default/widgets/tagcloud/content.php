@@ -9,6 +9,8 @@
 	} elseif($owner instanceof ElggGroup){
 		$cloud_options["container_guid"] = $owner->getGUID();
 	}
+	
+	$cloud_options["limit"] = $vars["entity"]->num_items ? $vars["entity"]->num_items : 10;
 
 	if($cloud_data = elgg_get_tags($cloud_options)){
 		shuffle($cloud_data);
