@@ -1,4 +1,11 @@
-= Features: =
+Widget Manager
+==============
+
+A plugin for Elgg that adds more widget features.
+
+Features
+--------
+
  - Adding widgets from a lightbox 
  - Index widgets (with a few different layouts)
  - Group widgets (instead of group profile modules)
@@ -6,29 +13,20 @@
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
  - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
  - Create group default widgets
-
-Version 4.0 is only for 1.8 and higher
-Version 3.9.x will be used for 1.7 patches
-
-IMPORTANT:
-Since 4.0:
-
-- Previous default widgets (made with widget manager in Elgg 1.7) configuration is no longer valid!!
-- Requires Elgg 1.8.1 or higher!
-- Elgg 1.8.2 contains some bugs regarding to reordering widgets
 	
-= Widgets =	
+Widgets
+-------	
 
-== General widgets ==
+### General widgets
 
- - Twitter search
- - Content (blog, file, pages) by tag
+ - Twitter widget (paste your widget code)
+ - Content (blog, file, pages, bookmarks) by tag
  - rss
  - tagcloud
  - free html
  - messages
  
-== Index widgets ==
+### Index widgets
 
  - login box
  - members
@@ -38,11 +36,17 @@ Since 4.0:
  - image slider
  - community stats
  
-== Dashboard widgets ==
+### Dashboard widgets
 
  - favorites (favorite community pages)
  
-= Info about the fix mechanisme for Default Widgets = 
+### Admin widgets
+
+ - user search (also searches disabled/blocked/unvalidated users and by email)
+ 
+Info about the fix mechanisme for Default Widgets
+-------------------------------------------------
+ 
 Fixed widgets always
 
  - Appear on top of other widgets
@@ -54,15 +58,16 @@ You can fix widgets on a dashboard or profile page. Fixing widgets can be done b
 
 A user can always add his or hers own widgets. They will always be added below the last fixed widget in the destination column.
  
-= ToDo: =
+TODO
+----
 
-== General ==
+### General
 
  - check available widget and saving of widget manage page on a clean install
  - split css site/admin
  - tabbed widgets layout (widgets are shown full width) below profile
  
-== Multi Dashboard ==
+### Multi Dashboard
  
  - fluid layout
  - borderless columns
@@ -70,10 +75,11 @@ A user can always add his or hers own widgets. They will always be added below t
  - dashboard background
  - fix the js issues when embedding internal community pages (see github issue #10)
  
- == Widgets ==
+### Widgets
  
  - slider widget could auto resize / scale images
  
- = Known Issues =
+Known Issues
+------------
  
  - Adding group widget with a default access level not the group or higher could cause issues. Widgets could dissapear or only show for the person who added it. Keep default access on logged in or higher to prevent this issues. Will provide a fix once default access hook in elgg core is implemented.
