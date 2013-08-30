@@ -1,8 +1,10 @@
 = Version history: =
 
-4.7 ():
-- added: group default widget support
-(thanks to Connecting Conservation)
+4.7 (2013-08-30):
+
+- added: group default widget support (thanks to Connecting Conservation)
+- added: show avatar and show timestamp options to content_by_tag widget
+- fixed: respect limit set in tagcloud widget settings
 
 4.6 (2013-06-27):
 
