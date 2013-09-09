@@ -57,6 +57,10 @@
 		'widget_manager:settings:multi_dashboard' => "Multi Dashboard",
 		'widget_manager:settings:multi_dashboard:enable' => "Enable multiple dashboards",
 
+		'widget_manager:settings:advanced' => "Advanced",
+		'widget_manager:settings:advanced:extra_contexts' => "Extra widget contexts",
+		'widget_manager:settings:advanced:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. Comma separate the text for more pages. Be sure not to add a page handler that is already in use. The extra widget pages will get all the index widgets available.",
+
 		// views
 		// settings
 		'widget_manager:forms:settings:no_widgets' => "No widgets to manage",

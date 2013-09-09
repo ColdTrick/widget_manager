@@ -53,6 +53,17 @@
 		// register a widget title url handler
 		elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
 
+		// add extra widget pages
+		$extra_contexts = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+		if ($extra_contexts) {
+			$contexts = string_to_tag_array($extra_contexts);
+			if ($contexts) {
+				foreach ($contexts as $context) {
+					elgg_register_page_handler($context, "widget_manager_extra_contexts_page_handler");
+				}
+			}
+		}
+		
 		// multi dashboard support
 		add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
 		
@@ -185,7 +196,10 @@
 	
 	elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
 	elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
-
+	
+	elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', 'widget_manager_advanced_context');
+	elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
+	
 	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
 	
 	// register actions

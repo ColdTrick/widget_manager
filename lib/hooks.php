@@ -13,7 +13,7 @@
 		$result = $return_value;
 		
 		if(elgg_in_context("widgets")){
-			if(elgg_in_context("index") && elgg_is_admin_logged_in()){				
+			if(elgg_in_context("index") && elgg_is_admin_logged_in()){
 				// admins only have the following options for index widgets
 				$result = array(
 					ACCESS_PRIVATE => elgg_echo("access:admin_only"),
@@ -28,7 +28,7 @@
 					$result = array(
 						$group->group_acl => elgg_echo("groups:group") . ": " . $group->name,
 						ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-						ACCESS_PUBLIC => elgg_echo("PUBLIC")						
+						ACCESS_PUBLIC => elgg_echo("PUBLIC")
 					);
 				}
 			}
@@ -186,8 +186,8 @@
 	}
 	
 	function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return, $params){
-		$group = elgg_extract("page_owner", $params); 
-		$user = elgg_extract("user", $params); 
+		$group = elgg_extract("page_owner", $params);
+		$user = elgg_extract("user", $params);
 		
 		if(!$return && ($group instanceof ElggGroup) && ($user instanceof ElggUser) && $group->canEdit($user->getGUID())){
 			$return = true;
@@ -198,7 +198,7 @@
 	
 	/**
 	 * Fallback widget title urls for non widget manager widgets
-	 * 
+	 *
 	 * @param unknown_type $hook_name
 	 * @param unknown_type $entity_type
 	 * @param unknown_type $return_value
@@ -255,7 +255,7 @@
 	
 	/**
 	 * Allow for group default widgets
-	 * 
+	 *
 	 * @param unknown_type $hook_name
 	 * @param unknown_type $entity_type
 	 * @param unknown_type $return_value
@@ -276,5 +276,59 @@
 			'entity_subtype' => NULL
 		);
     
+		return $return_value;
+	}
+	
+	
+	/**
+	 * Add extra widget contexts that have advanced widget options available
+	 *
+	 * @param $hook_name
+	 * @param $entity_type
+	 * @param $return_value
+	 * @param $params
+	 * @return array
+	 */
+	function widget_manager_advanced_context($hook_name, $entity_type, $return_value, $params) {
+		if (!is_array($return_value)) {
+			$return_value = array();
+		}
+		
+		$setting = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+		if ($setting && isset($params["entity"])) {
+			$widget = $params["entity"];
+			$widget_context = $widget->context;
+			
+			$contexts = string_to_tag_array($setting);
+			if ($contexts) {
+				if (in_array($widget_context, $contexts)) {
+					$return_value[] = $widget_context;
+				}
+			}
+		}
+    
+		return $return_value;
+	}
+
+	/**
+	 * Register new widget contexts for use on custom widget pages
+	 *
+	 * @param $hook_name
+	 * @param $entity_type
+	 * @param $return_value
+	 * @param $params
+	 * @return array
+	 */
+	function widget_manager_available_widgets_context($hook_name, $entity_type, $return_value, $params) {
+		if (!empty($return_value)) {
+			$setting = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+			if ($setting) {
+				$contexts = string_to_tag_array($setting);
+				if ($contexts && in_array($return_value, $contexts)) {
+					$return_value = "index";
+				}
+			}
+		}
+		
 		return $return_value;
 	}

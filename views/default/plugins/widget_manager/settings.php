@@ -1,29 +1,29 @@
-<?php 
+<?php
 
 	$plugin = $vars["entity"];
 
 	$noyes_options = array(
 		"no" => elgg_echo("option:no"),
-		"yes" => elgg_echo("option:yes")		
+		"yes" => elgg_echo("option:yes")
 	);
 
 	$custom_index_options = array(
 		"0|0" => elgg_echo('option:no'),
 		"1|0" => elgg_echo('widget_manager:settings:custom_index:non_loggedin'),
 		"0|1" => elgg_echo('widget_manager:settings:custom_index:loggedin'),
-		"1|1" => elgg_echo('widget_manager:settings:custom_index:all')		
+		"1|1" => elgg_echo('widget_manager:settings:custom_index:all')
 	);
 
 	$widget_layout_options = array(
 		"33|33|33" => elgg_echo('widget_manager:settings:widget_layout:33|33|33'),
 		"50|25|25" => elgg_echo('widget_manager:settings:widget_layout:50|25|25'),
 		"25|50|25" => elgg_echo('widget_manager:settings:widget_layout:25|50|25'),
-		"25|25|50" => elgg_echo('widget_manager:settings:widget_layout:25|25|50'),	
-		"75|25" => elgg_echo('widget_manager:settings:widget_layout:75|25'),		
-		"60|40" => elgg_echo('widget_manager:settings:widget_layout:60|40'),		
-		"50|50" => elgg_echo('widget_manager:settings:widget_layout:50|50'),		
-		"40|60" => elgg_echo('widget_manager:settings:widget_layout:40|60'),		
-		"25|75" => elgg_echo('widget_manager:settings:widget_layout:25|75')	
+		"25|25|50" => elgg_echo('widget_manager:settings:widget_layout:25|25|50'),
+		"75|25" => elgg_echo('widget_manager:settings:widget_layout:75|25'),
+		"60|40" => elgg_echo('widget_manager:settings:widget_layout:60|40'),
+		"50|50" => elgg_echo('widget_manager:settings:widget_layout:50|50'),
+		"40|60" => elgg_echo('widget_manager:settings:widget_layout:40|60'),
+		"25|75" => elgg_echo('widget_manager:settings:widget_layout:25|75')
 	);
 	
 	$index_top_row_options = array(
@@ -89,3 +89,12 @@
 	$settings_multi_dashboard .= "</table>";
 	
 	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:multi_dashboard"), $settings_multi_dashboard);
+
+	$settings_advanced = "<label>";
+	
+	$settings_advanced .= elgg_echo('widget_manager:settings:advanced:extra_contexts');
+	$settings_advanced .= elgg_view("input/text", array("name" => "params[extra_contexts]", "value" => $plugin->extra_contexts));
+	$settings_advanced .= "</label>";
+	$settings_advanced .= "<span class='elgg-subtext'>" . elgg_echo("widget_manager:settings:advanced:extra_contexts:description") . "</span>";
+		
+	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:advanced"), $settings_advanced);
