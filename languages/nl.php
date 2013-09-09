@@ -1,5 +1,8 @@
 <?php
 $language = array (
+  'widget_manager:settings:advanced' => 'Geavanceerd',
+  'widget_manager:settings:advanced:extra_contexts' => 'Extra widget pagina\'s',
+  'widget_manager:settings:advanced:extra_contexts:description' => 'Voer de pagina naam in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. Scheid meerdere pagina\'s door middel van een komma. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen.',
   'widgets:likes:title' => 'Likes',
   'widgets:likes:description' => 'Toont informatie over content "Liked" content',
   'widgets:likes:settings:interval' => 'Interval',
