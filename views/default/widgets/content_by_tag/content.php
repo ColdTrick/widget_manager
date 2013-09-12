@@ -3,7 +3,8 @@
 	global $CONFIG;
 
 	$widget = $vars["entity"];
-
+	$result = "";
+	
 	// get widget settings
 	$count = sanitise_int($widget->content_count, false);
 	if(empty($count)){
