@@ -1,18 +1,18 @@
 <?php
 
-	global $CONFIG;
-
 	$widget = $vars["entity"];
 	$result = "";
 	
+	$dbprefix = elgg_get_config("dbprefix");
+	
 	// get widget settings
 	$count = sanitise_int($widget->content_count, false);
-	if(empty($count)){
+	if (empty($count)) {
 		$count = 8;
 	}
 
 	$content_type = sanitise_string($widget->content_type);
-	if(empty($content_type)){
+	if (empty($content_type)) {
 		// set default content type filter
 		if(elgg_is_active_plugin("blog")){
 			$content_type = "blog";
@@ -25,7 +25,7 @@
 		}
 	}
 
-	if($content_type == "page"){
+	if ($content_type == "page") {
 		// merge top and bottom pages
 		$content_type = array("page_top", "page");
 	} else {
@@ -33,7 +33,7 @@
 	}
 
 	$tags_option = $widget->tags_option;
-	if(!in_array($tags_option, array("and", "or"))){
+	if (!in_array($tags_option, array("and", "or"))) {
 		$tags_option = "and";
 	}
 
@@ -41,7 +41,7 @@
 	$joins = array();
 
 	// will always want to join these tables if pulling metastrings.
-	$joins[] = "JOIN {$CONFIG->dbprefix}metadata n_table on e.guid = n_table.entity_guid";
+	$joins[] = "JOIN {$dbprefix}metadata n_table on e.guid = n_table.entity_guid";
 
 	// get names wheres and joins
 	$names_where = '';
@@ -50,7 +50,7 @@
 	$names = array("tags", "universal_categories");
 	$values = string_to_tag_array($widget->tags);
 
-	if(!empty($values)){
+	if (!empty($values)) {
 		$sanitised_names = array();
 		foreach ($names as $name) {
 			// normalise to 0.
@@ -61,7 +61,7 @@
 		}
 
 		if ($names_str = implode(',', $sanitised_names)) {
-			$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msn on n_table.name_id = msn.id";
+			$joins[] = "JOIN {$dbprefix}metastrings msn on n_table.name_id = msn.id";
 			$names_where = "(msn.string IN ($names_str))";
 		}
 
@@ -74,17 +74,17 @@
 			$sanitised_values[] = '\'' . sanitise_string($value) . '\'';
 		}
 
-		$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msv on n_table.value_id = msv.id";
+		$joins[] = "JOIN {$dbprefix}metastrings msv on n_table.value_id = msv.id";
 
 		$values_where .= "(";
-		foreach($sanitised_values as $i => $value){
-			if($i !== 0){
-				if($tags_option == "and"){
+		foreach ($sanitised_values as $i => $value) {
+			if ($i !== 0) {
+				if ($tags_option == "and") {
 					// AND
 
-					$joins[] = "JOIN {$CONFIG->dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
-					$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
-					$joins[] = "JOIN {$CONFIG->dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
+					$joins[] = "JOIN {$dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
+					$joins[] = "JOIN {$dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
+					$joins[] = "JOIN {$dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
 
 					$values_where .= " AND (msn{$i}.string IN ($names_str) AND msv{$i}.string = $value)";
 				} else {
@@ -118,9 +118,9 @@
 		);
 
 	// owner_guids
-	if(!empty($widget->owner_guids)){
+	if (!empty($widget->owner_guids)) {
 		$owner_guids = string_to_tag_array($widget->owner_guids);
-		if(!empty($owner_guids)){
+		if (!empty($owner_guids)) {
 			foreach($owner_guids as $key => $guid){
 				$owner_guids[$key] = sanitise_int($guid);
 			}
@@ -128,15 +128,15 @@
 		}
 	}
 
-	if(($widget->context == "groups") && ($widget->group_only !== "no")){
+	if (($widget->context == "groups") && ($widget->group_only !== "no")) {
 		$options["container_guids"] = array($widget->container_guid);
 	}
 
 	elgg_push_context("search");
 
 	$display_option = $widget->display_option;
-	if(in_array($display_option, array("slim","simple"))){
-		if($entities = elgg_get_entities($options)){
+	if (in_array($display_option, array("slim","simple"))) {
+		if ($entities = elgg_get_entities($options)) {
 			$num_highlighted = (int) $widget->highlight_first;
 			$result .= "<ul class='elgg-list'>";
 
@@ -150,15 +150,15 @@
 				$show_timestamp = false;
 			}
 
-			foreach($entities as $index => $entity){
+			foreach ($entities as $index => $entity) {
 				$icon = "";
 				$body = "";
 
 				$result .= "<li class='elgg-item'>";
 
-				if($display_option == "slim"){
+				if ($display_option == "slim") {
 					// slim
-					if($index < $num_highlighted){
+					if ($index < $num_highlighted) {
 
 						$icon = "";
 						if ($show_avatar) {
@@ -216,7 +216,7 @@
 		$result = elgg_list_entities($options);
 	}
 
-	if(empty($result)){
+	if (empty($result)) {
 		$result = elgg_echo("notfound");
 	} elseif ($widget->show_search_link == "yes" && !empty($widget->tags) && elgg_is_active_plugin("search")) {
 		$tags = string_to_tag_array($widget->tags);
