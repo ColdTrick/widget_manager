@@ -154,6 +154,13 @@
 				$icon = "";
 				$body = "";
 
+				
+				if (elgg_instanceof($entity, "object", "bookmarks")) {
+					$entity_url = $entity->address;
+				} else {
+					$entity_url = $entity->getURL();
+				}
+				
 				$result .= "<li class='elgg-item'>";
 
 				if ($display_option == "slim") {
@@ -165,7 +172,7 @@
 							$icon = elgg_view_entity_icon($entity->getOwnerEntity(), "small");
 						}
 
-						$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title));
+						$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title));
 						$text .= "<br />";
 
 						if ($show_timestamp) {
@@ -184,7 +191,7 @@
 						if ($show_timestamp) {
 							$result .= "<span title='" . strftime("%c", $entity->time_created) . "'>" . strftime("%d %b", $entity->time_created) . "</span> - ";
 						}
-						$result .= "<a href='" . $entity->getURL() . "'>" . $entity->title . "</a>";
+						$result .= "<a href='" . $entity_url . "'>" . $entity->title . "</a>";
 						$result .= "</div>";
 					}
 				} else {
@@ -196,7 +203,7 @@
 						$icon = elgg_view_entity_icon($owner, "small");
 					}
 
-					$text = elgg_view("output/url", array("href" => $entity->getURL(), "text" => $entity->title));
+					$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title));
 					$text .= "<br />";
 					$text .= "<a href='" . $owner->getURL() . "'>" . $owner->name . "</a>";
 
