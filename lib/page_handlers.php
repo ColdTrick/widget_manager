@@ -29,7 +29,7 @@
 					$result = true;
 					
 					// make nice lightbox popup title
-					add_translation(get_current_language(), array("widget_manager:widgets:lightbox:title:" . $handler => $handler));
+					add_translation(get_current_language(), array("widget_manager:widgets:lightbox:title:" . strtolower($handler) => $handler));
 					
 					include(dirname(dirname(__FILE__)) . "/pages/extra_contexts.php");
 				}

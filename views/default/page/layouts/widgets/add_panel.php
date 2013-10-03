@@ -24,11 +24,11 @@ echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_a
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$("#widgets-add-panel").fancybox({ 
-			autoDimensions: false, 
-			width: 600, 
+		$("#widgets-add-panel").fancybox({
+			autoDimensions: false,
+			width: 600,
 			height: "80%"
-		});	
+		});
 	});
 
 	function widget_manager_widget_add_init(){
@@ -62,12 +62,12 @@ echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_a
 	elgg.register_hook_handler('init', 'system', widget_manager_widget_add_init);
 
 </script>
-<?php 
+<?php
 	
 	$widget_context = str_replace("default_", "", $context);
 	
 	$available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", array(), $widget_context);
-	
+
 	$widgets = elgg_get_widget_types($available_widgets_context, $vars["exact_match"]);
 	widget_manager_sort_widgets($widgets);
 
@@ -103,7 +103,7 @@ echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_a
 					$class = 'elgg-state-unavailable';
 				} else {
 					$class = 'elgg-state-available';
-				} 
+				}
 				
 				if ($allow_multiple) {
 					$class .= ' elgg-widget-multiple';
@@ -128,7 +128,7 @@ echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_a
 				
 				$body .= "</div>";
 			}
-		}		
+		}
 	} else {
 		$body = elgg_echo("notfound");
 	}
@@ -136,6 +136,6 @@ echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_a
 	$module_type = "info";
 	if(elgg_in_context("admin")){
 		$module_type = "inline";
-	} 
+	}
 
 	echo "<div class='elgg-widgets-add-panel hidden'>" . elgg_view_module($module_type, $title, $body, array("id" => "widget_manager_widgets_select")) . "</div>";

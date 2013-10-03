@@ -294,7 +294,7 @@
 			$return_value = array();
 		}
 		
-		$setting = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+		$setting = strtolower(elgg_get_plugin_setting("extra_contexts", "widget_manager"));
 		if ($setting && isset($params["entity"])) {
 			$widget = $params["entity"];
 			$widget_context = $widget->context;
@@ -321,9 +321,10 @@
 	 */
 	function widget_manager_available_widgets_context($hook_name, $entity_type, $return_value, $params) {
 		if (!empty($return_value)) {
-			$setting = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+			$setting = strtolower(elgg_get_plugin_setting("extra_contexts", "widget_manager"));
 			if ($setting) {
 				$contexts = string_to_tag_array($setting);
+				
 				if ($contexts && in_array($return_value, $contexts)) {
 					$return_value = "index";
 				}
