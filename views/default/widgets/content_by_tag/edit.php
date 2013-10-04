@@ -8,7 +8,7 @@
 	}
 
 	$content_type = $widget->content_type;
-
+	
 	$content_options_values = array();
 	if(elgg_is_active_plugin("blog")){
 		$content_options_values["blog"] = elgg_echo("item:object:blog");
@@ -21,6 +21,11 @@
 	}
 	if(elgg_is_active_plugin("bookmarks")){
 		$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
+	}
+	
+	if (empty($content_type) && !empty($content_options_values)) {
+		$keys = array_keys($content_options_values);
+		$content_type = $keys[0];
 	}
 
 	$tags = $widget->tags;
@@ -94,7 +99,7 @@
 
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:entities"); ?><br />
-	<?php echo elgg_view("input/dropdown", array("name" => "params[content_type]", "options_values" => $content_options_values, "value" => $content_type)); ?>
+	<?php echo elgg_view("input/checkboxes", array("name" => "params[content_type]", "options" => array_flip($content_options_values), "value" => $content_type)); ?>
 </div>
 
 <div>

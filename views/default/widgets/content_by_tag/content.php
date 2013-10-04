@@ -11,7 +11,8 @@
 		$count = 8;
 	}
 
-	$content_type = sanitise_string($widget->content_type);
+	$content_type = $widget->content_type;
+	
 	if (empty($content_type)) {
 		// set default content type filter
 		if(elgg_is_active_plugin("blog")){
@@ -24,14 +25,19 @@
 			$content_type = "page";
 		}
 	}
-
-	if ($content_type == "page") {
-		// merge top and bottom pages
-		$content_type = array("page_top", "page");
-	} else {
+	
+	if (!is_array($content_type)) {
 		$content_type = array($content_type);
 	}
 
+	foreach ($content_type as $key => $type) {
+		$content_type[$key] = sanitise_string($type);
+		if ($type == "page") {
+			// merge top and bottom pages
+			$content_type[] = "page_top";
+		}
+	}
+	
 	$tags_option = $widget->tags_option;
 	if (!in_array($tags_option, array("and", "or"))) {
 		$tags_option = "and";
