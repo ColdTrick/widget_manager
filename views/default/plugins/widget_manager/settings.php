@@ -79,16 +79,25 @@
 	
 	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:group"), $settings_group);
 
-	$settings_multi_dashboard = "<table>";
+	$settings_dashboard = "<table>";
 	
-	$settings_multi_dashboard .= "<tr>";
-	$settings_multi_dashboard .= "<td>" . elgg_echo('widget_manager:settings:multi_dashboard:enable') . "</td>";
-	$settings_multi_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[multi_dashboard_enabled]", "value" => $plugin->multi_dashboard_enabled, "options_values" => $noyes_options)) . "</td>";
-	$settings_multi_dashboard .= "</tr>";
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:multi_dashboard') . "</td>";
+	$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[multi_dashboard_enabled]", "value" => $plugin->multi_dashboard_enabled, "options_values" => $noyes_options)) . "</td>";
+	$settings_dashboard .= "</tr>";
+
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout') . "</td>";
+	$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[dashboard_widget_layout]", "value" => $plugin->dashboard_widget_layout, "options_values" => $widget_layout_options)) . "</td>";
+	$settings_dashboard .= "</tr>";
+
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td colspan='2' class='elgg-subtext'>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout:info') . "</td>";
+	$settings_dashboard .= "</tr>";
 	
-	$settings_multi_dashboard .= "</table>";
+	$settings_dashboard .= "</table>";
 	
-	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:multi_dashboard"), $settings_multi_dashboard);
+	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:dashboard"), $settings_dashboard);
 
 	$settings_advanced = "<label>";
 	

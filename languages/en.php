@@ -54,8 +54,10 @@
 		'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 		'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 
-		'widget_manager:settings:multi_dashboard' => "Multi Dashboard",
-		'widget_manager:settings:multi_dashboard:enable' => "Enable multiple dashboards",
+		'widget_manager:settings:dashboard' => "Dashboard",
+		'widget_manager:settings:dashboard:multi_dashboard' => "Enable multiple dashboards",
+		'widget_manager:settings:dashboard:dashboard_widget_layout' => "Dashboard widget layout",
+		'widget_manager:settings:dashboard:dashboard_widget_layout:info' => "This widget layout only applies to the default dashboard and not to extra dashboards created with the multidashboard option",
 
 		'widget_manager:settings:advanced' => "Advanced",
 		'widget_manager:settings:advanced:extra_contexts' => "Extra widget contexts",

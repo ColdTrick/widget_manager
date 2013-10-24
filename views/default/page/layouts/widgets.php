@@ -99,12 +99,32 @@ if(elgg_in_context("iframe_dashboard")){
 			});
 
 		</script>
-		<?php 
+		<?php
 		
 	}
 } else {
 	if(empty($widgets) || $context !== "dashboard"){
 		echo elgg_extract("content", $vars);
+	}
+	
+	if ($context == "dashboard" && empty($md_object)) {
+		// change styling of dashboard, but only for default dashboard
+		$dashboard_widget_layout = elgg_get_plugin_setting("dashboard_widget_layout", "widget_manager");
+		if (!empty($dashboard_widget_layout) && ($dashboard_widget_layout != "33|33|33")) {
+			$style = "";
+			$columns = array_reverse(explode("|", $dashboard_widget_layout));
+			$num_columns = count($columns);
+			
+			foreach($columns as $index => $col_width){
+				$col_index = $index + 1;
+				$style .= "#elgg-widget-col-" . $col_index . " { width: " . $col_width . "%; }";
+			}
+				
+			if($style){
+				$style = "<style type='text/css'>" . $style . "</style>";
+				echo $style;
+			}
+		}
 	}
 	
 	if($context == "groups"){
@@ -118,7 +138,7 @@ if(elgg_in_context("iframe_dashboard")){
 			}
 		}
 		echo '</div>';
-	} elseif($context == "index" && $num_columns == 2){
+	} elseif(in_array($context, array("index", "dashboard")) && $num_columns == 2){
 		if(!isset($widgets[2])){
 			$widgets[2] = array();
 		}
@@ -148,6 +168,8 @@ if(elgg_in_context("iframe_dashboard")){
 		}
 		echo '</div>';
 	}
+	
+	
 }
 
 elgg_pop_context();
