@@ -1,5 +1,8 @@
 <?php
 $language = array (
+  'widget_manager:settings:dashboard:dashboard_widget_layout' => 'Dashboard widget layout',
+  'widget_manager:settings:dashboard:dashboard_widget_layout:info' => 'Deze widget layout is alleen van toepassing voor het standaard dashboard en niet voor de extra dashboard die worden aangemaakt middels de multidashboard optie',
+  'LOGGED_OUT' => 'Afgemelde gebruikers',
   'widget_manager:settings:advanced' => 'Geavanceerd',
   'widget_manager:settings:advanced:extra_contexts' => 'Extra widget pagina\'s',
   'widget_manager:settings:advanced:extra_contexts:description' => 'Voer de pagina naam in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. Scheid meerdere pagina\'s door middel van een komma. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen.',
@@ -31,7 +34,6 @@ $language = array (
   'widgets:favorites:content:more_info' => 'Voeg je favoriete community pagina\'s toe aan deze widget door op de ster in het zijmenu te klikken.',
   'widgets:favorites:menu:add' => 'Voeg deze pagina toe aan je favorieten widget',
   'widgets:favorites:menu:remove' => 'Verwijder deze pagina uit je favorieten widget',
-  'LOGGED_OUT' => 'Afgemelde gebruikers',
   'widgets:messages:settings:only_unread' => 'Toon enkel ongelezen berichten',
   'widgets:messages:description' => 'Toon je laatste berichten',
   'widgets:messages:not_logged_in' => 'Je moet zijn aangemeld om deze widget te kunnen gebruiken',
@@ -77,8 +79,8 @@ $language = array (
   'widget_manager:settings:group:enable' => 'Schakel Widget Manager in voor groepen',
   'widget_manager:settings:group:option_default_enabled' => 'Widgets beheer voor groepen standaard ingeschakeld',
   'widget_manager:settings:group:option_admin_only' => 'Alleen beheerders kunnen groep widgets inschakelen',
-  'widget_manager:settings:multi_dashboard' => 'Multi Dashboard',
-  'widget_manager:settings:multi_dashboard:enable' => 'Schakel multi dashboard in',
+  'widget_manager:settings:dashboard' => 'Dashboard',
+  'widget_manager:settings:dashboard:multi_dashboard' => 'Schakel multi dashboard in',
   'widget_manager:forms:settings:no_widgets' => 'Geen widgets om te beheren',
   'widget_manager:widgets:lightbox:title:groups' => 'Voeg widgets toe op het groep profiel',
   'widget_manager:widgets:lightbox:title:admin' => 'Voeg widgets toe aan je admin dashboard',
