@@ -55,5 +55,5 @@
 	</suggests>
 	
  	<category>ColdTrick</category>
- 	<category>Widgets</category>
+ 	<category>widget</category>
 </plugin_manifest>
