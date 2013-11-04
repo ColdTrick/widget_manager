@@ -22,6 +22,12 @@
 	if(elgg_is_active_plugin("bookmarks")){
 		$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
 	}
+	if(elgg_is_active_plugin("videolist")){
+		$content_options_values["videolist_item"] = elgg_echo("item:object:videolist_item");
+	}
+	if(elgg_is_active_plugin("event_manager")){
+		$content_options_values["event"] = elgg_echo("item:object:event");
+	}
 	
 	if (empty($content_type) && !empty($content_options_values)) {
 		$keys = array_keys($content_options_values);
