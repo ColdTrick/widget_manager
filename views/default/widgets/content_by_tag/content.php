@@ -27,6 +27,8 @@
 			$content_type = "videolist_item";
 		} elseif(elgg_is_active_plugin("event_manager")){
 			$content_type = "event";
+		} elseif(elgg_is_active_plugin("tasks")){
+			$content_type = "task_top";
 		}
 	}
 	

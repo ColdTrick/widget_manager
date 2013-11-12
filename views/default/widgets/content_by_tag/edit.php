@@ -28,6 +28,9 @@
 	if(elgg_is_active_plugin("event_manager")){
 		$content_options_values["event"] = elgg_echo("item:object:event");
 	}
+	if(elgg_is_active_plugin("tasks")){
+		$content_options_values["task_top"] = elgg_echo("item:object:task_top");
+	}
 	
 	if (empty($content_type) && !empty($content_options_values)) {
 		$keys = array_keys($content_options_values);
