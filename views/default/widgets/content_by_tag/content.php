@@ -91,6 +91,11 @@
 			if ($i !== 0) {
 				if ($tags_option == "and") {
 					// AND
+					
+					if ($i > 1) {
+						// max 2 ANDs
+						break;
+					}
 
 					$joins[] = "JOIN {$dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
 					$joins[] = "JOIN {$dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
