@@ -79,7 +79,8 @@
 						$body .= "<span title='" . $item->get_date('r') . "'>" . substr($item->get_date('r'),0,16) . "</span> - ";
 						
 					}
-					$body .= "<a href='" . $item->get_permalink() . "' target='_blank'>" . $item->get_title() . "</a>";
+					$title_description= substr(strip_tags($item->get_description(true)),0,200);
+					$body .= "<a href='" . $item->get_permalink() . "' target='_blank' title='". $title_description ."'>" . $item->get_title() . "</a>";
 					$body .= "</div>";
 				}
 				$body .= "<div class='clearfix'></div>";
