@@ -186,11 +186,31 @@
 	}
 	
 	function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return, $params){
-		$group = elgg_extract("page_owner", $params);
+		$page_owner = elgg_extract("page_owner", $params);
 		$user = elgg_extract("user", $params);
-		
-		if(!$return && ($group instanceof ElggGroup) && ($user instanceof ElggUser) && $group->canEdit($user->getGUID())){
-			$return = true;
+		$context = elgg_extract("context", $params);
+				
+		if (!$return && ($user instanceof ElggUser)) {
+			if (($page_owner instanceof ElggGroup) && $page_owner->canEdit($user->getGUID())) {
+				// group widget layout
+				$return = true;
+			} elseif (!in_array($context, array("index", "dashboard", "profile", "groups"))) {
+				// extra widget contexts
+				$contexts_config = json_decode(elgg_get_plugin_setting("extra_contexts_config", "widget_manager"), true);
+				if (!is_array($contexts_config)) {
+					$contexts_config = array();
+				}
+				$context_config = elgg_extract($context, $contexts_config, array());
+				$context_managers = string_to_tag_array(elgg_extract("manager", $context_config, ""));
+				if (!empty($context_managers)) {
+					foreach ($context_managers as $manager) {
+						if ($manager == $user->username) {
+							$return = true;
+							break;
+						}
+					}
+				}
+			}
 		}
 		
 		return $return;
@@ -331,5 +351,110 @@
 			}
 		}
 		
+		return $return_value;
+	}
+	
+	/**
+	 * Updates the pluginsettings for the contexts
+	 *
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return string
+	 */
+	function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_type, $return_value, $params) {
+		$plugin_id = get_input("plugin_id");
+		
+		if ($plugin_id == "widget_manager") {
+			$contexts = get_input("contexts", array());
+			$extra_contexts = array();
+			foreach ($contexts["page"] as $key => $page) {
+				$page = trim($page);
+				
+				if (!empty($page)) {
+					$extra_contexts[] = $page;
+					$extra_contexts_config[$page]["layout"] = $contexts["layout"][$key];
+					$extra_contexts_config[$page]["manager"] = $contexts["manager"][$key];
+				}
+			}
+			$extra_contexts = implode(",", $extra_contexts);
+			
+			$extra_contexts_config = json_encode($extra_contexts_config);
+						
+			elgg_set_plugin_setting("extra_contexts", $extra_contexts, "widget_manager");
+			elgg_set_plugin_setting("extra_contexts_config", $extra_contexts_config, "widget_manager");
+		}
+	}
+	
+	/**
+	 * Registers the extra context permissions check hook
+	 *
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return string
+	 */
+	function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $return_value, $params) {
+		elgg_register_plugin_hook_handler("permissions_check", "site", "widget_manager_permissions_check_site_hook_handler");
+	}
+	
+	/**
+	 * Checks if current user can edit a given widget context. Hook gets registered by widget_manager_widgets_action_hook_handler
+	 *
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return string
+	 */
+	function widget_manager_permissions_check_site_hook_handler($hook_name, $entity_type, $return_value, $params) {
+		$user = elgg_extract("user", $params);
+		
+		if ($return_value || !$user) {
+			return $return_value;
+		}
+		
+		$context = get_input("context");
+		if ($context) {
+			$return_value = elgg_can_edit_widget_layout($context, $user->getGUID());
+		}
+		
+		return $return_value;
+	}
+
+	/**
+	 * Checks if current user can edit a widget if it is in a context he/she can manage
+	 *
+	 * @param unknown_type $hook_name
+	 * @param unknown_type $entity_type
+	 * @param unknown_type $return_value
+	 * @param unknown_type $params
+	 * @return string
+	 */
+	function widget_manager_permissions_check_object_hook_handler($hook_name, $entity_type, $return_value, $params) {
+		$user = elgg_extract("user", $params);
+		$entity = elgg_extract("entity", $params);
+		
+		if ($return_value || !$user) {
+			return $return_value;
+		}
+		
+		if (!($entity instanceof ElggWidget)) {
+			return $return_value;
+		}
+		
+		$site = $entity->getOwnerEntity();
+		if (!($site instanceof ElggSite)) {
+			// special permission is only for widget owned by site
+			return $return_value;
+		}
+		
+		$context = $entity->context;
+		if ($context) {
+			$return_value = elgg_can_edit_widget_layout($context, $user->getGUID());
+		}
+				
 		return $return_value;
 	}

@@ -59,9 +59,12 @@
 		'widget_manager:settings:dashboard:dashboard_widget_layout' => "Dashboard widget layout",
 		'widget_manager:settings:dashboard:dashboard_widget_layout:info' => "This widget layout only applies to the default dashboard and not to extra dashboards created with the multidashboard option",
 
-		'widget_manager:settings:advanced' => "Advanced",
-		'widget_manager:settings:advanced:extra_contexts' => "Extra widget contexts",
-		'widget_manager:settings:advanced:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. Comma separate the text for more pages. Be sure not to add a page handler that is already in use. The extra widget pages will get all the index widgets available.",
+		'widget_manager:settings:extra_contexts' => "Extra widget contexts",
+		'widget_manager:settings:extra_contexts:add' => "Add a page",
+		'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page by entering their username. You can have multiple managers by seperating their username by a comma.",
+		'widget_manager:settings:extra_contexts:page' => "Page",
+		'widget_manager:settings:extra_contexts:layout' => "Layout",
+		'widget_manager:settings:extra_contexts:manager' => "Manager",
 
 		// views
 		// settings

@@ -99,11 +99,46 @@
 	
 	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:dashboard"), $settings_dashboard);
 
-	$settings_advanced = "<label>";
+	$default_widget_layout = $plugin->widget_layout;
 	
-	$settings_advanced .= elgg_echo('widget_manager:settings:advanced:extra_contexts');
-	$settings_advanced .= elgg_view("input/text", array("name" => "params[extra_contexts]", "value" => $plugin->extra_contexts));
-	$settings_advanced .= "</label>";
-	$settings_advanced .= "<span class='elgg-subtext'>" . elgg_echo("widget_manager:settings:advanced:extra_contexts:description") . "</span>";
+	$settings_extra_contexts = "<table id='widget-manager-settings-extra-contexts' class='elgg-table-alt'>";
+	$settings_extra_contexts .= "<tr><th>" . elgg_echo("widget_manager:settings:extra_contexts:page") . "</th>";
+	$settings_extra_contexts .= "<th>" . elgg_echo("widget_manager:settings:extra_contexts:layout") . "</th>";
+	$settings_extra_contexts .= "<th>" . elgg_echo("widget_manager:settings:extra_contexts:manager") . "</th><th></th></tr>";
+	
+	$contexts = string_to_tag_array($plugin->extra_contexts);
+	
+	$contexts_config = json_decode($plugin->extra_contexts_config, true);
+	if (!is_array($contexts_config)) {
+		$contexts_config = array();
+	}
+	
+	foreach ($contexts as $context) {
+		$context_config = elgg_extract($context, $contexts_config, array());
+		$context_layout = elgg_extract("layout", $context_config, $default_widget_layout);
+		$context_manager = elgg_extract("manager", $context_config, "");
 		
-	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:advanced"), $settings_advanced);
+		$settings_extra_contexts .= "<tr>";
+		$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[page][]", "value" => $context, "class" => "pan phs")) . "</td>";
+		$settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[layout][]", "value" => $context_layout, "options_values" => $widget_layout_options)) . "</td>";
+		$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[manager][]", "value" => $context_manager, "class" => "pan phs")) . "</td>";
+		$settings_extra_contexts .= "<td>" . elgg_view_icon("delete") . "</td>";
+		$settings_extra_contexts .= "</tr>";
+	}
+	
+	$settings_extra_contexts .= "<tr class='hidden'>";
+	$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[page][]", "class" => "pan phs")) . "</td>";
+	$settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[layout][]", "value" => $default_widget_layout, "options_values" => $widget_layout_options)) . "</td>";
+	$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[manager][]", "class" => "pan phs")) . "</td>";
+	$settings_extra_contexts .= "<td>" . elgg_view_icon("delete") . "</td>";
+	$settings_extra_contexts .= "</tr>";
+	
+	$settings_extra_contexts .= "</table>";
+
+	$settings_extra_contexts .= "<span class='elgg-subtext'>" . elgg_echo("widget_manager:settings:extra_contexts:description") . "</span>";
+		
+	$settings_extra_contexts_title = elgg_view("input/button", array("id" => "widget-manager-settings-add-extra-context", "value" => elgg_echo("widget_manager:settings:extra_contexts:add"), "class" => "float-alt elgg-button elgg-button-action pan phs man"));
+	$settings_extra_contexts_title .= elgg_echo("widget_manager:settings:extra_contexts");
+		
+	
+	echo elgg_view_module("inline", $settings_extra_contexts_title, $settings_extra_contexts);

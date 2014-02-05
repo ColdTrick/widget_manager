@@ -24,4 +24,12 @@ $(document).ready(function(){
 			});
 		event.stopPropagation();
 	});
+	
+	$("#widget-manager-settings-add-extra-context").live("click", function(event) {
+		$("#widget-manager-settings-extra-contexts tr.hidden").clone().insertBefore($("#widget-manager-settings-extra-contexts tr.hidden")).removeClass("hidden");
+	});
+	
+	$("#widget-manager-settings-extra-contexts .elgg-icon-delete").live("click", function(event) {
+		$(this).parent().parent().remove();
+	});
 });

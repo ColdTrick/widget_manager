@@ -52,7 +52,7 @@ class WidgetManagerWidget extends ElggWidget {
 			$result = $decoded_result;
 		}
 		
-		return $result;		
+		return $result;
 	}
 
 	public function set($name, $value){
@@ -62,7 +62,6 @@ class WidgetManagerWidget extends ElggWidget {
 			} else {
 				$value = json_encode($value);
 			}
-			
 		}
 		
 		if(parent::set($name, $value)){

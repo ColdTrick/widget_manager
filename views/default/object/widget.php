@@ -85,13 +85,13 @@ if(($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()){
 		$controls
 		</div>
 HEADER;
-} 
+}
 
 $fixed_height = sanitize_int($widget->widget_manager_fixed_height, false);
 
 $widget_body = $edit_area;
 $widget_body .= "<div class='elgg-widget-content'";
-if ($fixed_height) { 
+if ($fixed_height) {
 	$widget_body .= " style='height: " . $fixed_height . "px; overflow-y: auto;'";
 }
 $widget_body .= " id='elgg-widget-content-" . $widget->guid . "'>";

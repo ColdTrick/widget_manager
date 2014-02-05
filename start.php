@@ -64,6 +64,11 @@
 			}
 		}
 		
+		elgg_register_plugin_hook_handler("action", "plugins/settings/save", "widget_manager_plugins_settings_save_hook_handler");
+		elgg_register_plugin_hook_handler("action", "widgets/add", "widget_manager_widgets_action_hook_handler");
+		
+		elgg_register_plugin_hook_handler("permissions_check", "object", "widget_manager_permissions_check_object_hook_handler");
+		
 		// multi dashboard support
 		add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
 		
