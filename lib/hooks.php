@@ -397,7 +397,27 @@
 	 * @return string
 	 */
 	function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $return_value, $params) {
-		elgg_register_plugin_hook_handler("permissions_check", "site", "widget_manager_permissions_check_site_hook_handler");
+		if ($entity_type == "widgets/move") {
+			$widget_guid = get_input("widget_guid");
+			if ($widget_guid) {
+				$widget = get_entity($widget_guid);
+				if ($widget && ($widget instanceof ElggWidget)) {
+					$context = $widget->context;
+					
+					$widget_handlers = elgg_get_config("widgets");
+						
+					foreach ($widget_handlers->handlers as $key => $widget) {
+						if (in_array("index", $widget->context)) {
+							$widget_handlers->handlers[$key]->context[] = $context;
+						}
+					}
+						
+					elgg_set_config("widgets", $widget_handlers);
+				}
+			}
+		} elseif ($entity_type == "widgets/add") {
+			elgg_register_plugin_hook_handler("permissions_check", "site", "widget_manager_permissions_check_site_hook_handler");
+		}
 	}
 	
 	/**
@@ -458,3 +478,4 @@
 				
 		return $return_value;
 	}
+	

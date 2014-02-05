@@ -66,13 +66,14 @@
 		
 		elgg_register_plugin_hook_handler("action", "plugins/settings/save", "widget_manager_plugins_settings_save_hook_handler");
 		elgg_register_plugin_hook_handler("action", "widgets/add", "widget_manager_widgets_action_hook_handler");
+		elgg_register_plugin_hook_handler("action", "widgets/move", "widget_manager_widgets_action_hook_handler");
 		
 		elgg_register_plugin_hook_handler("permissions_check", "object", "widget_manager_permissions_check_object_hook_handler");
 		
 		// multi dashboard support
 		add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
 		
-		if(elgg_is_logged_in() && widget_manager_multi_dashboard_enabled()){
+		if (elgg_is_logged_in() && widget_manager_multi_dashboard_enabled()) {
 			elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 			
 			$options = array(
@@ -83,7 +84,7 @@
 			);
 			$tab_count = elgg_get_entities($options);
 			
-			if($tab_count < MULTI_DASHBOARD_MAX_TABS){
+			if ($tab_count < MULTI_DASHBOARD_MAX_TABS) {
 				elgg_register_menu_item("extras", array(
 					"name" => "multi_dashboard",
 					"text" => elgg_view_icon("home"),
