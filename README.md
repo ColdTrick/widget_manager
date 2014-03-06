@@ -1,4 +1,4 @@
-Widget Manager
+Widget Manager [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/badges/quality-score.png?s=27bafb753e3922cff1a880a3245cd9e6137c58ec)](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/)
 ==============
 
 A plugin for Elgg that adds more widget features.
