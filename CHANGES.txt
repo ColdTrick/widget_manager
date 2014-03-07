@@ -1,5 +1,16 @@
 = Version history: =
 
+4.8 (2014-03-07):
+
+- added: ability to add custom pages with index widgets
+- added: content_by_tag widget now support multiple content_types selected
+- added: plugin setting to control default dashboard column layout
+- added: content_by_tag now also support event_manager, tasks and videolist entities
+- added: rss widget excerpt added to title of rss post link 
+- changed: applied Elgg coding standards on almost all code
+- removed: obsolete group_news widget code (was already moved to group_tools)
+- fixed: content_by_tag widget bookmarks entities now have direct address link
+
 4.7 (2013-08-30):
 
 - added: group default widget support (thanks to Connecting Conservation)

@@ -13,6 +13,7 @@ Features
  - Forcing of widget (incl positioning) on profile/dashboard (also later!)
  - Option to globally hide a specific widgettype (will even hide widget already placed on profile/dashboard)
  - Create group default widgets
+ - Create extra pages with a widget layout
 	
 Widgets
 -------	
