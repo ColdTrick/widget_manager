@@ -55,10 +55,10 @@ function widget_manager_init() {
 	}
 	
 	// extend CSS
-	elgg_extend_view("css/elgg", "widget_manager/css/global");
-	elgg_extend_view("css/admin", "widget_manager/css/global");
-	elgg_extend_view("js/elgg", "widget_manager/js/site");
-	elgg_extend_view("js/admin", "widget_manager/js/admin");
+	elgg_extend_view("css/elgg", "css/widget_manager/global");
+	elgg_extend_view("css/admin", "css/widget_manager/global");
+	elgg_extend_view("js/elgg", "js/widget_manager/site");
+	elgg_extend_view("js/admin", "js/widget_manager/admin");
 	
 	// register a widget title url handler
 	elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
