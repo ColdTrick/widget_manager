@@ -1,7 +1,4 @@
 <?php
-elgg_load_js('lightbox');
-elgg_load_css('lightbox');
-
 $context = $vars["context"];
 $show_access = (int) $vars["show_access"];
 
@@ -20,40 +17,36 @@ echo elgg_view('input/hidden', $params);
 
 echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_access));
 
+
+// TODO: the following javascript is not working in Elgg 1.9 - settings is always empty
 ?>
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		$("#widgets-add-panel").fancybox({
-			autoDimensions: false,
-			width: 600,
-			height: "80%"
-		});
-	});
 
 	function widget_manager_widget_add_init() {
 		
 		$("#elgg-widget-col-1").ajaxSuccess(function(e, xhr, settings) {
-			
-			if (settings.url == elgg.normalize_url('/action/widgets/add')) {
-				// move new widget to a new position if needed
-				if ($(this).find('.elgg-state-fixed').size() > 0) {
-					$widget = $(this).find('.elgg-module-widget:first');
-					$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
-					
-					// first item is the recently moved widget, because fixed widgets are not part of the sortable
-					var index = $(this).find('.elgg-module-widget').index($widget);
-					var guidString = $widget.attr('id');
-					guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
-
-					elgg.action('widgets/move', {
-						data: {
-							widget_guid: guidString,
-							column: 1,
-							position: index
-						}
-					});
-					
+			if (settings) {
+				if (settings.url == elgg.normalize_url('/action/widgets/add')) {
+					// move new widget to a new position if needed
+					if ($(this).find('.elgg-state-fixed').size() > 0) {
+						$widget = $(this).find('.elgg-module-widget:first');
+						$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
+						
+						// first item is the recently moved widget, because fixed widgets are not part of the sortable
+						var index = $(this).find('.elgg-module-widget').index($widget);
+						var guidString = $widget.attr('id');
+						guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
+	
+						elgg.action('widgets/move', {
+							data: {
+								widget_guid: guidString,
+								column: 1,
+								position: index
+							}
+						});
+						
+					}
 				}
 			}
 		});
@@ -84,7 +77,7 @@ if (!empty($vars["widgets"])) {
 }
 
 $title = "<div id='widget_manager_widgets_search'>";
-$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='widget_manager_widgets_search($(this).val());'></input>";
+$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='elgg.widget_manager.widgets_search($(this).val());'></input>";
 $title .= "</div>";
 $title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
 
@@ -111,7 +104,7 @@ if (!empty($widgets)) {
 			}
 			
 			$body .= "<span class='widget_manager_widgets_lightbox_actions'>";
-			$body .= '<ul><li class="' . $class . '" id="elgg-widget-type-' . $handler . '">';
+			$body .= '<ul><li class="' . $class . '" data-elgg-widget-type="' . $handler . '">';
 			$body .= "<span class='elgg-quiet'>" . elgg_echo('widget:unavailable') . "</span>";
 			$body .= elgg_view("input/button", array("class" => "elgg-button-submit", "value" => elgg_echo("widget_manager:button:add")));
 			$body .= "</li></ul>";

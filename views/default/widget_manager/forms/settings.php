@@ -48,7 +48,7 @@ if (!empty($widgets)) {
 	$form_body .= elgg_view("input/submit", array("value" => elgg_echo("save")));
 	
 	$body = elgg_view("input/form", array("body" => $form_body,
-													"action" => $vars["url"] . "action/widget_manager/manage",
+													"action" => "action/widget_manager/manage",
 													"id" => "widget_manager_manage_form"
 										));
 	

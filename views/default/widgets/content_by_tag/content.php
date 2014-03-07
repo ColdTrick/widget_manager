@@ -114,7 +114,7 @@ if (!empty($values)) {
 	$values_where .= ")";
 }
 
-$access = get_access_sql_suffix('n_table');
+$access = _elgg_get_access_where_sql('n_table');
 
 if ($names_where && $values_where) {
 	$wheres[] = "($names_where AND $values_where AND $access)";

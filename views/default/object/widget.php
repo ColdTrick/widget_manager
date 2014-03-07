@@ -82,7 +82,7 @@ if ($widget->widget_manager_disable_widget_content_style == "yes") {
 
 if (($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()) {
 	$widget_header = <<<HEADER
-		<div class="elgg-widget-handle clearfix"><h3>$title</h3>
+		<div class="elgg-widget-handle clearfix"><h3 class="elgg-widget-title">$title</h3>
 		$controls
 		</div>
 HEADER;
@@ -99,9 +99,8 @@ $widget_body .= " id='elgg-widget-content-" . $widget->guid . "'>";
 $widget_body .= $content;
 $widget_body .= "</div>";
 
-echo elgg_view('page/components/module', array(
-	'class' => $widget_class,
-	'id' => $widget_id,
-	'body' => $widget_body,
-	'header' => $widget_header,
+echo elgg_view_module('widget', '', $widget_body, array(
+		'class' => $widget_class,
+		'id' => $widget_id,
+		'header' => $widget_header,
 ));

@@ -8,6 +8,7 @@ require_once(dirname(__FILE__) . "/lib/functions.php");
 require_once(dirname(__FILE__) . "/lib/events.php");
 require_once(dirname(__FILE__) . "/lib/hooks.php");
 require_once(dirname(__FILE__) . "/lib/page_handlers.php");
+require_once(dirname(__FILE__) . "/lib/widgets.php");
 
 /**
  * Function that runs on plugins boot. Currently used to load widgets.
@@ -31,6 +32,8 @@ function widget_manager_init() {
 	}
 	
 	elgg_trigger_event("widgets_init", "widget_manager");
+	
+	widget_manager_widgets_init();
 	
 	if (elgg_is_active_plugin("groups") && (elgg_get_plugin_setting("group_enable", "widget_manager") == "yes")) {
 		// add the widget manager tool option

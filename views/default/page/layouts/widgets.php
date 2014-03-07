@@ -101,6 +101,8 @@ if (elgg_in_context("iframe_dashboard")) {
 		<?php
 	}
 } else {
+	echo '<div class="elgg-layout-widgets">';
+
 	if (empty($widgets) || $context !== "dashboard") {
 		echo elgg_extract("content", $vars);
 	}
@@ -165,6 +167,8 @@ if (elgg_in_context("iframe_dashboard")) {
 		}
 		echo '</div>';
 	}
+	
+	echo '</div>';
 }
 
 elgg_pop_context();

@@ -10,5 +10,5 @@ if (!elgg_is_logged_in()) {
 	echo elgg_view_form('login', array('action' => "{$login_url}action/login"), array('returntoreferer' => TRUE));
 	
 } else {
-	echo elgg_echo("widget_manager:widgets:index_login:welcome", array(elgg_get_logged_in_user_entity()->name, $vars["config"]->site->name));
+	echo elgg_echo("widget_manager:widgets:index_login:welcome", array(elgg_get_logged_in_user_entity()->name, elgg_get_site_entity()->name));
 }

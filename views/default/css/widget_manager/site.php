@@ -19,10 +19,6 @@
 	padding: 6px;
 }
 
-#widget_manager_widgets_select .widget_manager_widgets_lightbox_actions li {
-	list-style: none;
-}
-
 #widget_manager_widgets_select .widget_manager_widgets_lightbox_actions li.elgg-state-available span,
 #widget_manager_widgets_select .widget_manager_widgets_lightbox_actions li.elgg-state-unavailable input {
 	display: none;
@@ -44,13 +40,13 @@
 	height: 100%;
 }
 
-.elgg-module-widget a.widget-manager-widget-title-link {
-	width: auto;
-}
-
 .widget_manager_hide_header_admin > .elgg-head {
 	opacity: 0.6;
 	filter: alpha(opacity=60);
+}
+
+.widget_manager_hide_header > .elgg-head {
+	height: 0px;
 }
 
 .elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-body,

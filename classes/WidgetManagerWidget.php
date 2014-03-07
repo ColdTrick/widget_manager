@@ -63,7 +63,7 @@ class WidgetManagerWidget extends ElggWidget {
 		}
 		
 		if (!isset($result)) {
-			$result = parent::get($name);
+			$result = parent::__get($name);
 		}
 		// check if it should be an array
 		$decoded_result = json_decode($result, true);
