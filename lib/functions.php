@@ -1,49 +1,49 @@
-<?php 
+<?php
 
 function widget_manager_get_widget_setting($widget_handler, $setting, $context = null){
-		$result = false;
-		
-		if(is_null($context)){
-			$context = elgg_get_context();
+	$result = false;
+	
+	if(is_null($context)){
+		$context = elgg_get_context();
+	}
+	
+	static $widget_settings;
+			
+	if(!isset($widget_settings)){
+		$widget_settings = elgg_load_system_cache("widget_manager_widget_settings");
+		if($widget_settings === null){
+			$widget_settings = array();
+		} else {
+			$widget_settings = unserialize($widget_settings);
 		}
-		
-		static $widget_settings;
-				
-		if(!isset($widget_settings)){
-			$widget_settings = elgg_load_system_cache("widget_manager_widget_settings");
-			if($widget_settings === null){
-				$widget_settings = array();
-			} else {
-				$widget_settings = unserialize($widget_settings);
-			}
-		}
-		if(!isset($widget_settings[$context])){
-			$widget_settings[$context] = array();
-		}
-		if(!isset($widget_settings[$context][$widget_handler])){
-			$widget_settings[$context][$widget_handler] = array();
-		}
-		
-		if(isset($widget_settings[$context][$widget_handler][$setting])){
-			return $widget_settings[$context][$widget_handler][$setting];
-		}
-		
-		if(!empty($widget_handler) && !empty($setting)){
-			if($plugin_setting = elgg_get_plugin_setting($context . "_" . $widget_handler . "_" . $setting, "widget_manager")){
-				if($plugin_setting == "yes"){
-					$result = true;
-				}
-			} elseif($setting == "can_add" || $setting == "can_remove"){
+	}
+	if(!isset($widget_settings[$context])){
+		$widget_settings[$context] = array();
+	}
+	if(!isset($widget_settings[$context][$widget_handler])){
+		$widget_settings[$context][$widget_handler] = array();
+	}
+	
+	if(isset($widget_settings[$context][$widget_handler][$setting])){
+		return $widget_settings[$context][$widget_handler][$setting];
+	}
+	
+	if(!empty($widget_handler) && !empty($setting)){
+		if($plugin_setting = elgg_get_plugin_setting($context . "_" . $widget_handler . "_" . $setting, "widget_manager")){
+			if($plugin_setting == "yes"){
 				$result = true;
 			}
-			
-			$widget_settings[$context][$widget_handler][$setting] = $result;
+		} elseif($setting == "can_add" || $setting == "can_remove"){
+			$result = true;
 		}
 		
-		elgg_save_system_cache("widget_manager_widget_settings", serialize($widget_settings));
-		
-		return $result;
+		$widget_settings[$context][$widget_handler][$setting] = $result;
 	}
+	
+	elgg_save_system_cache("widget_manager_widget_settings", serialize($widget_settings));
+	
+	return $result;
+}
 	
 	function widget_manager_set_widget_setting($widget_handler, $setting, $context, $value){
 		$result = false;
@@ -62,10 +62,12 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 	/* sorts a given array of widgets alphabetically based on the widget name */
 	function widget_manager_sort_widgets(&$widgets){
 		if(!empty($widgets)){
+			$name = array();
+			
 			foreach($widgets as $key => $row){
-				$name[$key] = $row->name; 
+				$name[$key] = $row->name;
 			}
-			$name = array_map('strtolower', $name); 
+			$name = array_map('strtolower', $name);
 			
 			array_multisort($name, SORT_STRING, $widgets);
 		}
@@ -77,7 +79,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 			$new_widgets = array();
 			
 			foreach($widgets as $row){
-				$new_widgets[$row->guid] = $row; 
+				$new_widgets[$row->guid] = $row;
 			}
 			
 			$widgets = $new_widgets;
@@ -149,18 +151,18 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 		foreach($widgets_folder_contents as $widget){
 			if(is_dir($widgets_folder . "/" . $widget) && $widget !== "." && $widget !== ".."){
 				if(file_exists($widgets_folder . "/" . $widget . "/start.php")){
-					$widget_folder = $widgets_folder . "/" . $widget; 
+					$widget_folder = $widgets_folder . "/" . $widget;
 					
 					// include start.php
  					include($widget_folder . "/start.php");
 				} else {
  					elgg_log(elgg_echo("widgetmanager:load_widgets:missing_start"), "WARNING");
- 				}	
+ 				}
 			}
 		}
 	}
 	
-	/* 
+	/*
 	 * Updates the fixed widgets for a given context and user
 	 */
 	function widget_manager_update_fixed_widgets($context, $user_guid){
@@ -205,7 +207,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 						$widget->fixed = false;
 					} elseif(!$widget_fixed && array_key_exists($default_widget_guid, $configured_fixed_widgets)) {
 						// add fixed status
-						$widget->fixed = true;					
+						$widget->fixed = true;
 					}
 					
 					// need to recheck the fixed status as it could have been changed
@@ -269,7 +271,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 							$max_fixed_order = $widget->order;
 						}
 					} else {
-						$free_widgets[] = $widget; 
+						$free_widgets[] = $widget;
 					}
 				}
 				if(!empty($max_fixed_order) && !empty($free_widgets)){
@@ -343,3 +345,4 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 	
 		return $sorted_widgets;
 	}
+	

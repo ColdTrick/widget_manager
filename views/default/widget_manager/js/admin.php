@@ -1,9 +1,9 @@
 <?php ?>
-function widget_manager_fix_widget(elem, guid){
+function widget_manager_fix_widget(elem, guid) {
 	var url = "<?php echo elgg_add_action_tokens_to_url($vars["url"] . "action/widget_manager/widgets/toggle_fix"); ?>";
 	$.post(url, {
-		guid: guid}, function(data){
-			if(data){
+		guid: guid}, function(data) {
+			if (data) {
 				$(elem).toggleClass("fixed");
 					
 				$(elem).parents("div.collapsable_box").parent().toggleClass("free_widgets");
@@ -12,8 +12,8 @@ function widget_manager_fix_widget(elem, guid){
 		});
 }
 
-$(document).ready(function(){
-	$(".widget-manager-fix").live("click", function(event){
+$(document).ready(function() {
+	$(".widget-manager-fix").live("click", function(event) {
 		$(this).toggleClass("fixed");
 		guid = $(this).attr("href").replace("#", "");
 		

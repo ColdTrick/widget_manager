@@ -1,8 +1,8 @@
-<?php 
+<?php
 
-	$widget = $vars["entity"];
-	
-	$height = sanitise_int($widget->height, false);
+$widget = $vars["entity"];
+
+$height = sanitise_int($widget->height, false);
 
 ?>
 <div>

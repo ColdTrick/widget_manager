@@ -1,7 +1,7 @@
-<?php 
+<?php
 /* init file for favorites widget */
 
-function widget_favorites_init(){
+function widget_favorites_init() {
 	elgg_register_widget_type("favorites", elgg_echo("widgets:favorites:title"), elgg_echo("widgets:favorites:description"), "dashboard");
 	
 	elgg_register_event_handler("pagesetup", "system", "widget_favorites_pagesetup");
@@ -11,9 +11,9 @@ function widget_favorites_init(){
 	elgg_extend_view("js/elgg", "widgets/favorites/js");
 }
 
-function widget_favorites_pagesetup(){
-	if(widget_favorites_has_widget()){
-		if($favorite = widget_favorites_is_linked()){
+function widget_favorites_pagesetup() {
+	if (widget_favorites_has_widget()) {
+		if ($favorite = widget_favorites_is_linked()) {
 			$text = elgg_view_icon("star-alt");
 			$href = "action/favorite/toggle?guid=" . $favorite->getGUID();
 			$title = elgg_echo("widgets:favorites:menu:remove");
@@ -21,7 +21,7 @@ function widget_favorites_pagesetup(){
 			$text = elgg_view_icon("star-empty");
 			$href = "action/favorite/toggle?link=" . elgg_normalize_url(current_page_url());
 			$title = elgg_echo("widgets:favorites:menu:add");
-		} 
+		}
 		elgg_register_menu_item("extras", array(
 										"name" => "widget_favorites",
 										"title" => $title,
@@ -32,16 +32,16 @@ function widget_favorites_pagesetup(){
 	}
 }
 
-function widget_favorites_has_widget($owner_guid = 0){	
+function widget_favorites_has_widget($owner_guid = 0) {
 	$result = false;
 	
-	if(empty($owner_guid)){
-		if($user_guid = elgg_get_logged_in_user_guid()){
+	if (empty($owner_guid)) {
+		if ($user_guid = elgg_get_logged_in_user_guid()) {
 			$owner_guid = $user_guid;
 		}
 	}
 	
-	if(!empty($owner_guid)){
+	if (!empty($owner_guid)) {
 		$options = array(
 			"type" => "object",
 			"subtype" => "widget",
@@ -50,7 +50,7 @@ function widget_favorites_has_widget($owner_guid = 0){
 			"owner_guid" => $owner_guid
 		);
 		
-		if(elgg_get_entities_from_private_settings($options)){
+		if (elgg_get_entities_from_private_settings($options)) {
 			$result = true;
 		}
 	}
@@ -61,11 +61,11 @@ function widget_favorites_has_widget($owner_guid = 0){
 function widget_favorites_is_linked($url = ""){
 	$result = false;
 	
-	if(empty($url)){
+	if (empty($url)) {
 		$url = current_page_url();
 	}
 	
-	if(!empty($url)){
+	if (!empty($url)) {
 		$options = array(
 			"type" => "object",
 			"subtype" => "widget_favorite",
@@ -74,7 +74,7 @@ function widget_favorites_is_linked($url = ""){
 			"limit" => 1
 		);
 		
-		if($entities = elgg_get_entities($options)){
+		if ($entities = elgg_get_entities($options)) {
 			$result = $entities[0];
 		}
 	}

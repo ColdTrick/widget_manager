@@ -21,7 +21,7 @@ $handler = $widget->handler;
 $title = $widget->getTitle();
 
 $widget_title_link = $widget->getURL();
-if($widget_title_link !== elgg_normalize_url("view/" . $widget->getGUID())){
+if ($widget_title_link !== elgg_normalize_url("view/" . $widget->getGUID())) {
 	// only set usable widget titles
 	$title = elgg_view("output/url", array("href" => $widget_title_link, "text" => $title, 'is_trusted' => true, "class" => "widget-manager-widget-title-link"));
 }
@@ -55,6 +55,7 @@ if (elgg_in_context('default_widgets')) {
 $widget_id = "elgg-widget-$widget->guid";
 $widget_instance = "elgg-widget-instance-$handler";
 $widget_class = "elgg-module elgg-module-widget";
+$widget_header = "";
 
 if ($can_edit) {
 	$widget_class .= " elgg-state-draggable $widget_instance";
@@ -62,24 +63,24 @@ if ($can_edit) {
 	$widget_class .= " elgg-state-fixed $widget_instance";
 }
 
-if($widget->widget_manager_custom_class){
+if ($widget->widget_manager_custom_class) {
 	// optional custom class for this widget
 	$widget_class .= " " . $widget->widget_manager_custom_class;
 }
 
-if($widget->widget_manager_hide_header == "yes"){
-	if(elgg_is_admin_logged_in()){
+if ($widget->widget_manager_hide_header == "yes") {
+	if (elgg_is_admin_logged_in()) {
 		$widget_class .= " widget_manager_hide_header_admin";
 	} else {
 		$widget_class .= " widget_manager_hide_header";
 	}
 }
 
-if($widget->widget_manager_disable_widget_content_style == "yes"){
+if ($widget->widget_manager_disable_widget_content_style == "yes") {
 	$widget_class .= " widget_manager_disable_widget_content_style";
 }
 
-if(($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()){
+if (($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()) {
 	$widget_header = <<<HEADER
 		<div class="elgg-widget-handle clearfix"><h3>$title</h3>
 		$controls

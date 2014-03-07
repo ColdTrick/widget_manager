@@ -1,15 +1,16 @@
 <?php
-if(!function_exists("add_widget_title_link")){
+
+if (!function_exists("add_widget_title_link")) {
 	/**
 	* @deprecated 1.7.  Use elgg_register_plugin_hook_handler("widget_url", "widget_manager")
 	*
 	* @param $handler
 	* @param $link
 	*/
-	function add_widget_title_link($handler, $link){
+	function add_widget_title_link($handler, $link) {
 		elgg_deprecated_notice("add_widget_title_link() was deprecated by elgg_register_plugin_hook_handler('widget_url', 'widget_manager')", "1.7");
 		widget_manager_add_widget_title_link($handler, $link);
-	}	
+	}
 }
 
 /**
@@ -20,7 +21,7 @@ if(!function_exists("add_widget_title_link")){
 * @param $handler
 * @param $link
 */
-function widget_manager_add_widget_title_link($handler, $link){
+function widget_manager_add_widget_title_link($handler, $link) {
 	global $CONFIG;
 	elgg_deprecated_notice("widget_manager_add_widget_title_link() was deprecated by elgg_register_plugin_hook_handler('widget_url', 'widget_manager')", "1.8");
 	

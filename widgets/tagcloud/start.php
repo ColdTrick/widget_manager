@@ -1,7 +1,7 @@
-<?php 
+<?php
 /* init file for tagcloud widget */
 
-function widget_tagcloud_init(){
+function widget_tagcloud_init() {
 	elgg_register_widget_type("tagcloud", elgg_echo("tagcloud"), elgg_echo("widgets:tagcloud:description"), "index,groups,profile,dashboard", false);
 }
 

@@ -1,7 +1,7 @@
 <?php
 /* init file for likes widget */
 
-function widget_likes_init(){
+function widget_likes_init() {
 // 	elgg_register_widget_type("likes", elgg_echo("widgets:likes:title"), elgg_echo("widgets:likes:description"), "index,groups,profile,dashboard", true);
 }
 

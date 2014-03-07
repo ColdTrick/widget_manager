@@ -1,7 +1,7 @@
-<?php 
+<?php
 /* init file for twitter_search widget */
 
-function widget_twitter_search_init(){
+function widget_twitter_search_init() {
 	elgg_register_widget_type("twitter_search", elgg_echo("widgets:twitter_search:name"), elgg_echo("widgets:twitter_search:description"), "profile,dashboard,index,groups", true);
 	
 	elgg_register_plugin_hook_handler("widget_settings", "twitter_search", "widget_twitter_search_settings_save_hook");
@@ -11,8 +11,6 @@ function widget_twitter_search_settings_save_hook($hook_name, $entity_type, $ret
 	$widget = elgg_extract("widget", $params);
 	if ($widget && ($entity_type == "twitter_search")) {
 		$embed_code = elgg_extract("embed_code", get_input("params", array(), false)); // do not strip code
-		
-		$widget_id = false;
 		
 		if ($embed_code) {
 			

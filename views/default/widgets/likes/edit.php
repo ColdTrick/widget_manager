@@ -4,12 +4,12 @@ $widget = $vars["entity"];
 
 $like_type = $widget->like_type;
 $interval = $widget->interval;
-if(empty($interval)){
+if (empty($interval)) {
 	$interval = 0;
 }
 
 $limit = $widget->limit;
-if(empty($limit)){
+if (empty($limit)) {
 	$limit = 10;
 }
 
@@ -25,8 +25,8 @@ $intervals = array(
 $like_types = array();
 
 // things i like; shows things user liked (only on dashboard / profile)
-if(elgg_in_context("dashboard") || elgg_in_context("profile")){
-	$like_types["user_likes"] = elgg_echo("widgets:likes:settings:like_type:user_likes"); 
+if (elgg_in_context("dashboard") || elgg_in_context("profile")) {
+	$like_types["user_likes"] = elgg_echo("widgets:likes:settings:like_type:user_likes");
 }
 
 // most liked items; shows most liked items owned by user, or in group, or on site (so all contexts)

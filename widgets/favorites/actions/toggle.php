@@ -4,14 +4,14 @@ $link = get_input("link");
 $title = get_input("title");
 $guid = get_input("guid");
 
-if((!empty($link) && !empty($title)) || !empty($guid)){
+if ((!empty($link) && !empty($title)) || !empty($guid)) {
 
-	if(!empty($guid) && ($entity = get_entity($guid)) && elgg_instanceof($entity, "object", "widget_favorite")){
+	if (!empty($guid) && ($entity = get_entity($guid)) && elgg_instanceof($entity, "object", "widget_favorite")) {
 		// if exists delete
-		if($entity->canEdit()){
+		if ($entity->canEdit()) {
 			$current_link = $entity->description;
 			
-			if($entity->delete()){
+			if ($entity->delete()) {
 				system_message(elgg_echo("widgets:favorites:delete:success"));
 				
 				$text = elgg_view_icon("star-empty");
@@ -26,8 +26,8 @@ if((!empty($link) && !empty($title)) || !empty($guid)){
 		} else {
 			register_error(elgg_echo("widgets:favorites:delete:error"));
 		}
-	} elseif(!empty($link) && !empty($title)) {
-		if(!widget_favorites_is_linked($link)){
+	} elseif (!empty($link) && !empty($title)) {
+		if (!widget_favorites_is_linked($link)) {
 			// create new favorite
 			$object = new ElggObject();
 			$object->title = $title;
@@ -35,7 +35,7 @@ if((!empty($link) && !empty($title)) || !empty($guid)){
 			$object->subtype = "widget_favorite";
 			$object->access_id = ACCESS_PRIVATE;
 			
-			if($object->save()){
+			if ($object->save()) {
 				system_message(elgg_echo("widgets:favorites:save:success"));
 				
 				$text = elgg_view_icon("star-alt");
@@ -58,4 +58,3 @@ if((!empty($link) && !empty($title)) || !empty($guid)){
 }
 	
 forward(REFERER);
-
