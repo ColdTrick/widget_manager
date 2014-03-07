@@ -5,7 +5,7 @@ function widget_rss_init() {
 	// load SimplePie autoloader
 	require_once(elgg_get_plugins_path() . "widget_manager/widgets/rss/vendors/simplepie/autoloader.php");
 	
-	elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), "groups,index,profile,dashboard", true);
+	elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), array("profile", "dashboard", "index", "groups"), true);
 	
 	// extend CSS
 	elgg_extend_view("css/elgg", "widgets/rss/css");

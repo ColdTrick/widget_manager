@@ -2,7 +2,7 @@
 /* init file for index_members widget */
 
 function widget_index_members_init() {
-	elgg_register_widget_type("index_members", elgg_echo("widget_manager:widgets:index_members:name"), elgg_echo("widget_manager:widgets:index_members:description"), "index", true);
+	elgg_register_widget_type("index_members", elgg_echo("widget_manager:widgets:index_members:name"), elgg_echo("widget_manager:widgets:index_members:description"), array("index"), true);
 	elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_index_members_url");
 }
 

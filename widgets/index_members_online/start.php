@@ -2,7 +2,7 @@
 /* init file for index_members_online widget */
 
 function widget_index_members_online_init() {
-	elgg_register_widget_type("index_members_online", elgg_echo("widget_manager:widgets:index_members_online:name"), elgg_echo("widget_manager:widgets:index_members_online:description"), "index", true);
+	elgg_register_widget_type("index_members_online", elgg_echo("widget_manager:widgets:index_members_online:name"), elgg_echo("widget_manager:widgets:index_members_online:description"), array("index"), true);
 	elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_index_members_online_url");
 }
 

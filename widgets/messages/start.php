@@ -3,7 +3,7 @@
 
 function widget_messages_init() {
 	if (elgg_is_active_plugin("messages")) {
-		elgg_register_widget_type("messages", elgg_echo("messages"), elgg_echo("widgets:messages:description"), "dashboard,index", false);
+		elgg_register_widget_type("messages", elgg_echo("messages"), elgg_echo("widgets:messages:description"), array("dashboard", "index"), false);
 		
 		elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_messages_url");
 	}

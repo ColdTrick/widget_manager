@@ -2,7 +2,7 @@
 /* init file for favorites widget */
 
 function widget_favorites_init() {
-	elgg_register_widget_type("favorites", elgg_echo("widgets:favorites:title"), elgg_echo("widgets:favorites:description"), "dashboard");
+	elgg_register_widget_type("favorites", elgg_echo("widgets:favorites:title"), elgg_echo("widgets:favorites:description"), array("dashboard"));
 	
 	elgg_register_event_handler("pagesetup", "system", "widget_favorites_pagesetup");
 	

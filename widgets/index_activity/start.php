@@ -2,7 +2,7 @@
 /* init file for index_activity widget */
 
 function widget_index_activity_init() {
-	elgg_register_widget_type("index_activity", elgg_echo("activity"), elgg_echo("widget_manager:widgets:index_activity:description"), "index", true);
+	elgg_register_widget_type("index_activity", elgg_echo("activity"), elgg_echo("widget_manager:widgets:index_activity:description"), array("index"), true);
 	elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_index_activity_url");
 }
 

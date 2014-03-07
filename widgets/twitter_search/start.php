@@ -2,7 +2,7 @@
 /* init file for twitter_search widget */
 
 function widget_twitter_search_init() {
-	elgg_register_widget_type("twitter_search", elgg_echo("widgets:twitter_search:name"), elgg_echo("widgets:twitter_search:description"), "profile,dashboard,index,groups", true);
+	elgg_register_widget_type("twitter_search", elgg_echo("widgets:twitter_search:name"), elgg_echo("widgets:twitter_search:description"), array("profile", "dashboard", "index", "groups"), true);
 	
 	elgg_register_plugin_hook_handler("widget_settings", "twitter_search", "widget_twitter_search_settings_save_hook");
 }
