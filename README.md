@@ -65,7 +65,6 @@ TODO
 ### General
 
  - check available widget and saving of widget manage page on a clean install
- - split css site/admin
  - tabbed widgets layout (widgets are shown full width) below profile
  
 ### Multi Dashboard

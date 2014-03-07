@@ -55,8 +55,8 @@ function widget_manager_init() {
 	}
 	
 	// extend CSS
-	elgg_extend_view("css/elgg", "css/widget_manager/global");
-	elgg_extend_view("css/admin", "css/widget_manager/global");
+	elgg_extend_view("css/elgg", "css/widget_manager/site");
+	elgg_extend_view("css/admin", "css/widget_manager/admin");
 	elgg_extend_view("js/elgg", "js/widget_manager/site");
 	elgg_extend_view("js/admin", "js/widget_manager/admin");
 	
