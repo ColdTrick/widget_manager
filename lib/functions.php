@@ -62,10 +62,10 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 /**
  * Saves a widget setting
  *
- * @param string $widget_handler
- * @param string $setting
- * @param string $context
- * @param string $value
+ * @param string $widget_handler handler of the widget
+ * @param string $setting        name of the setting
+ * @param string $context        context of the widget (default current context)
+ * @param string $value          value of the setting
  *
  * @return boolean
  */
@@ -86,7 +86,7 @@ function widget_manager_set_widget_setting($widget_handler, $setting, $context, 
 /**
  * Sorts a given array of widgets alphabetically based on the widget name
  *
- * @param array $widgets array of widgets to be sorted
+ * @param array &$widgets array of widgets to be sorted
  *
  * @return void
  */
@@ -106,7 +106,7 @@ function widget_manager_sort_widgets(&$widgets) {
 /**
  * Returns a given array of widgets with the guids as key
  *
- * @param array $widgets array of widgets to be sorted
+ * @param array &$widgets array of widgets to be sorted
  *
  * @return void
  */
@@ -120,18 +120,6 @@ function widget_manager_sort_widgets_guid(&$widgets) {
 		
 		$widgets = $new_widgets;
 	}
-}
-
-function widget_manager_set_configured_widgets($context, $column, $value) {
-	$result = false;
-	
-	if (!empty($context) && !empty($column)) {
-		if (elgg_set_plugin_setting($context . "_" . $column, $value, "widget_manager")) {
-			$result = true;
-		}
-	}
-	
-	return $result;
 }
 	
 /**

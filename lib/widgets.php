@@ -182,7 +182,7 @@ function widget_manager_widgets_twitter_search_settings_save_hook($hook, $type, 
 		if ($embed_code) {
 				
 			$start_pos = strpos($embed_code, 'data-widget-id="') + strlen('data-widget-id="');
-			$end_pos = strpos($embed_code, '"', $start_pos );
+			$end_pos = strpos($embed_code, '"', $start_pos);
 				
 			$widget_id = filter_tags(substr($embed_code, $start_pos, $end_pos - $start_pos));
 				
