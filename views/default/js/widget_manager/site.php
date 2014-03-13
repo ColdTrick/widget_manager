@@ -17,7 +17,6 @@ elgg.widget_manager.widgets_search = function(q) {
 	}
 }
 
-
 elgg.widget_manager.init = function() {
 	// reset draggable functionality to pointer
 	$(".elgg-widgets").sortable("option", "tolerance", "pointer");
@@ -31,7 +30,6 @@ elgg.widget_manager.init = function() {
 		}
 	});
 	
-
 	// live update of widget titles
     $('.elgg-form-widgets-save input.elgg-button-submit').live('click', function() {
 

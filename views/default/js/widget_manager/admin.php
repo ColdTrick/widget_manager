@@ -24,6 +24,5 @@ elgg.widget_manager.init_admin = function() {
 	});
 }
 
-
 //register init hook
 elgg.register_hook_handler("init", "system", elgg.widget_manager.init_admin);

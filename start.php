@@ -11,16 +11,6 @@ require_once(dirname(__FILE__) . "/lib/page_handlers.php");
 require_once(dirname(__FILE__) . "/lib/widgets.php");
 
 /**
- * Function that runs on plugins boot. Currently used to load widgets.
- *
- * @return void
- */
-function widget_manager_plugins_boot() {
-	// Load widgets
-	widget_manager_load_widgets();
-}
-
-/**
  * Function that runs on system init. Used to perform initialization of the widget manager features.
  *
  * @return void
@@ -31,8 +21,7 @@ function widget_manager_init() {
 		update_subtype("object", "widget", "WidgetManagerWidget");
 	}
 	
-	elgg_trigger_event("widgets_init", "widget_manager");
-	
+	// loads the widgets
 	widget_manager_widgets_init();
 	
 	if (elgg_is_active_plugin("groups") && (elgg_get_plugin_setting("group_enable", "widget_manager") == "yes")) {

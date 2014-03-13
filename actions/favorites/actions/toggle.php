@@ -27,7 +27,7 @@ if ((!empty($link) && !empty($title)) || !empty($guid)) {
 			register_error(elgg_echo("widgets:favorites:delete:error"));
 		}
 	} elseif (!empty($link) && !empty($title)) {
-		if (!widget_favorites_is_linked($link)) {
+		if (!widget_manager_widgets_favorites_is_linked($link)) {
 			// create new favorite
 			$object = new ElggObject();
 			$object->title = $title;

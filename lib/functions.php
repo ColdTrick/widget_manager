@@ -142,26 +142,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 			
 		return $result;
 	}
-	
-	/* load widget manager widgets */
-	function widget_manager_load_widgets(){
-		$widgets_folder = elgg_get_plugins_path() . "widget_manager/widgets";
-		$widgets_folder_contents = scandir($widgets_folder);
-		 
-		foreach($widgets_folder_contents as $widget){
-			if(is_dir($widgets_folder . "/" . $widget) && $widget !== "." && $widget !== ".."){
-				if(file_exists($widgets_folder . "/" . $widget . "/start.php")){
-					$widget_folder = $widgets_folder . "/" . $widget;
-					
-					// include start.php
- 					include($widget_folder . "/start.php");
-				} else {
- 					elgg_log(elgg_echo("widgetmanager:load_widgets:missing_start"), "WARNING");
- 				}
-			}
-		}
-	}
-	
+		
 	/*
 	 * Updates the fixed widgets for a given context and user
 	 */
