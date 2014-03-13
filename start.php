@@ -3,7 +3,6 @@
 define("ACCESS_LOGGED_OUT", -5);
 define("MULTI_DASHBOARD_MAX_TABS", 7);
 
-require_once(dirname(__FILE__) . "/lib/deprecated.php");
 require_once(dirname(__FILE__) . "/lib/functions.php");
 require_once(dirname(__FILE__) . "/lib/events.php");
 require_once(dirname(__FILE__) . "/lib/hooks.php");
@@ -53,8 +52,8 @@ function widget_manager_init() {
 	elgg_extend_view("js/admin", "js/widget_manager/admin");
 	
 	// register a widget title url handler
-	elgg_register_entity_url_handler("object", "widget", "widget_manager_widget_url_handler");
-
+	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url_hook_handler");
+	
 	// add extra widget pages
 	$extra_contexts = elgg_get_plugin_setting("extra_contexts", "widget_manager");
 	if ($extra_contexts) {
@@ -172,7 +171,7 @@ function widget_manager_pagesetup() {
 }
 
 /**
- *  enables widget that are not specifically registered for groups or index widget, but do work
+ *  Enables widget that are not specifically registered for groups or index widget, but do work
  *
  *   @return void
  */
@@ -197,7 +196,6 @@ function widget_manager_reset_widget_context() {
 }
 
 // register default Elgg events
-elgg_register_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
 elgg_register_event_handler("init", "system", "widget_manager_init");
 elgg_register_event_handler("init", "system", "widget_manager_reset_widget_context",9999); // needs to be last
 elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
@@ -208,8 +206,6 @@ elgg_register_plugin_hook_handler("access:collections:write", "user", "widget_ma
 elgg_register_plugin_hook_handler("access:collections:read", "user", "widget_manager_read_access_hook");
 elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
 elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early
-
-elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_manager_widgets_url");
 
 elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
 elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');

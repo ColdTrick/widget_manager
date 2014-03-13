@@ -3,9 +3,12 @@
  * This file handles all widgets initialization and other widget specific functionality
  */
 
+/**
+ * Inits the various widgets
+ *
+ * @return void
+ */
 function widget_manager_widgets_init() {
-	
-	
 	
 	// content_by_tag
 	if (elgg_is_active_plugin("blog") || elgg_is_active_plugin("file") || elgg_is_active_plugin("pages")) {
@@ -32,7 +35,7 @@ function widget_manager_widgets_init() {
 
 	// rss widget
 	// load SimplePie autoloader
-	require_once(elgg_get_plugins_path() . "widget_manager/widgets/rss/vendors/simplepie/autoloader.php");
+	require_once(elgg_get_plugins_path() . "widget_manager/vendors/simplepie/autoloader.php");
 	
 	elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), array("profile", "dashboard", "index", "groups"), true);
 	
@@ -87,9 +90,6 @@ function widget_manager_widgets_init() {
 	elgg_register_event_handler("pagesetup", "system", "widget_manager_widgets_favorites_pagesetup");
 	elgg_register_action("favorite/toggle", elgg_get_plugins_path() . "widget_manager/actions/favorites/toggle.php");
 	elgg_extend_view("js/elgg", "widgets/favorites/js");
-	
-	// register widget urls hook
-	elgg_register_plugin_hook_handler('widget_url', 'widget_manager', "widget_manager_widgets_url_hook_handler");
 }
 
 /**
@@ -176,7 +176,7 @@ function widget_manager_widgets_url_hook_handler($hook, $type, $return, $params)
  */
 function widget_manager_widgets_twitter_search_settings_save_hook($hook, $type, $return, $params) {
 	$widget = elgg_extract("widget", $params);
-	if ($widget && ($entity_type == "twitter_search")) {
+	if ($widget && ($type == "twitter_search")) {
 		$embed_code = elgg_extract("embed_code", get_input("params", array(), false)); // do not strip code
 
 		if ($embed_code) {

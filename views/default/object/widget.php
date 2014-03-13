@@ -21,7 +21,7 @@ $handler = $widget->handler;
 $title = $widget->getTitle();
 
 $widget_title_link = $widget->getURL();
-if ($widget_title_link !== elgg_normalize_url("view/" . $widget->getGUID())) {
+if ($widget_title_link !== elgg_get_site_url()) {
 	// only set usable widget titles
 	$title = elgg_view("output/url", array("href" => $widget_title_link, "text" => $title, 'is_trusted' => true, "class" => "widget-manager-widget-title-link"));
 }
