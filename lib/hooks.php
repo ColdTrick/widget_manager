@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * Hooks for widget manager
+ */
+
+/**
  * Returns a ACL for use in widgets
  *
- * @param $hook_name
- * @param $entity_type
- * @param $return_value
- * @param $params
- * @return unknown_type
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
  */
 function widget_manager_write_access_hook($hook_name, $entity_type, $return_value, $params){
 	$result = $return_value;
@@ -40,11 +45,12 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 /**
  * Creates the ability to see content only for logged_out users
  *
- * @param $hook_name
- * @param $entity_type
- * @param $return_value
- * @param $params
- * @return unknown_type
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
  */
 function widget_manager_read_access_hook($hook_name, $entity_type, $return_value, $params){
 	$result = $return_value;
@@ -67,10 +73,12 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 /**
  * Function that unregisters html validation for admins to be able to save freehtml widgets with special html
  *
- * @param $hook_name
- * @param $entity_type
- * @param $return_value
- * @param $params
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
  */
 function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_value, $params){
 	if(elgg_is_admin_logged_in() && elgg_get_plugin_setting("disable_free_html_filter", "widget_manager") == "yes"){
@@ -91,15 +99,16 @@ function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_valu
 }
 	
 /**
-* Hook to take over the index page
-*
-* @param $hook_name
-* @param $entity_type
-* @param $return_value
-* @param $parameters
-* @return unknown_type
-*/
-function widget_manager_custom_index($hook_name, $entity_type, $return_value, $parameters){
+ * Hook to take over the index page
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return boolean
+ */
+function widget_manager_custom_index($hook_name, $entity_type, $return_value, $params){
 	$result = $return_value;
 
 	if(empty($result) && ($setting = elgg_get_plugin_setting("custom_index", "widget_manager"))){
@@ -114,10 +123,17 @@ function widget_manager_custom_index($hook_name, $entity_type, $return_value, $p
 	return $result;
 }
 	
-/*
-* adds an optional fix link to the menu
-*/
-function widget_manager_register_widget_menu($hook_name, $entity_type, $return, $params){
+/**
+ * Adds an optional fix link to the menu
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
+ */
+function widget_manager_register_widget_menu($hook_name, $entity_type, $return_value, $params){
 	$widget = $params['entity'];
 	
 	if(elgg_is_admin_logged_in() && elgg_in_context("default_widgets") && in_array($widget->context, array("profile", "dashboard")) && $widget->fixed_parent_guid){
@@ -134,34 +150,51 @@ function widget_manager_register_widget_menu($hook_name, $entity_type, $return, 
 		);
 			
 		$item = ElggMenuItem::factory($params);
-		$return[] = $item;
+		$return_value[] = $item;
 	}
 
-	return $return;
+	return $return_value;
 }
 
-/*
- * optionally removes the edit and delete links from the menu
-*/
-function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return, $params){
-	if(is_array($return)){
+/**
+ * Optionally removes the edit and delete links from the menu
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
+ */
+function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_value, $params){
+	if(is_array($return_value)){
 		$widget = $params["entity"];
 		if($widget->fixed && !elgg_in_context("default_widgets") && !elgg_is_admin_logged_in()){
-			foreach($return as $section_key => $section){
+			foreach($return_value as $section_key => $section){
 				foreach($section as $item_key => $item){
 					if(in_array($item->getName(), array("delete", "settings"))){
-						unset($return[$section_key][$item_key]);
+						unset($return_value[$section_key][$item_key]);
 					}
 				}
 			}
 		}
 	}
-	return $return;
+	return $return_value;
 }
+
+/**
+ * Routes the multidashboard pages
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
+ */
+function widget_manager_dashboard_route_handler($hook_name, $entity_type, $return_value, $params){
 	
-function widget_manager_dashboard_route_handler($hook_name, $entity_type, $return, $params){
-	
-	if($page = elgg_extract("segments", $return)){
+	if($page = elgg_extract("segments", $return_value)){
 		if(!empty($page[0])){
 			if(get_entity($page[0])){
 				set_input("multi_dashboard_guid", $page[0]);
@@ -172,7 +205,17 @@ function widget_manager_dashboard_route_handler($hook_name, $entity_type, $retur
 	}
 }
 
-function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $return, $params){
+/**
+ * Adds special data to widgets that are added on multidashboards
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
+ */
+function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $return_value, $params){
 	
 	if($widget_context = get_input("context")){
 		// dashboard_<guid>;
@@ -184,16 +227,26 @@ function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $re
 		}
 	}
 }
-	
-function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return, $params){
+
+/**
+ * Checks if a user can manage current widget layout
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return boolean
+ */
+function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return_value, $params){
 	$page_owner = elgg_extract("page_owner", $params);
 	$user = elgg_extract("user", $params);
 	$context = elgg_extract("context", $params);
 			
-	if (!$return && ($user instanceof ElggUser)) {
+	if (!$return_value && ($user instanceof ElggUser)) {
 		if (($page_owner instanceof ElggGroup) && $page_owner->canEdit($user->getGUID())) {
 			// group widget layout
-			$return = true;
+			$return_value = true;
 		} elseif (!in_array($context, array("index", "dashboard", "profile", "groups"))) {
 			// extra widget contexts
 			$contexts_config = json_decode(elgg_get_plugin_setting("extra_contexts_config", "widget_manager"), true);
@@ -205,7 +258,7 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 			if (!empty($context_managers)) {
 				foreach ($context_managers as $manager) {
 					if ($manager == $user->username) {
-						$return = true;
+						$return_value = true;
 						break;
 					}
 				}
@@ -213,17 +266,18 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 		}
 	}
 	
-	return $return;
+	return $return_value;
 }
 	
 /**
  * Fallback widget title urls for non widget manager widgets
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return Ambigous <string, unknown>
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return string
  */
 function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $params){
 	$result = $return_value;
@@ -275,11 +329,12 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 /**
  * Allow for group default widgets
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return Ambigous <string, unknown>
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return string
  */
 function widget_manager_group_widgets_default_list($hook_name, $entity_type, $return_value, $params) {
 	if (!is_array($return_value)) {
@@ -301,10 +356,11 @@ function widget_manager_group_widgets_default_list($hook_name, $entity_type, $re
 /**
  * Add extra widget contexts that have advanced widget options available
  *
- * @param $hook_name
- * @param $entity_type
- * @param $return_value
- * @param $params
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
  * @return array
  */
 function widget_manager_advanced_context($hook_name, $entity_type, $return_value, $params) {
@@ -331,11 +387,12 @@ function widget_manager_advanced_context($hook_name, $entity_type, $return_value
 /**
  * Register new widget contexts for use on custom widget pages
  *
- * @param $hook_name
- * @param $entity_type
- * @param $return_value
- * @param $params
- * @return array
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return string
  */
 function widget_manager_available_widgets_context($hook_name, $entity_type, $return_value, $params) {
 	if (!empty($return_value)) {
@@ -355,11 +412,12 @@ function widget_manager_available_widgets_context($hook_name, $entity_type, $ret
 /**
  * Updates the pluginsettings for the contexts
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return string
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
  */
 function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_type, $return_value, $params) {
 	$plugin_id = get_input("plugin_id");
@@ -390,11 +448,12 @@ function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_t
 /**
  * Registers the extra context permissions check hook
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return string
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
  */
 function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $return_value, $params) {
 	if ($entity_type == "widgets/move") {
@@ -423,11 +482,12 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
 /**
  * Checks if current user can edit a given widget context. Hook gets registered by widget_manager_widgets_action_hook_handler
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return string
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return boolean
  */
 function widget_manager_permissions_check_site_hook_handler($hook_name, $entity_type, $return_value, $params) {
 	$user = elgg_extract("user", $params);
@@ -447,11 +507,12 @@ function widget_manager_permissions_check_site_hook_handler($hook_name, $entity_
 /**
  * Checks if current user can edit a widget if it is in a context he/she can manage
  *
- * @param unknown_type $hook_name
- * @param unknown_type $entity_type
- * @param unknown_type $return_value
- * @param unknown_type $params
- * @return string
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return boolean
  */
 function widget_manager_permissions_check_object_hook_handler($hook_name, $entity_type, $return_value, $params) {
 	$user = elgg_extract("user", $params);
