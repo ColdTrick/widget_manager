@@ -6,11 +6,8 @@ elgg_load_css("lightbox");
 ?>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#widget-manager-multi_dashboard-extras').fancybox({
-			"autoDimensions" : false,
-			"width": 400,
-			"height": 200,
-			"titleShow" : false,
+		$('#widget-manager-multi_dashboard-extras').colorbox({
+			"innerWidth": 400,
 			"href": $('#widget-manager-multi_dashboard-extras').attr("href") + "&title=" + escape(document.title)
 		});
 	});

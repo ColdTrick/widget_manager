@@ -60,5 +60,5 @@ if (!elgg_is_logged_in()) {
 		echo elgg_echo("messages:nomessages");
 	}
 
-	echo "<div><a href='" . elgg_get_site_url() . "messages/compose'>" . elgg_echo("messages:compose") . "</a></div>";
+	echo "<div class='elgg-widget-more'><a href='" . elgg_get_site_url() . "messages/compose'>" . elgg_echo("messages:add") . "</a></div>";
 }

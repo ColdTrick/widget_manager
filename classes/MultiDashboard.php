@@ -211,7 +211,7 @@ class MultiDashboard extends ElggObject {
 		$result = false;
 		
 		if ($url = $this->internal_url) {
-			$result = elgg_http_add_url_query_elements($url, array("internal_dashboard" => "yes"));
+			$result = elgg_http_add_url_query_elements($url, array("view" => "internal_dashboard"));
 		}
 		
 		return $result;

@@ -66,24 +66,24 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 	var widget_manger_multi_dashboard_dropped = false;
 
 	$(document).ready(function() {
-		$("#widget-manager-multi-dashboard a").fancybox({
-			autoDimensions: false,
-			width: 400,
-			height: 360,
-			titleShow: false
+
+		// add dashboard link
+		$("#widget-manager-multi-dashboard a").colorbox({
+			innerWidth: 400,
+			title: " "
 		});
-		
+
+		// edit dashboard link
 		$("#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tabs-edit").click(function(event) {
 			var id = $(this).parent().attr("rel");
-			$.fancybox({
-				"href" : elgg.get_site_url() + "multi_dashboard/edit/" + id,
-				"autoDimensions" : false,
-				"width": 400,
-				"height": 360
-				});
+			$.colorbox({
+				href : elgg.get_site_url() + "multi_dashboard/edit/" + id,
+				innerWidth: 400
+			});
 			event.preventDefault();
 		});
 
+		// adds the ability to move widgets between dashboards
 		$("#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-widgets").not(".elgg-state-selected").droppable({
 			accept: ".elgg-module-widget",
 			activeClass: "widget-manager-multi-dashboard-tab-active",
@@ -121,17 +121,17 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 		});
 
 		// function to prevent the widget move action when dropped on a multi dashboard tab
-		$(".elgg-widgets").ajaxSend(function(event, jqXHR, ajaxOptions) {
-			var ajax_url = ajaxOptions.url;
+// 		$(".elgg-widgets").ajaxSend(function(event, jqXHR, ajaxOptions) {
+// 			var ajax_url = ajaxOptions.url;
 
-			if (ajax_url == elgg.get_site_url() + "action/widgets/move") {
-				if (widget_manger_multi_dashboard_dropped !== false) {
-					jqXHR.abort();
+// 			if (ajax_url == elgg.get_site_url() + "action/widgets/move") {
+// 				if (widget_manger_multi_dashboard_dropped !== false) {
+// 					jqXHR.abort();
 
-					widget_manger_multi_dashboard_dropped = false;
-				}
-			}
-		});
+// 					widget_manger_multi_dashboard_dropped = false;
+// 				}
+// 			}
+// 		});
 
 		$("#widget-manager-multi-dashboard-tabs").sortable({
 			items: "li.widget-manager-multi-dashboard-tab",

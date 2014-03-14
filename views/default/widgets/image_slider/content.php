@@ -109,8 +109,8 @@ if ($slider_type == "flexslider") {
 	echo '</ul></div></div>';
 	
 	?>
-		<link rel="stylesheet" type="text/css" href="<?php echo elgg_get_site_url();?>mod/widget_manager/widgets/image_slider/vendors/flexslider/flexslider.css"></link>
-		<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/widgets/image_slider/vendors/flexslider/jquery.flexslider-min.js"></script>
+		<link rel="stylesheet" type="text/css" href="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/flexslider.css"></link>
+		<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/jquery.flexslider-min.js"></script>
 		
 		<style type="text/css">
 			.flex-caption {
@@ -166,7 +166,7 @@ if ($slider_type == "flexslider") {
 } else {
 	?>
 
-	<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/widgets/image_slider/vendors/s3slider/s3Slider.js"></script>
+	<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/s3slider/s3Slider.js"></script>
 	
 	<script type="text/javascript">
 	    $(document).ready(function() {

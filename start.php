@@ -10,6 +10,13 @@ require_once(dirname(__FILE__) . "/lib/page_handlers.php");
 require_once(dirname(__FILE__) . "/lib/widgets.php");
 
 /**
+ * special actions before init system
+ */
+function widget_manager_plugins_boot() {
+	elgg_register_viewtype_fallback("internal_dashboard");
+}
+
+/**
  * Function that runs on system init. Used to perform initialization of the widget manager features.
  *
  * @return void
@@ -162,12 +169,6 @@ function widget_manager_pagesetup() {
 			widget_manager_update_fixed_widgets($context, $page_owner_guid);
 		}
 	}
-	
-	if (widget_manager_multi_dashboard_enabled()) {
-		if (get_input("internal_dashboard") == "yes") {
-			elgg_set_view_location("page/default", dirname(__FILE__) . "/views_alt/");
-		}
-	}
 }
 
 /**
@@ -196,6 +197,7 @@ function widget_manager_reset_widget_context() {
 }
 
 // register default Elgg events
+elgg_register_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
 elgg_register_event_handler("init", "system", "widget_manager_init");
 elgg_register_event_handler("init", "system", "widget_manager_reset_widget_context",9999); // needs to be last
 elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
