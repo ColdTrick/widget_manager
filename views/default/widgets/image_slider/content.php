@@ -179,7 +179,7 @@ if ($slider_type == "flexslider") {
 	
 		$slides_list .= "<li class='widgets_image_slider_image'>";
 		
-		$slides_list .= "<span class='" . $slide["direction"] ."' style='" . $style . "'><div>" . $slide["text"] . "</div></span>";
+		$slides_list .= "<span class='" . $slide["direction"] . "' style='" . $style . "'><div>" . $slide["text"] . "</div></span>";
 			
 		if (!empty($slide["link"])) {
 			$slides_list .= "<a href='" . $slide["link"] . "'>";
@@ -213,5 +213,5 @@ if ($slider_type == "flexslider") {
 	</div>
 	
 	<div class="clearfix"></div>
-<?php
+	<?php
 }
