@@ -122,7 +122,7 @@ function widget_manager_widgets_rss_cron_handler($hook, $type, $return, $params)
  * @param string $hook   name of the hook
  * @param string $type   type of the hook
  * @param string $return current return value
- * @param array $params hook parameters
+ * @param array  $params hook parameters
  *
  * @return string
  */
