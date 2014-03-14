@@ -34,5 +34,5 @@ if ($entity_stats) {
 	}
 	?>
 	</table>
-<?php
+	<?php
 }

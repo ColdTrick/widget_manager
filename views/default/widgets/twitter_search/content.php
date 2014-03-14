@@ -7,8 +7,11 @@ $height = sanitise_int($widget->height, false);
 $widget_id = $widget->widget_id;
 
 if (!empty($widget_id)) {
+	if ($height) {
+		$height = "height='" . $height . "'";
+	}
 	?>
-	<a class="twitter-timeline" data-dnt="true" data-widget-id="<?php echo $widget_id; ?>" <?php if ($height) { echo "height='" . $height . "'"; } ?>></a>
+	<a class="twitter-timeline" data-dnt="true" data-widget-id="<?php echo $widget_id; ?>" <?php echo $height; ?>></a>
 	<script>
 		if (typeof twttr !== 'undefined') {
 			twttr.widgets.load();

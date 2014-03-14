@@ -11,6 +11,8 @@ require_once(dirname(__FILE__) . "/lib/widgets.php");
 
 /**
  * special actions before init system
+ *
+ * @return void
  */
 function widget_manager_plugins_boot() {
 	elgg_register_viewtype_fallback("internal_dashboard");

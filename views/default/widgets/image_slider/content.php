@@ -158,12 +158,41 @@ if ($slider_type == "flexslider") {
 					after: function(){},            //Callback: function(slider) - Fires after each slider animation completes
 					end: function(){}               //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
 		    		*/
-		    		?>
+					?>
 		        });
 		    });
 		</script>
 	<?php
 } else {
+
+	$slides_list = "";
+
+	foreach ($configured_slides as $slide) {
+		$style = "background-color: #" . $overlay_color . ";";
+	
+		if (empty($slide["text"])) {
+			$style .= "visibility: hidden;";
+		}
+		if (in_array($slide["direction"], array("left", "right"))) {
+			$style .= "height: " . $slider_height . "px;";
+		}
+	
+		$slides_list .= "<li class='widgets_image_slider_image'>";
+		
+		$slides_list .= "<span class='" . $slide["direction"] ."' style='" . $style . "'><div>" . $slide["text"] . "</div></span>";
+			
+		if (!empty($slide["link"])) {
+			$slides_list .= "<a href='" . $slide["link"] . "'>";
+		}
+	
+		$slides_list .= "<img src='" . $slide["url"] . "' />";
+		if (!empty($slide["link"])) {
+			$slides_list .= "</a>";
+		}
+		
+		$slides_list .= "</li>";
+	}
+
 	?>
 
 	<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/s3slider/s3Slider.js"></script>
@@ -178,35 +207,7 @@ if ($slider_type == "flexslider") {
 
 	<div id="<?php echo $object_id; ?>" class='widgets_image_slider' style="height: <?php echo $slider_height; ?>px;">
 		<ul class='widgets_image_slider_content' id="<?php echo $object_id; ?>Content">
-			<?php
-			foreach ($configured_slides as $slide) {
-				
-				echo "<li class='widgets_image_slider_image'>";
-				
-				$style = "background-color: #" . $overlay_color . ";";
-				
-				if (empty($slide["text"])) {
-					$style .= "visibility: hidden;";
-				}
-				if (in_array($slide["direction"], array("left", "right"))) {
-					$style .= "height: " . $slider_height . "px;";
-				}
-				
-				echo "<span class='" . $slide["direction"] ."' style='" . $style . "'>";
-				echo "<div>" . $slide["text"] . "</div>";
-				echo "</span>";
-			
-				if (!empty($slide["link"])) {
-					echo "<a href='" . $slide["link"] . "'>";
-				}
-				
-				echo "<img src='" . $slide["url"] . "'>";
-				if (!empty($slide["link"])) {
-					echo "</a>";
-				}
-				echo "</li>";
-			}
-			?>
+			<?php echo $slides_list; ?>
 			<div class="clearfix widgets_image_slider_image"></div>
 		</ul>
 	</div>
