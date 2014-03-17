@@ -17,36 +17,28 @@ echo elgg_view('input/hidden', $params);
 
 echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_access));
 
-
-// TODO: the following javascript is not working in Elgg 1.9 - settings is always empty
 ?>
 <script type="text/javascript">
-
-
 	function widget_manager_widget_add_init() {
-		
-		$("#elgg-widget-col-1").ajaxSuccess(function(e, xhr, settings) {
-			if (settings) {
-				if (settings.url == elgg.normalize_url('/action/widgets/add')) {
-					// move new widget to a new position if needed
-					if ($(this).find('.elgg-state-fixed').size() > 0) {
-						$widget = $(this).find('.elgg-module-widget:first');
-						$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
-						
-						// first item is the recently moved widget, because fixed widgets are not part of the sortable
-						var index = $(this).find('.elgg-module-widget').index($widget);
-						var guidString = $widget.attr('id');
-						guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
-	
-						elgg.action('widgets/move', {
-							data: {
-								widget_guid: guidString,
-								column: 1,
-								position: index
-							}
-						});
-						
-					}
+		$(document).ajaxSuccess(function(e, xhr, settings) {
+			if (settings.url == elgg.normalize_url('/action/widgets/add')) {
+				// move new widget to a new position (after fixed widgets) if needed
+				if ($(this).find('.elgg-state-fixed').size() > 0) {
+					$widget = $(this).find('.elgg-module-widget:first');
+					$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
+					
+					// first item is the recently moved widget, because fixed widgets are not part of the sortable
+					var index = $(this).find('.elgg-module-widget').index($widget);
+					var guidString = $widget.attr('id');
+					guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
+
+					elgg.action('widgets/move', {
+						data: {
+							widget_guid: guidString,
+							column: 1,
+							position: index
+						}
+					});
 				}
 			}
 		});
