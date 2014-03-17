@@ -58,47 +58,51 @@ $settings_index .= "</table>";
 
 echo elgg_view_module("inline", elgg_echo("widget_manager:settings:index"), $settings_index);
 
-$settings_group = "<table>";
+if (elgg_is_active_plugin("groups")) {
+	$settings_group = "<table>";
+	
+	$settings_group .= "<tr>";
+	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:enable') . "</td>";
+	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "</tr>";
+	
+	$settings_group .= "<tr>";
+	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_default_enabled') . "</td>";
+	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_default_enabled]", "value" => $plugin->group_option_default_enabled, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "</tr>";
+	
+	$settings_group .= "<tr>";
+	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_admin_only') . "</td>";
+	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_admin_only]", "value" => $plugin->group_option_admin_only, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "</tr>";
+	
+	$settings_group .= "</table>";
+	
+	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:group"), $settings_group);
+}
 
-$settings_group .= "<tr>";
-$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:enable') . "</td>";
-$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $noyes_options)) . "</td>";
-$settings_group .= "</tr>";
-
-$settings_group .= "<tr>";
-$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_default_enabled') . "</td>";
-$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_default_enabled]", "value" => $plugin->group_option_default_enabled, "options_values" => $noyes_options)) . "</td>";
-$settings_group .= "</tr>";
-
-$settings_group .= "<tr>";
-$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_admin_only') . "</td>";
-$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_admin_only]", "value" => $plugin->group_option_admin_only, "options_values" => $noyes_options)) . "</td>";
-$settings_group .= "</tr>";
-
-$settings_group .= "</table>";
-
-echo elgg_view_module("inline", elgg_echo("widget_manager:settings:group"), $settings_group);
-
-$settings_dashboard = "<table>";
-
-$settings_dashboard .= "<tr>";
-$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:multi_dashboard') . "</td>";
-$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[multi_dashboard_enabled]", "value" => $plugin->multi_dashboard_enabled, "options_values" => $noyes_options)) . "</td>";
-$settings_dashboard .= "</tr>";
-
-$settings_dashboard .= "<tr>";
-$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout') . "</td>";
-$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[dashboard_widget_layout]", "value" => $plugin->dashboard_widget_layout, "options_values" => $widget_layout_options)) . "</td>";
-$settings_dashboard .= "</tr>";
-
-$settings_dashboard .= "<tr>";
-$settings_dashboard .= "<td colspan='2' class='elgg-subtext'>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout:info') . "</td>";
-$settings_dashboard .= "</tr>";
-
-$settings_dashboard .= "</table>";
-
-echo elgg_view_module("inline", elgg_echo("widget_manager:settings:dashboard"), $settings_dashboard);
-
+if (elgg_is_active_plugin("dashboard")) {
+	$settings_dashboard = "<table>";
+	
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:multi_dashboard') . "</td>";
+	$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[multi_dashboard_enabled]", "value" => $plugin->multi_dashboard_enabled, "options_values" => $noyes_options)) . "</td>";
+	$settings_dashboard .= "</tr>";
+	
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout') . "</td>";
+	$settings_dashboard .= "<td>" . elgg_view("input/dropdown", array("name" => "params[dashboard_widget_layout]", "value" => $plugin->dashboard_widget_layout, "options_values" => $widget_layout_options)) . "</td>";
+	$settings_dashboard .= "</tr>";
+	
+	$settings_dashboard .= "<tr>";
+	$settings_dashboard .= "<td colspan='2' class='elgg-subtext'>" . elgg_echo('widget_manager:settings:dashboard:dashboard_widget_layout:info') . "</td>";
+	$settings_dashboard .= "</tr>";
+	
+	$settings_dashboard .= "</table>";
+	
+	echo elgg_view_module("inline", elgg_echo("widget_manager:settings:dashboard"), $settings_dashboard);
+}
+	
 $default_widget_layout = $plugin->widget_layout;
 
 $settings_extra_contexts = "<table id='widget-manager-settings-extra-contexts' class='elgg-table-alt'>";

@@ -183,6 +183,53 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 }
 
 /**
+ * Adds an 'add as dashboard tab' menu item to the extras menu
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
+ */
+function widget_manager_register_extras_menu($hook_name, $entity_type, $return_value, $params) {
+	if (!elgg_is_logged_in()) {
+		// can only add to dashboard if logged in
+		return $return_value;
+	}
+	
+	if (elgg_get_viewtype() === "internal_dashboard") {
+		// do not show the menu item if already in internal dashboard
+		return $return_value;
+	}
+	
+	$options = array(
+		"type" => "object",
+		"subtype" => MultiDashboard::SUBTYPE,
+		"owner_guid" => elgg_get_logged_in_user_guid(),
+		"count" => true
+	);
+	$tab_count = elgg_get_entities($options);
+	
+	if ($tab_count < MULTI_DASHBOARD_MAX_TABS) {
+
+		$params = array(
+			"name" => "multi_dashboard",
+			"text" => elgg_view_icon("home"),
+			"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
+			"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
+			"rel" => "nofollow",
+			"id" => "widget-manager-multi_dashboard-extras"
+		);
+		$item = ElggMenuItem::factory($params);
+		
+		$return_value[] = $item;
+	}
+	
+	return $return_value;
+}
+
+/**
  * Routes the multidashboard pages
  *
  * @param string $hook_name    name of the hook
@@ -287,27 +334,8 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 			case "friends":
 				$result = "/friends/" . $owner->username;
 				break;
-			case "album_view":
-				if ($owner instanceof ElggGroup) {
-					$result = "/photos/group/" . $owner->getGUID() . "/all";
-				} else {
-					$result = "/photos/owner/" . $owner->username;
-				}
-				break;
-			case "latest":
-				$result = "/photos/owner/" . $owner->username;
-				break;
-			case "latest_photos":
-				$result = "/photos/owner/" . $owner->username;
-				break;
 			case "messageboard":
 				$result = "/messageboard/" . $owner->username;
-				break;
-			case "event_calendar":
-				$result = "/event_calendar";
-				break;
-			case "izap_videos":
-				$result = "/izap_videos/" . $owner->username;
 				break;
 			case "river_widget":
 				$result = "/activity";

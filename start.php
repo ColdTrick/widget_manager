@@ -61,6 +61,9 @@ function widget_manager_init() {
 	elgg_extend_view("js/admin", "js/widget_manager/admin");
 	
 	// register a widget title url handler
+	// core widgets
+	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url");
+	// widget manager widgets
 	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url_hook_handler");
 	
 	// add extra widget pages
@@ -86,25 +89,8 @@ function widget_manager_init() {
 	if (elgg_is_logged_in() && widget_manager_multi_dashboard_enabled()) {
 		elgg_register_page_handler("multi_dashboard", "widget_manager_multi_dashboard_page_handler");
 		
-		$options = array(
-			"type" => "object",
-			"subtype" => MultiDashboard::SUBTYPE,
-			"owner_guid" => elgg_get_logged_in_user_guid(),
-			"count" => true
-		);
-		$tab_count = elgg_get_entities($options);
-		
-		if ($tab_count < MULTI_DASHBOARD_MAX_TABS) {
-			elgg_register_menu_item("extras", array(
-				"name" => "multi_dashboard",
-				"text" => elgg_view_icon("home"),
-				"href" => "multi_dashboard/edit/?internal_url=" . urlencode(current_page_url()),
-				"title" => elgg_echo("widget_manager:multi_dashboard:extras"),
-				"rel" => "nofollow",
-				"id" => "widget-manager-multi_dashboard-extras"
-			));
-		}
-		
+		elgg_register_plugin_hook_handler('register', 'menu:extras', 'widget_manager_register_extras_menu');
+		// add js initialisation view
 		elgg_extend_view("page/elements/sidebar", "widget_manager/multi_dashboard/sidebar", 400);
 		
 		elgg_register_event_handler("create", "object", "widget_manager_create_object_handler");

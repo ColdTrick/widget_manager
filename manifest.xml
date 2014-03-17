@@ -29,12 +29,6 @@
 	
 	<requires>
 		<type>priority</type>
-		<plugin>twitter</plugin>
-		<priority>after</priority>
-	</requires>
-	
-	<requires>
-		<type>priority</type>
 		<plugin>groups</plugin>
 		<priority>after</priority>
 	</requires>
@@ -47,11 +41,6 @@
 	<suggests>
 		<type>plugin</type>
 		<name>dashboard</name>
-	</suggests>
-	
-	<suggests>
-		<type>plugin</type>
-		<name>group_tools</name>
 	</suggests>
 	
  	<category>ColdTrick</category>
