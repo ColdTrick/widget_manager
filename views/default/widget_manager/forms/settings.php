@@ -18,7 +18,7 @@ if (!empty($widgets)) {
 	$list .= "<tr>";
 	$list .= "<th>" . elgg_echo("widget") . "</th>";
 	$list .= "<th class='center'>" . elgg_echo("widget_manager:forms:settings:can_add") . "</th>";
-	$list .= "<th class='center'>" . elgg_echo("widget_manager:forms:settings:hide") . "</th>";
+	$list .= "<th class='center'>" . elgg_echo("hide") . "</th>";
 	$list .= "</tr>";
 	
 	foreach ($widgets as $handler => $widget) {

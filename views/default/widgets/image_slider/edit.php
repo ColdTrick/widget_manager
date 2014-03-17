@@ -20,10 +20,10 @@ if (empty($overlay_color)) {
 }
 
 $direction_options_values = array(
-	"top" => elgg_echo("widget_manager:widgets:image_slider:direction:top"),
-	"right" => elgg_echo("widget_manager:widgets:image_slider:direction:right"),
-	"bottom" => elgg_echo("widget_manager:widgets:image_slider:direction:bottom"),
-	"left" => elgg_echo("widget_manager:widgets:image_slider:direction:left"),
+	"top" => elgg_echo("top"),
+	"right" => elgg_echo("right"),
+	"bottom" => elgg_echo("bottom"),
+	"left" => elgg_echo("left"),
 );
 
 $slider_type_options = array(

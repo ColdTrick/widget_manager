@@ -70,7 +70,6 @@ $english = array(
 	// settings
 	'widget_manager:forms:settings:no_widgets' => "No widgets to manage",
 	'widget_manager:forms:settings:can_add' => "Can be added",
-	'widget_manager:forms:settings:hide' => "Hide",
 
 	// lightbox
 	'widget_manager:button:add' => "Add widget",
@@ -161,10 +160,6 @@ $english = array(
 	'widget_manager:widgets:image_slider:label:text' => "Text",
 	'widget_manager:widgets:image_slider:label:link' => "Link",
 	'widget_manager:widgets:image_slider:label:direction' => "Direction",
-	'widget_manager:widgets:image_slider:direction:top' => "Top",
-	'widget_manager:widgets:image_slider:direction:right' => "Right",
-	'widget_manager:widgets:image_slider:direction:bottom' => "Bottom",
-	'widget_manager:widgets:image_slider:direction:left' => "Left",
 );
 add_translation("en", $english);
 
