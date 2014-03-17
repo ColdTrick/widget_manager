@@ -47,7 +47,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 			if ($plugin_setting == "yes") {
 				$result = true;
 			}
-		} elseif ($setting == "can_add" || $setting == "can_remove") {
+		} elseif ($setting == "can_add") {
 			$result = true;
 		}
 		

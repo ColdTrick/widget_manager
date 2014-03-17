@@ -17,6 +17,11 @@ $show_access = elgg_extract('show_access', $vars, true);
 $widget_types = elgg_get_widget_types('all');
 
 $handler = $widget->handler;
+$widget_context = $widget->context;
+
+if (widget_manager_get_widget_setting($handler, "hide", $widget_context)) {
+	return true;
+}
 
 $title = $widget->getTitle();
 
