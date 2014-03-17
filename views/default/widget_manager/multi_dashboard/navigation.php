@@ -63,7 +63,7 @@ if (is_array($md_entities) && count($md_entities) < MULTI_DASHBOARD_MAX_TABS) {
 echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-tabs", "tabs" => $tabs));
 ?>
 <script type="text/javascript">
-	var widget_manger_multi_dashboard_dropped = false;
+	var widget_manager_multi_dashboard_dropped = false;
 
 	$(document).ready(function() {
 
@@ -90,8 +90,6 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 			hoverClass: "widget-manager-multi-dashboard-tab-hover",
 			tolerance: "pointer",
 			drop: function(event, ui) {
-				// prevent the widget from being moved
-				widget_manger_multi_dashboard_dropped = true;
 				
 				// elgg-widget-<guid>
 				var guidString = ui.draggable.attr('id');
@@ -104,6 +102,10 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 				}
 
 				ui.draggable.hide();
+
+				// prevent the widget from being moved
+				widget_manager_multi_dashboard_sort_stop = $(".elgg-widgets").sortable("option", "stop");
+				$(".elgg-widgets").sortable("option", "stop", widget_manager_restore_sort_stop);
 				
 				elgg.action("multi_dashboard/drop", {
 					data: {
@@ -119,19 +121,6 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 				});
 			}
 		});
-
-		// function to prevent the widget move action when dropped on a multi dashboard tab
-// 		$(".elgg-widgets").ajaxSend(function(event, jqXHR, ajaxOptions) {
-// 			var ajax_url = ajaxOptions.url;
-
-// 			if (ajax_url == elgg.get_site_url() + "action/widgets/move") {
-// 				if (widget_manger_multi_dashboard_dropped !== false) {
-// 					jqXHR.abort();
-
-// 					widget_manger_multi_dashboard_dropped = false;
-// 				}
-// 			}
-// 		});
 
 		$("#widget-manager-multi-dashboard-tabs").sortable({
 			items: "li.widget-manager-multi-dashboard-tab",
@@ -152,4 +141,9 @@ echo elgg_view("navigation/tabs", array("id" => "widget-manager-multi-dashboard-
 			}
 		});
 	});
+
+	function widget_manager_restore_sort_stop() {
+		$(".elgg-widgets").sortable("option", "stop", widget_manager_multi_dashboard_sort_stop);
+		
+	}
 </script>

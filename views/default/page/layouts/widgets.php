@@ -63,6 +63,8 @@ if (!empty($md_object)) {
 	}
 }
 
+echo "<div class='elgg-layout-widgets'>";
+
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
 		echo elgg_view('page/layouts/widgets/add_button');
@@ -101,8 +103,6 @@ if (elgg_in_context("iframe_dashboard")) {
 		<?php
 	}
 } else {
-	echo '<div class="elgg-layout-widgets">';
-
 	if (empty($widgets) || $context !== "dashboard") {
 		echo elgg_extract("content", $vars);
 	}
@@ -136,7 +136,7 @@ if (elgg_in_context("iframe_dashboard")) {
 				}
 			}
 		}
-		echo '</div>';
+		echo "</div>";
 	} elseif (in_array($context, array("index", "dashboard")) && $num_columns == 2) {
 		if (!isset($widgets[2])) {
 			$widgets[2] = array();
@@ -165,11 +165,11 @@ if (elgg_in_context("iframe_dashboard")) {
 				}
 			}
 		}
-		echo '</div>';
+		echo "</div>";
 	}
-	
-	echo '</div>';
 }
+
+echo "</div>";
 
 elgg_pop_context();
 
