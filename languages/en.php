@@ -5,6 +5,9 @@ $english = array(
 	// special access level
 	'LOGGED_OUT' => "Logged out users",
 	'access:admin_only' => "Administrators only",
+		
+	// objects
+	'item:object:multi_dashboard' => "Multi Dashboard",
 
 	// admin menu items
 	'admin:widgets' => "Widgets",
