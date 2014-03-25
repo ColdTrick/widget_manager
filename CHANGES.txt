@@ -1,5 +1,16 @@
 = Version history: =
 
+x.x ():
+
+- changed: updated for Elgg 1.9
+- changed: split css views
+- changed: updated to Elgg coding standards
+- changed: replaced some language keys with core versions
+- changed: relocated widgets code
+- changed: plugin settings view only shows applicable
+- fixed: ability to globally hide a widget on the widgets manage page
+- removed: widget url links for non core plugins (plugins should provide themselves) 
+
 4.8 (2014-03-07):
 
 - added: ability to add custom pages with index widgets
