@@ -31,6 +31,9 @@ if (elgg_is_active_plugin("event_manager")) {
 if (elgg_is_active_plugin("tasks")) {
 	$content_options_values["task_top"] = elgg_echo("item:object:task_top");
 }
+if (elgg_is_active_plugin("groups")) {
+	$content_options_values["groupforumtopic"] = elgg_echo("item:object:groupforumtopic");
+}
 
 if (empty($content_type) && !empty($content_options_values)) {
 	$keys = array_keys($content_options_values);
