@@ -191,11 +191,15 @@ if (in_array($display_option, array("slim","simple"))) {
 					$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title));
 					$text .= "<br />";
 
-					if ($show_timestamp) {
-						$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span> - ";
-					}
-
 					$description = elgg_get_excerpt($entity->description, 170);
+					
+					if ($show_timestamp) {
+						$text .= "<span title='" . date("r", $entity->time_created) . "'>" . substr(date("r", $entity->time_created),0,16) . "</span>";
+						if (!empty($description)) {
+							$text .= " - ";
+						}
+					}
+					
 					$text .= $description;
 					if (elgg_substr($description, -3, 3) == '...') {
 						$text .= " <a href=\"{$entity->getURL()}\">" . strtolower(elgg_echo('more')) . '</a>';
