@@ -53,6 +53,10 @@
 	filter: alpha(opacity=60);
 }
 
+.widget_manager_hide_header > .elgg-head {
+	display: none;
+}
+
 .elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-body,
 .widget_manager_hide_header > .elgg-body {
 	border-top: 0px;
