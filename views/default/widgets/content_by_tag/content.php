@@ -29,6 +29,8 @@ if (empty($content_type)) {
 		$content_type = "event";
 	} elseif (elgg_is_active_plugin("tasks")) {
 		$content_type = "task_top";
+	}	elseif (elgg_is_active_plugin("groups")) {
+		$content_type = "groupforumtopic";
 	}
 }
 
