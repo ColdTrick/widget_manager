@@ -248,13 +248,15 @@ if (in_array($display_option, array("slim","simple"))) {
 if (empty($result)) {
 	$result = elgg_echo("notfound");
 } elseif ($widget->show_search_link == "yes" && !empty($widget->tags) && elgg_is_active_plugin("search")) {
-	$tags = string_to_tag_array($widget->tags);
+	$tags = $widget->tags;
+	
 	if (elgg_is_active_plugin("search_advanced")) {
-		$tag = implode($tags, ",");
+		$tags_text = $tags;
 	} else {
-		$tag = $tags[0];
+		$tags = string_to_tag_array($tags);
+		$tags_text = $tags[0];
 	}
-	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("searchtitle", array($tag)), "href" => "search?entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities&q=" . $tag)) . "</div>";
+	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("searchtitle", array($tags_text)), "href" => "search?entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities&q=" . $tags_text)) . "</div>";
 }
 echo $result;
 
