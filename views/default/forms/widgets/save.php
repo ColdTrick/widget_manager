@@ -39,6 +39,9 @@ $advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_url') . ": 
 $advanced_context = elgg_trigger_plugin_hook("advanced_context", "widget_manager", array("entity" => $widget), array("index"));
 
 if (is_array($advanced_context) && in_array($widget_context, $advanced_context)) {
+	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_more_title') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_more_title]', 'value' => $widget->widget_manager_custom_more_title)) . "</div>";
+	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_more_url') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_more_url]', 'value' => $widget->widget_manager_custom_more_url)) . "</div>";
+	
 	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:hide_header') . ": " . elgg_view('input/dropdown', array('name' => 'params[widget_manager_hide_header]', 'value' => $widget->widget_manager_hide_header, 'options_values' => $noyes_options)) . "</div>";
 	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:disable_widget_content_style') . ": " . elgg_view('input/dropdown', array('name' => 'params[widget_manager_disable_widget_content_style]', 'value' => $widget->widget_manager_disable_widget_content_style, 'options_values' => $noyes_options)) . "</div>";
 	$advanced .= "<div>" . elgg_echo('widget_manager:widgets:edit:custom_class') . ": " . elgg_view('input/text', array('name' => 'params[widget_manager_custom_class]', 'value' => $widget->widget_manager_custom_class)) . "</div>";

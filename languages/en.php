@@ -18,6 +18,8 @@ $english = array(
 	// widget edit wrapper
 	'widget_manager:widgets:edit:custom_title' => "Custom title",
 	'widget_manager:widgets:edit:custom_url' => "Custom title link",
+	'widget_manager:widgets:edit:custom_more_title' => "Custom more text",
+	'widget_manager:widgets:edit:custom_more_url' => "Custom more link",
 	'widget_manager:widgets:edit:hide_header' => "Hide header",
 	'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 	'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
