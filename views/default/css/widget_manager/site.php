@@ -1,17 +1,22 @@
 <?php
 ?>
+.widget_manager_hide_header > .elgg-head,
 .widget_manager_hide_header_admin > .elgg-head {
-	opacity: 0.6;
-	filter: alpha(opacity=60);
+	display: none;
 }
 
-.widget_manager_hide_header > .elgg-head {
-	height: 0px;
+.widget_manager_hide_header_admin:hover > .elgg-head {
+	display: block;
+}
+
+.widget_manager_hide_header_admin:hover > .elgg-body {
+	border-top-width: 2px;
 }
 
 .elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-body,
+.widget_manager_hide_header_admin > .elgg-body,
 .widget_manager_hide_header > .elgg-body {
-	border-top: 0px;
+	border-top-width: 0px;
 }
 
 .elgg-module-widget.widget_manager_disable_widget_content_style {
