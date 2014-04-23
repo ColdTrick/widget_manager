@@ -169,21 +169,14 @@ function widget_manager_pagesetup() {
  *   @return void
  */
 function widget_manager_reset_widget_context() {
-	global $CONFIG;
+	$allowed_group_widgets = array("bookmarks", "pages", "blog");
+	$widget_types = elgg_get_widget_types();
 	
-	$allowed_group_widgets = array("bookmarks", "pages", "blog", "twitter");
-	$allowed_index_widgets = array("twitter");
-	
-	if (is_array($CONFIG->widgets->handlers)) {
-		foreach ($allowed_group_widgets as $handler) {
-			if (array_key_exists($handler, $CONFIG->widgets->handlers)) {
-				$CONFIG->widgets->handlers[$handler]->context[] = "groups";
-			}
-		}
-		foreach ($allowed_index_widgets as $handler) {
-			if (array_key_exists($handler, $CONFIG->widgets->handlers)) {
-				$CONFIG->widgets->handlers[$handler]->context[] = "index";
-			}
+	foreach($widget_types as $handler => $widget) {
+		if (in_array($handler, $allowed_group_widgets)) {
+			$contexts = $widget->context;
+			$contexts[] = "groups";
+			elgg_register_widget_type($handler, $widget->name, $widget->description, $contexts, $widget->multiple);
 		}
 	}
 }
