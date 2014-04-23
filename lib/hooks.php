@@ -487,17 +487,15 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
 		if ($widget_guid) {
 			$widget = get_entity($widget_guid);
 			if ($widget && ($widget instanceof ElggWidget)) {
-				$context = $widget->context;
+				$widget_context = $widget->context;
 				
-				$widget_handlers = elgg_get_config("widgets");
-					
-				foreach ($widget_handlers->handlers as $key => $widget) {
-					if (in_array("index", $widget->context)) {
-						$widget_handlers->handlers[$key]->context[] = $context;
-					}
+				$index_widgets = elgg_get_widget_types("index");
+				
+				foreach($index_widgets as $handler => $index_widget) {
+					$contexts = $index_widget->context;
+					$contexts[] = $widget_context;
+					elgg_register_widget_type($handler, $index_widget->name, $index_widget->description, $contexts, $index_widget->multiple);
 				}
-					
-				elgg_set_config("widgets", $widget_handlers);
 			}
 		}
 	} elseif ($entity_type == "widgets/add") {
