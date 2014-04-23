@@ -100,10 +100,16 @@ HEADER;
 
 $fixed_height = sanitize_int($widget->widget_manager_fixed_height, false);
 
-$widget_body = "<div class='elgg-widget-content'";
+$widget_body_class = "elgg-widget-content";
+if ($widget->widget_manager_collapse_state === "closed" && $widget->widget_manager_collapse_disable !== "yes") {
+	$widget_body_class .= " hidden";
+}
+
+$widget_body = "<div class='" . $widget_body_class . "'";
 if ($fixed_height) {
 	$widget_body .= " style='height: " . $fixed_height . "px; overflow-y: auto;'";
 }
+
 $widget_body .= " id='elgg-widget-content-" . $widget->guid . "'>";
 $widget_body .= $content;
 $widget_body .= "</div>";

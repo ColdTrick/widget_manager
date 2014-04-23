@@ -185,12 +185,21 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 					$show_access = elgg_get_config("widget_show_access");
 					$item->setHref("ajax/view/widget_manager/widgets/settings?guid=" . $widget->getGUID() . "&show_access=" . $show_access);
 					unset($item->rel);
+					$item->{"data-colorbox-opts"} = '{"width": 750, "height": 500}';
 					$item->addLinkClass("elgg-lightbox");
+				}
+				
+				if ($item->getName() == "collapse") {
+					if ($widget->widget_manager_collapse_disable === "yes" && $widget->widget_manager_collapse_state !== "closed") {
+						unset($return_value[$section_key][$item_key]);
+					} elseif ($widget->widget_manager_collapse_state === "closed" && $widget->widget_manager_collapse_disable !== "yes") {
+						$item->addLinkClass("elgg-widget-collapsed");
+					}
 				}
 			}
 		}
-		
 	}
+	
 	return $return_value;
 }
 
@@ -503,7 +512,7 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
 				
 				$index_widgets = elgg_get_widget_types("index");
 				
-				foreach($index_widgets as $handler => $index_widget) {
+				foreach ($index_widgets as $handler => $index_widget) {
 					$contexts = $index_widget->context;
 					$contexts[] = $widget_context;
 					elgg_register_widget_type($handler, $index_widget->name, $index_widget->description, $contexts, $index_widget->multiple);

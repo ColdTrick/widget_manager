@@ -24,6 +24,8 @@ $english = array(
 	'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 	'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
 	'widget_manager:widgets:edit:fixed_height' => "Fixed widget height (in pixels)",
+	'widget_manager:widgets:edit:collapse_disable' => "Disable collapse ability",
+	'widget_manager:widgets:edit:collapse_state' => "Default collapsed state",
 
 	// group
 	'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",
