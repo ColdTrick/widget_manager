@@ -5,8 +5,8 @@
  * @uses $vars['widget']
  * @uses $vars['show_access']
  */
-
 $widget = $vars['widget'];
+
 $show_access = elgg_extract('show_access', $vars, true);
 $widget_context = $widget->context;
 

@@ -63,6 +63,9 @@ function widget_manager_init() {
 	
 	elgg_extend_view("js/elgg", "js/widget_manager/site");
 	elgg_extend_view("js/admin", "js/widget_manager/admin");
+
+	elgg_extend_view("js/elgg", "js/widget_manager/global");
+	elgg_extend_view("js/admin", "js/widget_manager/global");
 	
 	// register a widget title url handler
 	// core widgets
@@ -107,6 +110,9 @@ function widget_manager_init() {
 		elgg_register_action("multi_dashboard/drop", dirname(__FILE__) . "/actions/multi_dashboard/drop.php");
 		elgg_register_action("multi_dashboard/reorder", dirname(__FILE__) . "/actions/multi_dashboard/reorder.php");
 	}
+	
+
+	elgg_register_ajax_view("widget_manager/widgets/settings");
 }
 
 /**

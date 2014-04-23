@@ -178,6 +178,18 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 				}
 			}
 		}
+		
+		foreach ($return_value as $section_key => $section) {
+			foreach ($section as $item_key => $item) {
+				if ($item->getName() == "settings") {
+					$show_access = elgg_get_config("widget_show_access");
+					$item->setHref("ajax/view/widget_manager/widgets/settings?guid=" . $widget->getGUID() . "&show_access=" . $show_access);
+					unset($item->rel);
+					$item->addLinkClass("elgg-lightbox");
+				}
+			}
+		}
+		
 	}
 	return $return_value;
 }

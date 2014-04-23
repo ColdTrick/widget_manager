@@ -12,6 +12,7 @@ if (!elgg_instanceof($widget, 'object', 'widget')) {
 }
 
 $show_access = elgg_extract('show_access', $vars, true);
+elgg_set_config("widget_show_access", $show_access);
 
 // @todo catch for disabled plugins
 $widget_types = elgg_get_widget_types('all');
@@ -31,18 +32,11 @@ if ($widget_title_link !== elgg_get_site_url()) {
 	$title = elgg_view("output/url", array("href" => $widget_title_link, "text" => $title, 'is_trusted' => true, "class" => "widget-manager-widget-title-link"));
 }
 
-$edit_area = '';
 $can_edit = $widget->canEdit();
 
-if ($can_edit) {
-	$edit_area = elgg_view('object/widget/elements/settings', array(
-		'widget' => $widget,
-		'show_access' => $show_access,
-	));
-}
 $controls = elgg_view('object/widget/elements/controls', array(
 	'widget' => $widget,
-	'show_edit' => $edit_area != '',
+	'show_edit' => $can_edit,
 ));
 
 // don't show content for default widgets
@@ -106,8 +100,7 @@ HEADER;
 
 $fixed_height = sanitize_int($widget->widget_manager_fixed_height, false);
 
-$widget_body = $edit_area;
-$widget_body .= "<div class='elgg-widget-content'";
+$widget_body = "<div class='elgg-widget-content'";
 if ($fixed_height) {
 	$widget_body .= " style='height: " . $fixed_height . "px; overflow-y: auto;'";
 }
