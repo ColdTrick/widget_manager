@@ -101,8 +101,20 @@ HEADER;
 $fixed_height = sanitize_int($widget->widget_manager_fixed_height, false);
 
 $widget_body_class = "elgg-widget-content";
-if ($widget->widget_manager_collapse_state === "closed" && $widget->widget_manager_collapse_disable !== "yes") {
-	$widget_body_class .= " hidden";
+
+if ($widget->widget_manager_collapse_disable !== "yes") {
+	$widget_is_collapsed = false;
+	$widget_is_open = true;
+	
+	if (elgg_is_logged_in()) {
+		$widget_is_collapsed = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_collapsed", $widget->guid);
+		$widget_is_open = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_state_open", $widget->guid);
+	}
+	if (($widget->widget_manager_collapse_state === "closed" || $widget_is_collapsed) && !$widget_is_open) {
+	
+		$widget_body_class .= " hidden";
+	}
+
 }
 
 $widget_body = "<div class='" . $widget_body_class . "'";

@@ -33,6 +33,24 @@ elgg.widget_manager.init_widget_settings = function() {
 		});
 		event.preventDefault();
 	});
+
+	$(".elgg-module-widget .elgg-menu-item-collapse a").live("click", function(event) {
+		if (elgg.is_logged_in()) {
+			var collapsed = 0;
+			if ($(this).hasClass("elgg-widget-collapsed")) {
+				collapsed = 1;
+			}
+
+			var guid = $(this).attr("href").replace("#elgg-widget-content-", "");
+	
+			elgg.action('widget_manager/widgets/toggle_collapse', {
+				data:{
+					collapsed: collapsed,
+					guid: guid
+				}
+			});
+		}
+	});
 }
 
 elgg.register_hook_handler('init', 'system', elgg.widget_manager.init_widget_settings);

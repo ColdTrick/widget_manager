@@ -192,3 +192,4 @@ elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_
 // register actions
 elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
 elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
+elgg_register_action("widget_manager/widgets/toggle_collapse", dirname(__FILE__) . "/actions/widgets/toggle_collapse.php");
