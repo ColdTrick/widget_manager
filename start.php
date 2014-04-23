@@ -163,28 +163,9 @@ function widget_manager_pagesetup() {
 	}
 }
 
-/**
- *  Enables widget that are not specifically registered for groups or index widget, but do work
- *
- *   @return void
- */
-function widget_manager_reset_widget_context() {
-	$allowed_group_widgets = array("bookmarks", "pages", "blog");
-	$widget_types = elgg_get_widget_types();
-	
-	foreach($widget_types as $handler => $widget) {
-		if (in_array($handler, $allowed_group_widgets)) {
-			$contexts = $widget->context;
-			$contexts[] = "groups";
-			elgg_register_widget_type($handler, $widget->name, $widget->description, $contexts, $widget->multiple);
-		}
-	}
-}
-
 // register default Elgg events
 elgg_register_event_handler("plugins_boot", "system", "widget_manager_plugins_boot");
 elgg_register_event_handler("init", "system", "widget_manager_init");
-elgg_register_event_handler("init", "system", "widget_manager_reset_widget_context",9999); // needs to be last
 elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
 elgg_register_event_handler("all", "object", "widget_manager_update_widget", 1000); // is only a fallback
 	
