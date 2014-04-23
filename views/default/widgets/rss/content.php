@@ -67,7 +67,7 @@ if (!empty($feed_url)) {
 				if ($post_date == "friendly") {
 					$body .= "<div class='widgets_rss_feed_timestamp'>" . elgg_view_friendly_time($item->get_date('U')) . "</div>";
 				} elseif ($post_date == "date") {
-					$body .= "<div class='widgets_rss_feed_timestamp' title='" . $item->get_date('r') . "'>" . substr($item->get_date('r'),0,16) . "</div>";
+					$body .= "<div class='widgets_rss_feed_timestamp' title='" . $item->get_date('r') . "'>" . $item->get_date('d M y') . "</div>";
 				}
 				
 				$body .= "</div>";
@@ -76,7 +76,7 @@ if (!empty($feed_url)) {
 				if ($post_date == "friendly") {
 					$body .= "<span>" . elgg_view_friendly_time($item->get_date('U')) . "</span> - ";
 				} elseif ($post_date == "date") {
-					$body .= "<span title='" . $item->get_date('r') . "'>" . substr($item->get_date('r'),0,16) . "</span> - ";
+					$body .= "<span title='" . $item->get_date('r') . "'>" . $item->get_date('d M y') . "</span> - ";
 				}
 				$title_description = substr(strip_tags($item->get_description(true)), 0, 200);
 				$body .= "<a href='" . $item->get_permalink() . "' target='_blank' title='" . $title_description . "'>" . $item->get_title() . "</a>";
