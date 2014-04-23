@@ -49,6 +49,8 @@ function widget_manager_extra_contexts_page_handler($page, $handler) {
 				// make nice lightbox popup title
 				add_translation(get_current_language(), array("widget_manager:widgets:lightbox:title:" . strtolower($handler) => $handler));
 				
+				// backwards compatibility
+				set_input("handler", $handler);
 				include(dirname(dirname(__FILE__)) . "/pages/extra_contexts.php");
 			}
 		}
