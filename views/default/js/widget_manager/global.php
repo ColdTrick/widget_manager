@@ -14,7 +14,6 @@ elgg.widget_manager.init_widget_settings = function() {
 		$loader.attr('id', '#elgg-widget-active-loader');
 		$loader.removeClass('hidden');
 		$widgetContent.html($loader);
-		console.log($loader);
 		
 		var default_widgets = $("input[name='default_widgets']").val() || 0;
 		if (default_widgets) {
