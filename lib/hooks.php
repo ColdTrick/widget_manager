@@ -185,7 +185,7 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 					$show_access = elgg_get_config("widget_show_access");
 					$item->setHref("ajax/view/widget_manager/widgets/settings?guid=" . $widget->getGUID() . "&show_access=" . $show_access);
 					unset($item->rel);
-					$item->{"data-colorbox-opts"} = '{"width": 750, "height": 500}';
+					$item->{"data-colorbox-opts"} = '{"width": 750, "height": 500, "trapFocus": false}';
 					$item->addLinkClass("elgg-lightbox");
 				}
 				
