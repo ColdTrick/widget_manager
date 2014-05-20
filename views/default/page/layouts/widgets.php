@@ -63,7 +63,7 @@ if (!empty($md_object)) {
 	}
 }
 
-echo "<div class='elgg-layout-widgets'>";
+echo "<div class='elgg-layout-widgets layout-widgets-" . $context . "'>";
 
 if (elgg_can_edit_widget_layout($context)) {
 	if ($show_add_widgets) {
