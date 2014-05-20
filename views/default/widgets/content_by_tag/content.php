@@ -172,9 +172,19 @@ if (in_array($display_option, array("slim","simple"))) {
 		foreach ($entities as $index => $entity) {
 			$icon = "";
 			$body = "";
+			
+			$target = null;
 
 			if (elgg_instanceof($entity, "object", "bookmarks")) {
 				$entity_url = $entity->address;
+				if (elgg_is_active_plugin("bookmarks_tools")) {
+					$link_behaviour = elgg_get_plugin_setting("link_behaviour", "bookmarks_tools");
+					if ((stripos($href, "http:") === 0) || (stripos($href, "https:") === 0)) {
+						if (stristr($href, elgg_get_site_url()) === false) {
+							$target = "_blank";
+						}
+					}
+				}
 			} else {
 				$entity_url = $entity->getURL();
 			}
@@ -190,7 +200,7 @@ if (in_array($display_option, array("slim","simple"))) {
 						$icon = elgg_view_entity_icon($entity->getOwnerEntity(), "small");
 					}
 
-					$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title));
+					$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title, "target" => $target));
 					$text .= "<br />";
 
 					$description = elgg_get_excerpt($entity->description, 170);
