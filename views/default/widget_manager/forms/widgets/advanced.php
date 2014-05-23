@@ -2,6 +2,13 @@
 $widget = $vars["entity"];
 $widget_context = $vars["widget_context"];
 
+$yesno_options = array(
+		"yes" => elgg_echo("option:yes"),
+		"no" => elgg_echo("option:no")
+);
+
+$noyes_options = array_reverse($yesno_options, true);
+
 $advanced = "<div class='hidden' id='widget-manager-widget-edit-advanced-" . $widget->getGUID() . "'>";
 
 $advanced .= "<h3>" . elgg_echo("widget_manager:widgets:edit:advanced") . "</h3>";

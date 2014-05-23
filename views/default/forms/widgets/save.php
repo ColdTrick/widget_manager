@@ -21,13 +21,6 @@ if ($show_access) {
 	));
 }
 
-$yesno_options = array(
-		"yes" => elgg_echo("option:yes"),
-		"no" => elgg_echo("option:no")
-);
-
-$noyes_options = array_reverse($yesno_options, true);
-
 $advanced = elgg_view("widget_manager/forms/widgets/advanced", array("entity" => $widget, "widget_context" => $widget_context));
 
 $hidden = elgg_view('input/hidden', array('name' => 'guid', 'value' => $widget->guid));
