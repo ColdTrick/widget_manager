@@ -79,7 +79,7 @@ if ($widget->widget_manager_custom_class) {
 }
 
 if ($widget->widget_manager_hide_header == "yes") {
-	if (elgg_is_admin_logged_in()) {
+	if ($can_edit) {
 		$widget_class .= " widget_manager_hide_header_admin";
 	} else {
 		$widget_class .= " widget_manager_hide_header";
@@ -90,7 +90,7 @@ if ($widget->widget_manager_disable_widget_content_style == "yes") {
 	$widget_class .= " widget_manager_disable_widget_content_style";
 }
 
-if (($widget->widget_manager_hide_header != "yes") || elgg_is_admin_logged_in()) {
+if (($widget->widget_manager_hide_header != "yes") || $can_edit) {
 	$widget_header = <<<HEADER
 		<div class="elgg-widget-handle clearfix"><h3 class="elgg-widget-title">$title</h3>
 		$controls
