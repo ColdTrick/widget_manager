@@ -208,9 +208,9 @@ $content_by_tag = array(
 add_translation("en", $content_by_tag);
 
 $rss = array(
-	// RSS widget (based on SimplePie)
+	// RSS widget
 	'widgets:rss:title' => "RSS Feed",
-	'widgets:rss:description' => "Show a RSS feed (based on SimplePie)",
+	'widgets:rss:description' => "Show a RSS feed",
 	'widgets:rss:error:notset' => "No RSS Feed URL provided",
 
 	'widgets:rss:settings:rss_count' => "Number of feeds to show",
@@ -219,8 +219,6 @@ $rss = array(
 	'widgets:rss:settings:excerpt' => "Show an excerpt",
 	'widgets:rss:settings:show_item_icon' => "Show item icon (if available)",
 	'widgets:rss:settings:post_date' => "Show post date",
-	'widgets:rss:settings:post_date:option:friendly' => "Show friendly time",
-	'widgets:rss:settings:post_date:option:date' => "Show date",
 );
 add_translation("en", $rss);
 

@@ -11,11 +11,8 @@ $yesno_options = array(
 	"no" => elgg_echo("option:no")
 );
 
-$post_date_options = array(
-	"friendly" => elgg_echo("widgets:rss:settings:post_date:option:friendly"),
-	"date" => elgg_echo("widgets:rss:settings:post_date:option:date"),
-	"no" => elgg_echo("option:no")
-);
+
+// @todo: use google feed finder to autocomplete/search rss feeds "//ajax.googleapis.com/ajax/services/feed/find?v=1.0&";
 ?>
 <div>
 	<?php echo elgg_echo("widgets:rss:settings:rssfeed");?><br />
@@ -53,7 +50,7 @@ $post_date_options = array(
 <div>
 	<?php
 	echo elgg_echo("widgets:rss:settings:post_date") . " ";
-	echo elgg_view("input/dropdown", array("name" => "params[post_date]", "options_values" => $post_date_options, "value" => $widget->post_date));
+	echo elgg_view("input/dropdown", array("name" => "params[post_date]", "options_values" => $yesno_options, "value" => $widget->post_date));
 	?>
 </div>
 	

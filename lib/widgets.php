@@ -34,30 +34,11 @@ function widget_manager_widgets_init() {
 	elgg_register_widget_type("user_search", elgg_echo("widgets:user_search:title"), elgg_echo("widgets:user_search:description"), array("admin"));
 
 	// rss widget
-	// load SimplePie autoloader
-	require_once(elgg_get_plugins_path() . "widget_manager/vendors/simplepie/autoloader.php");
-	
 	elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), array("profile", "dashboard", "index", "groups"), true);
 	
 	// extend CSS
 	elgg_extend_view("css/elgg", "widgets/rss/css");
 	
-	// make cache directory
-	if (!is_dir(elgg_get_data_path() . "/widgets/")) {
-		mkdir(elgg_get_data_path() . "/widgets/");
-	}
-	
-	if (!is_dir(elgg_get_data_path() . "/widgets/rss/")) {
-		mkdir(elgg_get_data_path() . "/widgets/rss/");
-	}
-	
-	// set cache settings
-	define("WIDGETS_RSS_CACHE_LOCATION", elgg_get_data_path() . "widgets/rss/");
-	define("WIDGETS_RSS_CACHE_DURATION", 600);
-
-	// register cron for cleanup
-	elgg_register_plugin_hook_handler("cron", "daily", "widget_manager_widgets_rss_cron_handler");
-
 	// image slider
 	elgg_extend_view("css/elgg", "widgets/image_slider/css");
 	elgg_register_widget_type("image_slider", elgg_echo("widget_manager:widgets:image_slider:name"), elgg_echo("widget_manager:widgets:image_slider:description"), array("index", "groups"), true);
@@ -91,30 +72,6 @@ function widget_manager_widgets_init() {
 	elgg_register_action("favorite/toggle", elgg_get_plugins_path() . "widget_manager/actions/favorites/toggle.php");
 	elgg_extend_view("js/elgg", "widgets/favorites/js");
 }
-
-/**
- * Removes cached rss feeds
- *
- * @param string $hook   name of the hook
- * @param string $type   type of the hook
- * @param string $return current return value
- * @param array  $params hook parameters
- *
- * @return void
- */
-function widget_manager_widgets_rss_cron_handler($hook, $type, $return, $params) {
-	if ($fh = opendir(WIDGETS_RSS_CACHE_LOCATION)) {
-		while ($filename = readdir($fh)) {
-			if (is_file(WIDGETS_RSS_CACHE_LOCATION . $filename)) {
-				if (filemtime(WIDGETS_RSS_CACHE_LOCATION . $filename) < (time() - (24 * 60 * 60))) {
-					// remove the cached files
-					unlink(WIDGETS_RSS_CACHE_LOCATION . $filename);
-				}
-			}
-		}
-	}
-}
-
 
 /**
  * Returns urls for widget titles
