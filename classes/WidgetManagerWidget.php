@@ -20,7 +20,7 @@ class WidgetManagerWidget extends ElggWidget {
 		"widget_manager_collapse_state" => NULL,
 		"widget_manager_collapse_disable" => NULL
 	);
-	
+
 	/**
 	 * Loads all settings into a settings cache when a widget gets loaded
 	 *
@@ -57,7 +57,7 @@ class WidgetManagerWidget extends ElggWidget {
 	 *
 	 * @return mixed
 	 */
-	public function get($name) {
+	public function __get($name) {
 		if (is_array($this->settings_cache) && array_key_exists($name, $this->settings_cache)) {
 			$result = $this->settings_cache[$name];
 		} elseif (array_key_exists($name, $this->settings_defaults)) {
@@ -84,7 +84,7 @@ class WidgetManagerWidget extends ElggWidget {
 	 *
 	 * @return void
 	 */
-	public function set($name, $value) {
+	public function __set($name, $value) {
 		if (is_array($value)) {
 			if (empty($value)) {
 				$value = null;
@@ -93,7 +93,7 @@ class WidgetManagerWidget extends ElggWidget {
 			}
 		}
 		
-		if (parent::set($name, $value)) {
+		if (parent::__set($name, $value)) {
 			$this->settings_cache[$name] = $value;
 			
 			// If memcache is available then delete this entry from the cache
