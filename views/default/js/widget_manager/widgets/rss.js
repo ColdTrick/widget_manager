@@ -10,7 +10,7 @@ define(['jquery', 'elgg'], function ($, elgg) {
 		var limit = config.limit;
 
 		$.getJSON(
-			"http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + limit + "&output=json_xml&q=" + encodeURIComponent(feed_url) + "&hl=en&callback=?",
+			"//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=" + limit + "&output=json_xml&q=" + encodeURIComponent(feed_url) + "&hl=en&callback=?",
 			function (data) {
 				if (data.responseData) {
 					var xmlDoc = $.parseXML(data.responseData.xmlString);
