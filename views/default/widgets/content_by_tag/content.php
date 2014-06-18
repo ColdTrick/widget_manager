@@ -266,7 +266,12 @@ if (empty($result)) {
 		$tags = string_to_tag_array($tags);
 		$tags_text = $tags[0];
 	}
-	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("searchtitle", array($tags_text)), "href" => "search?entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities&q=" . $tags_text)) . "</div>";
+	
+	if (count($content_type) == 1) {
+		$search_postfix = "&entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities";
+	}
+	
+	$result .= "<div class='elgg-widget-more'>" . elgg_view("output/url", array("text" => elgg_echo("searchtitle", array($tags_text)), "href" => "search?q=" . $tags_text . $search_postfix)) . "</div>";
 }
 echo $result;
 
