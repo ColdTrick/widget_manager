@@ -267,6 +267,7 @@ if (empty($result)) {
 		$tags_text = $tags[0];
 	}
 	
+	$search_postfix = "";
 	if (count($content_type) == 1) {
 		$search_postfix = "&entity_subtype=" . $content_type[0] . "&entity_type=object&search_type=entities";
 	}
