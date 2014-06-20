@@ -81,7 +81,7 @@ if (!empty($widgets)) {
 		$hide = widget_manager_get_widget_setting($handler, "hide", $widget_context);
 		
 		if ($can_add && !$hide) {
-			$body .= "<div class='widget_manager_widgets_lightbox_wrapper'>";
+			$body .= "<div class='widget_manager_widgets_lightbox_wrapper clearfix'>";
 			
 			if (!$allow_multiple && in_array($handler, $current_handlers)) {
 				$class = 'elgg-state-unavailable';
