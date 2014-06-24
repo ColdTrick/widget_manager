@@ -188,7 +188,10 @@ $content_by_tag = array(
 	'widgets:content_by_tag:name' => "Content by tag",
 	'widgets:content_by_tag:description' => "Find content by a tag",
 
-	'widgets:content_by_tag:owner_guids' => "Who needs to write the items",
+	'widgets:content_by_tag:owner_guids' => "Limit the content to the following authors",
+	'widgets:content_by_tag:owner_guids:description' => "Search for a user who is the author of the content. Leave blank if you don't wish to limit based on authors.",
+	'widgets:content_by_tag:container_guids' => "Only show content from the following groups",
+	'widgets:content_by_tag:container_guids:description' => "Search for a group in which the content was placed. Leave blank if you don't wish to limit based on groups.",
 	'widgets:content_by_tag:group_only' => "Only show content from this group",
 	'widgets:content_by_tag:entities' => "Which entities to show",
 	'widgets:content_by_tag:tags' => "Tag(s) (comma separated)",
