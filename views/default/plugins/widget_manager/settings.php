@@ -7,6 +7,12 @@ $noyes_options = array(
 	"yes" => elgg_echo("option:yes")
 );
 
+$groupenable_options = array(
+	"no" => elgg_echo("option:no"),
+	"yes" => elgg_echo("widget_manager:settings:group:enable:yes"),
+	"forced" => elgg_echo("widget_manager:settings:group:enable:forced"),
+);
+
 $custom_index_options = array(
 	"0|0" => elgg_echo('option:no'),
 	"1|0" => elgg_echo('widget_manager:settings:custom_index:non_loggedin'),
@@ -63,7 +69,7 @@ if (elgg_is_active_plugin("groups")) {
 	
 	$settings_group .= "<tr>";
 	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:enable') . "</td>";
-	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $groupenable_options)) . "</td>";
 	$settings_group .= "</tr>";
 	
 	$settings_group .= "<tr>";

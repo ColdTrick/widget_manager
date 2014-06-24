@@ -70,3 +70,21 @@ function widget_manager_create_object_handler($event, $object_type, $object) {
 		}
 	}
 }
+
+/**
+ * Sets the widget manager tool option. This is needed because in some situation the tooloption is not available.
+ *
+ * @param string $event       name of the system event
+ * @param string $object_type type of the event
+ * @param mixed  $object      object related to the event
+ *
+ * @return void
+ */
+function widget_manager_edit_group_event_handler($event, $object_type, $object) {
+	
+	if ($object instanceof ElggGroup) {
+		if (elgg_get_plugin_setting("group_enable", "widget_manager") == "forced") {
+			$object->widget_manager_enable = "yes";
+		}
+	}
+}

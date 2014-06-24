@@ -1,6 +1,6 @@
 <?php
 
-$widget = $vars["entity"];
+$widget = elgg_extract("entity", $vars);
 $result = "";
 
 $dbprefix = elgg_get_config("dbprefix");
@@ -138,17 +138,26 @@ $options = array(
 
 // owner_guids
 if (!empty($widget->owner_guids)) {
-	$owner_guids = string_to_tag_array($widget->owner_guids);
+	if (!is_array($widget->owner_guids)) {
+		$owner_guids = string_to_tag_array($widget->owner_guids);
+	} else {
+		$owner_guids = $widget->owner_guids;
+	}
+	
 	if (!empty($owner_guids)) {
-		foreach ($owner_guids as $key => $guid) {
-			$owner_guids[$key] = sanitise_int($guid);
-		}
 		$options["owner_guids"] = $owner_guids;
 	}
 }
 
-if (($widget->context == "groups") && ($widget->group_only !== "no")) {
-	$options["container_guids"] = array($widget->container_guid);
+if ($widget->context == "groups") {
+	if ($widget->group_only !== "no") {
+		$options["container_guids"] = array($widget->getContainerGUID());
+	}
+} elseif (elgg_view_exists("input/grouppicker")) {
+	$container_guids = $widget->container_guids;
+	if (!empty($container_guids)) {
+		$options["container_guids"] = $container_guids;
+	}
 }
 
 elgg_push_context("search");

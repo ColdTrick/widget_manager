@@ -5,11 +5,16 @@
 */
 
 $show_widgets = false;
-if (elgg_get_plugin_setting("group_enable", "widget_manager") == "yes") {
-	$group_enable =	$vars["entity"]->widget_manager_enable;
-	if ($group_enable == "yes") {
+$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
+if ($group_enable == "forced") {
+	// forced enabled
+	$show_widgets = true;
+} elseif ($group_enable == "yes") {
+	// managed by group tool option
+	$group_enable_tool = $vars["entity"]->widget_manager_enable;
+	if ($group_enable_tool == "yes") {
 		$show_widgets = true;
-	} elseif (empty($group_enable) && (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes")) {
+	} elseif (empty($group_enable_tool) && (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes")) {
 		$show_widgets = true;
 	}
 }
