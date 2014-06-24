@@ -32,22 +32,28 @@ function widget_manager_init() {
 	// loads the widgets
 	widget_manager_widgets_init();
 	
-	if (elgg_is_active_plugin("groups") && (elgg_get_plugin_setting("group_enable", "widget_manager") == "yes")) {
-		// add the widget manager tool option
+	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
+	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
-		$group_option_enabled = false;
-		if (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes") {
-			$group_option_enabled = true;
-		}
-		
-		if (elgg_get_plugin_setting("group_option_admin_only", "widget_manager") != "yes") {
-			// add the tool option for group admins
-			add_group_tool_option('widget_manager',elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-		} elseif (elgg_is_admin_logged_in()) {
-			add_group_tool_option('widget_manager',elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-		} elseif ($group_option_enabled) {
-			// register event to make sure newly created groups have the group option enabled
-			elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
+		if ($group_enable == "forced") {
+			// register event to make sure all groups have the group option enabled after edit
+			elgg_register_event_handler("update", "group", "widget_manager_edit_group_event_handler");
+		} else {
+			// add the widget manager tool option
+			$group_option_enabled = false;
+			if (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes") {
+				$group_option_enabled = true;
+			}
+			
+			if (elgg_get_plugin_setting("group_option_admin_only", "widget_manager") != "yes") {
+				// add the tool option for group admins
+				add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+			} elseif (elgg_is_admin_logged_in()) {
+				add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+			} elseif ($group_option_enabled) {
+				// register event to make sure newly created groups have the group option enabled
+				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
+			}
 		}
 		
 		// make default widget management available

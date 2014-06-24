@@ -58,6 +58,8 @@ $english = array(
 	'widget_manager:settings:disable_free_html_filter' => "Disable HTML filtering for Free HTML widgets on index (ADMIN ONLY)",
 
 	'widget_manager:settings:group:enable' => "Enable Widget Manager for groups",
+	'widget_manager:settings:group:enable:yes' => "Yes, managable by group tool option",
+	'widget_manager:settings:group:enable:forced' => "Yes, always on",
 	'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 	'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 
