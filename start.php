@@ -186,7 +186,7 @@ elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
 elgg_register_event_handler("all", "object", "widget_manager_update_widget", 1000); // is only a fallback
 	
 // register plugin hooks
-elgg_register_plugin_hook_handler("access:collections:write", "user", "widget_manager_write_access_hook");
+elgg_register_plugin_hook_handler("access:collections:write", "all", "widget_manager_write_access_hook", 999);
 elgg_register_plugin_hook_handler("access:collections:read", "user", "widget_manager_read_access_hook");
 elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
 elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early

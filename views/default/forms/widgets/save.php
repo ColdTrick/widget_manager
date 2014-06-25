@@ -28,7 +28,7 @@ $submit = elgg_view('input/submit', array('value' => elgg_echo('save')));
 
 $body = <<<___END
 	$custom_form_section
-	<div>
+	<div class='widget-manager-widget-access'>
 		$access
 	</div>
 	
