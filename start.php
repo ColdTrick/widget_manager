@@ -35,6 +35,9 @@ function widget_manager_init() {
 	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
 	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
+		// cleanup widgets in group context
+		elgg_extend_view("page/layouts/widgets/add_panel", "widget_manager/group_tool_widgets", 400);
+		
 		if ($group_enable == "yes") {
 			// add the widget manager tool option
 			$group_option_enabled = false;
