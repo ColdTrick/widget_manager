@@ -35,10 +35,7 @@ function widget_manager_init() {
 	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
 	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
-		if ($group_enable == "forced") {
-			// register event to make sure all groups have the group option enabled after edit
-			elgg_register_event_handler("update", "group", "widget_manager_edit_group_event_handler");
-		} else {
+		if ($group_enable == "yes") {
 			// add the widget manager tool option
 			$group_option_enabled = false;
 			if (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes") {
@@ -55,6 +52,10 @@ function widget_manager_init() {
 				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
 			}
 		}
+		
+		// register event to make sure all groups have the group option enabled if forces
+		// and configure tool enabled widgets
+		elgg_register_event_handler("update", "group", "widget_manager_update_group_event_handler");
 		
 		// make default widget management available
 		elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
