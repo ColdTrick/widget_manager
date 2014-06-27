@@ -123,6 +123,14 @@ function widget_manager_init() {
 	
 
 	elgg_register_ajax_view("widget_manager/widgets/settings");
+	
+	// register actions
+	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
+	elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
+	elgg_register_action("widget_manager/force_tool_widgets", dirname(__FILE__) . "/actions/force_tool_widgets.php", "admin");
+	
+	elgg_register_action("widget_manager/widgets/toggle_collapse", dirname(__FILE__) . "/actions/widgets/toggle_collapse.php");
+	
 }
 
 /**
@@ -198,8 +206,3 @@ elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', 'widget_
 elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
 
 elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
-
-// register actions
-elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
-elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
-elgg_register_action("widget_manager/widgets/toggle_collapse", dirname(__FILE__) . "/actions/widgets/toggle_collapse.php");

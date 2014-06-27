@@ -38,7 +38,7 @@ $index_top_row_options = array(
 	"two_column_left" => elgg_echo('widget_manager:settings:index_top_row:two_column_left')
 );
 
-$settings_index = "<table>";
+$settings_index = "<table class='elgg-table-alt'>";
 
 $settings_index .= "<tr>";
 $settings_index .= "<td>" . elgg_echo('widget_manager:settings:custom_index') . "</td>";
@@ -65,21 +65,22 @@ $settings_index .= "</table>";
 echo elgg_view_module("inline", elgg_echo("widget_manager:settings:index"), $settings_index);
 
 if (elgg_is_active_plugin("groups")) {
-	$settings_group = "<table>";
+	$settings_group = "<table class='elgg-table-alt'>";
 	
 	$settings_group .= "<tr>";
 	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:enable') . "</td>";
 	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $groupenable_options)) . "</td>";
+	$settings_group .= "<td>" . elgg_view("output/confirmlink", array("text" => elgg_echo("widget_manager:settings:group:force_tool_widgets"), "href" => "action/widget_manager/force_tool_widgets", "confirm" => elgg_echo("widget_manager:settings:group:force_tool_widgets:confirm"))) . "</td>";
 	$settings_group .= "</tr>";
 	
 	$settings_group .= "<tr>";
 	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_default_enabled') . "</td>";
-	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_default_enabled]", "value" => $plugin->group_option_default_enabled, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "<td colspan='2'>" . elgg_view("input/dropdown", array("name" => "params[group_option_default_enabled]", "value" => $plugin->group_option_default_enabled, "options_values" => $noyes_options)) . "</td>";
 	$settings_group .= "</tr>";
 	
 	$settings_group .= "<tr>";
 	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:option_admin_only') . "</td>";
-	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_option_admin_only]", "value" => $plugin->group_option_admin_only, "options_values" => $noyes_options)) . "</td>";
+	$settings_group .= "<td colspan='2'>" . elgg_view("input/dropdown", array("name" => "params[group_option_admin_only]", "value" => $plugin->group_option_admin_only, "options_values" => $noyes_options)) . "</td>";
 	$settings_group .= "</tr>";
 	
 	$settings_group .= "</table>";
@@ -88,7 +89,7 @@ if (elgg_is_active_plugin("groups")) {
 }
 
 if (elgg_is_active_plugin("dashboard")) {
-	$settings_dashboard = "<table>";
+	$settings_dashboard = "<table class='elgg-table-alt'>";
 	
 	$settings_dashboard .= "<tr>";
 	$settings_dashboard .= "<td>" . elgg_echo('widget_manager:settings:dashboard:multi_dashboard') . "</td>";
