@@ -319,3 +319,26 @@ function widget_manager_get_widgets($user_guid, $context) {
 
 	return $sorted_widgets;
 }
+
+/**
+ * Check if a given handler is part of the configured extra contexts
+ * 
+ * @param string $handler name of the context handler to check
+ * 
+ * @return boolean
+ */
+function widget_manager_is_extra_context($handler) {
+	$result = false;
+
+	$extra_contexts = elgg_get_plugin_setting("extra_contexts", "widget_manager");
+	if ($extra_contexts) {
+		$contexts = string_to_tag_array($extra_contexts);
+		if ($contexts) {
+			if (in_array($handler, $contexts)) {
+				$result = true;
+			}
+		}
+	}
+
+	return $result;
+}

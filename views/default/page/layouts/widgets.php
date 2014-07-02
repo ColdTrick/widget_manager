@@ -137,7 +137,7 @@ if (elgg_in_context("iframe_dashboard")) {
 			}
 		}
 		echo "</div>";
-	} elseif (in_array($context, array("index", "dashboard"))) {
+	} elseif (in_array($context, array("index", "dashboard")) || widget_manager_is_extra_context($context)) {
 		
 		foreach ($widgets as $index => $column) { 
 			if ($index > $num_columns) {
