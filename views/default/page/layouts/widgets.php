@@ -137,16 +137,19 @@ if (elgg_in_context("iframe_dashboard")) {
 			}
 		}
 		echo "</div>";
-	} elseif (in_array($context, array("index", "dashboard")) && $num_columns == 2) {
-		if (!isset($widgets[2])) {
-			$widgets[2] = array();
-		}
-		if (!isset($widgets[3])) {
-			$widgets[3] = array();
-		}
-		// add column 3 widgets to the second column
-		$widgets[2] = array_merge($widgets[3], $widgets[2]);
-		unset($widgets[3]);
+	} elseif (in_array($context, array("index", "dashboard"))) {
+		
+		foreach ($widgets as $index => $column) { 
+			if ($index > $num_columns) {
+				if (!isset($widgets[$num_columns])) {
+					$widgets[$num_columns] = array();
+				}
+				
+				// add overflow column widgets to the max column
+				$widgets[$num_columns] = array_merge($widgets[$index], $widgets[$num_columns]);
+				unset($widgets[$index]);
+			}
+		}		
 	}
 	
 	$widget_class = "elgg-col-1of{$num_columns}";
