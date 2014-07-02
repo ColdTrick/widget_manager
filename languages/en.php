@@ -49,6 +49,7 @@ $english = array(
 	'widget_manager:settings:widget_layout:50|50' => "Two column (50%, 50%)",
 	'widget_manager:settings:widget_layout:40|60' => "Two column (40%, 60%)",
 	'widget_manager:settings:widget_layout:25|75' => "Two column (25%, 75%)",
+	'widget_manager:settings:widget_layout:100' => "Single column (100%)",
 
 	'widget_manager:settings:index_top_row' => "Show a top row on the index page",
 	'widget_manager:settings:index_top_row:none' => "No top row",

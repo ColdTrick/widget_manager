@@ -154,6 +154,7 @@ $language = array (
   'widget_manager:settings:widget_layout:50|50' => 'Twee kolommen (50%, 50%)',
   'widget_manager:settings:widget_layout:40|60' => 'Twee kolommen (40%, 60%)',
   'widget_manager:settings:widget_layout:25|75' => 'Twee kolommen (25%, 75%)',
+  'widget_manager:settings:widget_layout:100' => 'Enkele kolom (100%)',
   'widget_manager:widgets:index_login:description' => 'Toon een aanmeld scherm',
   'widget_manager:widgets:index_login:welcome' => '<b>%s</b> welkom op de <b>%s</b> community',
   'widget_manager:widgets:index_members:name' => 'Leden',

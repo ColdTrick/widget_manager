@@ -29,7 +29,8 @@ $widget_layout_options = array(
 	"60|40" => elgg_echo('widget_manager:settings:widget_layout:60|40'),
 	"50|50" => elgg_echo('widget_manager:settings:widget_layout:50|50'),
 	"40|60" => elgg_echo('widget_manager:settings:widget_layout:40|60'),
-	"25|75" => elgg_echo('widget_manager:settings:widget_layout:25|75')
+	"25|75" => elgg_echo('widget_manager:settings:widget_layout:25|75'),
+	"100" => elgg_echo('widget_manager:settings:widget_layout:100')
 );
 
 $index_top_row_options = array(
