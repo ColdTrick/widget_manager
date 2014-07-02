@@ -70,3 +70,7 @@
 .widget-manager-groups-widgets-top-row-highlight {
 	min-height: 50px !important;
 }
+
+.widget-manager-widget-access .elgg-text-help {
+	display: none;
+}

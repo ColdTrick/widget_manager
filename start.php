@@ -35,10 +35,10 @@ function widget_manager_init() {
 	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
 	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
-		if ($group_enable == "forced") {
-			// register event to make sure all groups have the group option enabled after edit
-			elgg_register_event_handler("update", "group", "widget_manager_edit_group_event_handler");
-		} else {
+		// cleanup widgets in group context
+		elgg_extend_view("page/layouts/widgets/add_panel", "widget_manager/group_tool_widgets", 400);
+		
+		if ($group_enable == "yes") {
 			// add the widget manager tool option
 			$group_option_enabled = false;
 			if (elgg_get_plugin_setting("group_option_default_enabled", "widget_manager") == "yes") {
@@ -55,6 +55,10 @@ function widget_manager_init() {
 				elgg_register_event_handler("create", "group", "widget_manager_create_group_event_handler");
 			}
 		}
+		
+		// register event to make sure all groups have the group option enabled if forces
+		// and configure tool enabled widgets
+		elgg_register_event_handler("update", "group", "widget_manager_update_group_event_handler");
 		
 		// make default widget management available
 		elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
@@ -119,6 +123,14 @@ function widget_manager_init() {
 	
 
 	elgg_register_ajax_view("widget_manager/widgets/settings");
+	
+	// register actions
+	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
+	elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
+	elgg_register_action("widget_manager/force_tool_widgets", dirname(__FILE__) . "/actions/force_tool_widgets.php", "admin");
+	
+	elgg_register_action("widget_manager/widgets/toggle_collapse", dirname(__FILE__) . "/actions/widgets/toggle_collapse.php");
+	
 }
 
 /**
@@ -182,7 +194,7 @@ elgg_register_event_handler("pagesetup", "system", "widget_manager_pagesetup");
 elgg_register_event_handler("all", "object", "widget_manager_update_widget", 1000); // is only a fallback
 	
 // register plugin hooks
-elgg_register_plugin_hook_handler("access:collections:write", "user", "widget_manager_write_access_hook");
+elgg_register_plugin_hook_handler("access:collections:write", "all", "widget_manager_write_access_hook", 999);
 elgg_register_plugin_hook_handler("access:collections:read", "user", "widget_manager_read_access_hook");
 elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
 elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early
@@ -194,8 +206,3 @@ elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', 'widget_
 elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
 
 elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
-
-// register actions
-elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");
-elgg_register_action("widget_manager/widgets/toggle_fix", dirname(__FILE__) . "/actions/widgets/toggle_fix.php", "admin");
-elgg_register_action("widget_manager/widgets/toggle_collapse", dirname(__FILE__) . "/actions/widgets/toggle_collapse.php");

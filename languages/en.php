@@ -63,6 +63,8 @@ $english = array(
 	'widget_manager:settings:group:enable:forced' => "Yes, always on",
 	'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 	'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
+	'widget_manager:settings:group:force_tool_widgets' => "Enforce group tool widgets",
+	'widget_manager:settings:group:force_tool_widgets:confirm' => "Are you sure? This will add/remove all widgets specific to a tool option for all groups (where widget management is enabled).",
 
 	'widget_manager:settings:dashboard' => "Dashboard",
 	'widget_manager:settings:dashboard:multi_dashboard' => "Enable multiple dashboards",
@@ -129,6 +131,10 @@ $english = array(
 	'widget_manager:actions:multi_dashboard:reorder:error:order' => "Please supply a new order",
 	'widget_manager:actions:multi_dashboard:reorder:success' => "Dashboard reordered successfully",
 
+	// force tool widgets
+	'widget_manager:action:force_tool_widgets:error:not_enabled' => "Widget managent for groups is not enabled",
+	'widget_manager:action:force_tool_widgets:succes' => "Enforced tool specific widgets for %s groups",
+	
 	// widgets
 	'widget_manager:widgets:edit:advanced' => "Advanced",
 	'widget_manager:widgets:fix' => "Fix this widget on the dashboard/profile",
