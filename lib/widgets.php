@@ -29,6 +29,9 @@ function widget_manager_widgets_init() {
 	
 	// tagcloud
 	elgg_register_widget_type("tagcloud", elgg_echo("tagcloud"), elgg_echo("widgets:tagcloud:description"), array("profile", "dashboard", "index", "groups"), false);
+
+	// iframe
+	elgg_register_widget_type("iframe", elgg_echo("widgets:iframe:title"), elgg_echo("widgets:iframe:description"), array("profile", "dashboard", "index", "groups"), true);
 	
 	// user_search
 	elgg_register_widget_type("user_search", elgg_echo("widgets:user_search:title"), elgg_echo("widgets:user_search:description"), array("admin"));

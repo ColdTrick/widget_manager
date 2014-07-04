@@ -310,3 +310,12 @@ $user_search = array(
 	"widgets:user_search:description" => "Search all user on your site (including disabled and unvalidated users)",
 );
 add_translation("en", $user_search);
+
+$iframe = array(
+	// iframe widget
+	"widgets:iframe:title" => "Iframe",
+	"widgets:iframe:description" => "Show an url in an iframe",
+	"widgets:iframe:settings:iframe_url" => "Enter the iframe URL",
+	"widgets:iframe:settings:iframe_height" => "Enter the (optional) iframe height (in pixels)",
+);
+add_translation("en", $iframe);
