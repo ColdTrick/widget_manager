@@ -18,6 +18,9 @@ elgg.widget_manager.widgets_search = function(q) {
 }
 
 elgg.widget_manager.init = function() {
+	// reset draggable functionality to pointer
+	$(".elgg-widgets").sortable("option", "tolerance", "pointer");
+	
 	$(".elgg-widgets").bind({
 		sortstart: function(event, ui) {
 			$(".widget-manager-groups-widgets-top-row").addClass("widget-manager-groups-widgets-top-row-highlight");
