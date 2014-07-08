@@ -35,6 +35,10 @@ elgg.widget_manager.init = function() {
 
 		var customUrl = $('#widget-manager-widget-edit-advanced-'+widgetId+' input:text[name="params[widget_manager_custom_url]"]').val();
 
+		if (customTitle.length == 0) {
+			return;
+		}
+
 		// clean custom title, prevent scripting
 		var cleanText = $('<div class="stripHTMLClass">text</div>');
 		customTitle = cleanText.text(customTitle).html();
