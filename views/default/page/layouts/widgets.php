@@ -63,6 +63,11 @@ if (!empty($md_object)) {
 	}
 }
 
+$top_row_used = elgg_extract("top_row_used", $vars);
+if ($top_row_used) {
+	unset($widgets[4]);
+}
+
 echo "<div class='elgg-layout-widgets layout-widgets-" . $context . "'>";
 
 if (elgg_can_edit_widget_layout($context)) {

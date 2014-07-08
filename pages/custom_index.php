@@ -45,6 +45,7 @@ if ($index_top_row == "full_row" || ($num_columns === 2)) {
 	$float = "float: left;";
 }
 
+$top_row_used = false;
 if (!empty($index_top_row) && ($index_top_row != "none")) {
 	$widget_types = elgg_get_widget_types("index", false);
 	
@@ -71,6 +72,7 @@ if (!empty($index_top_row) && ($index_top_row != "none")) {
 	}
 	$style .= "#elgg-widget-col-4 { width: " . $top_row_width . "%;" . $min_height . $float . "}";
 	elgg_pop_context();
+	$top_row_used = true;
 }
 
 if ($style) {
@@ -80,6 +82,7 @@ if ($style) {
 // draw the page
 $params = array(
 		'content' => $top_row,
+		'top_row_used' => $top_row_used,
 		'num_columns' => $num_columns,
 		'exact_match' => true
 );
