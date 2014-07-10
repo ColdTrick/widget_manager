@@ -24,12 +24,11 @@ define(['jquery', 'elgg'], function ($, elgg) {
 						s += "<h3><a href='" + feed.link + "' target='_blank'>" + feed.title + "</a></h3>";
 					}
 					
-					s += "<ul class='widget-manager-rss-result'>";
+					s += "<ul class='widget-manager-rss-result elgg-list'>";
 					$.each(feed.entries, function (index, item) {
-						s += "<li class='clearfix'>";
+						s += "<li class='clearfix elgg-item'>";
+						var description = item.content.replace(/(<([^>]+)>)/ig,"");
 						if (config.showExcerpt) {
-							var description = item.content.replace(/(<([^>]+)>)/ig,"");
-							
 							s += "<div class='pbm'>";
 							s += "<div><a href='" + item.link + "' target='_blank'";
 							if (config.showInLightbox) {
@@ -70,14 +69,30 @@ define(['jquery', 'elgg'], function ($, elgg) {
 							
 							s += "</div>";
 						} else {
-							s += "<div>";
-							
-							if (config.postDate) {
-								var i = new Date(item.publishedDate);
-								s += i.toLocaleDateString() + " - ";
+							s += "<div class='elgg-image-block'>";
+
+							s += "<a href='" + item.link + "' target='_blank'";
+							if (config.showInLightbox) {
+								var popup_content = "<div class='elgg-module elgg-module-info elgg-module-rss-popup'>";
+								popup_content += "<div class='elgg-head'><h3>" + item.title + "</h3></div>";
+								popup_content += "<div class='elgg-body'>" + description + "</div>";
+								popup_content += "</div>";
+								
+								popup_content = popup_content
+									.replace(/&/g, '&amp;')
+						            .replace(/"/g, '&quot;')
+						            .replace(/'/g, '&#39;')
+						            .replace(/</g, '&lt;')
+						            .replace(/>/g, '&gt;');
+								
+								s += " class='elgg-lightbox' data-colorbox-opts='{ \"html\":\"" + popup_content + "\", \"innerWidth\": 600 }'";
 							}
 							
-							s += "<a href='" + item.link + "' target='_blank'>" + item.title + "</a>";
+							s += ">" + item.title + "</a>";
+							if (config.postDate) {
+								var i = new Date(item.publishedDate);
+								s += "<div class='elgg-subtext'>" + i.toLocaleDateString() + "</div>";
+							}
 							s += "</div>";
 						}
 						
@@ -85,7 +100,7 @@ define(['jquery', 'elgg'], function ($, elgg) {
 					});
 					s += "</ul>";
 					
-					$wrapper.append(s);
+					$wrapper.replaceWith(s);
 				} else {
 					$wrapper.append(data.responseDetails);
 				}
