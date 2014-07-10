@@ -231,6 +231,7 @@ $rss = array(
 	'widgets:rss:settings:excerpt' => "Show an excerpt",
 	'widgets:rss:settings:show_item_icon' => "Show item icon (if available)",
 	'widgets:rss:settings:post_date' => "Show post date",
+	'widgets:rss:settings:show_in_lightbox' => "Show full text in lightbox when clicking on the link",
 );
 add_translation("en", $rss);
 

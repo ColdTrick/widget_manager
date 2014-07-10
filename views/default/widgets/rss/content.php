@@ -27,6 +27,11 @@ if ($widget->show_item_icon == "yes") {
 	$show_item_icon = true;
 }
 
+$show_in_lightbox = false;
+if ($widget->show_in_lightbox == "yes") {
+	$show_in_lightbox = true;
+}
+
 if ($feed_url) {
 	
 	$attributes = array(
@@ -36,7 +41,8 @@ if ($feed_url) {
 		"data-post-date" => $post_date,
 		"data-show-feed-title" => $show_feed_title,
 		"data-show-excerpt" => $excerpt,
-		"data-show-item-icon" => $show_item_icon
+		"data-show-item-icon" => $show_item_icon,
+		"data-show-in-lightbox" => $show_in_lightbox,
 	);
 	
 	?>

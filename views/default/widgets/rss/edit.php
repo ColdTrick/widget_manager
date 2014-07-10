@@ -53,4 +53,11 @@ $yesno_options = array(
 	echo elgg_view("input/dropdown", array("name" => "params[post_date]", "options_values" => $yesno_options, "value" => $widget->post_date));
 	?>
 </div>
+
+<div>
+	<?php
+	echo elgg_echo("widgets:rss:settings:show_in_lightbox") . " ";
+	echo elgg_view("input/dropdown", array("name" => "params[show_in_lightbox]", "options_values" => array_reverse($yesno_options), "value" => $widget->show_in_lightbox));
+	?>
+</div>
 	

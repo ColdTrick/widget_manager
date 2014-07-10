@@ -31,7 +31,24 @@ define(['jquery', 'elgg'], function ($, elgg) {
 							var description = item.content.replace(/(<([^>]+)>)/ig,"");
 							
 							s += "<div class='pbm'>";
-							s += "<div><a href='" + item.link + "' target='_blank'>" + item.title + "</a></div>";
+							s += "<div><a href='" + item.link + "' target='_blank'";
+							if (config.showInLightbox) {
+								var popup_content = "<div class='elgg-module elgg-module-info elgg-module-rss-popup'>";
+								popup_content += "<div class='elgg-head'><h3>" + item.title + "</h3></div>";
+								popup_content += "<div class='elgg-body'>" + description + "</div>";
+								popup_content += "</div>";
+								
+								popup_content = popup_content
+									.replace(/&/g, '&amp;')
+						            .replace(/"/g, '&quot;')
+						            .replace(/'/g, '&#39;')
+						            .replace(/</g, '&lt;')
+						            .replace(/>/g, '&gt;');
+								
+								s += " class='elgg-lightbox' data-colorbox-opts='{ \"html\":\"" + popup_content + "\", \"innerWidth\": 600 }'";
+							}
+							
+							s += ">" + item.title + "</a></div>";
 							s += "<div class='elgg-content'>";
 							if (config.showItemIcon) {
 								var xml_item = $items[index];
