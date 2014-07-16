@@ -112,12 +112,37 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 		
 		$current_widgets = elgg_get_widgets($object->getGUID(), "groups");
 		
+		// disable widgets
+		$disable_widget_handlers = elgg_extract("disable", $result);
+		if (!empty($disable_widget_handlers) && is_array($disable_widget_handlers)) {
+				
+			if (!empty($current_widgets) && is_array($current_widgets)) {
+				foreach ($current_widgets as $column => $widgets) {
+					if (!empty($widgets) && is_array($widgets)) {
+						foreach ($widgets as $order => $widget) {
+							// check if a widget should be removed
+							if (in_array($widget->handler, $disable_widget_handlers)) {
+								// yes, so remove the widget
+								$widget->delete();
+								
+								unset($current_widgets[$column][$order]);
+							}
+						}
+					}
+				}
+			}
+		}
+		
 		// enable widgets
+		$column_counts = array();
 		$enable_widget_handlers = elgg_extract("enable", $result);
 		if (!empty($enable_widget_handlers) || is_array($enable_widget_handlers)) {
 			
 			if (!empty($current_widgets) && is_array($current_widgets)) {
 				foreach ($current_widgets as $column => $widgets) {
+					// count for later balancing
+					$column_counts[$column] = count($widgets);
+					
 					if (!empty($widgets) && is_array($widgets)) {
 						foreach ($widgets as $order => $widget) {
 							// check if a widget which sould be enabled isn't already enabled
@@ -137,26 +162,17 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 					$widget_guid = elgg_create_widget($object->getGUID(), $handler, "groups", $object->access_id);
 					if (!empty($widget_guid)) {
 						$widget = get_entity($widget_guid);
-						// move to the end
-						$widget->move(1, 9000);
-					}
-				}
-			}
-		}
-		
-		// disable widgets
-		$disable_widget_handlers = elgg_extract("disable", $result);
-		if (!empty($disable_widget_handlers) && is_array($disable_widget_handlers)) {
-			
-			if (!empty($current_widgets) && is_array($current_widgets)) {
-				foreach ($current_widgets as $column => $widgets) {
-					if (!empty($widgets) && is_array($widgets)) {
-						foreach ($widgets as $order => $widget) {
-							// check if a widget should be removed
-							if (in_array($widget->handler, $disable_widget_handlers)) {
-								// yes, so remove the widget
-								$widget->delete();
-							}
+						
+						if ($column_counts[1] <= $column_counts[2]) {
+							// move to the end of the first column
+							$widget->move(1, 9000);
+							
+							$column_counts[1]++;
+						} else {
+							// move to the end of the second
+							$widget->move(2, 9000);
+							
+							$column_counts[2]++;
 						}
 					}
 				}
