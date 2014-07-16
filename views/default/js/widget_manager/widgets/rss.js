@@ -2,6 +2,7 @@ define(['jquery', 'elgg'], function ($, elgg) {
 	
 	return function(selector, feed_url) {
 		var $wrapper = $(selector);
+		var wrapper_id = $wrapper.attr("id");
 		$wrapper.empty();
 		
 		var config = $wrapper.data();
@@ -32,19 +33,17 @@ define(['jquery', 'elgg'], function ($, elgg) {
 							s += "<div class='pbm'>";
 							s += "<div><a href='" + item.link + "' target='_blank'";
 							if (config.showInLightbox) {
-								var popup_content = "<div class='elgg-module elgg-module-info elgg-module-rss-popup'>";
+								var popup_id = wrapper_id + "-" + index;
+								
+								var popup_content = "<div class='hidden'><div id='" + popup_id + "' class='elgg-module elgg-module-info elgg-module-rss-popup'>";
 								popup_content += "<div class='elgg-head'><h3>" + item.title + "</h3></div>";
 								popup_content += "<div class='elgg-body'>" + description + "</div>";
-								popup_content += "</div>";
+								popup_content += "</div></div>";
 								
-								popup_content = popup_content
-									.replace(/&/g, '&amp;')
-						            .replace(/"/g, '&quot;')
-						            .replace(/'/g, '&#39;')
-						            .replace(/</g, '&lt;')
-						            .replace(/>/g, '&gt;');
-								
-								s += " class='elgg-lightbox' data-colorbox-opts='{ \"html\":\"" + popup_content + "\", \"innerWidth\": 600 }'";
+								popup_content = popup_content.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2');
+								$("body").append(popup_content);
+
+								s += " class='elgg-lightbox' data-colorbox-opts='{ \"inline\": true, \"href\": \"#" + popup_id + "\", \"innerWidth\": 600 }'";
 							}
 							
 							s += ">" + item.title + "</a></div>";
@@ -73,19 +72,18 @@ define(['jquery', 'elgg'], function ($, elgg) {
 
 							s += "<a href='" + item.link + "' target='_blank'";
 							if (config.showInLightbox) {
-								var popup_content = "<div class='elgg-module elgg-module-info elgg-module-rss-popup'>";
+								var popup_id = wrapper_id + "-" + index;
+								
+								var popup_content = "<div class='hidden'><div id='" + popup_id + "' class='elgg-module elgg-module-info elgg-module-rss-popup'>";
 								popup_content += "<div class='elgg-head'><h3>" + item.title + "</h3></div>";
 								popup_content += "<div class='elgg-body'>" + description + "</div>";
-								popup_content += "</div>";
+								popup_content += "</div></div>";
 								
-								popup_content = popup_content
-									.replace(/&/g, '&amp;')
-						            .replace(/"/g, '&quot;')
-						            .replace(/'/g, '&#39;')
-						            .replace(/</g, '&lt;')
-						            .replace(/>/g, '&gt;');
-								
-								s += " class='elgg-lightbox' data-colorbox-opts='{ \"html\":\"" + popup_content + "\", \"innerWidth\": 600 }'";
+								popup_content = popup_content.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />$2');
+								$("body").append(popup_content);
+
+								s += " class='elgg-lightbox' data-colorbox-opts='{ \"inline\": true, \"href\": \"#" + popup_id + "\", \"innerWidth\": 600 }'";
+							
 							}
 							
 							s += ">" + item.title + "</a>";
