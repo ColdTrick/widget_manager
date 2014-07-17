@@ -1,8 +1,36 @@
 <?php
+/**
+ * This file was created by Translation Editor v2.0
+ * On 2014-07-17 10:40
+ */
+
 $language = array (
+  'widgets:iframe:title' => 'Iframe',
+  'widgets:iframe:description' => 'Toon een url in een iframe',
+  'widgets:iframe:settings:iframe_url' => 'Geef de iframe URL op',
+  'widgets:iframe:settings:iframe_height' => 'Geef de (optionele) iframe hoogte op (in pixels)',
+  'widgets:rss:settings:show_in_lightbox' => 'Toon de volledige tekst in een lightbox als er op de link wordt geklikt',
+  'widgets:content_by_tag:owner_guids:description' => 'Zoek een gebruiker welke de auteur is van de content. Laat leeg indien je niet wilt limiteren op auteur',
+  'widgets:content_by_tag:container_guids' => 'Toon alleen content van de volgende groepen',
+  'widgets:content_by_tag:container_guids:description' => 'Zoek naar een groep waar de content is geplaatst. Laat leeg indien je niet wilt limiteren op basis van een groep.',
+  'item:object:multi_dashboard' => 'Multi Dashboard',
+  'widget_manager:widgets:edit:custom_more_title' => 'Aangepaste lees meer tekst',
+  'widget_manager:widgets:edit:custom_more_url' => 'Aangepaste lees meer link',
+  'widget_manager:widgets:edit:collapse_disable' => 'Schakel de invouwen mogelijkheid uit',
+  'widget_manager:widgets:edit:collapse_state' => 'Standaard ingevouwen status',
+  'widget_manager:settings:group:enable:yes' => 'Ja, beheerbaar met groep tool optie',
+  'widget_manager:settings:group:enable:forced' => 'Ja, altijd aan',
+  'widget_manager:settings:group:force_tool_widgets' => 'Forceer groep tool widgets',
+  'widget_manager:settings:group:force_tool_widgets:confirm' => 'Weet je het zeker? Dit zal widgets toevoegen/verwijderen die beheerd worden door een groep tool optie (voor de groepen waar widget management is ingeschakeld)',
+  'widget_manager:settings:extra_contexts:add' => 'Nieuwe widget pagina',
+  'widget_manager:settings:extra_contexts:page' => 'Pagina',
+  'widget_manager:settings:extra_contexts:layout' => 'Layout',
+  'widget_manager:settings:extra_contexts:manager' => 'Beheerder',
+  'widget_manager:action:force_tool_widgets:error:not_enabled' => 'Widget beheer voor groepen is niet ingeschakeld',
+  'widget_manager:action:force_tool_widgets:succes' => 'Widgets voor groep tool geforceerd bij %s groepen',
+  'LOGGED_OUT' => 'Afgemelde gebruikers',
   'widget_manager:settings:dashboard:dashboard_widget_layout' => 'Dashboard widget layout',
   'widget_manager:settings:dashboard:dashboard_widget_layout:info' => 'Deze widget layout is alleen van toepassing voor het standaard dashboard en niet voor de extra dashboard die worden aangemaakt middels de multidashboard optie',
-  'LOGGED_OUT' => 'Afgemelde gebruikers',
   'widget_manager:settings:extra_contexts' => 'Extra widget pagina\'s',
   'widget_manager:settings:extra_contexts:description' => 'Voer de url in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. U kunt zoveel pagina\'s toevoegen als nodig is. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen. U kunt ook de kolom indeling kiezen en optioneel gewone gebruikers als manager van deze pagina toewijzen door hun gebruikersnaam in te vullen. Eventueel meerdere managers is ook mogelijk door hun gebruikersnamen te scheiden met een comma.',
   'widgets:likes:title' => 'Likes',
@@ -54,8 +82,6 @@ $language = array (
   'widgets:rss:settings:excerpt' => 'Toon een samenvatting',
   'widgets:rss:settings:show_item_icon' => 'Toon item icoon (indien beschikbaar)',
   'widgets:rss:settings:post_date' => 'Toon datum van bericht',
-  'widgets:rss:settings:post_date:option:friendly' => 'Toon relatieve tijd',
-  'widgets:rss:settings:post_date:option:date' => 'Toon datum',
   'widgets:content_by_tag:group_only' => 'Alleen content uit deze groep',
   'widgets:content_by_tag:display_option' => 'Hoe moet de inhoud getoond worden',
   'widgets:content_by_tag:display_option:normal' => 'Normaal',
