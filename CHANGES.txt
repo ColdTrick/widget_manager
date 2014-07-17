@@ -1,6 +1,7 @@
-= Version history: =
+Version history
+===============
 
-x.x ():
+5.0:
 
 - changed: updated for Elgg 1.9
 - changed: split css views
