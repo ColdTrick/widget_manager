@@ -239,15 +239,6 @@ $rss_server = array(
 	// RSS widget
 	'widgets:rss_server:title' => "RSS Feed",
 	'widgets:rss_server:description' => "Show a RSS feed (fetching it server-side)",
-	'widgets:rss_server:error:notset' => "No RSS Feed URL provided",
-
-	'widgets:rss_server:settings:rss_count' => "Number of feeds to show",
-	'widgets:rss_server:settings:rssfeed' => "URL of the RSS feed",
-	'widgets:rss_server:settings:show_feed_title' => "Show feed title",
-	'widgets:rss_server:settings:excerpt' => "Show an excerpt",
-	'widgets:rss_server:settings:show_item_icon' => "Show item icon (if available)",
-	'widgets:rss_server:settings:post_date' => "Show post date",
-	'widgets:rss_server:settings:show_in_lightbox' => "Show full text in lightbox when clicking on the link",
 );
 add_translation("en", $rss_server);
 
