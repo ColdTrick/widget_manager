@@ -77,6 +77,9 @@ function widget_manager_init() {
 	elgg_extend_view("js/elgg", "js/widget_manager/global");
 	elgg_extend_view("js/admin", "js/widget_manager/global");
 	
+	// register libs
+	elgg_register_library("simplepie", dirname(__FILE__) . "/vendors/simplepie/autoloader.php");
+	
 	// register a widget title url handler
 	// core widgets
 	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url");
