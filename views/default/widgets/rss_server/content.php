@@ -101,7 +101,7 @@ if ($feed_url) {
 			));
 			
 			$content .= "<div class='hidden'>";
-			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . $item->get_content(), array(
+			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . nl2br($item->get_content()), array(
 				"id" => $id,
 				"class" => "elgg-module-info"
 			));
@@ -123,7 +123,7 @@ if ($feed_url) {
 		
 		if ($post_date) {
 			$content .= "<div class='elgg-subtext'>";
-			$content .= $item->get_date(elgg_echo("friendlytime:date_format"));
+			$content .= $item->get_date(elgg_echo("widgets:rss_server:date_format"));
 			$content .= "</div>";
 		}
 		
