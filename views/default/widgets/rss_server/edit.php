@@ -35,6 +35,13 @@ $yesno_options = array(
 
 <div>
 	<?php
+	echo elgg_echo("widgets:rss_server:settings:show_author") . " ";
+	echo elgg_view("input/dropdown", array("name" => "params[show_author]", "options_values" => array_reverse($yesno_options), "value" => $widget->show_author));
+	?>
+</div>
+
+<div>
+	<?php
 	echo elgg_echo("widgets:rss:settings:excerpt") . " ";
 	echo elgg_view("input/dropdown", array("name" => "params[excerpt]", "options_values" => $yesno_options, "value" => $widget->excerpt));
 	?>

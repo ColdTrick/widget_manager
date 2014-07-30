@@ -41,6 +41,11 @@ if ($widget->show_in_lightbox == "yes") {
 	$show_in_lightbox = true;
 }
 
+$show_author = false;
+if ($widget->show_author == "yes") {
+	$show_author = true;
+}
+
 if ($feed_url) {
 	
 	elgg_load_library("simplepie");
@@ -67,6 +72,7 @@ if ($feed_url) {
 		echo "<li class='elgg-item'>";
 		
 		$title = "";
+		$title_text = "";
 		$content = "";
 		$icon = "";
 		
@@ -90,25 +96,40 @@ if ($feed_url) {
 			}
 		}
 		
+		$title_text = $item->get_title();
+		if ($show_author) {
+			$authors = $item->get_authors();
+			if (!empty($authors)) {
+				$author = $authors[0]->name;
+				if (empty($author)) {
+					$author = $authors[0]->link;
+				}
+				if (empty($author)) {
+					$author = $authors[0]->email;
+				}
+				$title_text .= " (" . $author . ")";
+			}
+		}
+		
 		if ($show_in_lightbox) {
 			$id = "widget-manager-rss-server-" . $widget->getGUID() . "-item-" . $index;
 			
 			$title = elgg_view("output/url", array(
-				"text" => $item->get_title(),
-				"href" => $item->get_permalink(),
+				"text" => $title_text,
+				"href" => "javascript:return void(0);",
 				"class" => "elgg-lightbox",
 				"data-colorbox-opts" => "{\"inline\": true, \"href\": \"#" . $id . "\", \"innerWidth\": 600}"
 			));
 			
 			$content .= "<div class='hidden'>";
-			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . nl2br($item->get_content()), array(
+			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . $item->get_content(), array(
 				"id" => $id,
 				"class" => "elgg-module-info"
 			));
 			$content .= "</div>";
 		} else {
 			$title = elgg_view("output/url", array(
-				"text" => $item->get_title(),
+				"text" => $title_text,
 				"href" => $item->get_permalink(),
 				"target" => "_blank"
 			));
@@ -122,8 +143,16 @@ if ($feed_url) {
 		}
 		
 		if ($post_date) {
+			$date_info = getdate($item->get_date("U"));
+			
+			$date_array = array(
+				elgg_echo("date:weekday:" . $date_info["wday"]),
+				elgg_echo("date:month:" . str_pad($date_info["mon"], 2, "0", STR_PAD_LEFT), array($date_info["mday"])),
+				$date_info["year"]
+			);
+			
 			$content .= "<div class='elgg-subtext'>";
-			$content .= $item->get_date(elgg_echo("widgets:rss_server:date_format"));
+			$content .= implode(" ", $date_array);
 			$content .= "</div>";
 		}
 		

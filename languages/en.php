@@ -239,7 +239,7 @@ $rss_server = array(
 	// RSS widget
 	'widgets:rss_server:title' => "RSS Feed",
 	'widgets:rss_server:description' => "Show a RSS feed (fetching it server-side)",
-	'widgets:rss_server:date_format' => "j F Y",
+	'widgets:rss_server:settings:show_author' => "Show item author",
 );
 add_translation("en", $rss_server);
 
