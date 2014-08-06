@@ -138,6 +138,11 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 		$enable_widget_handlers = elgg_extract("enable", $result);
 		if (!empty($enable_widget_handlers) || is_array($enable_widget_handlers)) {
 			
+			// ignore access restrictions
+			// because if a group is created with a visibility of only group members
+			// the group owner is not yet added to the acl and thus can't edit the newly created widgets
+			$ia = elgg_set_ignore_access(true);
+			
 			if (!empty($current_widgets) && is_array($current_widgets)) {
 				foreach ($current_widgets as $column => $widgets) {
 					// count for later balancing
@@ -177,6 +182,9 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 					}
 				}
 			}
+			
+			// restore access restrictions
+			elgg_set_ignore_access($ia);
 		}
 	}
 }
