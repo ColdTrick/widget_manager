@@ -11,8 +11,6 @@ $yesno_options = array(
 	"no" => elgg_echo("option:no")
 );
 
-
-// @todo: use google feed finder to autocomplete/search rss feeds "//ajax.googleapis.com/ajax/services/feed/find?v=1.0&";
 ?>
 <div>
 	<?php echo elgg_echo("widgets:rss:settings:rssfeed");?><br />
@@ -23,6 +21,13 @@ $yesno_options = array(
 	<?php
 	echo elgg_echo("widgets:rss:settings:rss_count") . " ";
 	echo elgg_view("input/dropdown", array("name" => "params[rss_count]", "options" => range(1,10), "value" => $rss_count));
+	?>
+</div>
+
+<div>
+	<?php
+	echo elgg_echo("widgets:rss:settings:rss_cachetimeout") . " ";
+	echo elgg_view("input/text", array("name" => "params[rss_cachetimeout]", "value" => $widget->rss_cachetimeout));
 	?>
 </div>
 

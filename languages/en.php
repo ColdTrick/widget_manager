@@ -227,6 +227,7 @@ $rss = array(
 
 	'widgets:rss:settings:rss_count' => "Number of feeds to show",
 	'widgets:rss:settings:rssfeed' => "URL of the RSS feed",
+	'widgets:rss:settings:rss_cachetimeout' => "RSS Cache Timeout in seconds (leave blank for default)",
 	'widgets:rss:settings:show_feed_title' => "Show feed title",
 	'widgets:rss:settings:excerpt' => "Show an excerpt",
 	'widgets:rss:settings:show_item_icon' => "Show item icon (if available)",

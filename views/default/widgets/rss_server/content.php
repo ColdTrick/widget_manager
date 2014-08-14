@@ -48,11 +48,17 @@ if ($widget->show_author == "yes") {
 
 if ($feed_url) {
 	
+	$rss_cachetimeout = 3600;
+	if (!empty($widget->rss_cachetimeout)) {
+		$rss_cachetimeout = sanitise_int($widget->rss_cachetimeout, false);
+	}
+	
 	elgg_load_library("simplepie");
 	
 	$feed = new SimplePie();
 	$feed->set_feed_url($feed_url);
 	$feed->set_cache_location($cache_location);
+	$feed->set_cache_duration($rss_cachetimeout);
 	
 	$feed->init();
 	

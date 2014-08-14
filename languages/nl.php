@@ -77,6 +77,7 @@ $language = array (
   'widgets:rss:description' => 'Toon een RSS feed',
   'widgets:rss:error:notset' => 'Geen RSS feed URL opgegeven',
   'widgets:rss:settings:rss_count' => 'Aantal feeds om weer te geven',
+  'widgets:rss:settings:rss_cachetimeout' => 'RSS Cache Timeout in seconden (laat leeg for standaard)',
   'widgets:rss:settings:rssfeed' => 'URL van de RSS feed',
   'widgets:rss:settings:show_feed_title' => 'Toon feed titel',
   'widgets:rss:settings:excerpt' => 'Toon een samenvatting',
