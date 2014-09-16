@@ -41,6 +41,8 @@ if (empty($content_type) && !empty($content_options_values)) {
 }
 
 $tags = $widget->tags;
+$excluded_tags = $widget->excluded_tags;
+
 $tags_option = $widget->tags_option;
 
 if (empty($tags_option)) {
@@ -123,6 +125,11 @@ if ($widget->context == "groups") {
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?><br />
 	<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
+</div>
+
+<div>
+	<?php echo elgg_echo("widgets:content_by_tag:excluded_tags"); ?><br />
+	<?php echo elgg_view("input/text", array("name" => "params[excluded_tags]", "value" => $excluded_tags)); ?>
 </div>
 
 <div>

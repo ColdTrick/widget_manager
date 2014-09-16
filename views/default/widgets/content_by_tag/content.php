@@ -116,6 +116,29 @@ if (!empty($values)) {
 	$values_where .= ")";
 }
 
+// excluded tags
+$excluded_values = string_to_tag_array($widget->excluded_tags);
+if ($excluded_values) {
+	// and value_id not in
+	$value_ids = array();
+	$name_ids = array();
+	
+	foreach ($excluded_values as $excluded_value) {
+		$value_ids[] = add_metastring($excluded_value);
+	}
+	
+	$names = array("tags", "universal_categories");
+	foreach ($names as $name) {
+		$name_ids[] = add_metastring($name);
+	}
+	
+	if (!empty($values_where)) {
+		$values_where .= " AND ";
+	}
+	
+	$values_where .= "e.guid NOT IN (SELECT DISTINCT entity_guid FROM " . $dbprefix . "metadata WHERE name_id IN (" . implode(",", $name_ids) . ") AND value_id IN (" . implode(",", $value_ids) . "))";
+}
+
 $access = get_access_sql_suffix('n_table');
 
 if ($names_where && $values_where) {

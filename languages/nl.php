@@ -20,6 +20,7 @@ $language = array (
   'widgets:likes:settings:like_type:recently_liked' => 'Content die recent is geliked',
   'widgets:content_by_tag:show_avatar' => 'Toon avatar van gebruiker',
   'widgets:content_by_tag:show_timestamp' => 'Toon tijdstip van content',
+  'widgets:content_by_tag:excluded_tags' => 'Uit te sluiten tags',
   'widgets:twitter_search:embed_code' => 'Twitter Widget Embed Code',
   'widgets:twitter_search:embed_code:help' => 'Maak een widget op Twitter.com en plak de embed code hier',
   'widgets:twitter_search:embed_code:error' => 'Kon geen widget id uit de embed code halen',
