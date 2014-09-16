@@ -207,6 +207,7 @@ $content_by_tag = array(
 	'widgets:content_by_tag:tags_option' => "How to use the tag(s)",
 	'widgets:content_by_tag:tags_option:and' => "AND",
 	'widgets:content_by_tag:tags_option:or' => "OR",
+	'widgets:content_by_tag:excluded_tags' => "Excluded tags",
 	'widgets:content_by_tag:display_option' => "How to list the content",
 	'widgets:content_by_tag:display_option:normal' => "Normal",
 	'widgets:content_by_tag:display_option:simple' => "Simple",
