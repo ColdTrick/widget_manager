@@ -497,6 +497,7 @@ function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_t
 			if (!empty($page)) {
 				$extra_contexts[] = $page;
 				$extra_contexts_config[$page]["layout"] = $contexts["layout"][$key];
+				$extra_contexts_config[$page]["top_row"] = $contexts["top_row"][$key];
 				$extra_contexts_config[$page]["manager"] = $contexts["manager"][$key];
 			}
 		}

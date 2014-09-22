@@ -25,6 +25,7 @@ $language = array (
   'widget_manager:settings:extra_contexts:add' => 'Nieuwe widget pagina',
   'widget_manager:settings:extra_contexts:page' => 'Pagina',
   'widget_manager:settings:extra_contexts:layout' => 'Layout',
+  'widget_manager:settings:extra_contexts:top_row' => 'Extra top regel',
   'widget_manager:settings:extra_contexts:manager' => 'Beheerder',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'Widget beheer voor groepen is niet ingeschakeld',
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets voor groep tool geforceerd bij %s groepen',

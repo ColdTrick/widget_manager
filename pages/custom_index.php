@@ -20,7 +20,7 @@ $float = "";
 
 switch ($layout) {
 	case "33|33|33":
-		$top_row_width = 66;
+		$top_row_width = "66.6";
 		break;
 	case "50|50":
 		break;
