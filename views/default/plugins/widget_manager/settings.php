@@ -116,6 +116,7 @@ $default_widget_layout = $plugin->widget_layout;
 $settings_extra_contexts = "<table id='widget-manager-settings-extra-contexts' class='elgg-table-alt'>";
 $settings_extra_contexts .= "<tr><th>" . elgg_echo("widget_manager:settings:extra_contexts:page") . "</th>";
 $settings_extra_contexts .= "<th>" . elgg_echo("widget_manager:settings:extra_contexts:layout") . "</th>";
+$settings_extra_contexts .= "<th>" . elgg_echo("widget_manager:settings:extra_contexts:top_row") . "</th>";
 $settings_extra_contexts .= "<th>" . elgg_echo("widget_manager:settings:extra_contexts:manager") . "</th><th></th></tr>";
 
 $contexts = string_to_tag_array($plugin->extra_contexts);
@@ -128,11 +129,13 @@ if (!is_array($contexts_config)) {
 foreach ($contexts as $context) {
 	$context_config = elgg_extract($context, $contexts_config, array());
 	$context_layout = elgg_extract("layout", $context_config, $default_widget_layout);
+	$top_row = elgg_extract("top_row", $context_config);
 	$context_manager = elgg_extract("manager", $context_config, "");
 	
 	$settings_extra_contexts .= "<tr>";
 	$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[page][]", "value" => $context, "class" => "pan phs")) . "</td>";
 	$settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[layout][]", "value" => $context_layout, "options_values" => $widget_layout_options)) . "</td>";
+	$settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[top_row][]", "value" => $top_row, "options_values" => $index_top_row_options)) . "</td>";
 	$settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[manager][]", "value" => $context_manager, "class" => "pan phs")) . "</td>";
 	$settings_extra_contexts .= "<td>" . elgg_view_icon("delete") . "</td>";
 	$settings_extra_contexts .= "</tr>";
@@ -141,6 +144,7 @@ foreach ($contexts as $context) {
 $settings_extra_contexts .= "<tr class='hidden'>";
 $settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[page][]", "class" => "pan phs")) . "</td>";
 $settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[layout][]", "value" => $default_widget_layout, "options_values" => $widget_layout_options)) . "</td>";
+$settings_extra_contexts .= "<td>" . elgg_view("input/dropdown", array("name" => "contexts[top_row][]", "options_values" => $index_top_row_options)) . "</td>";
 $settings_extra_contexts .= "<td>" . elgg_view("input/text", array("name" => "contexts[manager][]", "class" => "pan phs")) . "</td>";
 $settings_extra_contexts .= "<td>" . elgg_view_icon("delete") . "</td>";
 $settings_extra_contexts .= "</tr>";

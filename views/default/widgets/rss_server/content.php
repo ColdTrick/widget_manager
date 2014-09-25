@@ -128,7 +128,7 @@ if ($feed_url) {
 			));
 			
 			$content .= "<div class='hidden'>";
-			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . $item->get_content(), array(
+			$content .= elgg_view_module("rss-popup", $item->get_title(), $icon . nl2br($item->get_content()), array(
 				"id" => $id,
 				"class" => "elgg-module-info"
 			));

@@ -61,59 +61,63 @@ $joins[] = "JOIN {$dbprefix}metadata n_table on e.guid = n_table.entity_guid";
 $names_where = '';
 $values_where = '';
 
+$name_ids = array();
 $names = array("tags", "universal_categories");
+
+foreach ($names as $name) {
+	$name_ids[] = elgg_get_metastring_id($name);
+}
+
 $values = string_to_tag_array($widget->tags);
 
 if (!empty($values)) {
-	$sanitised_names = array();
-	foreach ($names as $name) {
-		// normalise to 0.
-		if (!$name) {
-			$name = '0';
-		}
-		$sanitised_names[] = '\'' . sanitise_string($name) . '\'';
-	}
-
-	if ($names_str = implode(',', $sanitised_names)) {
-		$joins[] = "JOIN {$dbprefix}metastrings msn on n_table.name_id = msn.id";
-		$names_where = "(msn.string IN ($names_str))";
-	}
-
-	$sanitised_values = array();
+	$names_str = implode(',', $name_ids);
+	$names_where = "(n_table.name_id IN ($names_str))";
+	
+	$value_ids = array();
 	foreach ($values as $value) {
-		// normalize to 0
-		if (!$value) {
-			$value = 0;
-		}
-		$sanitised_values[] = '\'' . sanitise_string($value) . '\'';
+		$value_ids[] = elgg_get_metastring_id($value);
 	}
-
-	$joins[] = "JOIN {$dbprefix}metastrings msv on n_table.value_id = msv.id";
 
 	$values_where .= "(";
-	foreach ($sanitised_values as $i => $value) {
+	foreach ($value_ids as $i => $value_id) {
 		if ($i !== 0) {
 			if ($tags_option == "and") {
 				// AND
 				
-				if ($i > 1) {
-					// max 2 ANDs
+				if ($i > 2) {
+					// max 3 ANDs
 					break;
 				}
 
 				$joins[] = "JOIN {$dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
-				$joins[] = "JOIN {$dbprefix}metastrings msn{$i} on n_table{$i}.name_id = msn{$i}.id";
-				$joins[] = "JOIN {$dbprefix}metastrings msv{$i} on n_table{$i}.value_id = msv{$i}.id";
 
-				$values_where .= " AND (msn{$i}.string IN ($names_str) AND msv{$i}.string = $value)";
+				$values_where .= " AND (n_table{$i}.name_id IN ($names_str) AND n_table{$i}.value_id = $value_id)";
 			} else {
-				$values_where .= " OR (msv.string = $value)";
+				$values_where .= " OR (n_table.value_id = $value_id)";
 			}
 		} else {
-			$values_where .= "(msv.string = $value)";
+			$values_where .= "(n_table.value_id = $value_id)";
 		}
 	}
 	$values_where .= ")";
+}
+
+// excluded tags
+$excluded_values = string_to_tag_array($widget->excluded_tags);
+if ($excluded_values) {
+	// and value_id not in
+	$value_ids = array();
+
+	foreach ($excluded_values as $excluded_value) {
+		$value_ids[] = elgg_get_metastring_id($excluded_value);
+	}
+
+	if (!empty($values_where)) {
+		$values_where .= " AND ";
+	}
+
+	$values_where .= "e.guid NOT IN (SELECT DISTINCT entity_guid FROM " . $dbprefix . "metadata WHERE name_id IN (" . implode(",", $name_ids) . ") AND value_id IN (" . implode(",", $value_ids) . "))";
 }
 
 $access = _elgg_get_access_where_sql(array("table_alias" => 'n_table'));

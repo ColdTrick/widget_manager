@@ -76,6 +76,7 @@ $english = array(
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page by entering their username. You can have multiple managers by seperating their username by a comma.",
 	'widget_manager:settings:extra_contexts:page' => "Page",
 	'widget_manager:settings:extra_contexts:layout' => "Layout",
+	'widget_manager:settings:extra_contexts:top_row' => "Extra Top Row",
 	'widget_manager:settings:extra_contexts:manager' => "Manager",
 
 	// views
@@ -207,6 +208,7 @@ $content_by_tag = array(
 	'widgets:content_by_tag:tags_option' => "How to use the tag(s)",
 	'widgets:content_by_tag:tags_option:and' => "AND",
 	'widgets:content_by_tag:tags_option:or' => "OR",
+	'widgets:content_by_tag:excluded_tags' => "Excluded tags",
 	'widgets:content_by_tag:display_option' => "How to list the content",
 	'widgets:content_by_tag:display_option:normal' => "Normal",
 	'widgets:content_by_tag:display_option:simple' => "Simple",

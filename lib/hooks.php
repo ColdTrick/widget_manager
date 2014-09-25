@@ -359,25 +359,32 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 	$result = $return_value;
 	$widget = $params["entity"];
 	
-	if (empty($result) && ($widget instanceof ElggWidget)) {
-		$owner = $widget->getOwnerEntity();
-		switch ($widget->handler) {
-			case "friends":
-				$result = "/friends/" . $owner->username;
-				break;
-			case "messageboard":
-				$result = "/messageboard/" . $owner->username;
-				break;
-			case "river_widget":
-				$result = "/activity";
-				break;
-			case "bookmarks":
-				if ($owner instanceof ElggGroup) {
-					$result = "/bookmarks/group/" . $owner->getGUID() . "/all";
-				} else {
-					$result = "/bookmarks/owner/" . $owner->username;
-				}
-				break;
+	if ($widget instanceof ElggWidget) {
+		$deprecated_result = elgg_trigger_plugin_hook("widget_url", "widget_manager", array("entity" => $widget), false);
+		if ($deprecated_result) {
+			elgg_deprecated_notice("The widget_url hook is deprecated (used for widget '" . $widget->handler . "') and not functional. Use the plugin hook in ElggEntity::getURL()", "1.9");
+		}
+		
+		if (empty($result)) {
+			$owner = $widget->getOwnerEntity();
+			switch ($widget->handler) {
+				case "friends":
+					$result = "/friends/" . $owner->username;
+					break;
+				case "messageboard":
+					$result = "/messageboard/" . $owner->username;
+					break;
+				case "river_widget":
+					$result = "/activity";
+					break;
+				case "bookmarks":
+					if ($owner instanceof ElggGroup) {
+						$result = "/bookmarks/group/" . $owner->getGUID() . "/all";
+					} else {
+						$result = "/bookmarks/owner/" . $owner->username;
+					}
+					break;
+			}
 		}
 	}
 	return $result;
@@ -490,6 +497,7 @@ function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_t
 			if (!empty($page)) {
 				$extra_contexts[] = $page;
 				$extra_contexts_config[$page]["layout"] = $contexts["layout"][$key];
+				$extra_contexts_config[$page]["top_row"] = $contexts["top_row"][$key];
 				$extra_contexts_config[$page]["manager"] = $contexts["manager"][$key];
 			}
 		}
