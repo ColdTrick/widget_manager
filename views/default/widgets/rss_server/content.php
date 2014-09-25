@@ -3,7 +3,7 @@
 $widget = $vars["entity"];
 
 $cache_location = elgg_get_config("dataroot") . "widgets/rss";
-if (file_exists($cache_location)) {
+if (!file_exists($cache_location)) {
 	mkdir($cache_location, 0755, true);
 }
 
