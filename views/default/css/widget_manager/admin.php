@@ -4,7 +4,7 @@
 	right: 45px;
 }
 
-.elgg-icon-widget-manager-push-pin {
+.elgg-icon.elgg-icon-widget-manager-push-pin {
 	background: url("<?php echo elgg_get_site_url(); ?>_graphics/elgg_sprites.png") no-repeat scroll 0px -738px transparent;
 }
 
