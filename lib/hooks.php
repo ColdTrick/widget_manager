@@ -107,19 +107,16 @@ function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_valu
  *
  * @return boolean
  */
-function widget_manager_custom_index($hook_name, $entity_type, $return_value, $params) {
-	$result = $return_value;
-
-	if (empty($result) && ($setting = elgg_get_plugin_setting("custom_index", "widget_manager"))) {
-		list($non_loggedin, $loggedin) = explode("|", $setting);
-			
-		if ((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input("override") == true))) {
-			include(elgg_get_plugins_path() . "/widget_manager/pages/custom_index.php");
-			$result = true;
+function widget_manager_route_index_handler($hook_name, $entity_type, $return_value, $params) {
+	if (elgg_extract("identifier", $result) == "") {
+		if (empty($result) && ($setting = elgg_get_plugin_setting("custom_index", "widget_manager"))) {
+			list($non_loggedin, $loggedin) = explode("|", $setting);
+				
+			if ((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input("override") == true))) {
+				elgg_register_page_handler("","widget_manager_index_page_handler");
+			}
 		}
 	}
-
-	return $result;
 }
 	
 /**

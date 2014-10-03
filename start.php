@@ -86,6 +86,9 @@ function widget_manager_init() {
 	// widget manager widgets
 	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url_hook_handler");
 	
+	// index page
+	elgg_register_plugin_hook_handler("route", "all", "widget_manager_route_index_handler");
+			
 	// add extra widget pages
 	$extra_contexts = elgg_get_plugin_setting("extra_contexts", "widget_manager");
 	if ($extra_contexts) {
@@ -96,7 +99,7 @@ function widget_manager_init() {
 			}
 		}
 	}
-	
+		
 	elgg_register_plugin_hook_handler("action", "plugins/settings/save", "widget_manager_plugins_settings_save_hook_handler");
 	elgg_register_plugin_hook_handler("action", "widgets/add", "widget_manager_widgets_action_hook_handler");
 	elgg_register_plugin_hook_handler("action", "widgets/move", "widget_manager_widgets_action_hook_handler");
@@ -200,7 +203,6 @@ elgg_register_event_handler("all", "object", "widget_manager_update_widget", 100
 elgg_register_plugin_hook_handler("access:collections:write", "all", "widget_manager_write_access_hook", 999);
 elgg_register_plugin_hook_handler("access:collections:read", "user", "widget_manager_read_access_hook");
 elgg_register_plugin_hook_handler("action", "widgets/save", "widget_manager_widgets_save_hook");
-elgg_register_plugin_hook_handler('index', 'system', 'widget_manager_custom_index', 50); // must be very early
 
 elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
 elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');

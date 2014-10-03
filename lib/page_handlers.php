@@ -34,6 +34,7 @@ function widget_manager_multi_dashboard_page_handler($page) {
  *
  * @param array  $page    page elements
  * @param string $handler handler of the current page
+ * 
  * @return boolean
  */
 function widget_manager_extra_contexts_page_handler($page, $handler) {
@@ -52,4 +53,17 @@ function widget_manager_extra_contexts_page_handler($page, $handler) {
 	}
 	
 	return $result;
+}
+
+/**
+ * Function to take over the index page
+ *
+ * @param array  $page    page elements
+ * @param string $handler handler of the current page
+ * 
+ * @return boolean
+ */
+function widget_manager_index_page_handler($page, $handler) {
+	include(elgg_get_plugins_path() . "/widget_manager/pages/custom_index.php");
+	return true;
 }
