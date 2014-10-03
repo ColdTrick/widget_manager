@@ -1,10 +1,13 @@
 <?php
 /**
  * This file was created by Translation Editor v2.0
- * On 2014-07-17 10:40
+ * On 2014-10-03 10:07
  */
 
-$language = array (
+return array (
+  'widgets:rss_server:title' => 'RSS Feed',
+  'widgets:rss_server:description' => 'Toon een RSS feed (server side ophalen)',
+  'widgets:rss_server:settings:show_author' => 'Toon auteur voor item',
   'widgets:iframe:title' => 'Iframe',
   'widgets:iframe:description' => 'Toon een url in een iframe',
   'widgets:iframe:settings:iframe_url' => 'Geef de iframe URL op',
@@ -205,4 +208,3 @@ $language = array (
   'widget_manager:action:manage:error:save_setting' => 'Fout tijdens het opslaan van instelling %s voor widget %s',
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
 );
-add_translation("nl", $language);
