@@ -14,6 +14,8 @@ class WidgetManagerWidget extends ElggWidget {
 		"widget_manager_show_edit" => NULL,
 		"widget_manager_custom_title" => NULL,
 		"widget_manager_custom_url" => NULL,
+		"widget_manager_custom_more_title" => NULL,
+		"widget_manager_custom_more_url" => NULL,
 		"widget_manager_disable_widget_content_style" => NULL,
 		"widget_manager_custom_class" => NULL,
 		"widget_manager_fixed_height" => NULL,
@@ -61,7 +63,7 @@ class WidgetManagerWidget extends ElggWidget {
 		if (is_array($this->settings_cache) && array_key_exists($name, $this->settings_cache)) {
 			$result = $this->settings_cache[$name];
 		} elseif (array_key_exists($name, $this->settings_defaults)) {
-			$result = $this->settings_defaults[$name];
+			return $this->settings_defaults[$name];
 		}
 		
 		if (!isset($result)) {
@@ -72,7 +74,6 @@ class WidgetManagerWidget extends ElggWidget {
 		if (is_array($decoded_result)) {
 			$result = $decoded_result;
 		}
-		
 		return $result;
 	}
 
