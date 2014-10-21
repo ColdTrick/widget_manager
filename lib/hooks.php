@@ -194,10 +194,10 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 						$widget_is_open = true;
 						
 						if (elgg_is_logged_in()) {
-							$widget_is_collapsed = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_collapsed", $widget->guid);
+							$widget_is_collapsed = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_state_collapsed", $widget->guid);
 							$widget_is_open = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_state_open", $widget->guid);
 						}
-						
+												
 						if (($widget->widget_manager_collapse_state === "closed" || $widget_is_collapsed) && !$widget_is_open) {
 							$item->addLinkClass("elgg-widget-collapsed");
 						}
