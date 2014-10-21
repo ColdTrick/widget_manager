@@ -61,6 +61,7 @@ $language = array (
   'widgets:content_by_tag:display_option' => 'Hoe moet de inhoud getoond worden',
   'widgets:content_by_tag:display_option:normal' => 'Normaal',
   'widgets:content_by_tag:display_option:simple' => 'Simpel',
+  'widgets:content_by_tag:display_option:simple_blog' => 'Simpel (Blogstijl)',
   'widgets:content_by_tag:display_option:slim' => 'Klein (enkele regel)',
   'widgets:content_by_tag:highlight_first' => 'Aantal uitgelichte items (alleen in kleine weergave)',
   'widgets:content_by_tag:show_search_link' => 'Toon zoek link',

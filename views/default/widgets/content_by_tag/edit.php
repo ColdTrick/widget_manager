@@ -65,6 +65,10 @@ $display_option_options_values = array(
 	"slim" => elgg_echo("widgets:content_by_tag:display_option:slim")
 );
 
+if (elgg_is_active_plugin('blog_tools')) {
+	$display_option_options_values["simple_blog"] = elgg_echo("widgets:content_by_tag:display_option:simple_blog");
+}
+
 if (elgg_view_exists("input/user_autocomplete")) {
 	echo "<div>" . elgg_echo("widgets:content_by_tag:owner_guids") . "</div>";
 
