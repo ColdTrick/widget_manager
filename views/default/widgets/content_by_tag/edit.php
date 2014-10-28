@@ -62,6 +62,7 @@ $tags_options_values = array(
 $display_option_options_values = array(
 	"normal" => elgg_echo("widgets:content_by_tag:display_option:normal"),
 	"simple" => elgg_echo("widgets:content_by_tag:display_option:simple"),
+	"simple_blog" => elgg_echo("widgets:content_by_tag:display_option:simple_blog"),
 	"slim" => elgg_echo("widgets:content_by_tag:display_option:slim")
 );
 

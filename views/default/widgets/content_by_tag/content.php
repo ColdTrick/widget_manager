@@ -265,6 +265,11 @@ if (in_array($display_option, array("slim","simple"))) {
 		$result .= "</ul>";
 	}
 } else {
+	
+	if ($display_option == "simple_blog") {
+		elgg_push_context("simple");
+	}
+
 	$result = elgg_list_entities($options);
 }
 
