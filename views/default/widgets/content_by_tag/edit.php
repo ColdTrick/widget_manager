@@ -98,7 +98,7 @@ if ($widget->context == "groups") {
 
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:tags"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[tags]", "value" => $tags)); ?>
+	<?php echo elgg_view("input/tags", array("name" => "params[tags]", "value" => $tags)); ?>
 </div>
 
 <div>
@@ -108,7 +108,7 @@ if ($widget->context == "groups") {
 
 <div>
 	<?php echo elgg_echo("widgets:content_by_tag:excluded_tags"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[excluded_tags]", "value" => $excluded_tags)); ?>
+	<?php echo elgg_view("input/tags", array("name" => "params[excluded_tags]", "value" => $excluded_tags)); ?>
 </div>
 
 <div>
