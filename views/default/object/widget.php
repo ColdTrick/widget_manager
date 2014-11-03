@@ -107,8 +107,8 @@ if ($widget->widget_manager_collapse_disable !== "yes") {
 	$widget_is_open = true;
 	
 	if (elgg_is_logged_in()) {
-		$widget_is_collapsed = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_state_collapsed", $widget->guid);
-		$widget_is_open = check_entity_relationship(elgg_get_logged_in_user_guid(), "widget_state_open", $widget->guid);
+		$widget_is_collapsed = widget_manager_check_collapsed_state($widget->guid, "widget_state_collapsed");
+		$widget_is_open = widget_manager_check_collapsed_state($widget->guid, "widget_state_open");
 	}
 	if (($widget->widget_manager_collapse_state === "closed" || $widget_is_collapsed) && !$widget_is_open) {
 	
