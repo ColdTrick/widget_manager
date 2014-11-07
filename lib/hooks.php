@@ -15,31 +15,32 @@
  * @return array
  */
 function widget_manager_write_access_hook($hook_name, $entity_type, $return_value, $params) {
-	$result = $return_value;
 	
-	if (elgg_in_context("widgets")) {
-		if (elgg_in_context("index") && elgg_is_admin_logged_in()) {
-			// admins only have the following options for index widgets
-			$result = array(
-				ACCESS_PRIVATE => elgg_echo("access:admin_only"),
+	if (!elgg_in_context("widget_access")) {
+		return $return_value;
+	}
+	
+	if (elgg_in_context("index") && elgg_is_admin_logged_in()) {
+		// admins only have the following options for index widgets
+		$return_value = array(
+			ACCESS_PRIVATE => elgg_echo("access:admin_only"),
+			ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+			ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
+			ACCESS_PUBLIC => elgg_echo("PUBLIC")
+		);
+		
+	} elseif (elgg_in_context("groups")) {
+		$group = elgg_get_page_owner_entity();
+		if (!empty($group->group_acl)) {
+			$return_value = array(
+				$group->group_acl => elgg_echo("groups:group") . ": " . $group->name,
 				ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-				ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
 				ACCESS_PUBLIC => elgg_echo("PUBLIC")
 			);
-			
-		} elseif (elgg_in_context("groups")) {
-			$group = elgg_get_page_owner_entity();
-			if (!empty($group->group_acl)) {
-				$result = array(
-					$group->group_acl => elgg_echo("groups:group") . ": " . $group->name,
-					ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
-					ACCESS_PUBLIC => elgg_echo("PUBLIC")
-				);
-			}
 		}
 	}
 
-	return $result;
+	return $return_value;
 }
 	
 /**
