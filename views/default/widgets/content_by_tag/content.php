@@ -275,7 +275,15 @@ if (in_array($display_option, array("slim","simple"))) {
 		$result .= "</ul>";
 	}
 } else {
-	$result = elgg_list_entities($options);
+	
+	if ($display_option == "simple_blog") {
+		// load blog_tools simple style
+		elgg_push_context("simple");
+		$result = elgg_list_entities($options);
+		elgg_pop_context();
+	} else {
+		$result = elgg_list_entities($options);
+	}
 }
 
 if (empty($result)) {
