@@ -612,4 +612,34 @@ function widget_manager_permissions_check_object_hook_handler($hook_name, $entit
 			
 	return $return_value;
 }
+
+/**
+ * Returns a rss widget specific date_time notation
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return string
+ */
+function widget_manager_friendly_time_hook($hook_name, $entity_type, $return_value, $params) {
+	if (empty($params['time'])) {
+		return $return_value;
+	}
+
+	if (!elgg_in_context("rss_date")) {
+		return $return_value;
+	}
+	
+	$date_info = getdate($params['time']);
+
+	$date_array = array(
+		elgg_echo("date:weekday:" . $date_info["wday"]),
+		elgg_echo("date:month:" . str_pad($date_info["mon"], 2, "0", STR_PAD_LEFT), array($date_info["mday"])),
+		$date_info["year"]
+	);
+
+	return implode(" ", $date_array);
+}
 	

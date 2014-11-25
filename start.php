@@ -79,6 +79,8 @@ function widget_manager_init() {
 	
 	// register libs
 	elgg_register_library("simplepie", dirname(__FILE__) . "/vendors/simplepie/autoloader.php");
+
+	elgg_register_plugin_hook_handler("format", "friendly:time", "widget_manager_friendly_time_hook");
 	
 	// register a widget title url handler
 	// core widgets

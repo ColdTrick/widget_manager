@@ -148,17 +148,13 @@ if ($feed_url) {
 			$content .= "</div>";
 		}
 		
-		if ($post_date) {
-			$date_info = getdate($item->get_date("U"));
-			
-			$date_array = array(
-				elgg_echo("date:weekday:" . $date_info["wday"]),
-				elgg_echo("date:month:" . str_pad($date_info["mon"], 2, "0", STR_PAD_LEFT), array($date_info["mday"])),
-				$date_info["year"]
-			);
+		if ($post_date) {	
+			elgg_push_context("rss_date");
+			$time = elgg_view_friendly_time($item->get_date("U"));
+			elgg_pop_context();
 			
 			$content .= "<div class='elgg-subtext'>";
-			$content .= implode(" ", $date_array);
+			$content .= $time;
 			$content .= "</div>";
 		}
 		
