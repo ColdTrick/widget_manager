@@ -53,7 +53,7 @@ function widget_manager_update_widget($event, $object_type, $object) {
 }
 
 /**
- * Adds a relation between a widget and a multidashboard object
+ * Performs action when a widget is created
  *
  * @param string $event       name of the system event
  * @param string $object_type type of the event
@@ -62,9 +62,22 @@ function widget_manager_update_widget($event, $object_type, $object) {
  * @return void
  */
 function widget_manager_create_object_handler($event, $object_type, $object) {
+
 	if (elgg_instanceof($object, "object", "widget", "ElggWidget")) {
-		if ($dashboard_guid = get_input("multi_dashboard_guid")) {
-			if (($dashboard = get_entity($dashboard_guid)) && elgg_instanceof($dashboard, "object", MultiDashboard::SUBTYPE, "MultiDashboard")) {
+		$owner = $object->getOwnerEntity();
+		// Updates access for privately created widgets in a group
+		if ($owner instanceof ElggGroup && $object->access_id === ACCESS_PRIVATE) {
+			$old_ia = elgg_set_ignore_access();
+			$object->access_id = $owner->group_acl;
+			$object->save();
+			elgg_set_ignore_access($old_ia);
+		}
+				
+		// Adds a relation between a widget and a multidashboard object
+		$dashboard_guid = get_input("multi_dashboard_guid");
+		if ($dashboard_guid && widget_manager_multi_dashboard_enabled()) {
+			$dashboard = get_entity($dashboard_guid);
+			if (elgg_instanceof($dashboard, "object", MultiDashboard::SUBTYPE, "MultiDashboard")) {
 				add_entity_relationship($object->getGUID(), MultiDashboard::WIDGET_RELATIONSHIP, $dashboard->getGUID());
 			}
 		}

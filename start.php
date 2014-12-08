@@ -108,6 +108,8 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler("permissions_check", "object", "widget_manager_permissions_check_object_hook_handler");
 	
+	elgg_register_event_handler("create", "object", "widget_manager_create_object_handler");
+	
 	// multi dashboard support
 	add_subtype("object", MultiDashboard::SUBTYPE, "MultiDashboard");
 	
@@ -117,8 +119,6 @@ function widget_manager_init() {
 		elgg_register_plugin_hook_handler('register', 'menu:extras', 'widget_manager_register_extras_menu');
 		// add js initialisation view
 		elgg_extend_view("page/elements/sidebar", "widget_manager/multi_dashboard/sidebar", 400);
-		
-		elgg_register_event_handler("create", "object", "widget_manager_create_object_handler");
 		
 		elgg_register_plugin_hook_handler("route", "dashboard", "widget_manager_dashboard_route_handler");
 		elgg_register_plugin_hook_handler("action", "widgets/add", "widget_manager_widgets_add_action_handler");
