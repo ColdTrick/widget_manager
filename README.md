@@ -58,28 +58,3 @@ Fixed widgets always
 You can fix widgets on a dashboard or profile page. Fixing widgets can be done by clicking on the pin in the widget header. Only default widgets added when widget manager is enabled will have the option to fix. This is because a special attribute will be set on the default widget to keep a relation to the widget when cloning it to the user profile or dashboard. If you do not see the pin, remove the widget and add it again. 
 
 A user can always add his or hers own widgets. They will always be added below the last fixed widget in the destination column.
- 
-TODO
-----
-
-### General
-
- - check available widget and saving of widget manage page on a clean install
- - tabbed widgets layout (widgets are shown full width) below profile
- 
-### Multi Dashboard
- 
- - fluid layout
- - borderless columns
- - colored tabs
- - dashboard background
- - fix the js issues when embedding internal community pages (see github issue #10)
- 
-### Widgets
- 
- - slider widget could auto resize / scale images
- 
-Known Issues
-------------
- 
- - Adding group widget with a default access level not the group or higher could cause issues. Widgets could dissapear or only show for the person who added it. Keep default access on logged in or higher to prevent this issues. Will provide a fix once default access hook in elgg core is implemented.
