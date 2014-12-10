@@ -39,6 +39,7 @@ function widget_manager_widgets_init() {
 	// rss widget
 	elgg_register_widget_type("rss", elgg_echo("widgets:rss:title"), elgg_echo("widgets:rss:description"), array("profile", "dashboard", "index", "groups"), true);
 	elgg_register_widget_type("rss_server", elgg_echo("widgets:rss_server:title"), elgg_echo("widgets:rss_server:description"), array("index"), true);
+	elgg_register_plugin_hook_handler("widget_settings", "rss_server", "widget_manager_rss_server_widget_settings_hook_handler");
 	
 	// extend CSS
 	elgg_extend_view("css/elgg", "widgets/rss/css");
