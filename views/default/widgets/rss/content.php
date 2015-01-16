@@ -48,9 +48,11 @@ if ($feed_url) {
 	?>
 	<div <?php echo elgg_format_attributes($attributes);?>"></div>
 	<script>
-	require(["widget_manager/widgets/rss"], function (rss) {
-		rss("#widget-manager-rss-<?php echo $widget->guid;?>");
-	});
+		$(document).ready(function() {
+			require(["widget_manager/widgets/rss"], function (rss) {
+				rss("#widget-manager-rss-<?php echo $widget->guid;?>");
+			});
+		});
 	</script>
 	<?php 
 } else {
