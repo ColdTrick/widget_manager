@@ -131,6 +131,8 @@ function widget_manager_init() {
 	
 
 	elgg_register_ajax_view("widget_manager/widgets/settings");
+
+	elgg_register_ajax_view("widgets/user_search/content");
 	
 	// register actions
 	elgg_register_action("widget_manager/manage", dirname(__FILE__) . "/actions/manage.php", "admin");

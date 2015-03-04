@@ -1,6 +1,15 @@
 <?php
 
 $widget = $vars["entity"];
+if (empty($widget)) {
+	$guid = get_input("guid");
+	if ($guid) {
+		$widget = get_entity($guid);
+		if (!($widget instanceof ElggWidget)) {
+			return;
+		}		
+	}
+}
 
 $q = get_input("q");
 $q = sanitise_string($q);
@@ -64,15 +73,14 @@ if (empty($result)) {
 	echo implode("</tr><tr>", $result);
 	echo "</tr></table>";
 }
-	
+
 ?>
 <script type='text/javascript'>
 	$(document).ready(function(){
 		$(".widget-user-search-form").submit(function(){
 			var new_val = $(this).find("[name='q']").val();
-			$("#widget-edit-<?php echo $widget->getGUID(); ?> [name='q']").val(new_val);
-			$("#widget-edit-<?php echo $widget->getGUID(); ?> > form").submit();
-			$("#widget-edit-<?php echo $widget->getGUID(); ?>").hide();
+			
+			$("#elgg-widget-content-<?php echo $widget->getGUID(); ?>").load(elgg.normalize_url("ajax/view/widgets/user_search/content?guid=<?php echo $widget->getGUID(); ?>&q=" + new_val));
 			return false;
 		});
 	});
