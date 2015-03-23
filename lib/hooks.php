@@ -156,7 +156,7 @@ function widget_manager_register_widget_menu($hook_name, $entity_type, $return_v
 			'text' => elgg_view_icon('widget-manager-push-pin'),
 			'title' => elgg_echo('widget_manager:widgets:fix'),
 			'href' => "#$widget->guid",
-			'class' => $class
+			'link_class' => $class
 		);
 			
 		$item = ElggMenuItem::factory($params);
