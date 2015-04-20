@@ -25,14 +25,14 @@ $slider_type = $widget->slider_type;
 
 $configured_slides = array();
 for ($i = 1; $i <= $max_slider_options; $i++) {
-	$url = $widget->get("slider_" . $i . "_url");
+	$url = $widget->{"slider_" . $i . "_url"};
 	if (!empty($url)) {
 		
-		$text = $widget->get("slider_" . $i . "_text");
-		$link = $widget->get("slider_" . $i . "_link");
+		$text = $widget->{"slider_" . $i . "_text"};
+		$link = $widget->{"slider_" . $i . "_link"};
 		$direction = "";
 		if ($slider_type != "flex_slider") {
-			$direction = $widget->get("slider_" . $i . "_direction");
+			$direction = $widget->{"slider_" . $i . "_direction"};
 		}
 	
 		$configured_slides[] = array(
