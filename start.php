@@ -32,6 +32,8 @@ function widget_manager_init() {
 	// loads the widgets
 	widget_manager_widgets_init();
 	
+	elgg_register_plugin_hook_handler("widget_settings", "all", "widget_manager_all_widget_settings_hook_handler");
+	
 	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
 	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
@@ -87,6 +89,9 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url");
 	// widget manager widgets
 	elgg_register_plugin_hook_handler("entity:url", "object", "widget_manager_widgets_url_hook_handler");
+
+	// cacheable widget handlers
+	elgg_register_plugin_hook_handler("cacheable_handlers", "widget_manager", "widget_manager_cacheable_handlers_hook_handler");
 	
 	// index page
 	elgg_register_plugin_hook_handler("route", "all", "widget_manager_route_index_handler");

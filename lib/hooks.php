@@ -675,3 +675,52 @@ function widget_manager_rss_server_widget_settings_hook_handler($hook_name, $ent
 
 	return $return_value;
 }
+
+/**
+ * Returns an array of cacheable widget handlers
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param bool   $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return bool
+ */
+function widget_manager_cacheable_handlers_hook_handler($hook_name, $entity_type, $return_value, $params) {
+
+	if (!is_array($return_value)) {
+		return $return_value;
+	}
+	
+	$return_value[] = 'iframe';
+	$return_value[] = 'free_html';
+	$return_value[] = 'image_slider';
+	$return_value[] = 'twitter_search';
+
+	return $return_value;
+}
+
+/**
+ * Unsets the cached data for cacheable widgets
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param bool   $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return bool
+ */
+function widget_manager_all_widget_settings_hook_handler($hook_name, $entity_type, $return_value, $params) {
+	if (empty($params) || !is_array($params)) {
+		return $return_value;
+	}
+
+	$widget = elgg_extract("widget", $params);
+	if (empty($widget) || !elgg_instanceof($widget, "object", "widget")) {
+		return $return_value;
+	}
+
+	if (widget_manager_is_cacheable_widget($widget)) {
+		$widget->widget_manager_cached_data = null;
+	}
+}

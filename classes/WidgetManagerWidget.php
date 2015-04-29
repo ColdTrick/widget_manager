@@ -20,7 +20,8 @@ class WidgetManagerWidget extends ElggWidget {
 		"widget_manager_custom_class" => NULL,
 		"widget_manager_fixed_height" => NULL,
 		"widget_manager_collapse_state" => NULL,
-		"widget_manager_collapse_disable" => NULL
+		"widget_manager_collapse_disable" => NULL,
+		"widget_manager_cached_data" => NULL
 	);
 
 	/**

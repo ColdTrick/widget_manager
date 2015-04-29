@@ -385,3 +385,30 @@ function widget_manager_check_collapsed_state($widget_guid, $state) {
 	
 	return false;
 }
+
+/**
+ * Checks if the provide widget handler is registered as a cacheable widget
+ * 
+ * @param ElggWidget $widget widget to check
+ * 
+ * @return bool
+ */
+function widget_manager_is_cacheable_widget(ElggWidget $widget) {
+	static $cacheable_handlers;
+	
+	if (empty($widget)) {
+		return false;
+	}
+	
+	$handler = $widget->handler;
+	
+	if (!isset($cacheable_handlers)) {
+		$cacheable_handlers = elgg_trigger_plugin_hook('cacheable_handlers', 'widget_manager', [], []);
+	}
+
+	if (in_array($handler, $cacheable_handlers)) {
+		return true;
+	}
+	
+	return false;
+}
