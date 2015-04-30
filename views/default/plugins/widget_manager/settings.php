@@ -71,7 +71,7 @@ if (elgg_is_active_plugin("groups")) {
 	$settings_group .= "<tr>";
 	$settings_group .= "<td>" . elgg_echo('widget_manager:settings:group:enable') . "</td>";
 	$settings_group .= "<td>" . elgg_view("input/dropdown", array("name" => "params[group_enable]", "value" => $plugin->group_enable, "options_values" => $groupenable_options)) . "</td>";
-	$settings_group .= "<td>" . elgg_view("output/confirmlink", array("text" => elgg_echo("widget_manager:settings:group:force_tool_widgets"), "href" => "action/widget_manager/force_tool_widgets", "confirm" => elgg_echo("widget_manager:settings:group:force_tool_widgets:confirm"))) . "</td>";
+	$settings_group .= "<td>" . elgg_view("output/url", array("text" => elgg_echo("widget_manager:settings:group:force_tool_widgets"), "href" => "action/widget_manager/force_tool_widgets", "confirm" => elgg_echo("widget_manager:settings:group:force_tool_widgets:confirm"))) . "</td>";
 	$settings_group .= "</tr>";
 	
 	$settings_group .= "<tr>";

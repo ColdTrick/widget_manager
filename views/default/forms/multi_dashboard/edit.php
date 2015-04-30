@@ -93,7 +93,7 @@ $form_data .= elgg_view("input/submit", array("value" => $submit_text));
 
 if ($edit) {
 	$form_data .= elgg_view("input/hidden", array("name" => "guid", "value" => $guid));
-	$form_data .= elgg_view("output/confirmlink", array("href" => elgg_get_site_url() . "action/multi_dashboard/delete?guid=" . $guid, "text" => elgg_echo("delete"), "class" => "elgg-button elgg-button-delete"));
+	$form_data .= elgg_view("output/url", array("href" => elgg_get_site_url() . "action/multi_dashboard/delete?guid=" . $guid, "text" => elgg_echo("delete"), "class" => "elgg-button elgg-button-delete", 'confirm' => true));
 }
 
 $form_data .= "</div>";
