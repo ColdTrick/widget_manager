@@ -22,6 +22,9 @@ if (elgg_is_active_plugin("pages")) {
 if (elgg_is_active_plugin("bookmarks")) {
 	$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
 }
+if (elgg_is_active_plugin("thewire")) {
+	$content_options_values["thewire"] = elgg_echo("item:object:thewire");
+}
 if (elgg_is_active_plugin("videolist")) {
 	$content_options_values["videolist_item"] = elgg_echo("item:object:videolist_item");
 }

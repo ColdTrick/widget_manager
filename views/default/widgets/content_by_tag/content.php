@@ -23,6 +23,8 @@ if (empty($content_type)) {
 		$content_type = "page";
 	} elseif (elgg_is_active_plugin("bookmarks")) {
 		$content_type = "bookmarks";
+	} elseif (elgg_is_active_plugin("thewire")) {
+		$content_type = "thewire";
 	} elseif (elgg_is_active_plugin("videolist")) {
 		$content_type = "videolist_item";
 	} elseif (elgg_is_active_plugin("event_manager")) {
