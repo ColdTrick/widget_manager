@@ -69,7 +69,11 @@ if (!empty($vars["widgets"])) {
 }
 
 $title = "<div id='widget_manager_widgets_search'>";
-$title .= "<input title='" . elgg_echo("search") . "' type='text' value='" . elgg_echo("search") . "' onfocus='if($(this).val() == \"" . elgg_echo("search") .  "\"){ $(this).val(\"\"); }' onkeyup='elgg.widget_manager.widgets_search($(this).val());'></input>";
+$title .= elgg_view('input/text', [
+	'title' => elgg_echo('search'),
+	'placeholder' => elgg_echo('search'),
+	'onkeyup' => 'elgg.widget_manager.widgets_search($(this).val());'
+]);
 $title .= "</div>";
 $title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
 
