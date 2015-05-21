@@ -2,52 +2,24 @@
 $context = $vars["context"];
 $show_access = (int) $vars["show_access"];
 
-if ($md_guid = get_input("multi_dashboard_guid")) {
-	$params = array(
-		'name' => 'widget_context',
-		'value' => $context . "_" . $md_guid
-	);
-} else {
-	$params = array(
-		'name' => 'widget_context',
-		'value' => $context
-	);
-}
-echo elgg_view('input/hidden', $params);
+$params = array(
+	'name' => 'widget_context',
+	'value' => $context
+);
 
+$md_guid = (int) get_input("multi_dashboard_guid");
+if (!empty($md_guid)) {
+	$params['value'] .= "_" . $md_guid;
+}
+
+echo elgg_view('input/hidden', $params);
 echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_access));
 
-?>
-<script type="text/javascript">
-	function widget_manager_widget_add_init() {
-		$(document).ajaxSuccess(function(e, xhr, settings) {
-			if (settings.url == elgg.normalize_url('/action/widgets/add')) {
-				// move new widget to a new position (after fixed widgets) if needed
-				if ($(this).find('.elgg-state-fixed').size() > 0) {
-					$widget = $(this).find('.elgg-module-widget:first');
-					$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
-					
-					// first item is the recently moved widget, because fixed widgets are not part of the sortable
-					var index = $(this).find('.elgg-module-widget').index($widget);
-					var guidString = $widget.attr('id');
-					guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
-
-					elgg.action('widgets/move', {
-						data: {
-							widget_guid: guidString,
-							column: 1,
-							position: index
-						}
-					});
-				}
-			}
-		});
-	}
-
-	elgg.register_hook_handler('init', 'system', widget_manager_widget_add_init);
-
-</script>
-<?php
+if (elgg_is_xhr()) {
+	echo "<script>require(['widget_manager/add_panel']);</script>";
+} else {
+	elgg_require_js("widget_manager/add_panel");
+}
 	
 $widget_context = str_replace("default_", "", $context);
 
@@ -101,7 +73,9 @@ if (!empty($widgets)) {
 			
 			$body .= "<span class='widget_manager_widgets_lightbox_actions'>";
 			$body .= '<ul><li class="' . $class . '" data-elgg-widget-type="' . $handler . '">';
-			$body .= "<span class='elgg-quiet'>" . elgg_echo('widget:unavailable') . "</span>";
+			if (!$allow_multiple) {
+				$body .= "<span class='elgg-quiet'>" . elgg_echo('widget:unavailable') . "</span>";
+			}
 			$body .= elgg_view("input/button", array("class" => "elgg-button-submit", "value" => elgg_echo("widget_manager:button:add")));
 			$body .= "</li></ul>";
 			$body .= "</span>";
