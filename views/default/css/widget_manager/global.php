@@ -39,3 +39,12 @@
 	font-size: 100%;
 	height: 100%;
 }
+
+.elgg-module-widget .elgg-menu-widget .elgg-menu-item-settings,
+.elgg-module-widget .elgg-menu-widget .elgg-menu-item-delete {
+	display: none;
+}
+.elgg-module-widget:hover .elgg-menu-widget .elgg-menu-item-settings,
+.elgg-module-widget:hover .elgg-menu-widget .elgg-menu-item-delete {
+	display: inline-block;
+}
