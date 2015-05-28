@@ -38,8 +38,6 @@ if (empty($feed_data)) {
 	}
 	
 	// read the rss from the source
-	elgg_load_library("simplepie");
-	
 	$feed = new SimplePie();
 	$feed->set_feed_url($feed_url);
 	$feed->set_cache_location($cache_location);

@@ -3,6 +3,7 @@
 define("ACCESS_LOGGED_OUT", -5);
 define("MULTI_DASHBOARD_MAX_TABS", 7);
 
+require_once(dirname(__FILE__) . "/vendor/autoload.php");
 require_once(dirname(__FILE__) . "/lib/functions.php");
 require_once(dirname(__FILE__) . "/lib/events.php");
 require_once(dirname(__FILE__) . "/lib/hooks.php");
@@ -76,9 +77,6 @@ function widget_manager_init() {
 	elgg_extend_view("js/elgg", "js/widget_manager/site");
 	elgg_extend_view("js/admin", "js/widget_manager/admin");
 	
-	// register libs
-	elgg_register_library("simplepie", dirname(__FILE__) . "/vendors/simplepie/autoloader.php");
-
 	elgg_register_plugin_hook_handler("format", "friendly:time", "widget_manager_friendly_time_hook");
 	
 	// register a widget title url handler
