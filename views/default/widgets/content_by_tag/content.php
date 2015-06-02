@@ -78,11 +78,13 @@ if (!empty($values)) {
 	
 	$value_ids = array();
 	foreach ($values as $value) {
-		$value_ids[] = elgg_get_metastring_id($value);
+		$value_ids[] = elgg_get_metastring_id($value, false);
 	}
 
 	$values_where .= "(";
 	foreach ($value_ids as $i => $value_id) {
+		$value_id = implode(',', $value_id);
+		
 		if ($i !== 0) {
 			if ($tags_option == "and") {
 				// AND
@@ -94,12 +96,12 @@ if (!empty($values)) {
 
 				$joins[] = "JOIN {$dbprefix}metadata n_table{$i} on e.guid = n_table{$i}.entity_guid";
 
-				$values_where .= " AND (n_table{$i}.name_id IN ($names_str) AND n_table{$i}.value_id = $value_id)";
+				$values_where .= " AND (n_table{$i}.name_id IN ($names_str) AND n_table{$i}.value_id IN ({$value_id}))";
 			} else {
-				$values_where .= " OR (n_table.value_id = $value_id)";
+				$values_where .= " OR (n_table.value_id IN ({$value_id}))";
 			}
 		} else {
-			$values_where .= "(n_table.value_id = $value_id)";
+			$values_where .= "(n_table.value_id IN ({$value_id}))";
 		}
 	}
 	$values_where .= ")";
@@ -112,7 +114,7 @@ if ($excluded_values) {
 	$value_ids = array();
 
 	foreach ($excluded_values as $excluded_value) {
-		$value_ids[] = elgg_get_metastring_id($excluded_value);
+		$value_ids += elgg_get_metastring_id($excluded_value, false);
 	}
 
 	if (!empty($values_where)) {
