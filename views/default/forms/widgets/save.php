@@ -18,7 +18,7 @@ if ($show_access) {
 	elgg_push_context("widget_access");
 	$access = elgg_echo('access') . ': ' . elgg_view('input/access', array(
 		'name' => 'params[access_id]',
-		'value' => $widget->access_id,
+		'entity' => $widget,
 	));
 	elgg_pop_context();
 }

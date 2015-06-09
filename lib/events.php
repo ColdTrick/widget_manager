@@ -65,14 +65,18 @@ function widget_manager_create_object_handler($event, $object_type, $object) {
 
 	if (elgg_instanceof($object, "object", "widget", "ElggWidget")) {
 		$owner = $object->getOwnerEntity();
-		// Updates access for privately created widgets in a group
-		if ($owner instanceof ElggGroup && $object->access_id === ACCESS_PRIVATE) {
+		// Updates access for privately created widgets in a group or on site
+		if ((int) $object->access_id === ACCESS_PRIVATE) {
 			$old_ia = elgg_set_ignore_access();
-			$object->access_id = $owner->group_acl;
-			$object->save();
+			if ($owner instanceof ElggGroup) {
+				$object->access_id = $owner->group_acl;
+				$object->save();
+			} elseif ($owner instanceof ElggSite) {
+				$object->access_id = ACCESS_PUBLIC;
+				$object->save();
+			}
 			elgg_set_ignore_access($old_ia);
 		}
-				
 		// Adds a relation between a widget and a multidashboard object
 		$dashboard_guid = get_input("multi_dashboard_guid");
 		if ($dashboard_guid && widget_manager_multi_dashboard_enabled()) {

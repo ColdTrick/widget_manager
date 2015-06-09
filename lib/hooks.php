@@ -19,8 +19,25 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 	if (!elgg_in_context("widget_access")) {
 		return $return_value;
 	}
-	
-	if (elgg_in_context("index") && elgg_is_admin_logged_in()) {
+	$widget = elgg_extract('entity', $params['input_params']);
+	if ($widget instanceof ElggWidget) {
+		$widget_context = $widget->context;
+		if ((elgg_in_context("index") || elgg_can_edit_widget_layout($widget_context)) && elgg_is_admin_logged_in()) {
+			// admins only have the following options for index widgets
+			$return_value = array(
+				ACCESS_PRIVATE => elgg_echo("access:admin_only"),
+				ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+				ACCESS_LOGGED_OUT => elgg_echo("LOGGED_OUT"),
+				ACCESS_PUBLIC => elgg_echo("PUBLIC")
+			);
+		} elseif (elgg_can_edit_widget_layout($widget_context)) {
+			// for non admins that can manage this widget context
+			$return_value = array(
+				ACCESS_LOGGED_IN => elgg_echo("LOGGED_IN"),
+				ACCESS_PUBLIC => elgg_echo("PUBLIC")
+			);
+		}
+	} elseif (elgg_in_context("index") && elgg_is_admin_logged_in()) {
 		// admins only have the following options for index widgets
 		$return_value = array(
 			ACCESS_PRIVATE => elgg_echo("access:admin_only"),
