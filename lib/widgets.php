@@ -138,24 +138,35 @@ function widget_manager_widgets_url_hook_handler($hook, $type, $return, $params)
  * @return void
  */
 function widget_manager_widgets_twitter_search_settings_save_hook($hook, $type, $return, $params) {
-	$widget = elgg_extract("widget", $params);
-	if ($widget && ($type == "twitter_search")) {
-		$embed_code = elgg_extract("embed_code", get_input("params", array(), false)); // do not strip code
-
-		if ($embed_code) {
-				
-			$start_pos = strpos($embed_code, 'data-widget-id="') + strlen('data-widget-id="');
-			$end_pos = strpos($embed_code, '"', $start_pos);
-				
-			$widget_id = filter_tags(substr($embed_code, $start_pos, $end_pos - $start_pos));
-				
-			if ($widget_id) {
-				$widget->widget_id = $widget_id;
-			} else {
-				register_error(elgg_echo("widgets:twitter_search:embed_code:error"));
-			}
-		}
+	
+	if (empty($params) || !is_array($params)) {
+		return;
 	}
+	
+	if ($type !== "twitter_search") {
+		return;
+	}
+	
+	$widget = elgg_extract("widget", $params);
+	if (empty($widget) || !elgg_instanceof($widget, 'object', 'widget')) {
+		return;
+	}
+	
+	// get embed code
+	$embed_code = elgg_extract("embed_code", get_input("params", array(), false)); // do not strip code
+
+	if (empty($embed_code)) {
+		return;
+	}
+
+	$pattern = '/data-widget-id=\"(\d+)\"/i';
+	$matches = array();
+	if (!preg_match($pattern, $embed_code, $matches)) {
+		register_error(elgg_echo("widgets:twitter_search:embed_code:error"));
+		return;
+	}
+	
+	$widget->widget_id = $matches[1];
 }
 
 /**
