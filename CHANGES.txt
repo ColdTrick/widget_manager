@@ -1,6 +1,26 @@
 Version history
 ===============
 
+5.1 (2015-07-08):
+
+- added: mechanisme to permanently cache widgets based on their handler
+- added: support for object/thewire entities
+- added: composer support
+- added: widget edit and delete icon now only show when hovering widget
+- changed: reorganized javascript
+- changed: Simplepie library is now loaded by composer
+- changed: delayed loading of the AMD modules to document ready to prevent conflicts
+- fixed: correctly ajax load search results for user_search widget
+- fixed: performance of rss server widget
+- fixed: replaced deprecate ->get calls with variable variables
+- fixed: replaced deprecated use of class in ElggMenuItem::factory
+- fixed: output/confirmlink deprecation notices
+- fixed: content by tag widget case insensitive tag search
+- fixed: moved favorites toggle action file to correct location
+- fixed: non admins can not correctly manage widgets on landing pages
+- fixed: twitter search embed code parsing failed
+- fixed: use input/text view to output search input on addpanel
+
 5.0 (2014-12-08):
 
 - added: widget collapsed state is remember for logged in users in the database
