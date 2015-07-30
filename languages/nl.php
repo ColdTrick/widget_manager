@@ -1,10 +1,13 @@
 <?php
 /**
- * This file was created by Translation Editor v2.0
- * On 2014-10-03 10:07
+ * This file was created by Translation Editor v4.0
+ * On 2015-07-30 15:59
  */
 
 return array (
+  'widget_manager:forms:groups_widget_access:title' => 'Widget Zichtbaarheid',
+  'widget_manager:forms:groups_widget_access:description' => 'Deze actie geeft je de mogelijkheid om de zichtbaarheid van alle widgets in deze groep aan te passen naar het opgegeven toegangsniveau.',
+  'widget_manager:action:groups:update_widget_access:success' => 'Zichtbaarheid van alle widgets in deze groep is bijgewerkt',
   'widgets:rss_server:title' => 'RSS Feed',
   'widgets:rss_server:description' => 'Toon een RSS feed (server side ophalen)',
   'widgets:rss_server:settings:show_author' => 'Toon auteur voor item',
