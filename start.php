@@ -38,6 +38,10 @@ function widget_manager_init() {
 	$group_enable = elgg_get_plugin_setting("group_enable", "widget_manager");
 	if (elgg_is_active_plugin("groups") && in_array($group_enable, array("yes", "forced"))) {
 		
+		elgg_extend_view("groups/edit", "widget_manager/forms/groups_widget_access");
+		elgg_register_action("widget_manager/groups/update_widget_access", dirname(__FILE__) . "/actions/groups/update_widget_access.php");
+		
+		
 		// cleanup widgets in group context
 		elgg_extend_view("page/layouts/widgets/add_panel", "widget_manager/group_tool_widgets", 400);
 		

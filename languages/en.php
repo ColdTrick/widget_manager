@@ -84,6 +84,10 @@ $english = array(
 	'widget_manager:forms:settings:no_widgets' => "No widgets to manage",
 	'widget_manager:forms:settings:can_add' => "Can be added",
 
+	// groups widget access
+	'widget_manager:forms:groups_widget_access:title' => "Widget Access",
+	'widget_manager:forms:groups_widget_access:description' => "This action allows you to update the access level of all widgets in this group to the given access level.",
+	
 	// lightbox
 	'widget_manager:button:add' => "Add widget",
 	'widget_manager:widgets:lightbox:title:dashboard' => "Add widgets to your personal dashboard",
@@ -135,6 +139,9 @@ $english = array(
 	// force tool widgets
 	'widget_manager:action:force_tool_widgets:error:not_enabled' => "Widget managent for groups is not enabled",
 	'widget_manager:action:force_tool_widgets:succes' => "Enforced tool specific widgets for %s groups",
+	
+	// groups update widget access
+	'widget_manager:action:groups:update_widget_access:success' => "Access to all widgets in this group is updated",
 	
 	// widgets
 	'widget_manager:widgets:edit:advanced' => "Advanced",
