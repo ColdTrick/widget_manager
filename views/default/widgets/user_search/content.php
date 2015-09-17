@@ -7,7 +7,7 @@ if (empty($widget)) {
 		$widget = get_entity($guid);
 		if (!($widget instanceof ElggWidget)) {
 			return;
-		}		
+		}
 	}
 }
 
@@ -15,7 +15,7 @@ $q = get_input("q");
 $q = sanitise_string($q);
 
 $form_body = elgg_view("input/text", array("name" => "q", "title" => elgg_echo("search"), "value" => $q));
-echo elgg_view("input/form", array("body" => $form_body, "class" => "widget-user-search-form"));
+echo elgg_view("input/form", array("body" => $form_body, "class" => "widget-user-search-form", 'onsubmit' => 'return false;'));
 
 $result = array();
 
@@ -78,9 +78,7 @@ if (empty($result)) {
 <script type='text/javascript'>
 	$(document).ready(function(){
 		$(".widget-user-search-form").submit(function(){
-			var new_val = $(this).find("[name='q']").val();
-			
-			$("#elgg-widget-content-<?php echo $widget->getGUID(); ?>").load(elgg.normalize_url("ajax/view/widgets/user_search/content?guid=<?php echo $widget->getGUID(); ?>&q=" + new_val));
+			$("#elgg-widget-content-<?php echo $widget->getGUID(); ?>").load(elgg.normalize_url("ajax/view/widgets/user_search/content?guid=<?php echo $widget->getGUID(); ?>&" + $(this).serialize()));
 			return false;
 		});
 	});
