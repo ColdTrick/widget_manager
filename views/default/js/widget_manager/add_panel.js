@@ -18,9 +18,9 @@ elgg.widget_manager.widget_add_init = function() {
 	$(document).ajaxSuccess(function(e, xhr, settings) {
 		if (settings.url == elgg.normalize_url('/action/widgets/add')) {
 			// move new widget to a new position (after fixed widgets) if needed
-			if ($(this).find('.elgg-state-fixed').size() > 0) {
+			if ($(this).find('.elgg-widgets > .elgg-state-fixed').size() > 0) {
 				$widget = $(this).find('.elgg-module-widget:first');
-				$widget.insertAfter($(this).find('.elgg-state-fixed:last'));
+				$widget.insertAfter($(this).find('.elgg-widgets > .elgg-state-fixed:last'));
 				
 				// first item is the recently moved widget, because fixed widgets are not part of the sortable
 				var index = $(this).find('.elgg-module-widget').index($widget);
