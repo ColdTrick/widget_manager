@@ -74,7 +74,7 @@ function widget_manager_widgets_init() {
 	
 	// favorites
 	elgg_register_widget_type("favorites", elgg_echo("widgets:favorites:title"), elgg_echo("widgets:favorites:description"), array("dashboard"));
-	elgg_register_event_handler("pagesetup", "system", "widget_manager_widgets_favorites_pagesetup");
+	elgg_register_plugin_hook_handler('register', 'menu:extras', 'widget_manager_widgets_favorites_extras_register_hook');
 	elgg_register_action("favorite/toggle", elgg_get_plugins_path() . "widget_manager/actions/favorites/toggle.php");
 	elgg_extend_view("js/elgg", "widgets/favorites/js");
 }
@@ -170,29 +170,38 @@ function widget_manager_widgets_twitter_search_settings_save_hook($hook, $type, 
 }
 
 /**
- * Function to register menu items for favorites widget during pagesetup
+ * Function to register menu items for favorites widget
  *
- * @return void
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return array
  */
-function widget_manager_widgets_favorites_pagesetup() {
-	if (widget_manager_widgets_favorites_has_widget()) {
-		if ($favorite = widget_manager_widgets_favorites_is_linked()) {
-			$text = elgg_view_icon("star-alt");
-			$href = "action/favorite/toggle?guid=" . $favorite->getGUID();
-			$title = elgg_echo("widgets:favorites:menu:remove");
-		} else {
-			$text = elgg_view_icon("star-empty");
-			$href = "action/favorite/toggle?link=" . elgg_normalize_url(current_page_url());
-			$title = elgg_echo("widgets:favorites:menu:add");
-		}
-		
-		elgg_register_menu_item("extras", array(
-			"name" => "widget_favorites",
-			"title" => $title,
-			"href" => $href,
-			"text" => $text
-		));
+function widget_manager_widgets_favorites_extras_register_hook($hook_name, $entity_type, $return_value, $params) {
+
+	if (!widget_manager_widgets_favorites_has_widget()) {
+		return;
 	}
+	
+	$params = [
+		'name' => 'widget_favorites',
+	];
+	
+	$favorite = widget_manager_widgets_favorites_is_linked();
+	if ($favorite) {
+		$params['text'] = elgg_view_icon('star-alt');
+		$params['href'] = 'action/favorite/toggle?guid=' . $favorite->getGUID();
+		$params['title'] = elgg_echo('widgets:favorites:menu:remove');
+	} else {
+		$params['text'] = elgg_view_icon('star-empty');
+		$params['href'] = 'action/favorite/toggle?link=' . elgg_normalize_url(current_page_url());
+		$params['title'] = elgg_echo('widgets:favorites:menu:add');
+	}
+	
+	$return_value[] = ElggMenuItem::factory($params);
+	return $return_value;
 }
 
 /**
