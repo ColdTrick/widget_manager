@@ -52,10 +52,12 @@ define(['jquery', 'elgg'], function ($, elgg) {
 								var xml_item = $items[index];
 								
 								var enclosure = $(xml_item).find("enclosure");
-								var enclosure_url = enclosure.attr("url");
-								var enclosure_type = enclosure.attr("type");
-							
-								s += "<a href='" + item.link + "' target='_blank'><img class='widgets_rss_feed_item_image' src='" + enclosure_url + "' /></a>";
+								if (enclosure.length) {
+									var enclosure_url = enclosure.attr("url");
+									var enclosure_type = enclosure.attr("type");
+								
+									s += "<a href='" + item.link + "' target='_blank'><img class='widgets_rss_feed_item_image' src='" + enclosure_url + "' /></a>";
+								}
 							}
 							
 							s += description;
