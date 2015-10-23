@@ -78,8 +78,8 @@ function widget_manager_init() {
 	elgg_extend_view("css/admin", "css/widget_manager/admin");
 	elgg_extend_view("css/admin", "css/widget_manager/global");
 	
-	elgg_extend_view("js/elgg", "js/widget_manager/site");
-	elgg_extend_view("js/admin", "js/widget_manager/admin");
+	elgg_extend_view("js/elgg", "js/widget_manager/site.js");
+	elgg_extend_view("js/admin", "js/widget_manager/admin.js");
 	
 	elgg_register_plugin_hook_handler("format", "friendly:time", "widget_manager_friendly_time_hook");
 	

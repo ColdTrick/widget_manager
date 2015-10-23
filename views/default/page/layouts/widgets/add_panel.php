@@ -62,7 +62,6 @@ if (!empty($user_widgets)) {
 $search_box = elgg_view('input/text', [
 	'title' => elgg_echo('search'),
 	'placeholder' => elgg_echo('search'),
-	'onkeyup' => 'elgg.widget_manager.widgets_search($(this).val());'
 ]);
 
 // make nice lightbox popup title
