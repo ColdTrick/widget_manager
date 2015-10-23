@@ -2,30 +2,30 @@
 $context = $vars["context"];
 $show_access = (int) $vars["show_access"];
 
-$params = array(
+if ($md_guid = get_input("multi_dashboard_guid")) {
+	$params = [
 	'name' => 'widget_context',
-	'value' => $context
-);
-
-$md_guid = (int) get_input("multi_dashboard_guid");
-if (!empty($md_guid)) {
-	$params['value'] .= "_" . $md_guid;
-}
-
-echo elgg_view('input/hidden', $params);
-echo elgg_view('input/hidden', array("name" => "show_access", "value" => $show_access));
-
-if (elgg_is_xhr()) {
-	echo "<script>require(['widget_manager/add_panel']);</script>";
+		'value' => $context . "_" . $md_guid
+	];
 } else {
-	elgg_require_js("widget_manager/add_panel");
+	$params = [
+		'name' => 'widget_context',
+	'value' => $context
+	];
 }
+echo elgg_view('input/hidden', $params);
+
+echo elgg_view('input/hidden', ["name" => "show_access", "value" => $show_access]);
 	
 $widget_context = str_replace("default_", "", $context);
 
 $available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", array(), $widget_context);
 
 $widgets = elgg_get_widget_types($available_widgets_context, $vars["exact_match"]);
+if (empty($widgets)) {
+	$widgets = array();
+}
+
 widget_manager_sort_widgets($widgets);
 
 $current_handlers = array();
@@ -40,64 +40,84 @@ if (!empty($vars["widgets"])) {
 	}
 }
 
-$title = "<div id='widget_manager_widgets_search'>";
-$title .= elgg_view('input/text', [
-	'title' => elgg_echo('search'),
-	'placeholder' => elgg_echo('search'),
-	'onkeyup' => 'elgg.widget_manager.widgets_search($(this).val());'
-]);
-$title .= "</div>";
-$title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
+$title = elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
 
-$body = "";
-if (!empty($widgets)) {
+$search .= elgg_format_element('input', [
+	'class' => 'elgg-input-text',
+	'title' => elgg_echo("search"),
+	'type' => 'text',
+	'value' => elgg_echo("search"),
+	'onfocus' => "if($(this).val() == \"" . elgg_echo("search") . "\"){ $(this).val(\"\"); }",
+	'onkeyup' => 'elgg.widget_manager.widgets_search($(this).val());',
+]);
+
+$search = elgg_format_element('div', ['class' => 'wm-add-panel-search'], $search);
+
+$widgets_list = [];
+
 	foreach ($widgets as $handler => $widget) {
+
+	$widget_class = ['elgg-item'];
+
+	$allow_multiple = $widget->multiple;
 		$can_add = widget_manager_get_widget_setting($handler, "can_add", $widget_context);
-		$allow_multiple = $widget->multiple;
 		$hide = widget_manager_get_widget_setting($handler, "hide", $widget_context);
 		
-		if ($can_add && !$hide) {
-			$body .= "<div class='widget_manager_widgets_lightbox_wrapper clearfix'>";
+	if (!$can_add || $hide) {
+		continue;
+	}
 			
 			if (!$allow_multiple && in_array($handler, $current_handlers)) {
-				$class = 'elgg-state-unavailable';
+		$widget_class[] = 'elgg-state-unavailable';
 			} else {
-				$class = 'elgg-state-available';
+		$widget_class[] = 'elgg-state-available';
 			}
 			
 			if ($allow_multiple) {
-				$class .= ' elgg-widget-multiple';
+		$widget_class[] = 'elgg-widget-multiple';
 			} else {
-				$class .= ' elgg-widget-single';
+		$widget_class[] = 'elgg-widget-single';
 			}
 			
-			$body .= "<span class='widget_manager_widgets_lightbox_actions'>";
-			$body .= '<ul><li class="' . $class . '" data-elgg-widget-type="' . $handler . '">';
-			if (!$allow_multiple) {
-				$body .= "<span class='elgg-quiet'>" . elgg_echo('widget:unavailable') . "</span>";
+	$add = elgg_view('output/url', [
+		'text' => elgg_view_icon('plus'),
+		'href' => '#',
+		'class' => 'elgg-button elgg-button-action wm-add-widget',
+	]);
+			
+	$actions = elgg_format_element('li', [
+		'data-elgg-widget-type' => $handler,
+		'class' => $widget_class,
+			], $add);
+
+	$image = elgg_format_element('ul', ['class' => 'widget_manager_widgets_lightbox_actions'], $actions);
+
+	$summary = elgg_view('object/elements/summary', [
+		'entity' => $widget,
+		'title' => $widget->name,
+		'subtitle' => $widget->description,
+	]);
+
+	$body = elgg_view_image_block($image, $summary, [
+		'class' => 'widget_manager_widgets_lightbox_wrapper',
+	]);
+
+	$widgets_list[] = elgg_format_element('li', ['class' => 'elgg-item'], $body);
 			}
-			$body .= elgg_view("input/button", array("class" => "elgg-button-submit", "value" => elgg_echo("widget_manager:button:add")));
-			$body .= "</li></ul>";
-			$body .= "</span>";
 			
-			$description = $widget->description;
-			if (empty($description)) {
-				$description = "&nbsp;"; // need to fill up for correct layout
-			}
 			
-			$body .= "<div><b>" . $widget->name . "</b></div>";
-			$body .= "<div class='elgg-quiet'>" . $description . "</div>";
-			
-			$body .= "</div>";
-		}
-	}
+if (empty($widgets_list)) {
+	$body = elgg_format_element('p', ['class' => 'elgg-noresults'], elgg_echo("notfound"));
 } else {
-	$body = elgg_echo("notfound");
+	$body = elgg_format_element('ul', ['class' => 'elgg-list'], implode('', $widgets_list));
 }
 
-$module_type = "info";
-if (elgg_in_context("admin")) {
-	$module_type = "inline";
-}
+$module = elgg_view_module('main', $title . $search, $body, [
+	'id' => 'widget_manager_widgets_select',
+		]);
 
-echo "<div class='elgg-widgets-add-panel hidden'>" . elgg_view_module($module_type, $title, $body, array("id" => "widget_manager_widgets_select")) . "</div>";
+echo elgg_format_element('div', ['class' => 'elgg-widgets-add-panel hidden'], $module);
+?>
+<script type="text/javascript">
+	require(['widget_manager/add_panel']);
+</script>
