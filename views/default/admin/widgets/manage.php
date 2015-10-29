@@ -4,7 +4,15 @@ $tabs = array();
 
 $selected_context = get_input("widget_context", "profile");
 
-foreach (array("profile", "dashboard", "groups") as $key => $context) {
+$contexts = array();
+
+// Use contexts defined for default widgets
+$list = elgg_trigger_plugin_hook('get_list', 'default_widgets', null, array());
+foreach ($list as $context_opts) {
+	$contexts[] = $context_opts['widget_context'];
+}
+
+foreach ($contexts as $context) {
 	$selected = false;
 	if ($selected_context === $context) {
 		$selected = true;
@@ -14,7 +22,7 @@ foreach (array("profile", "dashboard", "groups") as $key => $context) {
 			"selected" => $selected,
 			"url" => "admin/widgets/manage?widget_context=" . $context
 		);
-	
+
 	$tabs[] = $tabs_options;
 }
 
