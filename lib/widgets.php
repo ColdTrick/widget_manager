@@ -76,7 +76,8 @@ function widget_manager_widgets_init() {
 	elgg_register_widget_type("favorites", elgg_echo("widgets:favorites:title"), elgg_echo("widgets:favorites:description"), array("dashboard"));
 	elgg_register_plugin_hook_handler('register', 'menu:extras', 'widget_manager_widgets_favorites_extras_register_hook');
 	elgg_register_action("favorite/toggle", elgg_get_plugins_path() . "widget_manager/actions/favorites/toggle.php");
-	elgg_extend_view("js/elgg", "widgets/favorites/js");
+	elgg_extend_view('navigation/menu/extras', 'widgets/favorites/extras_menu');
+	
 }
 
 /**
@@ -184,7 +185,7 @@ function widget_manager_widgets_favorites_extras_register_hook($hook_name, $enti
 	if (!widget_manager_widgets_favorites_has_widget()) {
 		return;
 	}
-	
+
 	$params = [
 		'name' => 'widget_favorites',
 	];
