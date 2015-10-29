@@ -44,7 +44,6 @@ $title = "<div id='widget_manager_widgets_search'>";
 $title .= elgg_view('input/text', [
 	'title' => elgg_echo('search'),
 	'placeholder' => elgg_echo('search'),
-	'onkeyup' => 'elgg.widget_manager.widgets_search($(this).val());'
 ]);
 $title .= "</div>";
 $title .= elgg_echo("widget_manager:widgets:lightbox:title:" . $context);
