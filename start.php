@@ -3,7 +3,7 @@
 define("ACCESS_LOGGED_OUT", -5);
 define("MULTI_DASHBOARD_MAX_TABS", 7);
 
-require_once(dirname(__FILE__) . "/vendor/autoload.php");
+@include_once(dirname(__FILE__) . "/vendor/autoload.php");
 require_once(dirname(__FILE__) . "/lib/functions.php");
 require_once(dirname(__FILE__) . "/lib/events.php");
 require_once(dirname(__FILE__) . "/lib/hooks.php");
