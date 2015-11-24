@@ -33,6 +33,10 @@ if (empty($content_type)) {
 		$content_type = "task_top";
 	} elseif (elgg_is_active_plugin("groups")) {
 		$content_type = "groupforumtopic";
+	} elseif (elgg_is_active_plugin("poll")) {
+		$content_type = "poll";
+	} elseif (elgg_is_active_plugin("questions")) {
+		$content_type = "question";
 	}
 }
 

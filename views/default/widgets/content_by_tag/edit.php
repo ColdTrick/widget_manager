@@ -37,6 +37,12 @@ if (elgg_is_active_plugin("tasks")) {
 if (elgg_is_active_plugin("groups")) {
 	$content_options_values["groupforumtopic"] = elgg_echo("item:object:groupforumtopic");
 }
+if (elgg_is_active_plugin("poll")) {
+	$content_options_values["poll"] = elgg_echo("item:object:poll");
+}
+if (elgg_is_active_plugin("questions")) {
+	$content_options_values["question"] = elgg_echo("item:object:question");
+}
 
 if (empty($content_type) && !empty($content_options_values)) {
 	$keys = array_keys($content_options_values);
