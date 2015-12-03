@@ -149,6 +149,10 @@ if ($names_where && $values_where) {
 	$wheres[] = "($values_where AND $access)";
 }
 
+if ($widget->order_by == 'alpha') {
+	$joins[] = "JOIN {$dbprefix}objects_entity oe ON e.guid = oe.guid";
+}
+
 $options = array(
 	"type" => "object",
 	"subtypes" => $content_type,
@@ -172,6 +176,10 @@ if (!empty($widget->owner_guids)) {
 
 if (($widget->context == "groups") && ($widget->group_only !== "no")) {
 	$options["container_guids"] = array($widget->container_guid);
+}
+
+if ($widget->order_by == 'alpha') {
+	$options['order_by'] = 'oe.title ASC';
 }
 
 elgg_push_context("search");

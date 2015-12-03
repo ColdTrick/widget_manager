@@ -147,6 +147,20 @@ if ($widget->context == "groups") {
 	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
 </div>
 
+<div>
+	<?php
+	echo elgg_echo("widgets:content_by_tag:order_by") . "<br />";
+	echo elgg_view("input/dropdown", array(
+		"name" => "params[order_by]",
+		"options_values" => array (
+			'time_created' => elgg_echo("widgets:content_by_tag:order_by:time_created"),
+			'alpha' => elgg_echo("widgets:content_by_tag:order_by:alpha"),
+		),
+		"value" => $widget->order_by
+	));
+	?>
+</div>
+
 <div class="widgets-content-by-tag-display-options">
 	<div class="widgets-content-by-tag-display-options-slim">
 		<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
