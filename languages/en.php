@@ -225,6 +225,9 @@ $content_by_tag = array(
 	'widgets:content_by_tag:show_search_link:disclaimer' => "Search results may vary from widget content",
 	'widgets:content_by_tag:show_avatar' => "Show user avatar",
 	'widgets:content_by_tag:show_timestamp' => "Show content timestamp",
+	'widgets:content_by_tag:order_by' => "How to order the content",
+	'widgets:content_by_tag:order_by:time_created' => "Time created",
+	'widgets:content_by_tag:order_by:alpha' => "Alphabetically",
 );
 add_translation("en", $content_by_tag);
 
