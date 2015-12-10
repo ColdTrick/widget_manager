@@ -100,3 +100,5 @@ elgg.widget_manager.init_widget_settings = function() {
 
 elgg.register_hook_handler('init', 'system', elgg.widget_manager.init);
 elgg.register_hook_handler('init', 'system', elgg.widget_manager.init_widget_settings);
+
+elgg.ui.registerTogglableMenuItems('widget-favorites-add', 'widget-favorites-remove');
