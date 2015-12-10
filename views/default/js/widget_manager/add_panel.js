@@ -15,6 +15,8 @@ elgg.widget_manager.widgets_search = function(q) {
 }
 
 elgg.widget_manager.widget_add_init = function() {
+	$(document).on('click', '#widget_manager_widgets_select li.elgg-state-available', elgg.ui.widgets.add);
+	
 	$(document).ajaxSuccess(function(e, xhr, settings) {
 		if (settings.url == elgg.normalize_url('/action/widgets/add')) {
 			// move new widget to a new position (after fixed widgets) if needed

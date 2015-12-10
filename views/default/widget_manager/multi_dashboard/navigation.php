@@ -37,7 +37,7 @@ if (!empty($md_entities)) {
 		$order = $entity->order ? $entity->order : $entity->time_created;
 		
 		$tabs[$order] = array(
-			"text" => $tab_title . elgg_view_icon("settings-alt", "widget-manager-multi-dashboard-tabs-edit"),
+			"text" => $tab_title . elgg_view_icon("settings-alt", "widget-manager-multi-dashboard-tabs-edit hidden"),
 			"href" => $entity->getURL(),
 			"title" => $entity->title,
 			"selected" => $selected,

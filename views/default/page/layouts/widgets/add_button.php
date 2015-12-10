@@ -3,23 +3,30 @@
  * Button area for showing the add widgets panel
  */
 
+if (elgg_in_context('iframe_dashboard')) {
+	return;
+}
+
 elgg_load_js('lightbox');
 elgg_load_css('lightbox');
 
+$href_options = [
+	'context' => elgg_extract('context', $vars),
+	'context_stack' => elgg_get_context_stack(),
+	'show_access' => elgg_extract('show_access', $vars),
+	'exact_match' => elgg_extract('exact_match', $vars),
+	'multi_dashboard_guid' => elgg_extract('multi_dashboard_guid', $vars),
+	'owner_guid' => elgg_get_page_owner_guid(),
+];
 
-$options = array(
+$href = elgg_normalize_url(elgg_http_add_url_query_elements('ajax/view/page/layouts/widgets/add_panel', $href_options));
+
+elgg_register_menu_item('title', [
 	'id' => 'widgets-add-panel',
+	'name' => 'widgets:add',
 	'text' => elgg_echo('widgets:add'),
 	'link_class' => 'elgg-button elgg-button-action elgg-lightbox',
 	'href' => '#',
-	'data-colorbox-opts' => '{"inline":true, "href":"#widget_manager_widgets_select", "innerWidth": 600, "maxHeight": "80%"}'
-);
-
-if (elgg_in_context("iframe_dashboard")) {
-	// TODO: why hide? we could also not output the button
-	$options["style"] = "visibility: hidden;";
-}
-
-$options['name'] = 'widgets:add';
-
-elgg_register_menu_item('title', $options);
+	'onclick' => 'require(["widget_manager/add_panel"]);',
+	'data-colorbox-opts' => '{"href":"' . $href . '", "innerWidth": 600, "maxHeight": "80%"}'
+]);

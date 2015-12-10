@@ -18,7 +18,7 @@ $owner = elgg_get_page_owner_entity();
 
 $context = elgg_get_context();
 
-$available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", array(), $context);
+$available_widgets_context = elgg_trigger_plugin_hook("available_widgets_context", "widget_manager", [], $context);
 
 $widget_types = elgg_get_widget_types($available_widgets_context);
 $md_object = null;
@@ -55,7 +55,7 @@ if ($context == "dashboard" && widget_manager_multi_dashboard_enabled() && !elgg
 if (!empty($md_object)) {
 	$widgets = $md_object->getWidgets();
 } else {
-	if (($context == "dashboard") && !elgg_in_context("admin")) {
+	if (($context == 'dashboard') && !elgg_in_context('admin')) {
 		// can't use elgg function because it gives all and we only need the widgets not related to a multidashboard entity
 		$widgets = widget_manager_get_widgets($owner->guid, $context);
 	} else {
@@ -63,35 +63,33 @@ if (!empty($md_object)) {
 	}
 }
 
-$top_row_used = elgg_extract("top_row_used", $vars);
+$top_row_used = elgg_extract('top_row_used', $vars);
 if ($top_row_used) {
 	unset($widgets[4]);
 }
 
 echo "<div class='elgg-layout-widgets layout-widgets-" . $context . "'>";
 
-if (elgg_can_edit_widget_layout($context)) {
-	if ($show_add_widgets) {
-		echo elgg_view('page/layouts/widgets/add_button');
-	}
-	
-	$params = array(
-		'widgets' => $widgets,
+if (elgg_can_edit_widget_layout($context) && $show_add_widgets) {
+	echo elgg_view('page/layouts/widgets/add_button', [
 		'context' => $context,
 		'exact_match' => $exact_match,
 		'show_access' => $show_access,
-	);
-	echo elgg_view('page/layouts/widgets/add_panel', $params);
+		'multi_dashboard_guid' => get_input('multi_dashboard_guid'),
+	]);
 }
 
 if (elgg_in_context("iframe_dashboard")) {
 	// undo iframe context
 	elgg_pop_context();
-	if ($md_object->getDashboardType() == "iframe") {
+	if ($md_object->getDashboardType() == 'iframe') {
 		$url = $md_object->getIframeUrl();
 		$height = $md_object->getIframeHeight();
 		
-		echo "<iframe src='" . $url . "' style='width: 100%; height: " . $height . "px;'></iframe>";
+		echo elgg_format_element('iframe', [
+			'src' => $url,
+			'style' => "width: 100%; height: {$height}px;",
+		]);
 		
 	} elseif ($md_object->getDashboardType() == "internal") {
 		$url = $md_object->getInternalUrl();
@@ -108,15 +106,15 @@ if (elgg_in_context("iframe_dashboard")) {
 		<?php
 	}
 } else {
-	if (empty($widgets) || $context !== "dashboard") {
-		echo elgg_extract("content", $vars);
+	if (empty($widgets) || $context !== 'dashboard') {
+		echo elgg_extract('content', $vars);
 	}
 	
 	if ($context == "dashboard" && empty($md_object)) {
 		// change styling of dashboard, but only for default dashboard
 		$dashboard_widget_layout = elgg_get_plugin_setting("dashboard_widget_layout", "widget_manager");
 		if (!empty($dashboard_widget_layout) && ($dashboard_widget_layout != "33|33|33")) {
-			$style = "";
+			$style = '';
 			$columns = array_reverse(explode("|", $dashboard_widget_layout));
 			$num_columns = count($columns);
 			
@@ -126,12 +124,12 @@ if (elgg_in_context("iframe_dashboard")) {
 			}
 				
 			if ($style) {
-				echo "<style type='text/css'>" . $style . "</style>";
+				echo elgg_format_element('style', ['type' => 'text/css'], $style);
 			}
 		}
 	}
 	
-	if ($context == "groups") {
+	if ($context == 'groups') {
 		echo "<div class=\"elgg-col-1of1 elgg-widgets widget-manager-groups-widgets-top-row\" id=\"elgg-widget-col-3\">";
 		
 		if (isset($widgets[3]) && (sizeof($widgets[3]) > 0)) {
@@ -144,7 +142,7 @@ if (elgg_in_context("iframe_dashboard")) {
 		echo "</div>";
 	} elseif (in_array($context, array("index", "dashboard")) || widget_manager_is_extra_context($context)) {
 		
-		foreach ($widgets as $index => $column) { 
+		foreach ($widgets as $index => $column) {
 			if ($index > $num_columns) {
 				if (!isset($widgets[$num_columns])) {
 					$widgets[$num_columns] = array();
@@ -154,7 +152,7 @@ if (elgg_in_context("iframe_dashboard")) {
 				$widgets[$num_columns] = array_merge($widgets[$index], $widgets[$num_columns]);
 				unset($widgets[$index]);
 			}
-		}		
+		}
 	}
 	
 	$widget_class = "elgg-col-1of{$num_columns}";

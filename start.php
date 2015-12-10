@@ -133,9 +133,8 @@ function widget_manager_init() {
 		elgg_register_action("multi_dashboard/reorder", dirname(__FILE__) . "/actions/multi_dashboard/reorder.php");
 	}
 	
-
+	elgg_register_ajax_view("page/layouts/widgets/add_panel");
 	elgg_register_ajax_view("widget_manager/widgets/settings");
-
 	elgg_register_ajax_view("widgets/user_search/content");
 	
 	// register actions

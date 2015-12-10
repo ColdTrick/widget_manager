@@ -36,23 +36,8 @@
 	background: #CCC;
 }
 
-#widget-manager-multi-dashboard-tabs {
-	position: absolute;
-	top: 20px;
-}
-
-.widget-manager-multi-dashboard-tabs-edit {
-	display: none;
-	vertical-align: middle;
-}
-
-.widget-manager-multi-dashboard-tab:hover > a {
-	padding-right: 5px;
-}
-
 .widget-manager-multi-dashboard-tab:hover .widget-manager-multi-dashboard-tabs-edit {
 	display: inline-block;
-	margin-left: 5px;
 }
 
 #widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-active {
