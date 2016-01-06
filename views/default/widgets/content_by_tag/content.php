@@ -37,6 +37,8 @@ if (empty($content_type)) {
 		$content_type = "poll";
 	} elseif (elgg_is_active_plugin("questions")) {
 		$content_type = "question";
+	} elseif (elgg_is_active_plugin("static")) {
+		$content_type = "static";
 	}
 }
 
@@ -263,7 +265,7 @@ if (in_array($display_option, array("slim","simple"))) {
 				if ($show_avatar) {
 					$icon = elgg_view_entity_icon($owner, "small");
 				}
-
+				
 				$text = elgg_view("output/url", array("href" => $entity_url, "text" => $entity->title));
 				$text .= "<br />";
 				$text .= "<a href='" . $owner->getURL() . "'>" . $owner->name . "</a>";
