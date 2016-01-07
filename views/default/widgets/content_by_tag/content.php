@@ -14,31 +14,11 @@ if (empty($count)) {
 $content_type = $widget->content_type;
 
 if (empty($content_type)) {
-	// set default content type filter
-	if (elgg_is_active_plugin("blog")) {
-		$content_type = "blog";
-	} elseif (elgg_is_active_plugin("file")) {
-		$content_type = "file";
-	} elseif (elgg_is_active_plugin("pages")) {
-		$content_type = "page";
-	} elseif (elgg_is_active_plugin("bookmarks")) {
-		$content_type = "bookmarks";
-	} elseif (elgg_is_active_plugin("thewire")) {
-		$content_type = "thewire";
-	} elseif (elgg_is_active_plugin("videolist")) {
-		$content_type = "videolist_item";
-	} elseif (elgg_is_active_plugin("event_manager")) {
-		$content_type = "event";
-	} elseif (elgg_is_active_plugin("tasks")) {
-		$content_type = "task_top";
-	} elseif (elgg_is_active_plugin("groups")) {
-		$content_type = "groupforumtopic";
-	} elseif (elgg_is_active_plugin("poll")) {
-		$content_type = "poll";
-	} elseif (elgg_is_active_plugin("questions")) {
-		$content_type = "question";
-	} elseif (elgg_is_active_plugin("static")) {
-		$content_type = "static";
+	foreach (widget_manager_widgets_content_by_tag_get_supported_content() as $plugin => $subtype) {
+		if (elgg_is_active_plugin($plugin)) {
+			$content_type = $subtype;
+			break;
+		}
 	}
 }
 

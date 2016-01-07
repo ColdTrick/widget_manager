@@ -11,8 +11,11 @@
 function widget_manager_widgets_init() {
 	
 	// content_by_tag
-	if (elgg_is_active_plugin("blog") || elgg_is_active_plugin("file") || elgg_is_active_plugin("pages")) {
-		elgg_register_widget_type("content_by_tag", elgg_echo("widgets:content_by_tag:name"), elgg_echo("widgets:content_by_tag:description"), array("profile", "dashboard", "index", "groups"), true);
+	foreach (widget_manager_widgets_content_by_tag_get_supported_content() as $plugin => $subtype) {
+		if (elgg_is_active_plugin($plugin)) {
+			elgg_register_widget_type('content_by_tag', elgg_echo('widgets:content_by_tag:name'), elgg_echo('widgets:content_by_tag:description'), ['profile', 'dashboard', 'index', 'groups'], true);
+			break;
+		}
 	}
 	
 	// entity_statistics
@@ -295,4 +298,29 @@ function widget_manager_widgets_favorites_is_linked($url = "") {
 	}
 	
 	return $entities[0];
+}
+
+/**
+ * Returns the supported object subtypes to be used in the content_by_tag widget
+ *
+ * @return array
+ */
+function widget_manager_widgets_content_by_tag_get_supported_content() {
+	$result = [
+		'blog' => 'blog',
+		'file' => 'file',
+		'pages' => 'page',
+		'bookmarks' => 'bookmarks',
+		'thewire' => 'thewire',
+		'videolist' => 'videolist_item',
+		'event_manager' => 'event',
+		'tasks' => 'task_top',
+		'groups' => 'groupforumtopic',
+		'poll' => 'poll',
+		'questions' => 'question',
+		'static' => 'static',
+		//'plugin_id' => 'subtype',
+	];
+	
+	return elgg_trigger_plugin_hook('supported_content', 'widgets:content_by_tag', $result, $result);
 }

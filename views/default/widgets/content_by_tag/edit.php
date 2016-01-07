@@ -9,42 +9,11 @@ if (empty($count)) {
 
 $content_type = $widget->content_type;
 
-$content_options_values = array();
-if (elgg_is_active_plugin("blog")) {
-	$content_options_values["blog"] = elgg_echo("item:object:blog");
-}
-if (elgg_is_active_plugin("file")) {
-	$content_options_values["file"] = elgg_echo("item:object:file");
-}
-if (elgg_is_active_plugin("pages")) {
-	$content_options_values["page"] = elgg_echo("item:object:page");
-}
-if (elgg_is_active_plugin("bookmarks")) {
-	$content_options_values["bookmarks"] = elgg_echo("item:object:bookmarks");
-}
-if (elgg_is_active_plugin("thewire")) {
-	$content_options_values["thewire"] = elgg_echo("item:object:thewire");
-}
-if (elgg_is_active_plugin("videolist")) {
-	$content_options_values["videolist_item"] = elgg_echo("item:object:videolist_item");
-}
-if (elgg_is_active_plugin("event_manager")) {
-	$content_options_values["event"] = elgg_echo("item:object:event");
-}
-if (elgg_is_active_plugin("tasks")) {
-	$content_options_values["task_top"] = elgg_echo("item:object:task_top");
-}
-if (elgg_is_active_plugin("groups")) {
-	$content_options_values["groupforumtopic"] = elgg_echo("item:object:groupforumtopic");
-}
-if (elgg_is_active_plugin("poll")) {
-	$content_options_values["poll"] = elgg_echo("item:object:poll");
-}
-if (elgg_is_active_plugin("questions")) {
-	$content_options_values["question"] = elgg_echo("item:object:question");
-}
-if (elgg_is_active_plugin("static")) {
-	$content_options_values["static"] = elgg_echo("item:object:static");
+$content_options_values = [];
+foreach (widget_manager_widgets_content_by_tag_get_supported_content() as $plugin => $subtype) {
+	if (elgg_is_active_plugin($plugin)) {
+		$content_options_values[$subtype] = elgg_echo("item:object:{$subtype}");
+	}
 }
 
 if (empty($content_type) && !empty($content_options_values)) {
