@@ -1,6 +1,27 @@
 Version history
 ===============
 
+5.2 (2016-01-20):
+
+- added: ability for group owners to update all widgets access level
+- added: content by tag widget now supports static pages
+- added: option to alphabetically sort content in content_by_tag widget
+- added: support for poll and questions in content_by_tag widget
+- added: allow additional contexts based on default widgets config
+- added: use title menu for Add widgets button
+- changed: content_by_tag supported plugins list is now centralized
+- changed: moved favorites extras menu item to a register hook
+- changed: widget add panel contents are fetched on demand
+- changed: convert favorites widgets JS to an AMD module
+- changed: convert site and admin JS to AMD
+- changed: dutch translation
+- fixed: community favorites working again and fixed saving of title
+- fixed: incorrect access options available in specific widgets contexts
+- fixed: more specific selector for widget insert
+- fixed: only output icon if there is any
+- fixed: user search widget content not loaded when search with spaces
+- fixed: wrong composer include
+
 5.1 (2015-07-08):
 
 - added: mechanisme to permanently cache widgets based on their handler
