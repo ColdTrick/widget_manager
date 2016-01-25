@@ -36,7 +36,6 @@ Widgets
  - login box
  - members
  - online members
- - bookmarks
  - activity
  - image slider
  - community stats

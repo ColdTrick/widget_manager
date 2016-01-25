@@ -164,9 +164,6 @@ $english = array(
 	'widget_manager:widgets:index_members_online:user_icon' => "Must the users have a profileicon",
 	'widget_manager:widgets:index_members_online:no_result' => "No users found",
 
-	// index_bookmarks
-	'widget_manager:widgets:index_bookmarks:description' => "Show the latest bookmarks on your community",
-
 	// index_activity
 	'widget_manager:widgets:index_activity:description' => "Show the latest activity on your site",
 

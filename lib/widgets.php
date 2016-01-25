@@ -52,11 +52,6 @@ function widget_manager_widgets_init() {
 	// index activity
 	elgg_register_widget_type('index_activity', elgg_echo('activity'), elgg_echo('widget_manager:widgets:index_activity:description'), ['index'], true);
 	
-	// bookmarks
-	if (elgg_is_active_plugin('bookmarks')) {
-		elgg_register_widget_type('index_bookmarks', elgg_echo('bookmarks'), elgg_echo('widget_manager:widgets:index_bookmarks:description'), ['index'], true);
-	}
-	
 	// twitter_search
 	elgg_register_widget_type('twitter_search', elgg_echo('widgets:twitter_search:name'), elgg_echo('widgets:twitter_search:description'), ['profile', 'dashboard', 'index', 'groups'], true);
 	elgg_register_plugin_hook_handler('widget_settings', 'twitter_search', 'widget_manager_widgets_twitter_search_settings_save_hook');
@@ -106,9 +101,6 @@ function widget_manager_widgets_url_hook_handler($hook, $type, $return, $params)
 	switch($widget->handler) {
 		case 'index_activity':
 			$result = '/activity';
-			break;
-		case 'index_bookmarks':
-			$result = '/bookmarks/all';
 			break;
 		case 'messages':
 			$user = elgg_get_logged_in_user_entity();
