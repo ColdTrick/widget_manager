@@ -21,7 +21,7 @@ class WidgetManagerWidget extends ElggWidget {
 		'widget_manager_fixed_height' => NULL,
 		'widget_manager_collapse_state' => NULL,
 		'widget_manager_collapse_disable' => NULL,
-		'widget_manager_cached_data' => NULL
+		'widget_manager_cached_data' => NULL,
 	];
 
 	/**
@@ -167,10 +167,7 @@ class WidgetManagerWidget extends ElggWidget {
 	
 		// plugin hook handlers should return true to indicate the settings have
 		// been saved so that default code does not run
-		$hook_params = [
-			'widget' => $this,
-			'params' => $params
-		];
+		$hook_params = ['widget' => $this, 'params' => $params];
 		
 		if (elgg_trigger_plugin_hook('widget_settings', $this->handler, $hook_params, false) == true) {
 			return true;

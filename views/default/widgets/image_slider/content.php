@@ -1,6 +1,6 @@
 <?php
 
-$widget = $vars["entity"];
+$widget = elgg_extract('entity', $vars);
 
 $max_slider_options = 5;
 
@@ -16,103 +16,96 @@ if (empty($slider_height)) {
 
 $overlay_color = $widget->overlay_color;
 if (empty($overlay_color)) {
-	$overlay_color = "4690D6";
+	$overlay_color = '4690D6';
 }
 
-$object_id = "slider_" . $widget->getGUID();
+$object_id = 'slider_' . $widget->getGUID();
 
 $slider_type = $widget->slider_type;
 
-$configured_slides = array();
+$configured_slides = [];
 for ($i = 1; $i <= $max_slider_options; $i++) {
-	$url = $widget->{"slider_" . $i . "_url"};
+	$url = $widget->{'slider_' . $i . '_url'};
 	if (!empty($url)) {
 		
-		$text = $widget->{"slider_" . $i . "_text"};
-		$link = $widget->{"slider_" . $i . "_link"};
-		$direction = "";
-		if ($slider_type != "flex_slider") {
-			$direction = $widget->{"slider_" . $i . "_direction"};
+		$text = $widget->{'slider_' . $i . '_text'};
+		$link = $widget->{'slider_' . $i . '_link'};
+		$direction = '';
+		if ($slider_type != 'flex_slider') {
+			$direction = $widget->{'slider_' . $i . '_direction'};
 		}
 	
-		$configured_slides[] = array(
-			"url" => $url,
-			"text" => $text,
-			"link" => $link,
-			"direction" => $direction
-		);
+		$configured_slides[] = [
+			'url' => $url,
+			'text' => $text,
+			'link' => $link,
+			'direction' => $direction,
+		];
 	}
 }
 
 if (empty($configured_slides)) {
-	$configured_slides = array(
-		array(
-			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/1.jpg",
-			"text" => "<strong>Lorem ipsum dolor</strong><br>Consectetuer adipiscing elit. Donec eu massa vitae arcu laoreet aliquet.",
-			"link" => false,
-			"direction" => "top"
-		),
-		array(
-			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/2.jpg",
-			"text" => "<strong>Praesent</strong><br>Maecenas est erat, aliquam a, ornare eu, pretium nec, pede.",
-			"link" => false,
-			"direction" => "top"
-		),
-		array(
-			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/3.jpg",
-			"text" => "<strong>In hac habitasse</strong><br>Quisque ipsum est, fermentum quis, sodales nec, consectetuer sed, quam. Nulla feugiat lacinia odio.",
-			"link" => false,
-			"direction" => "bottom"
-		),
-		array(
-			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/4.jpg",
-			"text" => "<strong>Fusce rhoncus</strong><br>Praesent pellentesque nibh sed nibh. Sed ac libero. Etiam quis libero.",
-			"link" => false,
-			"direction" => "bottom"
-		),
-		array(
-			"url" => "http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/5.jpg",
-			"text" => "<strong>Morbi malesuada</strong><br>Vivamus molestie leo sed justo. In rhoncus, enim non imperdiet feugiat,	felis elit ultricies tortor.",
-			"link" => false,
-			"direction" => "bottom"
-		),
-	);
+	$configured_slides = [[
+		'url' => 'http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/1.jpg',
+		'text' => '<strong>Lorem ipsum dolor</strong><br>Consectetuer adipiscing elit. Donec eu massa vitae arcu laoreet aliquet.',
+		'link' => false,
+		'direction' => 'top',
+	],[
+		'url' => 'http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/2.jpg',
+		'text' => '<strong>Praesent</strong><br>Maecenas est erat, aliquam a, ornare eu, pretium nec, pede.',
+		'link' => false,
+		'direction' => 'top',
+	], [
+		'url' => 'http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/3.jpg',
+		'text' => '<strong>In hac habitasse</strong><br>Quisque ipsum est, fermentum quis, sodales nec, consectetuer sed, quam. Nulla feugiat lacinia odio.',
+		'link' => false,
+		'direction' => 'bottom',
+	], [
+		'url' => 'http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/4.jpg',
+		'text' => '<strong>Fusce rhoncus</strong><br>Praesent pellentesque nibh sed nibh. Sed ac libero. Etiam quis libero.',
+		'link' => false,
+		'direction' => 'bottom',
+	], [
+		'url' => 'http://s3slider-original.googlecode.com/svn/trunk/example_images/wide/5.jpg',
+		'text' => '<strong>Morbi malesuada</strong><br>Vivamus molestie leo sed justo. In rhoncus, enim non imperdiet feugiat, felis elit ultricies tortor.',
+		'link' => false,
+		'direction' => 'bottom',
+	]];
 }
 
-if ($slider_type == "flexslider") {
+if ($slider_type == 'flexslider') {
 	
-	echo '<div id="' . $object_id . '">';
-	echo '<div class="flexslider">';
-	echo '<ul class="slides">';
-
+	$slides_list_items = '';
 	foreach ($configured_slides as $slide) {
 		
-		echo '<li>';
+		$list_item = elgg_view('output/img', [
+			'src' => $slide['url'],
+			'class' => 'slider_img',
+			'alt' => 'slide image',
+		]);
 		
-		if (!empty($slide["link"])) {
-			echo '<a href="' . $slide["link"] . '">';
+		if (!empty($slide['text'])) {
+			$list_item .= elgg_format_element('div', ['class' => 'flex-caption'], $slide['text']);
 		}
 		
-		echo '<img class="slider_img" src="' . $slide["url"] . '" />';
-		
-		if (!empty($slide["text"])) {
-			echo '<div class="flex-caption">' . $slide["text"] . '</div>';
+		if (!empty($slide['link'])) {
+			$list_item = elgg_view('output/url', ['href'> $slide['link'], 'text' => $list_item]);
 		}
 		
-		if (!empty($slide["link"])) {
-			echo '</a>';
-		}
-		
-		echo '</li>';
+		$slides_list_items .= elgg_format_element('li', [], $list_item);
 	}
-	
-	echo '</ul></div></div>';
-	
+	$slider = elgg_format_element('ul', ['class' => 'slides'], $slides_list_items);
+	$slider = elgg_format_element('div', ['class' => 'flexslider'], $slider);
+	echo elgg_format_element('div', ['id' => $object_id], $slider);
+
+	echo elgg_format_element('link', [
+		'rel' => 'stylesheet',
+		'type' => 'text/css',
+		'href' => elgg_normalize_url('mod/widget_manager/vendors/flexslider/flexslider.css'),
+	]);
 	?>
-		<link rel="stylesheet" type="text/css" href="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/flexslider.css"></link>
-		<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/flexslider/jquery.flexslider-min.js"></script>
 		
-		<style type="text/css">
+		<style type='text/css'>
 			.flex-caption {
 				background: #<?php echo $overlay_color; ?>;
 				filter: alpha(opacity = 70);
@@ -122,14 +115,14 @@ if ($slider_type == "flexslider") {
 			}
 		</style>
 		
-		<script type="text/javascript">
-		    $(document).ready(function() {
+		<script type='text/javascript'>
+			require(['jquery', 'widget_manager/widgets/image_slider/flexslider'], function($, flex) {
 		    	$('#<?php echo $object_id; ?> .flexslider').flexslider({
 		    		slideshowSpeed: <?php echo $seconds_per_slide * 1000; ?>,
-		    		prevText: "<?php echo elgg_echo("previous");?>",
-		    		nextText: "<?php echo elgg_echo("next");?>",
+		    		prevText: "<?php echo elgg_echo('previous');?>",
+		    		nextText: "<?php echo elgg_echo('next');?>",
 					pauseOnHover: true,
-
+	
 		    		<?php
 					/*
 					animation: "fade",              //String: Select your animation type, "fade" or "slide"
@@ -159,59 +152,58 @@ if ($slider_type == "flexslider") {
 					end: function(){}               //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
 		    		*/
 					?>
-		        });
-		    });
+				});
+			});
 		</script>
 	<?php
 } else {
 
-	$slides_list = "";
+	$slides_list_items = '';
 
 	foreach ($configured_slides as $slide) {
-		$style = "background-color: #" . $overlay_color . ";";
+		$style = "background-color: #{$overlay_color};";
 	
-		if (empty($slide["text"])) {
-			$style .= "visibility: hidden;";
+		if (empty($slide['text'])) {
+			$style .= 'visibility: hidden;';
 		}
-		if (in_array($slide["direction"], array("left", "right"))) {
-			$style .= "height: " . $slider_height . "px;";
+		if (in_array($slide['direction'], ['left', 'right'])) {
+			$style .= 'height: ' . $slider_height . 'px;';
 		}
 	
-		$slides_list .= "<li class='widgets_image_slider_image'>";
-		
-		$slides_list .= "<span class='" . $slide["direction"] . "' style='" . $style . "'><div>" . $slide["text"] . "</div></span>";
+		$slide_text = elgg_format_element('span', [
+			'class' => $slide['direction'],
+			'style' => $style,
+		], elgg_format_element('div', [], $slide['text']));
 			
-		if (!empty($slide["link"])) {
-			$slides_list .= "<a href='" . $slide["link"] . "'>";
-		}
-	
-		$slides_list .= "<img src='" . $slide["url"] . "' />";
-		if (!empty($slide["link"])) {
-			$slides_list .= "</a>";
+		$slide_image = elgg_view('output/img', [
+			'src' => $slide['url'],
+			'alt' => 'slide image',
+		]);
+
+		if (!empty($slide['link'])) {
+			$slide_image = elgg_view('output/url', [
+				'href' => $slide['link'],
+				'text' => $slide_image,
+			]);
 		}
 		
-		$slides_list .= "</li>";
+		$slides_list_items .= elgg_format_element('li', ['class' => 'widgets_image_slider_image'], $slide_text . $slide_image);
 	}
-
-	?>
-
-	<script	type="text/javascript" src="<?php echo elgg_get_site_url();?>mod/widget_manager/vendors/s3slider/s3Slider.js"></script>
 	
-	<script type="text/javascript">
-	    $(document).ready(function() {
-	        $('#<?php echo $object_id; ?>').s3Slider({
-	            timeOut: <?php echo $seconds_per_slide * 1000; ?>
-	        });
-	    });
-	</script>
-
-	<div id="<?php echo $object_id; ?>" class='widgets_image_slider' style="height: <?php echo $slider_height; ?>px;">
-		<ul class='widgets_image_slider_content' id="<?php echo $object_id; ?>Content">
-			<?php echo $slides_list; ?>
-			<div class="clearfix widgets_image_slider_image"></div>
-		</ul>
-	</div>
+	echo elgg_format_element('script', [], "require(['jquery', 'widget_manager/widgets/image_slider/s3Slider'], function($) { $('#{$object_id}').s3Slider({ timeOut: {$seconds_per_slide} * 1000}); });");
+		
+	$slides_list_items .= elgg_format_element('div', ['class' => 'clearfix widgets_image_slider_image']);
 	
-	<div class="clearfix"></div>
-	<?php
+	$slides_list = elgg_format_element('ul', [
+		'class' => 'widgets_image_slider_content',
+		'id' => "{$object_id}Content",
+	], $slides_list_items);
+	
+	echo elgg_format_element('div', [
+		'id' => $object_id,
+		'class' => 'widgets_image_slider',
+		'style' => "height: {$slider_height}px;",
+	], $slides_list);
+	
+	echo elgg_format_element('div', ['class' => 'clearfix']);
 }

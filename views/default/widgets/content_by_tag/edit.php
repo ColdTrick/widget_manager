@@ -1,6 +1,6 @@
 <?php
 
-$widget = $vars["entity"];
+$widget = elgg_extract('entity', $vars);
 
 $count = sanitise_int($widget->content_count, false);
 if (empty($count)) {
@@ -21,131 +21,155 @@ if (empty($content_type) && !empty($content_options_values)) {
 	$content_type = $keys[0];
 }
 
-$tags = $widget->tags;
-$excluded_tags = $widget->excluded_tags;
-
 $tags_option = $widget->tags_option;
 
 if (empty($tags_option)) {
-	$tags_option = "and";
+	$tags_option = 'and';
 }
 
-$yesno_options = array(
-	"yes" => elgg_echo("option:yes"),
-	"no" => elgg_echo("option:no")
-);
+$yesno_options = [
+	'yes' => elgg_echo('option:yes'),
+	'no' => elgg_echo('option:no'),
+];
 
-$tags_options_values = array(
-	"and" => elgg_echo("widgets:content_by_tag:tags_option:and"),
-	"or" => elgg_echo("widgets:content_by_tag:tags_option:or")
-);
+$noyes_options = array_reverse($yesno_options);
 
-$display_option_options_values = array(
-	"normal" => elgg_echo("widgets:content_by_tag:display_option:normal"),
-	"simple" => elgg_echo("widgets:content_by_tag:display_option:simple"),
-	"slim" => elgg_echo("widgets:content_by_tag:display_option:slim")
-);
+$tags_options_values = [
+	'and' => elgg_echo('widgets:content_by_tag:tags_option:and'),
+	'or' => elgg_echo('widgets:content_by_tag:tags_option:or'),
+];
 
-echo "<div>";
-echo elgg_echo("widgets:content_by_tag:owner_guids") . "<br />";
-echo elgg_view("input/hidden", array("name" => "params[owner_guids]", "value" => 0));
-echo elgg_view("input/userpicker", array("name" => "params[owner_guids]", "values" => $widget->owner_guids));
-echo "<div class='elgg-subtext'>" . elgg_echo("widgets:content_by_tag:owner_guids:description") . "</div>";
-echo "</div>";
+$display_option_options_values = [
+	'normal' => elgg_echo('widgets:content_by_tag:display_option:normal'),
+	'simple' => elgg_echo('widgets:content_by_tag:display_option:simple'),
+	'slim' => elgg_echo('widgets:content_by_tag:display_option:slim'),
+];
 
-if ($widget->context == "groups") {
-	echo "<div>";
-	echo elgg_echo("widgets:content_by_tag:group_only") . "<br />";
-	echo elgg_view("input/dropdown", array("name" => "params[group_only]", "options_values" => array("yes" => elgg_echo("option:yes"), "no" => elgg_echo("option:no")), "value" => $widget->group_only));
-	echo "</div>";
-} elseif(elgg_view_exists("input/grouppicker")) {
-	echo "<div>";
-	echo elgg_echo("widgets:content_by_tag:container_guids") . "<br />";
-	echo elgg_view("input/hidden", array("name" => "params[container_guids]", "value" => 0));
-	echo elgg_view("input/grouppicker", array("name" => "params[container_guids]", "values" => $widget->container_guids));
-	echo "<div class='elgg-subtext'>" . elgg_echo("widgets:content_by_tag:container_guids:description") . "</div>";
-	echo "</div>";
+$owner_guids = elgg_echo('widgets:content_by_tag:owner_guids') . '<br />';
+$owner_guids .= elgg_view('input/hidden', ['name' => 'params[owner_guids]', 'value' => 0]);
+$owner_guids .= elgg_view('input/userpicker', ['name' => 'params[owner_guids]', 'values' => $widget->owner_guids]);
+$owner_guids .= elgg_format_element('div', ['class' => 'elgg-subtext'], elgg_echo('widgets:content_by_tag:owner_guids:description'));
+echo elgg_format_element('div', [], $owner_guids);
+
+if ($widget->context == 'groups') {
+	$group_only = elgg_echo('widgets:content_by_tag:group_only') . '<br />';
+	$group_only .= elgg_view('input/dropdown', [
+		'name' => 'params[group_only]',
+		'options_values' => $yesno_options,
+		'value' => $widget->group_only,
+	]);
+	echo elgg_format_element('div', [], $group_only);
+} elseif(elgg_view_exists('input/grouppicker')) {
+	$container_guids = elgg_echo('widgets:content_by_tag:container_guids') . '<br />';
+	$container_guids .= elgg_view('input/hidden', ['name' => 'params[container_guids]', 'value' => 0]);
+	$container_guids .= elgg_view('input/grouppicker', ['name' => 'params[container_guids]', 'values' => $widget->container_guids]);
+	$container_guids .= elgg_format_element('div', ['class' => 'elgg-subtext'], elgg_echo('widgets:content_by_tag:container_guids:description'));
+	echo elgg_format_element('div', [], $container_guids);
 }
-?>
-<div>
-	<?php echo elgg_echo("widget:numbertodisplay"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[content_count]", "value" => $count, "size" => "4", "maxlength" => "4"));?>
-</div>
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:entities"); ?><br />
-	<?php echo elgg_view("input/checkboxes", array("name" => "params[content_type]", "options" => array_flip($content_options_values), "value" => $content_type)); ?>
-</div>
+$content = elgg_echo('widget:numbertodisplay') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[content_count]',
+	'value' => $count,
+	'size' => 4,
+	'maxlength' => 4,
+]);
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:tags"); ?><br />
-	<?php echo elgg_view("input/tags", array("name" => "params[tags]", "value" => $tags)); ?>
-</div>
+echo elgg_format_element('div', [], $content);
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:tags_option"); ?><br />
-	<?php echo elgg_view("input/dropdown", array("name" => "params[tags_option]", "options_values" => $tags_options_values, "value" => $tags_option)); ?>
-</div>
+$content = elgg_echo('widgets:content_by_tag:entities') . '<br />';
+$content .= elgg_view('input/checkboxes', [
+	'name' => 'params[content_type]',
+	'value' => $content_type,
+	'options' => array_flip($content_options_values),
+]);
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:excluded_tags"); ?><br />
-	<?php echo elgg_view("input/tags", array("name" => "params[excluded_tags]", "value" => $excluded_tags)); ?>
-</div>
+echo elgg_format_element('div', [], $content);
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:show_search_link"); ?><br />
-	<?php echo elgg_view("input/dropdown", array("name" => "params[show_search_link]", "options_values" => array_reverse($yesno_options, true), "value" => $widget->show_search_link)); ?>
-	<div class="elgg-subtext"><?php echo elgg_echo("widgets:content_by_tag:show_search_link:disclaimer"); ?></div>
-</div>
+$content = elgg_echo('widgets:content_by_tag:tags') . '<br />';
+$content .= elgg_view('input/tags', [
+	'name' => 'params[tags]',
+	'value' => $widget->tags,
+]);
 
-<div>
-	<?php echo elgg_echo("widgets:content_by_tag:display_option"); ?><br />
-	<?php echo elgg_view("input/dropdown", array("name" => "params[display_option]", "options_values" => $display_option_options_values, "value" => $widget->display_option)); ?>
-</div>
+echo elgg_format_element('div', [], $content);
 
-<div>
-	<?php
-	echo elgg_echo("widgets:content_by_tag:order_by") . "<br />";
-	echo elgg_view("input/dropdown", array(
-		"name" => "params[order_by]",
-		"options_values" => array (
-			'time_created' => elgg_echo("widgets:content_by_tag:order_by:time_created"),
-			'alpha' => elgg_echo("widgets:content_by_tag:order_by:alpha"),
-		),
-		"value" => $widget->order_by
-	));
-	?>
-</div>
+$content = elgg_echo('widgets:content_by_tag:tags_option') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[tags_option]',
+	'value' => $tags_option,
+	'options_values' => $tags_options_values,
+]);
 
-<div class="widgets-content-by-tag-display-options">
-	<div class="widgets-content-by-tag-display-options-slim">
-		<?php echo elgg_echo("widgets:content_by_tag:highlight_first"); ?><br />
-		<?php echo elgg_view("input/text", array("name" => "params[highlight_first]", "value" => $widget->highlight_first)); ?>
-	</div>
+echo elgg_format_element('div', [], $content);
 
-	<div class="widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim">
-		<?php echo elgg_echo("widgets:content_by_tag:show_avatar"); ?><br />
-		<?php echo elgg_view("input/dropdown", array("name" => "params[show_avatar]", "options_values" => $yesno_options, "value" => $widget->show_avatar)); ?>
-	</div>
+$content = elgg_echo('widgets:content_by_tag:excluded_tags') . '<br />';
+$content .= elgg_view('input/tags', [
+	'name' => 'params[excluded_tags]',
+	'value' => $widget->excluded_tags,
+]);
 
-	<div class="widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim">
-		<?php echo elgg_echo("widgets:content_by_tag:show_timestamp"); ?><br />
-		<?php echo elgg_view("input/dropdown", array("name" => "params[show_timestamp]", "options_values" => $yesno_options, "value" => $widget->show_timestamp)); ?>
-	</div>
+echo elgg_format_element('div', [], $content);
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#elgg-widget-<?php echo $widget->getGUID(); ?> [name='params[display_option]']").change(function() {
-				$("#elgg-widget-<?php echo $widget->getGUID(); ?> .widgets-content-by-tag-display-options > div").hide();
-				$("#elgg-widget-<?php echo $widget->getGUID(); ?> .widgets-content-by-tag-display-options-" + $(this).val()).show();
-			}).change();
-		});
-	</script>
-</div>
-<script type="text/javascript">
-	$("#widget-edit-<?php echo $widget->getGUID(); ?> .elgg-user-picker").addClass("ui-front");
-	
-	if (typeof(filter) !== "function") {
-		$.getScript(elgg.get_site_url() + "vendors/jquery/jquery.ui.autocomplete.html.js");
-	}
-</script>
+$content = elgg_echo('widgets:content_by_tag:show_search_link') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[show_search_link]',
+	'value' => $widget->show_search_link,
+	'options_values' => $noyes_options,
+]);
+$content .= elgg_format_element('div', ['class' => 'elgg-subtext'], elgg_echo('widgets:content_by_tag:show_search_link:disclaimer'));
+
+echo elgg_format_element('div', [], $content);
+
+$content = elgg_echo('widgets:content_by_tag:display_option') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[display_option]',
+	'value' => $widget->display_option,
+	'options_values' => $display_option_options_values,
+]);
+
+echo elgg_format_element('div', [], $content);
+
+$display_options = '';
+
+$content = elgg_echo('widgets:content_by_tag:highlight_first') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[highlight_first]',
+	'value' => $widget->highlight_first,
+]);
+
+$display_options .= elgg_format_element('div', ['class' => 'widgets-content-by-tag-display-options-slim'], $content);
+
+$content = elgg_echo('widgets:content_by_tag:show_avatar') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[show_avatar]',
+	'value' => $widget->show_avatar,
+	'options_values' => $yesno_options,
+]);
+
+$display_options .= elgg_format_element('div', ['class' => 'widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim'], $content);
+
+$content = elgg_echo('widgets:content_by_tag:show_timestamp') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[show_timestamp]',
+	'value' => $widget->show_timestamp,
+	'options_values' => $yesno_options,
+]);
+
+$display_options .= elgg_format_element('div', ['class' => 'widgets-content-by-tag-display-options-simple widgets-content-by-tag-display-options-slim'], $content);
+
+echo elgg_format_element('div', ['class' => 'widgets-content-by-tag-display-options'], $display_options);
+
+$content = elgg_echo('widgets:content_by_tag:order_by') . '<br />';
+$content .= elgg_view('input/dropdown', [
+	'name' => 'params[order_by]',
+	'value' => $widget->order_by,
+	'options_values' => [
+		'time_created' => elgg_echo('widgets:content_by_tag:order_by:time_created'),
+		'alpha' => elgg_echo('widgets:content_by_tag:order_by:alpha'),
+	],
+]);
+
+echo elgg_format_element('div', [], $content);
+
+echo elgg_format_element('script', [], 'require(["widget_manager/widgets/content_by_tag"], function() { init(); })');

@@ -1,19 +1,25 @@
 <?php
 
-$widget = $vars["entity"];
+$widget = elgg_extract('entity', $vars);
 
-$height = sanitise_int($widget->height, false);
+$content = elgg_echo('widgets:twitter_search:embed_code') . '<br />';
+$content .= elgg_view('input/plaintext', [
+	'name' => 'params[embed_code]',
+]);
+$content .= elgg_format_element('div', ['class' => 'elgg-subtext'], elgg_view('output/url', [
+	'href' => 'https://twitter.com/settings/widgets',
+	'target' => '_blank',
+	'text' => elgg_echo('widgets:twitter_search:embed_code:help'),
+]));
 
-?>
-<div>
-	<?php echo elgg_echo("widgets:twitter_search:embed_code"); ?><br />
-	<?php echo elgg_view("input/plaintext", array("name" => "params[embed_code]")); ?>
-	<div class='elgg-subtext'>
-		<?php echo elgg_view("output/url", array("href" => "https://twitter.com/settings/widgets", "target" => "_blank", "text" => elgg_echo("widgets:twitter_search:embed_code:help"))); ?>
-	</div>
-</div>
+echo elgg_format_element('div', [], $content);
 
-<div>
-	<?php echo elgg_echo("widgets:twitter_search:height"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[height]", "value" => $height, "size" => "4", "maxlength" => "4")); ?>
-</div>
+$content = elgg_echo('widgets:twitter_search:height') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[height]',
+	'value' => sanitise_int($widget->height, false),
+	'size' => 4,
+	'maxlength' => 4,
+]);
+
+echo elgg_format_element('div', [], $content);

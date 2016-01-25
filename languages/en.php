@@ -68,6 +68,7 @@ $english = array(
 
 	'widget_manager:settings:dashboard' => "Dashboard",
 	'widget_manager:settings:dashboard:multi_dashboard' => "Enable multiple dashboards",
+	'widget_manager:settings:dashboard:multi_dashboard:internal_deprecated' => "Usage of internal dashboards is no longer available. This is the link you used for the internal dashboard: %s",
 	'widget_manager:settings:dashboard:dashboard_widget_layout' => "Dashboard widget layout",
 	'widget_manager:settings:dashboard:dashboard_widget_layout:info' => "This widget layout only applies to the default dashboard and not to extra dashboards created with the multidashboard option",
 
@@ -98,7 +99,6 @@ $english = array(
 
 	// multi dashboard
 	'widget_manager:multi_dashboard:add' => "New Tab",
-	'widget_manager:multi_dashboard:extras' => "Add as dashboard tab",
 
 	// multi dashboard - edit
 	'widget_manager:multi_dashboard:new' => "Create a new dashboard",

@@ -1,15 +1,15 @@
 <?php
 
-$widget = $vars["entity"];
+$widget = elgg_extract('entity', $vars);
 
 $count = sanitise_int($widget->activity_count, false);
 if (empty($count)) {
 	$count = 10;
 }
 
-$contents = array();
+$contents = [];
 
-$registered_entities = elgg_get_config("registered_entities");
+$registered_entities = elgg_get_config('registered_entities');
 
 if (!empty($registered_entities)) {
 	foreach ($registered_entities as $type => $ar) {
@@ -25,19 +25,21 @@ if (!empty($registered_entities)) {
 	}
 }
 
-?>
-<div>
-	<?php
-	echo elgg_echo("widget:numbertodisplay");
-	echo elgg_view("input/text", array("name" => "params[activity_count]", "value" => $count, "size" => "4", "maxlength" => "4"));
-	?>
-</div>
+$content = elgg_echo('widget:numbertodisplay') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[activity_count]',
+	'value' => $count,
+	'size' => 4,
+	'maxlength' => 4,
+]);
 
-<div>
-	<?php
-	echo elgg_echo("filter");
-	
-	$activity_content = $vars["entity"]->activity_content;
-	echo elgg_view("input/checkboxes", array("name" => "params[activity_content]", "options" => $contents, "value" => $activity_content));
-	?>
-</div>
+echo elgg_format_element('div', [], $content);
+
+$content = elgg_echo('filter') . '<br />';
+$content .= elgg_view('input/checkboxes', [
+	'name' => 'params[activity_content]',
+	'value' => $widget->activity_content,
+	'options' => $contents,
+]);
+
+echo elgg_format_element('div', [], $content);

@@ -1,11 +1,18 @@
 <?php
-$widget = $vars["entity"];
-?>
-<div>
-	<?php echo elgg_echo("widgets:iframe:settings:iframe_url"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[iframe_url]", "value" => $widget->iframe_url)); ?>
-</div>
-<div>
-	<?php echo elgg_echo("widgets:iframe:settings:iframe_height"); ?><br />
-	<?php echo elgg_view("input/text", array("name" => "params[iframe_height]", "value" => $widget->iframe_height)); ?>
-</div>
+$widget = elgg_extract('entity', $vars);
+
+$content = elgg_echo('widgets:iframe:settings:iframe_url') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[iframe_url]',
+	'value' => $widget->iframe_url,
+]);
+
+echo elgg_format_element('div', [], $content);
+
+$content = elgg_echo('widgets:iframe:settings:iframe_height') . '<br />';
+$content .= elgg_view('input/text', [
+	'name' => 'params[iframe_height]',
+	'value' => $widget->iframe_height,
+]);
+
+echo elgg_format_element('div', [], $content);

@@ -1,4 +1,4 @@
-define(['jquery', 'elgg'], function ($, elgg) {
+define([], function () {
 	
 	return function() {
 		if (typeof twttr !== 'undefined') {

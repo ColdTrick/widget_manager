@@ -13,7 +13,6 @@ class MultiDashboard extends ElggObject {
 	private $allowed_dashboard_types = [
 		'widgets',
 		'iframe',
-		'internal'
 	];
 	
 	/**
@@ -64,12 +63,15 @@ class MultiDashboard extends ElggObject {
 	 * @return boolean
 	 */
 	public function delete($recursive = true) {
-		if ($widgets = $this->getWidgets(false)) {
+		$widgets = $this->getWidgets(false);
+		if ($widgets) {
 			foreach ($widgets as $col => $col_widgets) {
-				if (!empty($col_widgets)) {
-					foreach ($col_widgets as $widget) {
-						$widget->delete();
-					}
+				if (empty($col_widgets)) {
+					continue;
+				}
+				
+				foreach ($col_widgets as $widget) {
+					$widget->delete();
 				}
 			}
 		}
@@ -137,13 +139,11 @@ class MultiDashboard extends ElggObject {
 	 * @return boolean
 	 */
 	public function setIframeUrl($url) {
-		$result = false;
-		
-		if (!empty($url)) {
-			$result = $this->set('iframe_url', $url);
+		if (empty($url)) {
+			return false;
 		}
-		
-		return $result;
+
+		return $this->set('iframe_url', $url);
 	}
 	
 	/**
@@ -163,14 +163,13 @@ class MultiDashboard extends ElggObject {
 	 * @return boolean
 	 */
 	public function setIframeHeight($height) {
-		$result = false;
 		$height = sanitise_int($height);
 		
-		if (!empty($height)) {
-			$result = $this->set('iframe_height', $height);
+		if (empty($height)) {
+			return false;
 		}
 		
-		return $result;
+		return $this->set('iframe_height', $height);
 	}
 	
 	/**
@@ -180,38 +179,6 @@ class MultiDashboard extends ElggObject {
 	 */
 	public function getIframeHeight() {
 		return $this->iframe_height;
-	}
-	
-	/**
-	 * Sets the internal url
-	 *
-	 * @param string $url url of the internal page
-	 *
-	 * @return boolean
-	 */
-	public function setInternalUrl($url) {
-		$result = false;
-		
-		if (!empty($url)) {
-			$result = $this->set('internal_url', $url);
-		}
-		
-		return $result;
-	}
-	
-	/**
-	 * Returns the internal url
-	 *
-	 * @return boolean|string
-	 */
-	public function getInternalUrl() {
-		$result = false;
-		
-		if ($url = $this->internal_url) {
-			$result = elgg_http_add_url_query_elements($url, ['view' => 'internal_dashboard']);
-		}
-		
-		return $result;
 	}
 	
 	/**
@@ -235,7 +202,7 @@ class MultiDashboard extends ElggObject {
 			'owner_guid' => $this->owner_guid,
 			'relationship' => self::WIDGET_RELATIONSHIP,
 			'relationship_guid' => $this->guid,
-			'inverse_relationship' => true
+			'inverse_relationship' => true,
 		]);
 		
 		if (empty ($widgets)) {

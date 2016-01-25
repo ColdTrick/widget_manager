@@ -1,5 +1,3 @@
-<?php
-?>
 .widget_manager_hide_header > .elgg-head,
 .widget_manager_hide_header_admin > .elgg-head {
 	display: none;
@@ -30,10 +28,6 @@
 
 .elgg-module-widget.widget_manager_disable_widget_content_style > .elgg-head {
 	border: 2px solid #DEDEDE;
-}
-
-#widget-manager-multi-dashboard {
-	background: #CCC;
 }
 
 .widget-manager-multi-dashboard-tab:hover .widget-manager-multi-dashboard-tabs-edit {

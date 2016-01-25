@@ -1,5 +1,6 @@
 <?php
-$widget = $vars["entity"];
+
+$widget = elgg_extract('entity', $vars);
 
 $feed_url = $widget->rssfeed;
 
@@ -9,52 +10,46 @@ if (empty($limit)) {
 }
 
 $post_date = true;
-if ($widget->post_date == "no") {
+if ($widget->post_date == 'no') {
 	$post_date = false;
-} 	
+}
 
 $show_feed_title = false;
-if ($widget->show_feed_title == "yes") {
+if ($widget->show_feed_title == 'yes') {
 	$show_feed_title = true;
 }
 $excerpt = false;
-if ($widget->excerpt == "yes") {
+if ($widget->excerpt == 'yes') {
 	$excerpt = true;
 }
 
 $show_item_icon = false;
-if ($widget->show_item_icon == "yes") {
+if ($widget->show_item_icon == 'yes') {
 	$show_item_icon = true;
 }
 
 $show_in_lightbox = false;
-if ($widget->show_in_lightbox == "yes") {
+if ($widget->show_in_lightbox == 'yes') {
+	elgg_load_js('lightbox');
+	elgg_load_css('lightbox');
+	
 	$show_in_lightbox = true;
 }
 
-if ($feed_url) {
-	
-	$attributes = array(
-		"id" => "widget-manager-rss-" . $widget->guid,
-		"data-feed-url" => $feed_url,
-		"data-limit" => $limit,
-		"data-post-date" => $post_date,
-		"data-show-feed-title" => $show_feed_title,
-		"data-show-excerpt" => $excerpt,
-		"data-show-item-icon" => $show_item_icon,
-		"data-show-in-lightbox" => $show_in_lightbox,
-	);
-	
-	?>
-	<div <?php echo elgg_format_attributes($attributes);?>"></div>
-	<script>
-		$(document).ready(function() {
-			require(["widget_manager/widgets/rss"], function (rss) {
-				rss("#widget-manager-rss-<?php echo $widget->guid;?>");
-			});
-		});
-	</script>
-	<?php 
-} else {
-	echo elgg_echo("widgets:rss:error:notset");
+if (empty($feed_url)) {
+	echo elgg_echo('widgets:rss:error:notset');
+	return;
 }
+
+echo elgg_format_element('div', [
+	'id' => 'widget-manager-rss-' . $widget->guid,
+	'data-feed-url' => $feed_url,
+	'data-limit' => $limit,
+	'data-post-date' => $post_date,
+	'data-show-feed-title' => $show_feed_title,
+	'data-show-excerpt' => $excerpt,
+	'data-show-item-icon' => $show_item_icon,
+	'data-show-in-lightbox' => $show_in_lightbox,
+]);
+
+echo elgg_format_element('script', [], 'require(["widget_manager/widgets/rss"], function (rss) { rss("#widget-manager-rss-' . $widget->guid . '"); });');

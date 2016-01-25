@@ -39,12 +39,7 @@ $controls = elgg_view('object/widget/elements/controls', array(
 	'show_edit' => $can_edit,
 ));
 
-// don't show content for default widgets
-if (elgg_in_context('default_widgets')) {
-	$content = '';
-} else {
-	$content = elgg_view('object/widget/elements/content', $vars);
-}
+$content = elgg_view('object/widget/elements/content', $vars);
 
 $widget_id = "elgg-widget-$widget->guid";
 $widget_instance = "elgg-widget-instance-$handler";

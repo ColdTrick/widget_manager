@@ -3,7 +3,7 @@
 elgg_set_page_owner_guid(elgg_get_site_entity()->getGUID()); // site owns the index widgets
 
 $num_columns = 3;
-$handler = get_input("handler");
+$handler = elgg_extract('handler', $vars);
 
 $layout = elgg_get_plugin_setting("widget_layout", "widget_manager");
 $index_top_row = false;

@@ -122,54 +122,53 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 		return;
 	}
 	
-	$plugin_settings = elgg_get_plugin_setting("group_enable", "widget_manager");
+	$plugin_settings = elgg_get_plugin_setting('group_enable', 'widget_manager');
 	// make widget management mandatory
-	if ($plugin_settings == "forced") {
-		$object->widget_manager_enable = "yes";
+	if ($plugin_settings == 'forced') {
+		$object->widget_manager_enable = 'yes';
 	}
 	
 	// add/remove tool enabled widgets
-	if (($plugin_settings == "forced") || (($plugin_settings == "yes") && ($object->widget_manager_enable == "yes"))) {
+	if (($plugin_settings == 'forced') || (($plugin_settings == 'yes') && ($object->widget_manager_enable == 'yes'))) {
 		
-		$result = array(
-			"enable" => array(),
-			"disable" => array()
-		);
-		$params = array(
-			"entity" => $object
-		);
-		$result = elgg_trigger_plugin_hook("group_tool_widgets", "widget_manager", $params, $result);
+		$result = ['enable' => [], 'disable' => []];
+		$params = ['entity' => $object];
+		$result = elgg_trigger_plugin_hook('group_tool_widgets', 'widget_manager', $params, $result);
 		
 		if (empty($result) || !is_array($result)) {
 			return;
 		}
 		
-		$current_widgets = elgg_get_widgets($object->getGUID(), "groups");
+		$current_widgets = elgg_get_widgets($object->getGUID(), 'groups');
 		
 		// disable widgets
-		$disable_widget_handlers = elgg_extract("disable", $result);
+		$disable_widget_handlers = elgg_extract('disable', $result);
 		if (!empty($disable_widget_handlers) && is_array($disable_widget_handlers)) {
 				
 			if (!empty($current_widgets) && is_array($current_widgets)) {
 				foreach ($current_widgets as $column => $widgets) {
-					if (!empty($widgets) && is_array($widgets)) {
-						foreach ($widgets as $order => $widget) {
-							// check if a widget should be removed
-							if (in_array($widget->handler, $disable_widget_handlers)) {
-								// yes, so remove the widget
-								$widget->delete();
-								
-								unset($current_widgets[$column][$order]);
-							}
+					if (!is_array($widgets) || empty($widgets)) {
+						continue;
+					}
+					
+					foreach ($widgets as $order => $widget) {
+						// check if a widget should be removed
+						if (!in_array($widget->handler, $disable_widget_handlers)) {
+							continue;
 						}
+						
+						// yes, so remove the widget
+						$widget->delete();
+						
+						unset($current_widgets[$column][$order]);
 					}
 				}
 			}
 		}
 		
 		// enable widgets
-		$column_counts = array();
-		$enable_widget_handlers = elgg_extract("enable", $result);
+		$column_counts = [];
+		$enable_widget_handlers = elgg_extract('enable', $result);
 		if (!empty($enable_widget_handlers) || is_array($enable_widget_handlers)) {
 			
 			// ignore access restrictions
@@ -182,14 +181,16 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 					// count for later balancing
 					$column_counts[$column] = count($widgets);
 					
-					if (!empty($widgets) && is_array($widgets)) {
-						foreach ($widgets as $order => $widget) {
-							// check if a widget which sould be enabled isn't already enabled
-							$enable_index = array_search($widget->handler, $enable_widget_handlers);
-							if ($enable_index !== false) {
-								// already enabled, do add duplicate
-								unset($enable_widget_handlers[$enable_index]);
-							}
+					if (empty($widgets) || !is_array($widgets)) {
+						continue;
+					}
+					
+					foreach ($widgets as $order => $widget) {
+						// check if a widget which sould be enabled isn't already enabled
+						$enable_index = array_search($widget->handler, $enable_widget_handlers);
+						if ($enable_index !== false) {
+							// already enabled, do add duplicate
+							unset($enable_widget_handlers[$enable_index]);
 						}
 					}
 				}
@@ -198,21 +199,23 @@ function widget_manager_update_group_event_handler($event, $object_type, $object
 			// add new widgets
 			if (!empty($enable_widget_handlers)) {
 				foreach ($enable_widget_handlers as $handler) {
-					$widget_guid = elgg_create_widget($object->getGUID(), $handler, "groups", $object->access_id);
-					if (!empty($widget_guid)) {
-						$widget = get_entity($widget_guid);
+					$widget_guid = elgg_create_widget($object->getGUID(), $handler, 'groups', $object->access_id);
+					if (empty($widget_guid)) {
+						continue;
+					}
+					
+					$widget = get_entity($widget_guid);
+					
+					if ($column_counts[1] <= $column_counts[2]) {
+						// move to the end of the first column
+						$widget->move(1, 9000);
 						
-						if ($column_counts[1] <= $column_counts[2]) {
-							// move to the end of the first column
-							$widget->move(1, 9000);
-							
-							$column_counts[1]++;
-						} else {
-							// move to the end of the second
-							$widget->move(2, 9000);
-							
-							$column_counts[2]++;
-						}
+						$column_counts[1]++;
+					} else {
+						// move to the end of the second
+						$widget->move(2, 9000);
+						
+						$column_counts[2]++;
 					}
 				}
 			}
