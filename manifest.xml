@@ -24,12 +24,6 @@
 	
 	<requires>
 		<type>priority</type>
-		<plugin>tagcloud</plugin>
-		<priority>after</priority>
-	</requires>
-	
-	<requires>
-		<type>priority</type>
 		<plugin>groups</plugin>
 		<priority>after</priority>
 	</requires>

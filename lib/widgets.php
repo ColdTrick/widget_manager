@@ -30,9 +30,6 @@ function widget_manager_widgets_init() {
 	// likes
 	//elgg_register_widget_type("likes", elgg_echo("widgets:likes:title"), elgg_echo("widgets:likes:description"), "index,groups,profile,dashboard", true);
 	
-	// tagcloud
-	elgg_register_widget_type('tagcloud', elgg_echo('tagcloud'), elgg_echo('widgets:tagcloud:description'), ['profile', 'dashboard', 'index', 'groups'], false);
-
 	// iframe
 	elgg_register_widget_type('iframe', elgg_echo('widgets:iframe:title'), elgg_echo('widgets:iframe:description'), ['profile', 'dashboard', 'index', 'groups'], true);
 	

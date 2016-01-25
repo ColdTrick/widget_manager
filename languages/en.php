@@ -266,12 +266,6 @@ $free_html = array(
 );
 add_translation("en", $free_html);
 
-$tagcloud = array(
-	'widgets:tagcloud:description' => "Shows a tagcloud based on all the content on the site, in the group or from the user",
-	'widgets:tagcloud:no_data' => "No data available to display a tagcloud",
-);
-add_translation("en", $tagcloud);
-
 $entity_statistics = array(
 	// entity_statistics widget
 	"widgets:entity_statistics:title" => "Statistics",

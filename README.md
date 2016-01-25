@@ -28,7 +28,6 @@ Widgets
  - Twitter widget (paste your widget code)
  - Content (blog, file, pages, bookmarks) by tag
  - rss
- - tagcloud
  - free html
  - messages
  
