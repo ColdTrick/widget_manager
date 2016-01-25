@@ -40,10 +40,6 @@ Widgets
  - image slider
  - community stats
  
-### Dashboard widgets
-
- - favorites (favorite community pages)
- 
 ### Admin widgets
 
  - user search (also searches disabled/blocked/unvalidated users and by email)
