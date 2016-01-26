@@ -81,7 +81,6 @@ function widget_manager_change_dashboard_type(elem){
 			$('#widget_manager_multi_dashboard_edit .widget-manager-multi-dashboard-types-iframe').removeClass('hidden');
 
 			break;
-		case 'widgets':
 		default:
 			$('#widget_manager_multi_dashboard_edit .widget-manager-multi-dashboard-types-iframe').addClass('hidden');
 			$('#widget_manager_multi_dashboard_edit .widget-manager-multi-dashboard-types-widgets').removeClass('hidden');

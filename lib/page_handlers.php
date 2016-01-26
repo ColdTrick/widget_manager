@@ -14,7 +14,6 @@
  */
 function widget_manager_extra_contexts_page_handler($page, $handler) {
 	
-	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
 	if (!widget_manager_is_extra_context($handler)) {
 		return false;
 	}
