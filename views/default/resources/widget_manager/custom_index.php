@@ -80,14 +80,14 @@ if ($style) {
 }
 
 // draw the page
-$params = array(
-		'content' => $top_row,
-		'top_row_used' => $top_row_used,
-		'num_columns' => $num_columns,
-		'exact_match' => true
-);
+$params = [
+	'content' => $top_row,
+	'top_row_used' => $top_row_used,
+	'num_columns' => $num_columns,
+	'exact_match' => true,
+];
 $content = elgg_view_layout('widgets', $params);
 
-$body = elgg_view_layout('one_column', array('content' => $style . $content));
+$body = elgg_view_layout('one_column', ['content' => $style . $content]);
 
-echo elgg_view_page("", $body);
+echo elgg_view_page('', $body);

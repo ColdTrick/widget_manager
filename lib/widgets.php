@@ -146,7 +146,7 @@ function widget_manager_widgets_twitter_search_settings_save_hook($hook, $type, 
 	}
 
 	$pattern = '/data-widget-id=\"(\d+)\"/i';
-	$matches = array();
+	$matches = [];
 	if (!preg_match($pattern, $embed_code, $matches)) {
 		register_error(elgg_echo('widgets:twitter_search:embed_code:error'));
 		return;

@@ -15,7 +15,7 @@ if ($entity_stats) {
 				if ($a == "__base__") {
 					$a = elgg_echo("item:{$k}");
 					if ($k == "user") {
-						$b .= " (" . elgg_echo("admin:users:online") . " " . find_active_users(array("seconds" => 600, "count" => true))  . ")";
+						$b .= " (" . elgg_echo("admin:users:online") . " " . find_active_users(["seconds" => 600, "count" => true])  . ")";
 					}
 				} else {
 					if (empty($a)) {

@@ -34,7 +34,7 @@ if (!empty($activity_content)) {
 		$value = $subtype;
 		if (array_key_exists($type, $river_options['type_subtype_pairs'])) {
 			if (!is_array($river_options['type_subtype_pairs'][$type])) {
-				$value = array($river_options['type_subtype_pairs'][$type]);
+				$value = [$river_options['type_subtype_pairs'][$type]];
 			} else {
 				$value = $river_options['type_subtype_pairs'][$type];
 			}
