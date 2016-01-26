@@ -1,6 +1,13 @@
 Version history
 ===============
 
+6.0-beta (2016-01-26):
+
+- added: support for Elgg 2.0 added
+- removed: no longer provide favorites widget
+- removed: no longer provide index_bookmarks widget
+- removed: no longer provide tagcloud widget
+
 5.2 (2016-01-20):
 
 - added: ability for group owners to update all widgets access level
