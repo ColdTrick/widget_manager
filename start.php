@@ -86,7 +86,7 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url_hook_handler');
 
 	// cacheable widget handlers
-// 	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', 'widget_manager_cacheable_handlers_hook_handler');
+	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', 'widget_manager_cacheable_handlers_hook_handler');
 	
 	// index page
 	elgg_register_plugin_hook_handler('route', 'all', 'widget_manager_route_index_handler');
