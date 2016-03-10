@@ -111,6 +111,8 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('view_vars', 'admin/appearance/default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::defaultWidgetsViewVars', 400);
 	
 	elgg_register_event_handler('create', 'object', 'widget_manager_create_object_handler');
+
+	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
 	// multi dashboard support
 	add_subtype('object', MultiDashboard::SUBTYPE, 'MultiDashboard');
