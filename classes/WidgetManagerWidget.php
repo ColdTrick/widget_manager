@@ -44,12 +44,10 @@ class WidgetManagerWidget extends ElggWidget {
 		
 		$query = "SELECT * from " . elgg_get_config("dbprefix") . "private_settings where entity_guid = {$guid}";
 		$result = get_data($query);
-		if (empty($result)) {
-			return false;
-		}
-		
-		foreach ($result as $r) {
-			$this->settings_cache[$r->name] = $r->value;
+		if (!empty($result)) {
+			foreach ($result as $r) {
+				$this->settings_cache[$r->name] = $r->value;
+			}
 		}
 		
 		return true;
