@@ -20,13 +20,17 @@ class Cache {
 			'type' => 'object',
 			'subtype' => 'widget',
 			'limit' => false,
-			'private_setting_name' => 'widget_manager_cached_data',
+			'private_setting_name_value_pairs' => [
+				'name' => 'widget_manager_cached_data',
+				'value' => 0,
+				'operand' => '>',
+			],
 		]);
 		
 		$batch->setIncrementOffset(false);
 		
 		foreach ($batch as $entity) {
-			$entity->widget_manager_cached_data = null;
+			$entity->widget_manager_cached_data = 0;
 		}
 		
 		elgg_set_ignore_access($ia);
