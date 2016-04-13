@@ -1,6 +1,12 @@
 Version history
 ===============
 
+6.0 (2016-04-13):
+
+- added: cached data for cacheable widgets is now reset on cache flush
+- fixed: accidentally deactivated registration cacheable widgets
+- fixed: widget cache clear took too long
+
 6.0-beta (2016-01-26):
 
 - added: support for Elgg 2.0 added
