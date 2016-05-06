@@ -1,16 +1,20 @@
 require(['elgg', 'jquery'], function(elgg, $) {
 
-	// reset draggable functionality to pointer
-	$(".elgg-widgets").sortable("option", "tolerance", "pointer");
+	elgg.provide('elgg.widget_manager');
 
-	$(".elgg-widgets").bind({
-		sortstart: function (event, ui) {
-			$(".widget-manager-groups-widgets-top-row").addClass("widget-manager-groups-widgets-top-row-highlight");
-		},
-		sortstop: function (event, ui) {
-			$(".widget-manager-groups-widgets-top-row").removeClass("widget-manager-groups-widgets-top-row-highlight");
-		}
-	});
+	elgg.widget_manager.init = function() {
+		// reset draggable functionality to pointer
+		$('.elgg-widgets').sortable('option', 'tolerance', 'pointer');
+
+		$('.elgg-widgets').bind({
+			sortstart: function (event, ui) {
+				$('.widget-manager-groups-widgets-top-row').addClass('widget-manager-groups-widgets-top-row-highlight');
+			},
+			sortstop: function (event, ui) {
+				$('.widget-manager-groups-widgets-top-row').removeClass('widget-manager-groups-widgets-top-row-highlight');
+			}
+		});
+	};
 
 	// live update of widget titles
 	$(document).on('click', '.elgg-form-widgets-save input.elgg-button-submit', function (e) {
@@ -91,4 +95,6 @@ require(['elgg', 'jquery'], function(elgg, $) {
 			});
 		}
 	});
+	
+	elgg.register_hook_handler('init', 'system', elgg.widget_manager.init);
 });
