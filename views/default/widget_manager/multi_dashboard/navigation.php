@@ -40,12 +40,17 @@ if (!empty($md_entities)) {
 		}
 		
 		$order = $entity->order ? $entity->order : $entity->time_created;
-		
-		$tabs[$order] = [
-			'text' => $tab_title . elgg_view_icon('settings-alt', [
+
+		$edit_icon = '';
+		if ($entity->canEdit()) {
+			$edit_icon = elgg_view_icon('settings-alt', [
 				'class' => 'widget-manager-multi-dashboard-tabs-edit hidden',
 				'data-multi-dashboard-edit-link' => elgg_normalize_url("ajax/view/widget_manager/forms/multi_dashboard?guid={$entity->getGUID()}"),
-			]),
+			]);
+		}
+		
+		$tabs[$order] = [
+			'text' => $tab_title . $edit_icon,
 			'href' => $entity->getURL(),
 			'title' => $entity->title,
 			'selected' => $selected,
