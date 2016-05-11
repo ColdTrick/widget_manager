@@ -27,20 +27,6 @@ class MultiDashboard extends ElggObject {
 	}
 	
 	/**
-	 * Returns url to the dashboard
-	 *
-	 * @return string|boolean
-	 */
-	public function getURL() {
-		if (empty($this->guid)) {
-			return false;
-		}
-
-		$site = elgg_get_site_entity($this->site_guid);
-		return $site->url . 'dashboard/' . $this->getGUID();
-	}
-	
-	/**
 	 * On delete of dashboard remove all widgets in it
 	 *
 	 * @param boolean $recursive Whether to delete all the entities contained by this entity

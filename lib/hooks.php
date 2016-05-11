@@ -396,7 +396,24 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 
 	return $result;
 }
-	
+
+/**
+ * Sets default dashboard entity URL
+ * 
+ * @param string $hook   "entity:url"
+ * @param string $type   "object"
+ * @param string $return URL
+ * @param array  $params Hook params
+ * @return string
+ */
+function widget_manager_dashboard_url($hook, $type, $return, $params) {
+	$entity = elgg_extract('entity', $params);
+	if (!$entity instanceof MultiDashboard) {
+		return;
+	}
+	return elgg_normalize_url("dashboard/$entity->guid");
+}
+
 /**
  * Allow for group default widgets
  *
