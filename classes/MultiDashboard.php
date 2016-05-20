@@ -27,35 +27,6 @@ class MultiDashboard extends ElggObject {
 	}
 	
 	/**
-	 * Correctly sets attributes on save
-	 *
-	 * @return void
-	 */
-	public function save() {
-		if (!$this->guid) {
-			$this->attributes['owner_guid'] = elgg_get_logged_in_user_guid();
-			$this->attributes['container_guid'] = elgg_get_logged_in_user_guid();
-			$this->attributes['access_id'] = ACCESS_PRIVATE;
-		}
-		
-		return parent::save();
-	}
-	
-	/**
-	 * Returns url to the dashboard
-	 *
-	 * @return string|boolean
-	 */
-	public function getURL() {
-		if (empty($this->guid)) {
-			return false;
-		}
-
-		$site = elgg_get_site_entity($this->site_guid);
-		return $site->url . 'dashboard/' . $this->getGUID();
-	}
-	
-	/**
 	 * On delete of dashboard remove all widgets in it
 	 *
 	 * @param boolean $recursive Whether to delete all the entities contained by this entity
