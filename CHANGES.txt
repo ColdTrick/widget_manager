@@ -1,6 +1,14 @@
 Version history
 ===============
 
+6.1 (2016-05-26):
+
+- added: dashboard entity URLs can now be filtered
+- fixed: MultiDashboard::save() no longer sets attributes
+- fixed: only show edit icon if dashboard is editable
+- fixed: do not crash the loader if there are no private settings
+- fixed: moved elgg-widgets sortable modifications to system init event
+
 6.0.1 (2016-05-04):
 
 - fixed: widget cache was not resetting correctly on cache flush
