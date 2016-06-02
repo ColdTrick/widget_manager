@@ -225,9 +225,16 @@ if (in_array($display_option, ['slim','simple'])) {
 					$description = elgg_get_excerpt($entity->description, 170);
 					
 					if ($show_timestamp) {
-						$text .= elgg_format_element('span', [
-							'title' => date('r', $entity->time_created),
-						], substr(date('r', $entity->time_created), 0, 16));
+						$year = date('Y', $entity->time_created);
+						$month = date('m', $entity->time_created);
+						$day = date('j', $entity->time_created);
+						$day_of_the_week = date('w', $entity->time_created);
+						
+						$short_month = elgg_echo("date:month:short:{$month}", [$day]);
+						$short_day = elgg_echo("date:weekday:short:{$day_of_the_week}");
+						$time = date('G:i:s', $entity->time_created);
+						
+						$text .= elgg_format_element('span', ['title' => "{$short_day}, {$short_month} {$year} {$time}"], "{$short_day}, {$short_month} {$year}");
 						
 						if (!empty($description)) {
 							$text .= ' - ';
@@ -248,9 +255,17 @@ if (in_array($display_option, ['slim','simple'])) {
 					
 					$text = '';
 					if ($show_timestamp) {
-						$text .= elgg_format_element('span', [
-							'title' => strftime("%c", $entity->time_created),
-						], strftime("%d %b", $entity->time_created)) . ' - ';
+						$year = date('Y', $entity->time_created);
+						$month = date('m', $entity->time_created);
+						$day = date('j', $entity->time_created);
+						$day_of_the_week = date('w', $entity->time_created);
+						
+						$short_month = elgg_echo("date:month:short:{$month}", [$day]);
+						$short_day = elgg_echo("date:weekday:short:{$day_of_the_week}");
+						$time = date('G:i:s', $entity->time_created);
+						
+						$text .= elgg_format_element('span', ['title' => "{$short_day}, {$short_month} {$year} {$time}"], $short_month);
+						$text .= ' - ';
 					}
 					
 					$text .= elgg_view('output/url', [
