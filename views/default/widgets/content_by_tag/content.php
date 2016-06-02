@@ -119,6 +119,12 @@ if ($names_where && $values_where) {
 	$wheres[] = "($values_where AND $access)";
 }
 
+// do not include container object in results
+$container = $widget->getContainerEntity();
+if ($container instanceof \ElggObject) {
+	$wheres[] = 'e.guid != ' . $container->guid;
+}
+
 if ($widget->order_by == 'alpha') {
 	$joins[] = "JOIN {$dbprefix}objects_entity oe ON e.guid = oe.guid";
 }
