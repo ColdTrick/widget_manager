@@ -39,7 +39,7 @@ class Groups {
 	 */
 	public static function updateGroupWidgets($event, $object_type, $object) {
 	
-		if (!($object instanceof ElggGroup)) {
+		if (!($object instanceof \ElggGroup)) {
 			return;
 		}
 	

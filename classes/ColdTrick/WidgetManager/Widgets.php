@@ -27,10 +27,10 @@ class Widgets {
 		
 		// Updates access for privately created widgets in a group or on site
 		$old_ia = elgg_set_ignore_access();
-		if ($owner instanceof ElggGroup) {
+		if ($owner instanceof \ElggGroup) {
 			$object->access_id = $owner->group_acl;
 			$object->save();
-		} elseif ($owner instanceof ElggSite) {
+		} elseif ($owner instanceof \ElggSite) {
 			$object->access_id = ACCESS_PUBLIC;
 			$object->save();
 		}
@@ -58,12 +58,12 @@ class Widgets {
 		}
 	
 		$dashboard = get_entity($dashboard_guid);
-		if (!elgg_instanceof($dashboard, 'object', MultiDashboard::SUBTYPE, 'MultiDashboard')) {
+		if (!elgg_instanceof($dashboard, 'object', \MultiDashboard::SUBTYPE, 'MultiDashboard')) {
 			return;
 		}
 	
 		// Adds a relation between a widget and a multidashboard object
-		add_entity_relationship($object->getGUID(), MultiDashboard::WIDGET_RELATIONSHIP, $dashboard->getGUID());
+		add_entity_relationship($object->getGUID(), \MultiDashboard::WIDGET_RELATIONSHIP, $dashboard->getGUID());
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class Widgets {
 	 * @return void
 	 */
 	public static function createFixedParentMetadata($event, $object_type, $object) {
-		if (!($object instanceof ElggWidget) || !in_array($event, ['create', 'update', 'delete'])) {
+		if (!($object instanceof \ElggWidget) || !in_array($event, ['create', 'update', 'delete'])) {
 			return;
 		}
 	
@@ -98,6 +98,43 @@ class Widgets {
 	
 		if ($context) {
 			elgg_set_plugin_setting($context . '_fixed_ts', time(), 'widget_manager');
+		}
+	}
+	
+	/**
+	 * Function that unregisters html validation for admins to be able to save freehtml widgets with special html
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param string $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return void
+	 */
+	public static function disableFreeHTMLInputFilter($hook_name, $entity_type, $return_value, $params) {
+		if (!elgg_is_admin_logged_in()) {
+			return;
+		}
+		
+		if (elgg_get_plugin_setting('disable_free_html_filter', 'widget_manager') !== 'yes') {
+			return;
+		}
+		
+		$guid = get_input('guid');
+		$widget = get_entity($guid);
+
+		if (!($widget instanceof \ElggWidget)) {
+			return;
+		}
+
+		if ($widget->handler !== 'free_html') {
+			return;
+		}
+			
+		$advanced_context = elgg_trigger_plugin_hook('advanced_context', 'widget_manager', ['entity' => $widget], ['index']);
+			
+		if (is_array($advanced_context) && in_array($widget->context, $advanced_context)) {
+			elgg_unregister_plugin_hook_handler('validate', 'input', 'htmlawed_filter_tags');
 		}
 	}
 }

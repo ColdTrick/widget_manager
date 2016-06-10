@@ -31,4 +31,26 @@ class Cache {
 		
 		elgg_set_ignore_access($ia);
 	}
+	
+	/**
+	 * Unsets the cached data for cacheable widgets
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param bool   $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return bool
+	 */
+	public static function clearWidgetCacheOnSettingsSave($hook_name, $entity_type, $return_value, $params) {
+
+		$widget = elgg_extract('widget', $params);
+		if (!elgg_instanceof($widget, 'object', 'widget')) {
+			return;
+		}
+	
+		if (widget_manager_is_cacheable_widget($widget)) {
+			$widget->widget_manager_cached_data = null;
+		}
+	}
 }

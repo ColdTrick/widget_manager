@@ -103,35 +103,6 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 }
 	
 /**
- * Function that unregisters html validation for admins to be able to save freehtml widgets with special html
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return void
- */
-function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_value, $params) {
-	if (elgg_is_admin_logged_in() && elgg_get_plugin_setting('disable_free_html_filter', 'widget_manager') == 'yes') {
-		$guid = get_input('guid');
-		$widget = get_entity($guid);
-		
-		if ($widget instanceof ElggWidget) {
-			if ($widget->handler !== 'free_html') {
-				return;
-			}
-			
-			$advanced_context = elgg_trigger_plugin_hook('advanced_context', 'widget_manager', ['entity' => $widget], ['index']);
-			
-			if (is_array($advanced_context) && in_array($widget->context, $advanced_context)) {
-				elgg_unregister_plugin_hook_handler('validate', 'input', 'htmlawed_filter_tags');
-			}
-		}
-	}
-}
-	
-/**
  * Adds an optional fix link to the menu
  *
  * @param string $hook_name    name of the hook
@@ -382,62 +353,6 @@ function widget_manager_group_widgets_default_list($hook_name, $entity_type, $re
 }
 	
 /**
- * Add extra widget contexts that have advanced widget options available
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return array
- */
-function widget_manager_advanced_context($hook_name, $entity_type, $return_value, $params) {
-	if (!is_array($return_value)) {
-		$return_value = [];
-	}
-	
-	$setting = strtolower(elgg_get_plugin_setting('extra_contexts', 'widget_manager'));
-	if ($setting && isset($params['entity'])) {
-		$widget = $params['entity'];
-		$widget_context = $widget->context;
-		
-		$contexts = string_to_tag_array($setting);
-		if ($contexts) {
-			if (in_array($widget_context, $contexts)) {
-				$return_value[] = $widget_context;
-			}
-		}
-	}
-
-	return $return_value;
-}
-
-/**
- * Register new widget contexts for use on custom widget pages
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return string
- */
-function widget_manager_available_widgets_context($hook_name, $entity_type, $return_value, $params) {
-	if (empty($return_value)) {
-		return $return_value;
-	}
-	
-	$setting = strtolower(elgg_get_plugin_setting('extra_contexts', 'widget_manager'));
-	if ($setting) {
-		$contexts = string_to_tag_array($setting);
-		
-		if ($contexts && in_array($return_value, $contexts)) {
-			return 'index';
-		}
-	}
-}
-	
-/**
  * Updates the pluginsettings for the contexts
  *
  * @param string $hook_name    name of the hook
@@ -576,35 +491,6 @@ function widget_manager_permissions_check_object_hook_handler($hook_name, $entit
 	return $return_value;
 }
 
-/**
- * Returns a rss widget specific date_time notation
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return string
- */
-function widget_manager_friendly_time_hook($hook_name, $entity_type, $return_value, $params) {
-	if (empty($params['time'])) {
-		return $return_value;
-	}
-
-	if (!elgg_in_context('rss_date')) {
-		return $return_value;
-	}
-	
-	$date_info = getdate($params['time']);
-
-	$date_array = [
-		elgg_echo('date:weekday:' . $date_info['wday']),
-		elgg_echo('date:month:' . str_pad($date_info['mon'], 2, '0', STR_PAD_LEFT), [$date_info['mday']]),
-		$date_info['year']
-	];
-
-	return implode(' ', $date_array);
-}
 
 /**
  * Listen to the widget settings save of the RSS server widget
@@ -663,27 +549,3 @@ function widget_manager_cacheable_handlers_hook_handler($hook_name, $entity_type
 	return $return_value;
 }
 
-/**
- * Unsets the cached data for cacheable widgets
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param bool   $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return bool
- */
-function widget_manager_all_widget_settings_hook_handler($hook_name, $entity_type, $return_value, $params) {
-	if (empty($params) || !is_array($params)) {
-		return $return_value;
-	}
-
-	$widget = elgg_extract('widget', $params);
-	if (empty($widget) || !elgg_instanceof($widget, 'object', 'widget')) {
-		return $return_value;
-	}
-
-	if (widget_manager_is_cacheable_widget($widget)) {
-		$widget->widget_manager_cached_data = null;
-	}
-}
