@@ -30,6 +30,19 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler('widget_settings', 'all', 'widget_manager_all_widget_settings_hook_handler');
 	
+	// register plugin hooks
+	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
+	elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
+	elgg_register_plugin_hook_handler('action', 'widgets/save', 'widget_manager_widgets_save_hook');
+	
+	elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
+	elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
+	
+	elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', 'widget_manager_advanced_context');
+	elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
+	
+	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
+	
 	if (elgg_is_active_plugin('groups')) {
 		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
 		
@@ -149,15 +162,3 @@ function widget_manager_init() {
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
 elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
 	
-// register plugin hooks
-elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
-elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
-elgg_register_plugin_hook_handler('action', 'widgets/save', 'widget_manager_widgets_save_hook');
-
-elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
-elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
-
-elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', 'widget_manager_advanced_context');
-elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
-
-elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
