@@ -38,8 +38,8 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
 	elgg_register_plugin_hook_handler('action', 'widgets/save', '\ColdTrick\WidgetManager\Widgets::disableFreeHTMLInputFilter');
 	
-	elgg_register_plugin_hook_handler('register', 'menu:widget', 'widget_manager_register_widget_menu');
-	elgg_register_plugin_hook_handler('prepare', 'menu:widget', 'widget_manager_prepare_widget_menu');
+	elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
+	elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
 	
 	elgg_register_plugin_hook_handler('advanced_context', 'widget_manager', '\ColdTrick\WidgetManager\Context::addExtraContextsToAdvancedContexts');
 	elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', '\ColdTrick\WidgetManager\Context::addExtraContextsAsAvailableWidgetsContext');
@@ -66,7 +66,7 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_dashboard_url');
 
 	// cacheable widget handlers
-	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', 'widget_manager_cacheable_handlers_hook_handler');
+	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', '\ColdTrick\WidgetManager\Widgets::getCacheableWidgets');
 	
 	// index page
 	elgg_register_plugin_hook_handler('route', 'all', '\ColdTrick\WidgetManager\Router::routeIndex');
@@ -155,7 +155,7 @@ function widget_manager_init_group() {
 	elgg_register_event_handler('update', 'group', '\ColdTrick\WidgetManager\Groups::updateGroupWidgets');
 		
 	// make default widget management available
-	elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
+	elgg_register_plugin_hook_handler('get_list', 'default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::addGroupsContextToDefaultWidgets');
 }
 
 /**

@@ -101,101 +101,7 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 
 	return $result;
 }
-	
-/**
- * Adds an optional fix link to the menu
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return array
- */
-function widget_manager_register_widget_menu($hook_name, $entity_type, $return_value, $params) {
-	$widget = elgg_extract('entity', $params);
-	
-	if (elgg_is_admin_logged_in() && elgg_in_context('default_widgets') && in_array($widget->context, ['profile', 'dashboard']) && $widget->fixed_parent_guid) {
-		$class = [];
-		if ($widget->fixed) {
-			$class[] = 'elgg-icon-hover';
-		}
-					
-		$return_value[] = ElggMenuItem::factory([
-			'name' => 'fix',
-			'text' => elgg_view_icon('thumb-tack', ['class' => $class]),
-			'title' => elgg_echo('widget_manager:widgets:fix'),
-			'href' => "#{$widget->guid}",
-			'link_class' => 'widget-manager-fix',
-		]);
-	}
 
-	return $return_value;
-}
-
-/**
- * Optionally removes the edit and delete links from the menu
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return array
- */
-function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_value, $params) {
-	if (!is_array($return_value)) {
-		return $return_value;
-	}
-	
-	$widget = elgg_extract('entity', $params);
-	if ($widget->fixed && !elgg_in_context('default_widgets') && !elgg_is_admin_logged_in()) {
-		foreach ($return_value as $section_key => $section) {
-			foreach ($section as $item_key => $item) {
-				if (in_array($item->getName(), ['delete', 'settings'])) {
-					unset($return_value[$section_key][$item_key]);
-				}
-			}
-		}
-	}
-	
-	foreach ($return_value as $section_key => $section) {
-		foreach ($section as $item_key => $item) {
-			if ($item->getName() == 'settings') {
-				$show_access = elgg_get_config('widget_show_access');
-				$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->getGUID() . '&show_access=' . $show_access);
-				unset($item->rel);
-				$item->{"data-colorbox-opts"} = '{"width": 750, "height": 500, "trapFocus": false}';
-				$item->addLinkClass('elgg-lightbox');
-			}
-			
-			if ($item->getName() == 'collapse') {
-				if ($widget->widget_manager_collapse_disable === 'yes' && $widget->widget_manager_collapse_state !== 'closed') {
-					unset($return_value[$section_key][$item_key]);
-				} elseif ($widget->widget_manager_collapse_disable !== 'yes') {
-					$widget_is_collapsed = false;
-					$widget_is_open = true;
-					
-					if (elgg_is_logged_in()) {
-						$widget_is_collapsed = widget_manager_check_collapsed_state($widget->guid, 'widget_state_collapsed');
-						$widget_is_open = widget_manager_check_collapsed_state($widget->guid, 'widget_state_open');
-					}
-											
-					if (($widget->widget_manager_collapse_state === 'closed' || $widget_is_collapsed) && !$widget_is_open) {
-						$item->addLinkClass('elgg-widget-collapsed');
-					}
-				}
-			}
-			
-			if ($item->getName() == 'delete') {
-				// dirty fix to prevent incorrect reregistration of add widget js action (see js/lib/ui.widgets.js line 120)
-				$item->addLinkClass('elgg-widget-multiple');
-			}
-		}
-	}
-	
-	return $return_value;
-}
 
 /**
  * Adds special data to widgets that are added on multidashboards
@@ -325,33 +231,6 @@ function widget_manager_dashboard_url($hook, $type, $return, $params) {
 	return elgg_normalize_url("dashboard/$entity->guid");
 }
 
-/**
- * Allow for group default widgets
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return string
- */
-function widget_manager_group_widgets_default_list($hook_name, $entity_type, $return_value, $params) {
-	if (!is_array($return_value)) {
-		$return_value = [];
-	}
-
-	$return_value[] = [
-		'name' => elgg_echo('groups'),
-		'widget_context' => 'groups',
-		'widget_columns' => 2,
-		'event' => 'create',
-		'entity_type' => 'group',
-		'entity_subtype' => NULL,
-	];
-
-	return $return_value;
-}
-	
 /**
  * Updates the pluginsettings for the contexts
  *
@@ -524,28 +403,3 @@ function widget_manager_rss_server_widget_settings_hook_handler($hook_name, $ent
 
 	return $return_value;
 }
-
-/**
- * Returns an array of cacheable widget handlers
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param bool   $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return bool
- */
-function widget_manager_cacheable_handlers_hook_handler($hook_name, $entity_type, $return_value, $params) {
-
-	if (!is_array($return_value)) {
-		return $return_value;
-	}
-	
-	$return_value[] = 'iframe';
-	$return_value[] = 'free_html';
-	$return_value[] = 'image_slider';
-	$return_value[] = 'twitter_search';
-
-	return $return_value;
-}
-

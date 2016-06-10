@@ -137,4 +137,28 @@ class Widgets {
 			elgg_unregister_plugin_hook_handler('validate', 'input', 'htmlawed_filter_tags');
 		}
 	}
+	
+	/**
+	 * Returns an array of cacheable widget handlers
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param bool   $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return bool
+	 */
+	public static function getCacheableWidgets($hook_name, $entity_type, $return_value, $params) {
+	
+		if (!is_array($return_value)) {
+			return $return_value;
+		}
+	
+		$return_value[] = 'iframe';
+		$return_value[] = 'free_html';
+		$return_value[] = 'image_slider';
+		$return_value[] = 'twitter_search';
+	
+		return $return_value;
+	}
 }
