@@ -29,11 +29,10 @@ class Router {
 		list($non_loggedin, $loggedin) = explode('|', $setting);
 	
 		if ((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input('override') == true))) {
-			elgg_register_page_handler('', 'widget_manager_index_page_handler');
+			elgg_register_page_handler('', '\ColdTrick\WidgetManager\PageHandlers::index');
 		}
 	}
 	
-
 	/**
 	 * Routes the multidashboard pages
 	 *

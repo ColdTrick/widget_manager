@@ -8,7 +8,6 @@ define('MULTI_DASHBOARD_MAX_TABS', 7);
 require_once(dirname(__FILE__) . '/lib/functions.php');
 require_once(dirname(__FILE__) . '/lib/events.php');
 require_once(dirname(__FILE__) . '/lib/hooks.php');
-require_once(dirname(__FILE__) . '/lib/page_handlers.php');
 require_once(dirname(__FILE__) . '/lib/widgets.php');
 
 // register default Elgg events
@@ -79,7 +78,7 @@ function widget_manager_init() {
 		$contexts = string_to_tag_array($extra_contexts);
 		if ($contexts) {
 			foreach ($contexts as $context) {
-				elgg_register_page_handler($context, 'widget_manager_extra_contexts_page_handler');
+				elgg_register_page_handler($context, '\ColdTrick\WidgetManager\PageHandlers::extraContexts');
 			}
 		}
 	}
