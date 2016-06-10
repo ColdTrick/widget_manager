@@ -132,40 +132,6 @@ function widget_manager_widgets_save_hook($hook_name, $entity_type, $return_valu
 }
 	
 /**
- * Hook to take over the index page
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return boolean
- */
-function widget_manager_route_index_handler($hook_name, $entity_type, $return_value, $params) {
-	
-	if (empty($return_value) || !is_array($return_value)) {
-		return $return_value;
-	}
-	
-	// identifier will be empty for the index page
-	$identifier = elgg_extract('identifier', $return_value);
-	if (!empty($identifier)) {
-		return $return_value;
-	}
-	
-	$setting = elgg_get_plugin_setting('custom_index', 'widget_manager');
-	if (empty($setting)) {
-		return $return_value;
-	}
-	
-	list($non_loggedin, $loggedin) = explode('|', $setting);
-		
-	if ((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input('override') == true))) {
-		elgg_register_page_handler('', 'widget_manager_index_page_handler');
-	}
-}
-	
-/**
  * Adds an optional fix link to the menu
  *
  * @param string $hook_name    name of the hook
@@ -258,32 +224,6 @@ function widget_manager_prepare_widget_menu($hook_name, $entity_type, $return_va
 	}
 	
 	return $return_value;
-}
-
-/**
- * Routes the multidashboard pages
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return void
- */
-function widget_manager_dashboard_route_handler($hook_name, $entity_type, $return_value, $params) {
-	$page = elgg_extract('segments', $return_value);
-
-	$guid = (int) elgg_extract(0, $page);
-	
-	if (empty($guid)) {
-		return;
-	}
-		
-	if (get_entity($guid)) {
-		set_input('multi_dashboard_guid', $guid);
-	} else {
-		register_error(elgg_echo('changebookmark'));
-	}
 }
 
 /**

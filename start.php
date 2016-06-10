@@ -91,7 +91,7 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', 'widget_manager_cacheable_handlers_hook_handler');
 	
 	// index page
-	elgg_register_plugin_hook_handler('route', 'all', 'widget_manager_route_index_handler');
+	elgg_register_plugin_hook_handler('route', 'all', '\ColdTrick\WidgetManager\Router::routeIndex');
 			
 	// add extra widget pages
 	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
@@ -122,7 +122,7 @@ function widget_manager_init() {
 	if (elgg_is_logged_in() && widget_manager_multi_dashboard_enabled()) {
 		elgg_register_ajax_view('widget_manager/forms/multi_dashboard');
 		
-		elgg_register_plugin_hook_handler('route', 'dashboard', 'widget_manager_dashboard_route_handler');
+		elgg_register_plugin_hook_handler('route', 'dashboard', '\ColdTrick\WidgetManager\Router::routeDashboard');
 		elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_add_action_handler');
 		
 		elgg_register_action('multi_dashboard/edit', $base_dir . '/actions/multi_dashboard/edit.php');
