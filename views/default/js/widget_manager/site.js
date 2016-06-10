@@ -80,9 +80,10 @@ require(['elgg', 'jquery'], function(elgg, $) {
 
 	$(document).on('click', '.elgg-module-widget .elgg-menu-item-collapse a', function (event) {
 		if (elgg.is_logged_in()) {
-			var collapsed = 0;
+			var collapsed = 1;
 			if ($(this).hasClass("elgg-widget-collapsed")) {
-				collapsed = 1;
+				collapsed = 0;
+				// elgg changes collapsed class after this click event
 			}
 
 			var guid = $(this).attr("href").replace("#elgg-widget-content-", "");
