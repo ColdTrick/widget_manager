@@ -1,6 +1,7 @@
 define([], function () {
 	
 	return function() {
+		/** global: twttr */
 		if (typeof twttr !== 'undefined') {
 			twttr.widgets.load();
 		}

@@ -119,7 +119,7 @@ function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $re
 		return;
 	}
 	
-	if (stristr($widget_context, 'dashboard_') == false) {
+	if (stristr($widget_context, 'dashboard_') === false) {
 		return;
 	}
 	

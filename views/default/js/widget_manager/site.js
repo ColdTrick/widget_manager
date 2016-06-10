@@ -7,17 +7,17 @@ require(['elgg', 'jquery'], function(elgg, $) {
 		$('.elgg-widgets').sortable('option', 'tolerance', 'pointer');
 
 		$('.elgg-widgets').bind({
-			sortstart: function (event, ui) {
+			sortstart: function () {
 				$('.widget-manager-groups-widgets-top-row').addClass('widget-manager-groups-widgets-top-row-highlight');
 			},
-			sortstop: function (event, ui) {
+			sortstop: function () {
 				$('.widget-manager-groups-widgets-top-row').removeClass('widget-manager-groups-widgets-top-row-highlight');
 			}
 		});
 	};
 
 	// live update of widget titles
-	$(document).on('click', '.elgg-form-widgets-save input.elgg-button-submit', function (e) {
+	$(document).on('click', '.elgg-form-widgets-save input.elgg-button-submit', function () {
 
 		var widgetId = $(this).siblings('input:hidden[name="guid"]').val();
 		var customTitle = $('#widget-manager-widget-edit-advanced-' + widgetId + ' input:text[name="params[widget_manager_custom_title]"]').val();
@@ -48,7 +48,7 @@ require(['elgg', 'jquery'], function(elgg, $) {
 		$('#elgg-widget-' + widgetId + ' .elgg-widget-handle h3').html(completeTitle);
 	});
 
-	$(document).on('submit', '.elgg-form-widgets-save', function (event) {
+	$(document).on('submit', '.elgg-form-widgets-save', function () {
 		elgg.ui.lightbox.close();
 
 		var widget_id = $(this).find("input[name='guid']").val();

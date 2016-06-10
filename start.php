@@ -125,6 +125,8 @@ function widget_manager_init_group() {
 	if (!in_array($group_enable, ['yes', 'forced'])) {
 		return;
 	}
+	
+	$base_dir = dirname(__FILE__);
 
 	elgg_extend_view('groups/edit', 'widget_manager/forms/groups_widget_access');
 	elgg_register_action('widget_manager/groups/update_widget_access', $base_dir . '/actions/groups/update_widget_access.php');
@@ -170,6 +172,8 @@ function widget_manager_init_multi_dashboard() {
 	if (!elgg_is_logged_in() || !widget_manager_multi_dashboard_enabled()) {
 		return;
 	}
+	
+	$base_dir = dirname(__FILE__);
 	
 	elgg_register_ajax_view('widget_manager/forms/multi_dashboard');
 

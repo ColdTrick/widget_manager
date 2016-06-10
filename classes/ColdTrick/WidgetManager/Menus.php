@@ -9,7 +9,7 @@ class Menus {
 	 *
 	 * @param string $hook_name    name of the hook
 	 * @param string $entity_type  type of the hook
-	 * @param string $return_value current return value
+	 * @param array  $return_value current return value
 	 * @param array  $params       hook parameters
 	 *
 	 * @return boolean
