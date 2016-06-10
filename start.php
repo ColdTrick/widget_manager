@@ -6,7 +6,6 @@ define('MULTI_DASHBOARD_MAX_TABS', 7);
 @include_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
-require_once(dirname(__FILE__) . '/lib/events.php');
 require_once(dirname(__FILE__) . '/lib/hooks.php');
 require_once(dirname(__FILE__) . '/lib/widgets.php');
 
@@ -94,11 +93,12 @@ function widget_manager_init() {
 
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 	
-	elgg_register_event_handler('create', 'object', 'widget_manager_create_object_handler');
+	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
+	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::linkWidgetToMultiDashboard');
 
 	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
-	elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
+	elgg_register_event_handler('all', 'object', '\ColdTrick\WidgetManager\Widgets::createFixedParentMetadata', 1000); // is only a fallback
 
 	elgg_register_ajax_view('page/layouts/widgets/add_panel');
 	elgg_register_ajax_view('widget_manager/widgets/settings');
@@ -146,13 +146,13 @@ function widget_manager_init_group() {
 			add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
 		} elseif ($group_option_enabled) {
 			// register event to make sure newly created groups have the group option enabled
-			elgg_register_event_handler('create', 'group', 'widget_manager_create_group_event_handler');
+			elgg_register_event_handler('create', 'group', '\ColdTrick\WidgetManager\Groups::setGroupToolOption');
 		}
 	}
 		
 	// register event to make sure all groups have the group option enabled if forces
 	// and configure tool enabled widgets
-	elgg_register_event_handler('update', 'group', 'widget_manager_update_group_event_handler');
+	elgg_register_event_handler('update', 'group', '\ColdTrick\WidgetManager\Groups::updateGroupWidgets');
 		
 	// make default widget management available
 	elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
