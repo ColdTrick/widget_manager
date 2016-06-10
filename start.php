@@ -132,6 +132,8 @@ function widget_manager_init() {
 
 	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
+	elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
+	
 	// multi dashboard support
 	add_subtype('object', MultiDashboard::SUBTYPE, 'MultiDashboard');
 	
@@ -160,5 +162,5 @@ function widget_manager_init() {
 
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
-elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
+
 	
