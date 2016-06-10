@@ -11,8 +11,13 @@ require_once(dirname(__FILE__) . '/lib/hooks.php');
 require_once(dirname(__FILE__) . '/lib/page_handlers.php');
 require_once(dirname(__FILE__) . '/lib/widgets.php');
 
+// register default Elgg events
+elgg_register_event_handler('init', 'system', 'widget_manager_init');
+elgg_register_event_handler('init', 'system', 'widget_manager_init_group');
+elgg_register_event_handler('init', 'system', 'widget_manager_init_multi_dashboard');
+
 /**
- * Function that runs on system init. Used to perform initialization of the widget manager features.
+ * Used to perform initialization of the widget manager features.
  *
  * @return void
  */
@@ -42,44 +47,6 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('available_widgets_context', 'widget_manager', 'widget_manager_available_widgets_context');
 	
 	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
-	
-	if (elgg_is_active_plugin('groups')) {
-		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
-		
-		if (in_array($group_enable, ['yes', 'forced'])) {
-		
-			elgg_extend_view('groups/edit', 'widget_manager/forms/groups_widget_access');
-			elgg_register_action('widget_manager/groups/update_widget_access', $base_dir . '/actions/groups/update_widget_access.php');
-			
-			// cleanup widgets in group context
-			elgg_extend_view('page/layouts/widgets/add_panel', 'widget_manager/group_tool_widgets', 400);
-			
-			if ($group_enable == 'yes') {
-				// add the widget manager tool option
-				$group_option_enabled = false;
-				if (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes') {
-					$group_option_enabled = true;
-				}
-				
-				if (elgg_get_plugin_setting('group_option_admin_only', 'widget_manager') != 'yes') {
-					// add the tool option for group admins
-					add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-				} elseif (elgg_is_admin_logged_in()) {
-					add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-				} elseif ($group_option_enabled) {
-					// register event to make sure newly created groups have the group option enabled
-					elgg_register_event_handler('create', 'group', 'widget_manager_create_group_event_handler');
-				}
-			}
-			
-			// register event to make sure all groups have the group option enabled if forces
-			// and configure tool enabled widgets
-			elgg_register_event_handler('update', 'group', 'widget_manager_update_group_event_handler');
-			
-			// make default widget management available
-			elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
-		}
-	}
 	
 	// extend CSS
 	elgg_extend_view('css/elgg', 'css/widget_manager/site.css');
@@ -133,22 +100,7 @@ function widget_manager_init() {
 	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
 	elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
-	
-	// multi dashboard support
-	add_subtype('object', MultiDashboard::SUBTYPE, 'MultiDashboard');
-	
-	if (elgg_is_logged_in() && widget_manager_multi_dashboard_enabled()) {
-		elgg_register_ajax_view('widget_manager/forms/multi_dashboard');
-		
-		elgg_register_plugin_hook_handler('route', 'dashboard', '\ColdTrick\WidgetManager\Router::routeDashboard');
-		elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_add_action_handler');
-		
-		elgg_register_action('multi_dashboard/edit', $base_dir . '/actions/multi_dashboard/edit.php');
-		elgg_register_action('multi_dashboard/delete', $base_dir . '/actions/multi_dashboard/delete.php');
-		elgg_register_action('multi_dashboard/drop', $base_dir . '/actions/multi_dashboard/drop.php');
-		elgg_register_action('multi_dashboard/reorder', $base_dir . '/actions/multi_dashboard/reorder.php');
-	}
-	
+
 	elgg_register_ajax_view('page/layouts/widgets/add_panel');
 	elgg_register_ajax_view('widget_manager/widgets/settings');
 	elgg_register_ajax_view('widgets/user_search/content');
@@ -160,7 +112,73 @@ function widget_manager_init() {
 	elgg_register_action('widget_manager/widgets/toggle_collapse', $base_dir . '/actions/widgets/toggle_collapse.php');
 }
 
-// register default Elgg events
-elgg_register_event_handler('init', 'system', 'widget_manager_init');
-
+/**
+ * Used to perform initialization of the group widgets features.
+ *
+ * @return void
+ */
+function widget_manager_init_group() {
+	if (!elgg_is_active_plugin('groups')) {
+		return;
+	}
 	
+	$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
+	if (!in_array($group_enable, ['yes', 'forced'])) {
+		return;
+	}
+
+	elgg_extend_view('groups/edit', 'widget_manager/forms/groups_widget_access');
+	elgg_register_action('widget_manager/groups/update_widget_access', $base_dir . '/actions/groups/update_widget_access.php');
+		
+	// cleanup widgets in group context
+	elgg_extend_view('page/layouts/widgets/add_panel', 'widget_manager/group_tool_widgets', 400);
+		
+	if ($group_enable == 'yes') {
+		// add the widget manager tool option
+		$group_option_enabled = false;
+		if (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes') {
+			$group_option_enabled = true;
+		}
+
+		if (elgg_get_plugin_setting('group_option_admin_only', 'widget_manager') != 'yes') {
+			// add the tool option for group admins
+			add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+		} elseif (elgg_is_admin_logged_in()) {
+			add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+		} elseif ($group_option_enabled) {
+			// register event to make sure newly created groups have the group option enabled
+			elgg_register_event_handler('create', 'group', 'widget_manager_create_group_event_handler');
+		}
+	}
+		
+	// register event to make sure all groups have the group option enabled if forces
+	// and configure tool enabled widgets
+	elgg_register_event_handler('update', 'group', 'widget_manager_update_group_event_handler');
+		
+	// make default widget management available
+	elgg_register_plugin_hook_handler('get_list', 'default_widgets', 'widget_manager_group_widgets_default_list');
+}
+
+/**
+ * Used to perform initialization of the multi_dashboard features.
+ *
+ * @return void
+ */
+function widget_manager_init_multi_dashboard() {
+	// multi dashboard support
+	add_subtype('object', MultiDashboard::SUBTYPE, 'MultiDashboard');
+	
+	if (!elgg_is_logged_in() || !widget_manager_multi_dashboard_enabled()) {
+		return;
+	}
+	
+	elgg_register_ajax_view('widget_manager/forms/multi_dashboard');
+
+	elgg_register_plugin_hook_handler('route', 'dashboard', '\ColdTrick\WidgetManager\Router::routeDashboard');
+	elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_add_action_handler');
+
+	elgg_register_action('multi_dashboard/edit', $base_dir . '/actions/multi_dashboard/edit.php');
+	elgg_register_action('multi_dashboard/delete', $base_dir . '/actions/multi_dashboard/delete.php');
+	elgg_register_action('multi_dashboard/drop', $base_dir . '/actions/multi_dashboard/drop.php');
+	elgg_register_action('multi_dashboard/reorder', $base_dir . '/actions/multi_dashboard/reorder.php');
+}
