@@ -110,7 +110,10 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
 
-	elgg_register_plugin_hook_handler('view_vars', 'admin/appearance/default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::defaultWidgetsViewVars', 400);
+	elgg_register_plugin_hook_handler('view_vars', 'admin/appearance/default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::defaultWidgetsViewVars');
+	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Layouts::checkFixedWidgets');
+
+	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 	
 	elgg_register_event_handler('create', 'object', 'widget_manager_create_object_handler');
 
@@ -142,63 +145,8 @@ function widget_manager_init() {
 	elgg_register_action('widget_manager/widgets/toggle_collapse', $base_dir . '/actions/widgets/toggle_collapse.php');
 }
 
-/**
- * Function that runs on system pagesetup.
- *
- * @return void
- */
-function widget_manager_pagesetup() {
-	$context = elgg_get_context();
-	
-	if (elgg_is_admin_logged_in() && $context == 'admin') {
-		// move defaultwidgets menu item
-		elgg_unregister_menu_item('page', 'appearance:default_widgets');
-		elgg_register_menu_item('page', [
-			'name' => 'appearance:default_widgets',
-			'href' => 'admin/appearance/default_widgets',
-			'text' => elgg_echo('admin:appearance:default_widgets'),
-			'context' => 'admin',
-			'parent_name' => 'widgets',
-			'section' => 'configure',
-		]);
-		
-		// add own menu items
-		elgg_register_admin_menu_item('configure', 'manage', 'widgets');
-		
-		if (elgg_get_plugin_setting('custom_index', 'widget_manager') == '1|0') {
-			// a special link to manage homepages that are only available if logged out
-			elgg_register_menu_item('page', [
-				'name' => 'admin:widgets:manage:index',
-				'href' => elgg_get_site_url() . '?override=true',
-				'text' => elgg_echo('admin:widgets:manage:index'),
-				'context' => 'admin',
-				'parent_name' => 'widgets',
-				'section' => 'configure',
-			]);
-		}
-	}
-	
-	// update fixed widgets if needed
-	if (in_array($context, ['profile', 'dashboard']) && ($page_owner_guid = elgg_get_page_owner_guid())) {
-		// only check things if you are viewing a profile or dashboard page
-		$fixed_ts = elgg_get_plugin_setting($context . '_fixed_ts', 'widget_manager');
-		if (empty($fixed_ts)) {
-			// there should always be a fixed ts, so fix it now. This situation only occurs after activating widget_manager the first time.
-			$fixed_ts = time();
-			elgg_set_plugin_setting($context . '_fixed_ts', $fixed_ts, 'widget_manager');
-		}
-		
-		// get the ts of the profile/dashboard you are viewing
-		$user_fixed_ts = elgg_get_plugin_user_setting($context . '_fixed_ts', $page_owner_guid, 'widget_manager');
-		if ($user_fixed_ts < $fixed_ts) {
-			widget_manager_update_fixed_widgets($context, $page_owner_guid);
-		}
-	}
-}
-
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
-elgg_register_event_handler('pagesetup', 'system', 'widget_manager_pagesetup');
 elgg_register_event_handler('all', 'object', 'widget_manager_update_widget', 1000); // is only a fallback
 	
 // register plugin hooks
