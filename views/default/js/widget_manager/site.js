@@ -1,4 +1,4 @@
-require(['elgg', 'jquery'], function(elgg, $) {
+require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $) {
 
 	elgg.provide('elgg.widget_manager');
 
