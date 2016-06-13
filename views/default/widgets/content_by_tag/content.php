@@ -137,6 +137,8 @@ $options = [
 	'pagination' => false,
 	'joins' => $joins,
 	'wheres' => $wheres,
+	'preload_owners' => true,
+	'preload_containers' => true,
 ];
 
 // owner_guids
