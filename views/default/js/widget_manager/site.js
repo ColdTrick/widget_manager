@@ -48,7 +48,7 @@ require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $) {
 		$('#elgg-widget-' + widgetId + ' .elgg-widget-handle h3').html(completeTitle);
 	});
 
-	$(document).on('submit', '.elgg-form-widgets-save', function () {
+	$(document).on('submit', '.elgg-form-widgets-save', function (event) {
 		elgg.ui.lightbox.close();
 
 		var widget_id = $(this).find("input[name='guid']").val();
