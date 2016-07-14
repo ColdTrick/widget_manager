@@ -15,6 +15,12 @@ class Router {
 	 * @return boolean
 	 */
 	public static function routeIndex($hook_name, $entity_type, $return_value, $params) {
+		
+		if (!is_array($return_value)) {
+			// someone else already routed this page
+			return;
+		}
+		
 		// identifier will be empty for the index page
 		$identifier = elgg_extract('identifier', $return_value);
 		if (!empty($identifier)) {
