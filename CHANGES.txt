@@ -1,6 +1,10 @@
 Version history
 ===============
 
+6.2.1 (2016-08-26):
+
+- fixed: php notice when page already routed
+
 6.2 (2016-06-16):
 
 - changed: content_by_tag widget now preloads owners and containers
