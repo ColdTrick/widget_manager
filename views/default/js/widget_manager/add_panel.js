@@ -1,9 +1,6 @@
-define(function (require) {
+require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 
-	var elgg = require('elgg');
-	var $ = require('jquery');
-
-	$(document).on('click', '#widget_manager_widgets_select li.elgg-state-available', elgg.ui.widgets.add);
+	$(document).on('click', '#widget_manager_widgets_select li.elgg-state-available', widgets.add);
 	
 	$(document).on('keyup', '#widget_manager_widgets_search input[type="text"]', function() {
 		var $container = $('#widget_manager_widgets_select');
