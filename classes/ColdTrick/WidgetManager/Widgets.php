@@ -20,7 +20,7 @@ class Widgets {
 		}
 
 		if ((int) $object->access_id !== ACCESS_PRIVATE) {
-			return;	
+			return;
 		}
 
 		$owner = $object->getOwnerEntity();
@@ -35,35 +35,6 @@ class Widgets {
 			$object->save();
 		}
 		elgg_set_ignore_access($old_ia);
-	}
-
-	/**
-	 * Links a widget to a multidashboard
-	 *
-	 * @param string $event       name of the system event
-	 * @param string $object_type type of the event
-	 * @param mixed  $object      object related to the event
-	 *
-	 * @return void
-	 */
-	public static function linkWidgetToMultiDashboard($event, $object_type, $object) {
-	
-		if (!elgg_instanceof($object, 'object', 'widget', 'ElggWidget')) {
-			return;
-		}
-
-		$dashboard_guid = get_input('multi_dashboard_guid');
-		if (empty($dashboard_guid) || !widget_manager_multi_dashboard_enabled()) {
-			return;
-		}
-	
-		$dashboard = get_entity($dashboard_guid);
-		if (!elgg_instanceof($dashboard, 'object', \MultiDashboard::SUBTYPE, 'MultiDashboard')) {
-			return;
-		}
-	
-		// Adds a relation between a widget and a multidashboard object
-		add_entity_relationship($object->getGUID(), \MultiDashboard::WIDGET_RELATIONSHIP, $dashboard->getGUID());
 	}
 	
 	/**

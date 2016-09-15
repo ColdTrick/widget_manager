@@ -102,33 +102,6 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 	return $result;
 }
 
-
-/**
- * Adds special data to widgets that are added on multidashboards
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return void
- */
-function widget_manager_widgets_add_action_handler($hook_name, $entity_type, $return_value, $params) {
-	$widget_context = get_input('context'); // dashboard_<guid>;
-	if (empty($widget_context)) {
-		return;
-	}
-	
-	if (stristr($widget_context, 'dashboard_') === false) {
-		return;
-	}
-	
-	list($context, $guid) = explode('_', $widget_context);
-	
-	set_input('context', $context);
-	set_input('multi_dashboard_guid', $guid);
-}
-
 /**
  * Checks if a user can manage current widget layout
  *
@@ -212,23 +185,6 @@ function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $pa
 	}
 
 	return $result;
-}
-
-/**
- * Sets default dashboard entity URL
- * 
- * @param string $hook   "entity:url"
- * @param string $type   "object"
- * @param string $return URL
- * @param array  $params Hook params
- * @return string
- */
-function widget_manager_dashboard_url($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
-	if (!$entity instanceof MultiDashboard) {
-		return;
-	}
-	return elgg_normalize_url("dashboard/$entity->guid");
 }
 
 /**

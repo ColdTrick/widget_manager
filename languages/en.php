@@ -5,9 +5,6 @@ $english = array(
 	// special access level
 	'LOGGED_OUT' => "Logged out users",
 	'access:admin_only' => "Administrators only",
-		
-	// objects
-	'item:object:multi_dashboard' => "Multi Dashboard",
 
 	// admin menu items
 	'admin:widgets' => "Widgets",
@@ -66,12 +63,6 @@ $english = array(
 	'widget_manager:settings:group:force_tool_widgets' => "Enforce group tool widgets",
 	'widget_manager:settings:group:force_tool_widgets:confirm' => "Are you sure? This will add/remove all widgets specific to a tool option for all groups (where widget management is enabled).",
 
-	'widget_manager:settings:dashboard' => "Dashboard",
-	'widget_manager:settings:dashboard:multi_dashboard' => "Enable multiple dashboards",
-	'widget_manager:settings:dashboard:multi_dashboard:internal_deprecated' => "Usage of internal dashboards is no longer available. This is the link you used for the internal dashboard: %s",
-	'widget_manager:settings:dashboard:dashboard_widget_layout' => "Dashboard widget layout",
-	'widget_manager:settings:dashboard:dashboard_widget_layout:info' => "This widget layout only applies to the default dashboard and not to extra dashboards created with the multidashboard option",
-
 	'widget_manager:settings:extra_contexts' => "Extra widget contexts",
 	'widget_manager:settings:extra_contexts:add' => "Add a page",
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page by entering their username. You can have multiple managers by seperating their username by a comma.",
@@ -97,44 +88,11 @@ $english = array(
 	'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
 	'widget_manager:widgets:lightbox:title:admin' => "Add widgets to your admin dashboard",
 
-	// multi dashboard
-	'widget_manager:multi_dashboard:add' => "New Tab",
-
-	// multi dashboard - edit
-	'widget_manager:multi_dashboard:new' => "Create a new dashboard",
-	'widget_manager:multi_dashboard:edit' => "Edit dashboard: %s",
-
-	'widget_manager:multi_dashboard:types:title' => "Select a dashboard type",
-	'widget_manager:multi_dashboard:types:widgets' => "Widgets",
-	'widget_manager:multi_dashboard:types:iframe' => "iFrame",
-
-	'widget_manager:multi_dashboard:num_columns:title' => "Number of columns",
-	'widget_manager:multi_dashboard:iframe_url:title' => "iFrame URL",
-	'widget_manager:multi_dashboard:iframe_url:description' => "Note: please make sure the URL begins with http:// or https://. Not all sites may support the use of iFrames",
-	'widget_manager:multi_dashboard:iframe_height:title' => "iFrame height",
-
-	'widget_manager:multi_dashboard:required' => "Items marked with a * are required",
-
 	// actions
 	// manage
 	'widget_manager:action:manage:error:context' => "Invalid context to save widget configuration",
 	'widget_manager:action:manage:error:save_setting' => "Error while saving the setting %s for widget %s",
 	'widget_manager:action:manage:success' => "Widget configuration saved successfully",
-
-	// multi dashboard - edit
-	'widget_manager:actions:multi_dashboard:edit:error:input' => "Invalid input, please submit a title",
-	'widget_manager:actions:multi_dashboard:edit:success' => "Succesfully created/edited a dashboard",
-
-	// multi dashboard - delete
-	'widget_manager:actions:multi_dashboard:delete:error:delete' => "Unable to remove dashboard %s",
-	'widget_manager:actions:multi_dashboard:delete:success' => "Dashboard %s succesfully removed",
-
-	// multi dashboard - drop
-	'widget_manager:actions:multi_dashboard:drop:success' => "The widget has successfully been moved the the new dashboard",
-
-	// multi dashboard - reorder
-	'widget_manager:actions:multi_dashboard:reorder:error:order' => "Please supply a new order",
-	'widget_manager:actions:multi_dashboard:reorder:success' => "Dashboard reordered successfully",
 
 	// force tool widgets
 	'widget_manager:action:force_tool_widgets:error:not_enabled' => "Widget managent for groups is not enabled",

@@ -1,7 +1,6 @@
 <?php
 
 define('ACCESS_LOGGED_OUT', -5);
-define('MULTI_DASHBOARD_MAX_TABS', 7);
 
 @include_once(dirname(__FILE__) . '/vendor/autoload.php');
 
@@ -12,7 +11,6 @@ require_once(dirname(__FILE__) . '/lib/widgets.php');
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
 elgg_register_event_handler('init', 'system', 'widget_manager_init_group');
-elgg_register_event_handler('init', 'system', 'widget_manager_init_multi_dashboard');
 
 /**
  * Used to perform initialization of the widget manager features.
@@ -62,8 +60,6 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url');
 	// widget manager widgets
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url_hook_handler');
-	// dashboard
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_dashboard_url');
 
 	// cacheable widget handlers
 	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', '\ColdTrick\WidgetManager\Widgets::getCacheableWidgets');
@@ -94,7 +90,6 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 	
 	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
-	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::linkWidgetToMultiDashboard');
 
 	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
@@ -158,30 +153,4 @@ function widget_manager_init_group() {
 		
 	// make default widget management available
 	elgg_register_plugin_hook_handler('get_list', 'default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::addGroupsContextToDefaultWidgets');
-}
-
-/**
- * Used to perform initialization of the multi_dashboard features.
- *
- * @return void
- */
-function widget_manager_init_multi_dashboard() {
-	// multi dashboard support
-	add_subtype('object', MultiDashboard::SUBTYPE, 'MultiDashboard');
-	
-	if (!elgg_is_logged_in() || !widget_manager_multi_dashboard_enabled()) {
-		return;
-	}
-	
-	$base_dir = dirname(__FILE__);
-	
-	elgg_register_ajax_view('widget_manager/forms/multi_dashboard');
-
-	elgg_register_plugin_hook_handler('route', 'dashboard', '\ColdTrick\WidgetManager\Router::routeDashboard');
-	elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_add_action_handler');
-
-	elgg_register_action('multi_dashboard/edit', $base_dir . '/actions/multi_dashboard/edit.php');
-	elgg_register_action('multi_dashboard/delete', $base_dir . '/actions/multi_dashboard/delete.php');
-	elgg_register_action('multi_dashboard/drop', $base_dir . '/actions/multi_dashboard/drop.php');
-	elgg_register_action('multi_dashboard/reorder', $base_dir . '/actions/multi_dashboard/reorder.php');
 }

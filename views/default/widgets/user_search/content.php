@@ -25,6 +25,7 @@ echo elgg_view('input/form', [
 	'class' => 'widget-user-search-form',
 	'onsubmit' => 'return false;',
 	'rel' => $widget->guid,
+	'action' => false,
 ]);
 
 if (empty($q)) {

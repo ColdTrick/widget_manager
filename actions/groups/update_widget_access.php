@@ -7,7 +7,7 @@ $group_guid = (int) get_input('group_guid');
 $new_access = get_input('widget_access_level'); // can't cast directly to int because of ACCESS_PRIVATE
 
 if (empty($group_guid) || $new_access === null) {
-	register_error(elgg_echo('InvalidParameterException:MissingParameter'));
+	register_error(elgg_echo('error:missing_data'));
 	forward(REFERER);
 }
 

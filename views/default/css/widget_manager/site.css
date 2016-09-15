@@ -30,17 +30,6 @@
 	border: 2px solid #DEDEDE;
 }
 
-.widget-manager-multi-dashboard-tab:hover .widget-manager-multi-dashboard-tabs-edit {
-	display: inline-block;
-}
-
-#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-active {
-	border-color: #666666;
-}
-#widget-manager-multi-dashboard-tabs .widget-manager-multi-dashboard-tab-hover {
-	border-color: #333333;
-}
-
 .widget-manager-groups-widgets-top-row {
 	width: 100%;
 	min-height: 0px !important;

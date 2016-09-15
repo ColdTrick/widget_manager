@@ -3,10 +3,6 @@
  * Button area for showing the add widgets panel
  */
 
-if (elgg_in_context('iframe_dashboard')) {
-	return;
-}
-
 elgg_load_js('lightbox');
 elgg_load_css('lightbox');
 
@@ -15,7 +11,6 @@ $href_options = [
 	'context_stack' => elgg_get_context_stack(),
 	'show_access' => elgg_extract('show_access', $vars),
 	'exact_match' => elgg_extract('exact_match', $vars),
-	'multi_dashboard_guid' => elgg_extract('multi_dashboard_guid', $vars),
 	'owner_guid' => elgg_get_page_owner_guid(),
 ];
 
