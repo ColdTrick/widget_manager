@@ -6,7 +6,6 @@ define('ACCESS_LOGGED_OUT', -5);
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
 require_once(dirname(__FILE__) . '/lib/hooks.php');
-require_once(dirname(__FILE__) . '/lib/widgets.php');
 
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
@@ -26,15 +25,11 @@ function widget_manager_init() {
 		update_subtype('object', 'widget', 'WidgetManagerWidget');
 	}
 	
-	// loads the widgets
-	widget_manager_widgets_init();
-	
 	elgg_register_plugin_hook_handler('widget_settings', 'all', '\ColdTrick\WidgetManager\Cache::clearWidgetCacheOnSettingsSave');
 	
 	// register plugin hooks
 	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
 	elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
-	elgg_register_plugin_hook_handler('action', 'widgets/save', '\ColdTrick\WidgetManager\Widgets::disableFreeHTMLInputFilter');
 	
 	elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
 	elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
@@ -53,17 +48,10 @@ function widget_manager_init() {
 	
 	elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
 	
-	elgg_register_plugin_hook_handler('format', 'friendly:time', '\ColdTrick\WidgetManager\Output::rssFriendlyTime');
-	
 	// register a widget title url handler
 	// core widgets
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url');
-	// widget manager widgets
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url_hook_handler');
 
-	// cacheable widget handlers
-	elgg_register_plugin_hook_handler('cacheable_handlers', 'widget_manager', '\ColdTrick\WidgetManager\Widgets::getCacheableWidgets');
-	
 	// index page
 	elgg_register_plugin_hook_handler('route', 'all', '\ColdTrick\WidgetManager\Router::routeIndex');
 			

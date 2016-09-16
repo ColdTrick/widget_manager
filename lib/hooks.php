@@ -325,37 +325,3 @@ function widget_manager_permissions_check_object_hook_handler($hook_name, $entit
 			
 	return $return_value;
 }
-
-
-/**
- * Listen to the widget settings save of the RSS server widget
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param bool   $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return bool
- */
-function widget_manager_rss_server_widget_settings_hook_handler($hook_name, $entity_type, $return_value, $params) {
-
-	if (empty($params) || !is_array($params)) {
-		return $return_value;
-	}
-
-	$widget = elgg_extract('widget', $params);
-	if (empty($widget) || !elgg_instanceof($widget, 'object', 'widget')) {
-		return $return_value;
-	}
-
-	if ($widget->handler != 'rss_server') {
-		return $return_value;
-	}
-
-	$cache_file = elgg_get_config('dataroot') . 'widgets/rss/' . $widget->getGUID() . '.json';
-	if (file_exists($cache_file)) {
-		unlink($cache_file);
-	}
-
-	return $return_value;
-}

@@ -88,6 +88,6 @@ $params = [
 ];
 $content = elgg_view_layout('widgets', $params);
 
-$body = elgg_view_layout('one_column', ['content' => $style . $content]);
+$body = elgg_view_layout('one_column', ['content' => $style . $content, 'title' => false]);
 
 echo elgg_view_page('', $body);

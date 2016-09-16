@@ -70,15 +70,6 @@ $settings_index .= '<td>' . elgg_view('input/dropdown', [
 ]) . '</td>';
 $settings_index .= '</tr>';
 
-$settings_index .= '<tr>';
-$settings_index .= '<td>' . elgg_echo('widget_manager:settings:disable_free_html_filter') . '</td>';
-$settings_index .= '<td>' . elgg_view('input/dropdown', [
-	'name' => 'params[disable_free_html_filter]',
-	'value' => $plugin->disable_free_html_filter,
-	'options_values' => $noyes_options,
-]) . '</td>';
-$settings_index .= '</tr>';
-
 $settings_index .= '</table>';
 
 echo elgg_view_module('inline', elgg_echo('widget_manager:settings:index'), $settings_index);
