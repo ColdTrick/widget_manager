@@ -1,4 +1,12 @@
 <?php
+/**
+ * Widget add panel
+ *
+ * @uses $vars['context']     The context for this widget layout
+ * @uses $vars['exact_match'] Only use widgets that match the context
+ * @uses $vars['container']   Container to optional limit widgets for. Defaults to page_owner_entity
+ */
+
 if (!elgg_is_xhr()) {
 	return;
 }
@@ -6,7 +14,8 @@ if (!elgg_is_xhr()) {
 $context = elgg_extract('context', $vars);
 $widget_context = elgg_extract('widget_context', $vars, $context);
 $show_access = (int) elgg_extract('show_access', $vars);
-$exact_match = elgg_extract('exact_match', $vars);
+$exact = elgg_extract('exact_match', $vars, false);
+
 $owner_guid = (int) elgg_extract('owner_guid', $vars);
 $context_stack = elgg_extract('context_stack', $vars);
 
@@ -16,6 +25,7 @@ if (!empty($context_stack)) {
 
 elgg_set_page_owner_guid($owner_guid);
 $owner = elgg_get_page_owner_entity();
+$container = elgg_extract('container', $vars, elgg_get_page_owner_entity());
 
 echo elgg_view('input/hidden', [
 	'name' => 'widget_context',
@@ -30,7 +40,12 @@ $widget_context = str_replace('default_', '', $context);
 
 $available_widgets_context = elgg_trigger_plugin_hook('available_widgets_context', 'widget_manager', [], $widget_context);
 
-$widgets = elgg_get_widget_types($available_widgets_context, $exact_match);
+$widgets = elgg_get_widget_types($available_widgets_context, $exact);
+$widgets = elgg_get_widget_types([
+	'context' => $available_widgets_context,
+	'exact' => $exact,
+	'container' => $container,
+]);
 widget_manager_sort_widgets($widgets);
 
 $user_widgets = elgg_extract('user_widgets', $vars);

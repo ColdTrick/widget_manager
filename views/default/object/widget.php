@@ -15,7 +15,10 @@ $show_access = elgg_extract('show_access', $vars, true);
 elgg_set_config("widget_show_access", $show_access);
 
 // @todo catch for disabled plugins
-$widget_types = elgg_get_widget_types('all');
+$widget_types = elgg_get_widget_types([
+	'context' => 'all',
+	'container' => $widget->getContainerEntity(),
+]);
 
 $handler = $widget->handler;
 $widget_context = $widget->context;

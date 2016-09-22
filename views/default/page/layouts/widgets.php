@@ -20,7 +20,11 @@ $context = elgg_get_context();
 
 $available_widgets_context = elgg_trigger_plugin_hook('available_widgets_context', 'widget_manager', [], $context);
 
-$widget_types = elgg_get_widget_types($available_widgets_context);
+$widget_types = elgg_get_widget_types([
+	'context' => $available_widgets_context,
+	'exact' => $exact_match,
+	'container' => $owner,
+]);
 
 elgg_push_context('widgets');
 
