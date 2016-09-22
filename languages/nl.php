@@ -72,7 +72,5 @@ return array (
   'widget_manager:button:add' => 'Voeg toe',
   'widget_manager:widgets:lightbox:title:dashboard' => 'Voeg widgets toe aan je dashboard',
   'widget_manager:widgets:lightbox:title:profile' => 'Voeg widgets toe aan je profiel',
-  'widget_manager:action:manage:error:context' => 'Ongeldige context voor het opslaan van de widget configuratie',
-  'widget_manager:action:manage:error:save_setting' => 'Fout tijdens het opslaan van instelling %s voor widget %s',
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
 );

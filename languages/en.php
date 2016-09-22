@@ -88,8 +88,6 @@ return [
 
 	// actions
 	// manage
-	'widget_manager:action:manage:error:context' => "Invalid context to save widget configuration",
-	'widget_manager:action:manage:error:save_setting' => "Error while saving the setting %s for widget %s",
 	'widget_manager:action:manage:success' => "Widget configuration saved successfully",
 
 	// force tool widgets
