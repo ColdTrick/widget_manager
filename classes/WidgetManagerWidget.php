@@ -182,4 +182,68 @@ class WidgetManagerWidget extends ElggWidget {
 	
 		return true;
 	}
+	
+	/**
+	 * Returns an array of classes used in displaying widget objects
+	 *
+	 * @return string[]
+	 */
+	public function getClasses() {
+		$result = [
+			'elgg-module',
+			'elgg-module-widget',
+			"elgg-widget-instance-{$this->handler}"
+		];
+		
+		$can_edit = $this->canEdit();
+		if ($can_edit) {
+			$result[] = 'elgg-state-draggable';
+		} else {
+			$result[] = 'elgg-state-fixed';
+		}
+		
+		if ($this->widget_manager_custom_class) {
+			// optional custom class for this widget
+			$result[] = $this->widget_manager_custom_class;
+		}
+		
+		if ($this->widget_manager_hide_header == 'yes') {
+			if ($can_edit) {
+				$result[] = 'widget_manager_hide_header_admin';
+			} else {
+				$result[] = 'widget_manager_hide_header';
+			}
+		}
+		
+		if ($this->widget_manager_disable_widget_content_style == 'yes') {
+			$result[] = 'widget_manager_disable_widget_content_style';
+		}
+		
+		return $result;
+	}
+	
+	/**
+	 * Return a boolean if the widget should show collapsed
+	 *
+	 * @return bool
+	 */
+	public function showCollapsed() {
+		
+		if ($this->widget_manager_collapse_disable == 'yes') {
+			return false;
+		}
+		
+		$widget_is_collapsed = false;
+		$widget_is_open = true;
+		
+		if (elgg_is_logged_in()) {
+			$widget_is_collapsed = widget_manager_check_collapsed_state($this->guid, 'widget_state_collapsed');
+			$widget_is_open = widget_manager_check_collapsed_state($this->guid, 'widget_state_open');
+		}
+		
+		if (($this->widget_manager_collapse_state === 'closed' || $widget_is_collapsed) && !$widget_is_open) {
+			return true;
+		}
+		return false;
+	}
 }
