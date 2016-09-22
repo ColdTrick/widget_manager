@@ -2,6 +2,7 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\WidgetDefinition;
 class Widgets {
 	
 	/**
@@ -70,5 +71,92 @@ class Widgets {
 		if ($context) {
 			elgg_set_plugin_setting($context . '_fixed_ts', time(), 'widget_manager');
 		}
+	}
+	
+	/**
+	 * Changes widgets registered for the all context to be explictly registered for 'profile' and 'dashboard'
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param bool   $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return void
+	 */
+	public static function fixAllContext($hook_name, $entity_type, $return_value, $params) {
+		foreach ($return_value as $id => $widget_definition) {
+			if (!in_array('all', $widget_definition->context)) {
+				continue;
+			}
+			
+			if (!in_array('profile', $widget_definition->context)) {
+				$widget_definition->context[] = 'profile';
+			}
+			
+			if (!in_array('dashboard', $widget_definition->context)) {
+				$widget_definition->context[] = 'dashboard';
+			}
+			
+			$return_value[$id] = $widget_definition;
+		}
+		
+		return $return_value;
+	}
+	
+	/**
+	 * Applies the saved widgets config
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param bool   $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return void
+	 */
+	public static function applyWidgetsConfig($hook_name, $entity_type, $return_value, $params) {
+		foreach ($return_value as $id => $widget_definition) {
+			$widget_config = widget_manager_get_widget_setting($widget_definition->id, 'all');
+			if (empty($widget_config)) {
+				continue;
+			}
+			
+			if (!isset($widget_definition->originals)) {
+				$widget_definition->originals = [
+					'multiple' => $widget_definition->multiple,
+					'context' => $widget_definition->context,
+				];
+			}
+			
+			// fix multiple
+			if (isset($widget_config['multiple'])) {
+				$widget_definition->multiple = (bool) elgg_extract('multiple', $widget_config);
+			}
+			
+			// fix contexts
+			$contexts = elgg_extract('contexts', $widget_config);
+			if (!empty($contexts)) {
+				foreach ($contexts as $context => $context_config) {
+					if (!isset($context_config['enabled'])) {
+						continue;
+					}
+					
+					$enabled = elgg_extract('enabled', $context_config);
+					$existing_key = array_search($context, $widget_definition->context);
+					if ($existing_key !== false) {
+						// already existing in default contexts
+						if (!$enabled) {
+							// remove if disabled in config
+							unset($widget_definition->context[$existing_key]);
+						}
+					} elseif ($enabled) {
+						// add if not existing
+						$widget_definition->context[] = $context;
+					}
+				}
+				$return_value[$id] = $widget_definition;
+			}
+		}
+		
+		return $return_value;
 	}
 }

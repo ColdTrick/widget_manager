@@ -1,4 +1,4 @@
-require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
+define(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 
 	$(document).on('click', '#widget_manager_widgets_select li.elgg-state-available', widgets.add);
 	

@@ -1,39 +1,45 @@
 <?php
-	
-$widget_context = get_input('widget_context');
 
-if (empty($widget_context)) {
-	register_error(elgg_echo('widget_manager:action:manage:error:context'));
-	forward(REFERER);
+$widgets_config = get_input('widgets_config');
+
+$contexts = ['index'];
+
+// Use contexts defined for default widgets
+$list = elgg_trigger_plugin_hook('get_list', 'default_widgets', null, []);
+foreach ($list as $context_opts) {
+	$contexts[] = $context_opts['widget_context'];
 }
 
-$widgets = elgg_get_widget_types($widget_context);
-if (empty($widgets)) {
-	system_message(elgg_echo('widget_manager:action:manage:success'));
-	forward(REFERER);
+$configured_widgets = [];
+foreach ($contexts as $context) {
+	$configured_widgets += elgg_get_widget_types($context);
 }
 
-$error_count = 0;
-$toggle_settings = ['can_add', 'hide'];
-
-foreach ($widgets as $handler => $widget) {
-	foreach ($toggle_settings as $setting) {
-		$value = get_input("{$widget_context}_{$handler}_{$setting}");
-		if ($value !== 'yes') {
-			$value == 'no';
-		}
+foreach ($widgets_config as $widget_id => $widget_config) {
+	$configured_widget = elgg_extract($widget_id, $configured_widgets);
+	if (empty($configured_widget)) {
+		continue;
+	}
 		
-		if (!widget_manager_set_widget_setting($handler, $setting, $widget_context, $value)) {
-			$error_count++;
-			register_error(elgg_echo('widget_manager:action:manage:error:save_setting', [$setting, $widget->name]));
+	// only store if different
+	if ((bool) $widget_config['multiple'] == (bool) $configured_widget->originals['multiple']) {
+		unset($widgets_config[$widget_id]['multiple']);
+	}
+	
+	$configured_contexts = $configured_widget->originals['context'];
+	foreach ($widget_config['contexts'] as $context => $context_config) {
+		if ($context_config['enabled']) {
+			if (in_array($context, $configured_contexts)) {
+				unset($widgets_config[$widget_id]['contexts'][$context]['enabled']);
+			}
+		} elseif (!in_array($context, $configured_contexts)) {
+			unset($widgets_config[$widget_id]['contexts'][$context]['enabled']);
 		}
 	}
 }
 
-elgg_get_system_cache()->delete('widget_manager_widget_settings');
+elgg_set_plugin_setting('widgets_config', json_encode($widgets_config), 'widget_manager');
 
-if ($error_count == 0) {
-	system_message(elgg_echo('widget_manager:action:manage:success'));
-}
+system_message(elgg_echo('widget_manager:action:manage:success'));
 
 forward(REFERER);

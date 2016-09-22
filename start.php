@@ -39,6 +39,9 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', 'widget_manager_widget_layout_permissions_check');
 	
+	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::fixAllContext', 9990);
+	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
+	
 	// extend CSS
 	elgg_extend_view('css/elgg', 'css/widget_manager/site.css');
 	elgg_extend_view('css/elgg', 'css/widget_manager/global.css');

@@ -1,4 +1,4 @@
-require(['elgg', 'jquery'], function (elgg, $) {
+define(['elgg', 'jquery'], function (elgg, $) {
 
 	$(document).on('click', '.widget-manager-fix', function (event) {
 		$(this).find(' > .elgg-icon').toggleClass('elgg-icon-hover');

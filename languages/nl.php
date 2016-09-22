@@ -40,7 +40,7 @@ return array (
   'widget_manager:settings:group:enable' => 'Schakel Widget Manager in voor groepen',
   'widget_manager:settings:group:option_default_enabled' => 'Widgets beheer voor groepen standaard ingeschakeld',
   'widget_manager:settings:group:option_admin_only' => 'Alleen beheerders kunnen groep widgets inschakelen',
-  'widget_manager:forms:settings:no_widgets' => 'Geen widgets om te beheren',
+  'widget_manager:forms:manage_widgets:no_widgets' => 'Geen widgets om te beheren',
   'widget_manager:widgets:lightbox:title:groups' => 'Voeg widgets toe op het groep profiel',
   'widget_manager:widgets:lightbox:title:admin' => 'Voeg widgets toe aan je admin dashboard',
   'widget_manager:widgets:edit:advanced' => 'Geavanceerd',

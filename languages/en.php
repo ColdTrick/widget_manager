@@ -67,8 +67,12 @@ return [
 
 	// views
 	// settings
-	'widget_manager:forms:settings:no_widgets' => "No widgets to manage",
-	'widget_manager:forms:settings:can_add' => "Can be added",
+	'widget_manager:forms:manage_widgets:no_widgets' => "No widgets to manage",
+	'widget_manager:forms:manage_widgets:context' => 'Available in the context',
+	'widget_manager:forms:manage_widgets:can_add' => "Can be added",
+	'widget_manager:forms:manage_widgets:multiple' => "Multiple widgets allowed",
+	'widget_manager:forms:manage_widgets:non_default' => "This setting is different from the default setting",
+	'widget_manager:forms:manage_widgets:unsupported_context:confirm' => "Are you sure you wish to enable this widget for this context? If the widget does not support the context this could cause issues.",
 
 	// groups widget access
 	'widget_manager:forms:groups_widget_access:title' => "Widget Access",
