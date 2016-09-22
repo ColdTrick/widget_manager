@@ -2,8 +2,6 @@
 
 define('ACCESS_LOGGED_OUT', -5);
 
-@include_once(dirname(__FILE__) . '/vendor/autoload.php');
-
 require_once(dirname(__FILE__) . '/lib/functions.php');
 require_once(dirname(__FILE__) . '/lib/hooks.php');
 
