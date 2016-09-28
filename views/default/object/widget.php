@@ -11,6 +11,11 @@ if (!elgg_instanceof($widget, 'object', 'widget')) {
 	return true;
 }
 
+if (!($widget instanceof WidgetManagerWidget)) {
+	// need this for newly created widgets (elgg_create_widget returns ElggWidget)
+	$widget = new \WidgetManagerWidget($widget->toObject());
+}
+
 $show_access = elgg_extract('show_access', $vars, true);
 elgg_set_config('widget_show_access', $show_access);
 
