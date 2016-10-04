@@ -58,7 +58,7 @@ if (!empty($index_top_row) && ($index_top_row != "none")) {
 	$widget_types = elgg_get_widget_types("index", false);
 
 	elgg_push_context('widgets');
-	$widgets = elgg_get_widgets(elgg_get_page_owner_entity()->getGUID(), $handler);
+	$widgets = elgg_get_widgets(elgg_get_page_owner_guid(), $handler);
 	$widget_content = "";
 
 	if (isset($widgets[4])) {
