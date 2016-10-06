@@ -1,6 +1,15 @@
 Version history
 ===============
 
+7.0 (2016-10-06):
+
+- added: new way of widget management with ability to change contexts
+- changed: refactored widget object view
+- fixed: replace usage of deprecated elgg.ui.widgets.add
+- fixed: require correct Elgg version for elgg/widgets AMD module
+- removed: moved multi_dashboard features to own plugin
+- removed: moved widgets to a separate widget_pack plugin
+
 6.2.1 (2016-08-26):
 
 - fixed: php notice when page already routed
