@@ -233,17 +233,19 @@ class WidgetManagerWidget extends ElggWidget {
 			return false;
 		}
 		
-		$widget_is_collapsed = false;
-		$widget_is_open = true;
-		
-		if (elgg_is_logged_in()) {
-			$widget_is_collapsed = widget_manager_check_collapsed_state($this->guid, 'widget_state_collapsed');
-			$widget_is_open = widget_manager_check_collapsed_state($this->guid, 'widget_state_open');
+		$default = ($this->widget_manager_collapse_state === 'closed');
+		if (!elgg_is_logged_in()) {
+			return $default;
 		}
 		
-		if (($this->widget_manager_collapse_state === 'closed' || $widget_is_collapsed) && !$widget_is_open) {
+		if (widget_manager_check_collapsed_state($this->guid, 'widget_state_collapsed')) {
 			return true;
 		}
-		return false;
+
+		if (widget_manager_check_collapsed_state($this->guid, 'widget_state_open')) {
+			return false;
+		}
+		
+		return $default;
 	}
 }
