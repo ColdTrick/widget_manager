@@ -74,6 +74,37 @@ class Widgets {
 	}
 	
 	/**
+	 * Adds index widget handlers as allowed handlers to the extra context handlers
+	 *
+	 * @param string $hook_name    name of the hook
+	 * @param string $entity_type  type of the hook
+	 * @param bool   $return_value current return value
+	 * @param array  $params       hook parameters
+	 *
+	 * @return void
+	 */
+	public static function addExtraContextsWidgets($hook_name, $entity_type, $return_value, $params) {
+		$context = elgg_extract('context', $params);
+		if (!widget_manager_is_extra_context($context)) {
+			return;
+		}
+		
+		foreach ($return_value as $id => $widget_definition) {
+			if (!in_array('index', $widget_definition->context)) {
+				continue;
+			}
+			
+			if (!in_array($context, $widget_definition->context)) {
+				$widget_definition->context[] = $context;
+			}
+			
+			$return_value[$id] = $widget_definition;
+		}
+		
+		return $return_value;
+	}
+	
+	/**
 	 * Changes widgets registered for the all context to be explictly registered for 'profile' and 'dashboard'
 	 *
 	 * @param string $hook_name    name of the hook
