@@ -1,6 +1,11 @@
 Version history
 ===============
 
+7.0.1 (2016-10-27):
+
+- fixed: it was not possible to add widgets to extra widgets pages
+- fixed: widget default collapsed state correctly set for logged out user
+
 7.0 (2016-10-06):
 
 - added: new way of widget management with ability to change contexts
