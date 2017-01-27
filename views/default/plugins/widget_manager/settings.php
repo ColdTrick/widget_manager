@@ -41,75 +41,61 @@ $index_top_row_options = [
 	'two_column_left' => elgg_echo('widget_manager:settings:index_top_row:two_column_left'),
 ];
 
-$settings_index = '<table class="elgg-table-alt">';
-
-$settings_index .= '<tr>';
-$settings_index .= '<td>' . elgg_echo('widget_manager:settings:custom_index') . '</td>';
-$settings_index .= '<td>' . elgg_view('input/dropdown', [
+$settings_index = elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:custom_index'),
 	'name' => 'params[custom_index]',
 	'value' => $plugin->custom_index,
 	'options_values' => $custom_index_options,
-]) . '</td>';
-$settings_index .= '</tr>';
+]);
 
-$settings_index .= '<tr>';
-$settings_index .= '<td>' . elgg_echo('widget_manager:settings:widget_layout') . '</td>';
-$settings_index .= '<td>' . elgg_view('input/dropdown', [
+$settings_index .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:widget_layout'),
 	'name' => 'params[widget_layout]',
 	'value' => $plugin->widget_layout,
 	'options_values' => $widget_layout_options,
-]) . '</td>';
-$settings_index .= '</tr>';
+]);
 
-$settings_index .= '<tr>';
-$settings_index .= '<td>' . elgg_echo('widget_manager:settings:index_top_row') . '</td>';
-$settings_index .= '<td>' . elgg_view('input/dropdown', [
+$settings_index .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:index_top_row'),
 	'name' => 'params[index_top_row]',
 	'value' => $plugin->index_top_row,
 	'options_values' => $index_top_row_options,
 ]) . '</td>';
-$settings_index .= '</tr>';
-
-$settings_index .= '</table>';
 
 echo elgg_view_module('inline', elgg_echo('widget_manager:settings:index'), $settings_index);
 
 if (elgg_is_active_plugin('groups')) {
-	$settings_group = '<table class="elgg-table-alt">';
-	
-	$settings_group .= '<tr>';
-	$settings_group .= '<td>' . elgg_echo('widget_manager:settings:group:enable') . '</td>';
-	$settings_group .= '<td>' . elgg_view('input/dropdown', [
+	$settings_group = elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('widget_manager:settings:group:enable'),
 		'name' => 'params[group_enable]',
 		'value' => $plugin->group_enable,
 		'options_values' => $groupenable_options,
-	]) . '</td>';
-	$settings_group .= '<td>' . elgg_view('output/url', [
-		'text' => elgg_echo('widget_manager:settings:group:force_tool_widgets'),
-		'href' => 'action/widget_manager/force_tool_widgets',
-		'confirm' => elgg_echo('widget_manager:settings:group:force_tool_widgets:confirm'),
-	]) . '</td>';
-	$settings_group .= '</tr>';
+		'#help' => elgg_view('output/url', [
+			'text' => elgg_echo('widget_manager:settings:group:force_tool_widgets'),
+			'href' => 'action/widget_manager/force_tool_widgets',
+			'confirm' => elgg_echo('widget_manager:settings:group:force_tool_widgets:confirm'),
+		]),
+	]);
 	
-	$settings_group .= '<tr>';
-	$settings_group .= '<td>' . elgg_echo('widget_manager:settings:group:option_default_enabled') . '</td>';
-	$settings_group .= '<td colspan="2">' . elgg_view('input/dropdown', [
+	$settings_group .= elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('widget_manager:settings:group:option_default_enabled'),
 		'name' => 'params[group_option_default_enabled]',
 		'value' => $plugin->group_option_default_enabled,
 		'options_values' => $noyes_options,
-	]) . '</td>';
-	$settings_group .= '</tr>';
+	]);
 	
-	$settings_group .= '<tr>';
-	$settings_group .= '<td>' . elgg_echo('widget_manager:settings:group:option_admin_only') . '</td>';
-	$settings_group .= '<td colspan="2">' . elgg_view('input/dropdown', [
+	$settings_group .= elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('widget_manager:settings:group:option_admin_only'),
 		'name' => 'params[group_option_admin_only]',
 		'value' => $plugin->group_option_admin_only,
 		'options_values' => $noyes_options,
-	]) . '</td>';
-	$settings_group .= '</tr>';
-	
-	$settings_group .= '</table>';
+	]);
 	
 	echo elgg_view_module('inline', elgg_echo('widget_manager:settings:group'), $settings_group);
 }
@@ -129,37 +115,38 @@ if (!is_array($contexts_config)) {
 	$contexts_config = [];
 }
 
-foreach ($contexts as $context) {
-	$context_config = elgg_extract($context, $contexts_config, array());
-	$context_layout = elgg_extract('layout', $context_config, $default_widget_layout);
-	$top_row = elgg_extract('top_row', $context_config);
-	$context_manager = elgg_extract('manager', $context_config, '');
-	
-	$settings_extra_contexts .= '<tr>';
-	$settings_extra_contexts .= '<td>' . elgg_view('input/text', [
-		'name' => 'contexts[page][]',
-		'value' => $context,
-		'class' => 'pan phs',
-	]) . '</td>';
-	$settings_extra_contexts .= '<td>' . elgg_view('input/dropdown', [
-		'name' => 'contexts[layout][]',
-		'value' => $context_layout,
-		'options_values' => $widget_layout_options,
-	]) . '</td>';
-	$settings_extra_contexts .= '<td>' . elgg_view('input/dropdown', [
-		'name' => 'contexts[top_row][]',
-		'value' => $top_row,
-		'options_values' => $index_top_row_options,
-	]) . '</td>';
-	$settings_extra_contexts .= '<td>' . elgg_view('input/text', [
-		'name' => 'contexts[manager][]',
-		'value' => $context_manager,
-		'class' => 'pan phs',
-	]) . '</td>';
-	$settings_extra_contexts .= '<td>' . elgg_view_icon('delete', ['class' => 'elgg-toggle']) . '</td>';
-	$settings_extra_contexts .= '</tr>';
+if ($contexts) {
+	foreach ($contexts as $context) {
+		$context_config = elgg_extract($context, $contexts_config, array());
+		$context_layout = elgg_extract('layout', $context_config, $default_widget_layout);
+		$top_row = elgg_extract('top_row', $context_config);
+		$context_manager = elgg_extract('manager', $context_config, '');
+		
+		$settings_extra_contexts .= '<tr>';
+		$settings_extra_contexts .= '<td>' . elgg_view('input/text', [
+			'name' => 'contexts[page][]',
+			'value' => $context,
+			'class' => 'pan phs',
+		]) . '</td>';
+		$settings_extra_contexts .= '<td>' . elgg_view('input/dropdown', [
+			'name' => 'contexts[layout][]',
+			'value' => $context_layout,
+			'options_values' => $widget_layout_options,
+		]) . '</td>';
+		$settings_extra_contexts .= '<td>' . elgg_view('input/dropdown', [
+			'name' => 'contexts[top_row][]',
+			'value' => $top_row,
+			'options_values' => $index_top_row_options,
+		]) . '</td>';
+		$settings_extra_contexts .= '<td>' . elgg_view('input/text', [
+			'name' => 'contexts[manager][]',
+			'value' => $context_manager,
+			'class' => 'pan phs',
+		]) . '</td>';
+		$settings_extra_contexts .= '<td>' . elgg_view_icon('delete', ['class' => 'elgg-toggle']) . '</td>';
+		$settings_extra_contexts .= '</tr>';
+	}
 }
-
 $settings_extra_contexts .= '<tr class="hidden">';
 $settings_extra_contexts .= '<td>' . elgg_view('input/text', [
 	'name' => 'contexts[page][]',
