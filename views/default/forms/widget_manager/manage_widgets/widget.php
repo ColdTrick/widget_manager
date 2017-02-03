@@ -62,8 +62,9 @@ $body .= '</table>';
 
 // multiple
 $options = [
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('widget_manager:forms:manage_widgets:multiple'),
 	'name' => "widgets_config[{$widget_definition->id}][multiple]",
-	'label' => elgg_echo('widget_manager:forms:manage_widgets:multiple'),
 	'value' => 1,
 	'checked' => $widget_definition->multiple,
 ];
@@ -71,6 +72,6 @@ if ($widget_definition->multiple !== $originals['multiple']) {
 	$options['label_class'] = 'widget-manager-manage-widgets-non-default';
 	$options['title'] = elgg_echo('widget_manager:forms:manage_widgets:non_default');
 }
-$body .= elgg_view_input('checkbox', $options);
+$body .= elgg_view_field($options);
 
 echo elgg_view_module('inline', $widget_definition->name . ' [' . $widget_definition->id . ']', $body, ['class' => 'man']);
