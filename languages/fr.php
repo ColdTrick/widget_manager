@@ -55,7 +55,7 @@ return array(
 	'widget_manager:settings:group:option_default_enabled' => "Gestion des blocs d'infos pour les groupe activé par défaut",
 	'widget_manager:settings:group:option_admin_only' => "Seul l'administrateur peut activer la gestion des blocs d'infos dans les groupes",
 	'widget_manager:settings:group:force_tool_widgets' => "Appliquer la gestion des blocs d'infos pour tous les groupes",
-	'widget_manager:settings:group:force_tool_widgets:confirm' => "Êtes vous sûr/e? Cette actions'appliquera pour tous les groupes.",
+	'widget_manager:settings:group:force_tool_widgets:confirm' => "Êtes vous sûr/e? Cette action s'appliquera pour tous les groupes.",
 	
 	'widget_manager:settings:extra_contexts' => "Contextes Extra widgets",
 	'widget_manager:settings:extra_contexts:add' => "Ajouter une page",
@@ -72,7 +72,7 @@ return array(
 	'widget_manager:forms:settings:can_add' => "Peut être ajouté",
 	'widget_manager:forms:manage_widgets:multiple' => "Widget multiple autorisé",
 	'widget_manager:forms:manage_widgets:non_default' => "Ce paramétrage est différent de la valeur par défaut",
-	'widget_manager:forms:manage_widgets:unsupported_context:confirm' => "Êtes vous sûr d'activer ce widget pour ce contexte? Si ce widget ne supporte pas ce contexte, il pourrait survenir des problemes.",
+	'widget_manager:forms:manage_widgets:unsupported_context:confirm' => "Êtes vous sûr d'activer ce widget pour ce contexte? Si ce widget ne supporte pas ce contexte, il pourrait survenir des problèmes.",
 
 	// groups widget access
 	'widget_manager:forms:groups_widget_access:title' => "Accès aux blocs d'infos",
@@ -91,7 +91,7 @@ return array(
 	'widget_manager:action:manage:success' => "La configuration des blocs d'infos a été sauvegardée",
 
 	// force tool widgets
-	'widget_manager:action:force_tool_widgets:error:not_enabled' => "La gestionnaire de blocs d'info pour les groupes n'est PAS activé",
+	'widget_manager:action:force_tool_widgets:error:not_enabled' => "La gestionnaire de blocs d'info pour les groupes n'est pas activé",
 	'widget_manager:action:force_tool_widgets:succes' => "Activer l'outil widgets pour les groupes %s",
 	
 	// groups update widget access
