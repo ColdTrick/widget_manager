@@ -100,39 +100,4 @@ return array(
 	// widgets
 	'widget_manager:widgets:edit:advanced' => "Avancé",
 	'widget_manager:widgets:fix' => "Fixer ce widget sur le tableau de bord/profil",
-
-	
-	// index_members
-	'widget_manager:widgets:index_members:name' => "Members",
-	'widget_manager:widgets:index_members:description' => "Afficher les membres",
-	'widget_manager:widgets:index_members:user_icon' => "Les membres doivent avoir une photo de profil",
-	'widget_manager:widgets:index_members:no_result' => "Aucun membre trouvé",
-
-	// index_memebers_online
-	'widget_manager:widgets:index_members_online:name' => "Membres en ligne",
-	'widget_manager:widgets:index_members_online:description' => "Afficher les membres en ligne",
-	'widget_manager:widgets:index_members_online:member_count' => "Nombre de membres à afficher",
-	'widget_manager:widgets:index_members_online:user_icon' => "Les membres doivent avoir une photo de profil",
-	'widget_manager:widgets:index_members_online:no_result' => "Aucun membre trouvé",
-
-	// index_bookmarks
-	'widget_manager:widgets:index_bookmarks:description' => "Afficher les derniers liens partagés",
-
-	// index_activity
-	'widget_manager:widgets:index_activity:description' => "Afficher les dernières activités de votre communauté",
-
-	// image_slider
-	'widget_manager:widgets:image_slider:name' => "Barre de défilement d'images",
-	'widget_manager:widgets:image_slider:description' => "Afficher une barre de défilement de diapos",
-	'widget_manager:widgets:image_slider:slider_type' => "Type de barre de défilement",
-	'widget_manager:widgets:image_slider:slider_type:s3slider' => "s3Slider",
-	'widget_manager:widgets:image_slider:slider_type:flexslider' => "FlexSlider",
-	'widget_manager:widgets:image_slider:seconds_per_slide' => "Secondes par image",
-	'widget_manager:widgets:image_slider:slider_height' => "Hauteur des diapos (pixels)",
-	'widget_manager:widgets:image_slider:overlay_color' => "Recouvrement de couleur (hex)",
-	'widget_manager:widgets:image_slider:title' => "Diapo",
-	'widget_manager:widgets:image_slider:label:url' => "URL de l'image",
-	'widget_manager:widgets:image_slider:label:text' => "Texte",
-	'widget_manager:widgets:image_slider:label:link' => "Lien",
-	'widget_manager:widgets:image_slider:label:direction' => "Direction",
 );
