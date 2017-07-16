@@ -14,11 +14,11 @@ $advanced = "<div class='hidden' id='widget-manager-widget-edit-advanced-{$widge
 $advanced .= elgg_format_element('h3', [], elgg_echo('widget_manager:widgets:edit:advanced'));
 $advanced .= '<fieldset>';
 
-$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:custom_title') . ': ' . elgg_view('input/text', [
+$advanced .= '<div><label for="params[widget_manager_custom_title]">' . elgg_echo('widget_manager:widgets:edit:custom_title') . ': </label>' . elgg_view('input/text', [
 	'name' => 'params[widget_manager_custom_title]',
 	'value' => $widget->widget_manager_custom_title,
 ]) . '</div>';
-$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:custom_url') . ': ' . elgg_view('input/text', [
+$advanced .= '<div><label for="params[widget_manager_custom_url]">' . elgg_echo('widget_manager:widgets:edit:custom_url') . ': </label>' . elgg_view('input/text', [
 	'name' => 'params[widget_manager_custom_url]',
 	'value' => $widget->widget_manager_custom_url,
 ]) . '</div>';
@@ -31,38 +31,38 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		'closed' => elgg_echo('status:closed'),
 	];
 
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:custom_more_title') . ': ' . elgg_view('input/text', [
+	$advanced .= '<div><label for="params[widget_manager_custom_more_title]">' . elgg_echo('widget_manager:widgets:edit:custom_more_title') . ': </label>' . elgg_view('input/text', [
 		'name' => 'params[widget_manager_custom_more_title]',
 		'value' => $widget->widget_manager_custom_more_title,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:custom_more_url') . ': ' . elgg_view('input/text', [
+	$advanced .= '<div><label for="params[widget_manager_custom_more_url]">' . elgg_echo('widget_manager:widgets:edit:custom_more_url') . ': </label>' . elgg_view('input/text', [
 		'name' => 'params[widget_manager_custom_more_url]',
 		'value' => $widget->widget_manager_custom_more_url,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:hide_header') . ': ' . elgg_view('input/dropdown', [
+	$advanced .= '<div><label for="params[widget_manager_hide_header]">' . elgg_echo('widget_manager:widgets:edit:hide_header') . ': </label>' . elgg_view('input/dropdown', [
 		'name' => 'params[widget_manager_hide_header]',
 		'value' => $widget->widget_manager_hide_header,
 		'options_values' => $noyes_options,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:disable_widget_content_style') . ': ' . elgg_view('input/dropdown', [
+	$advanced .= '<div><label for="params[widget_manager_disable_widget_content_style]">' . elgg_echo('widget_manager:widgets:edit:disable_widget_content_style') . ': </label>' . elgg_view('input/dropdown', [
 		'name' => 'params[widget_manager_disable_widget_content_style]',
 		'value' => $widget->widget_manager_disable_widget_content_style,
 		'options_values' => $noyes_options,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:custom_class') . ': ' . elgg_view('input/text', [
+	$advanced .= '<div><label for="params[widget_manager_custom_class]">' . elgg_echo('widget_manager:widgets:edit:custom_class') . ': </label>' . elgg_view('input/text', [
 		'name' => 'params[widget_manager_custom_class]',
 		'value' => $widget->widget_manager_custom_class,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:fixed_height') . ': ' . elgg_view('input/text', [
+	$advanced .= '<div><label for="params[widget_manager_fixed_height]">' . elgg_echo('widget_manager:widgets:edit:fixed_height') . ': </label>' . elgg_view('input/text', [
 		'name' => 'params[widget_manager_fixed_height]',
 		'value' => $widget->widget_manager_fixed_height,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:collapse_disable') . ': ' . elgg_view('input/dropdown', [
+	$advanced .= '<div><label for="params[widget_manager_collapse_disable]">' . elgg_echo('widget_manager:widgets:edit:collapse_disable') . ': </label>' . elgg_view('input/dropdown', [
 		'name' => 'params[widget_manager_collapse_disable]',
 		'value' => $widget->widget_manager_collapse_disable,
 		'options_values' => $noyes_options,
 	]) . '</div>';
-	$advanced .= '<div>' . elgg_echo('widget_manager:widgets:edit:collapse_state') . ': ' . elgg_view('input/dropdown', [
+	$advanced .= '<div><label for="params[widget_manager_collapse_state]">' . elgg_echo('widget_manager:widgets:edit:collapse_state') . ': </label>' . elgg_view('input/dropdown', [
 		'name' => 'params[widget_manager_collapse_state]',
 		'value' => $widget->widget_manager_collapse_state,
 		'options_values' => $collapse_state_options,
