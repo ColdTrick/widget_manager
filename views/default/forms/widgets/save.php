@@ -16,10 +16,13 @@ $custom_form_section = elgg_view($edit_view, array('entity' => $widget));
 $access = '';
 if ($show_access) {
 	elgg_push_context("widget_access");
-	$access = elgg_echo('access') . ': ' . elgg_view('input/access', array(
+	$access = elgg_view_field([
+		'#type' => 'access',
+		'#label' => elgg_echo('access'),
 		'name' => 'params[access_id]',
-		'entity' => $widget,
-	));
+		'entity' => $widget,	
+	]);
+	
 	elgg_pop_context();
 }
 
