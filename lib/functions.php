@@ -259,19 +259,18 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
  * @return boolean
  */
 function widget_manager_is_extra_context($handler) {
-	$result = false;
 
 	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
 	if ($extra_contexts) {
 		$contexts = string_to_tag_array($extra_contexts);
 		if ($contexts) {
 			if (in_array($handler, $contexts)) {
-				$result = true;
+				return true;
 			}
 		}
 	}
 
-	return $result;
+	return false;
 }
 
 /**

@@ -17,7 +17,7 @@
 function widget_manager_write_access_hook($hook_name, $entity_type, $return_value, $params) {
 	
 	if (!elgg_in_context('widget_access')) {
-		return $return_value;
+		return;
 	}
 	
 	$widget = elgg_extract('entity', $params['input_params']);
@@ -84,22 +84,22 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
  * @return array
  */
 function widget_manager_read_access_hook($hook_name, $entity_type, $return_value, $params) {
-	$result = $return_value;
-
-	if (!elgg_is_logged_in() || elgg_is_admin_logged_in()) {
-		
-		if (!empty($result) && !is_array($result)) {
-			$result = [$result];
-		} elseif (empty($result)) {
-			$result = [];
-		}
-			
-		if (is_array($result)) {
-			$result[] = ACCESS_LOGGED_OUT;
+	
+	if (elgg_is_logged_in() && !elgg_is_admin_logged()) {
+		return;
+	}
+	
+	if (empty($return_value)) {
+		$return_value = [];
+	} else {
+		if (!is_array($return_value)) {
+			$return_value = [$return_value];
 		}
 	}
-
-	return $result;
+	
+	$return_value[] = ACCESS_LOGGED_OUT;
+	
+	return $return_value;
 }
 
 /**
@@ -277,17 +277,13 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
  */
 function widget_manager_permissions_check_site_hook_handler($hook_name, $entity_type, $return_value, $params) {
 	$user = elgg_extract('user', $params);
-	
-	if ($return_value || !$user) {
-		return $return_value;
-	}
-	
 	$context = get_input('context');
-	if ($context) {
-		$return_value = elgg_can_edit_widget_layout($context, $user->getGUID());
+	
+	if ($return_value || !$user || empty($context)) {
+		return;
 	}
 	
-	return $return_value;
+	return elgg_can_edit_widget_layout($context, $user->getGUID());
 }
 
 /**
@@ -304,24 +300,18 @@ function widget_manager_permissions_check_object_hook_handler($hook_name, $entit
 	$user = elgg_extract('user', $params);
 	$entity = elgg_extract('entity', $params);
 	
-	if ($return_value || !$user) {
-		return $return_value;
-	}
-	
-	if (!($entity instanceof ElggWidget)) {
-		return $return_value;
+	if ($return_value || !($user instanceof \ElggUser)|| !($entity instanceof \ElggWidget)) {
+		return;
 	}
 	
 	$site = $entity->getOwnerEntity();
 	if (!($site instanceof ElggSite)) {
 		// special permission is only for widget owned by site
-		return $return_value;
+		return;
 	}
 	
 	$context = $entity->context;
 	if ($context) {
-		$return_value = elgg_can_edit_widget_layout($context, $user->getGUID());
+		return elgg_can_edit_widget_layout($context, $user->getGUID());
 	}
-			
-	return $return_value;
 }
