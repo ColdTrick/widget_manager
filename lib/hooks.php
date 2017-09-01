@@ -85,7 +85,7 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
  */
 function widget_manager_read_access_hook($hook_name, $entity_type, $return_value, $params) {
 	
-	if (elgg_is_logged_in() && !elgg_is_admin_logged()) {
+	if (elgg_is_logged_in() && !elgg_is_admin_logged_in()) {
 		return;
 	}
 	
