@@ -2,17 +2,19 @@
 
 $plugin_setting = elgg_get_plugin_setting('group_enable', 'widget_manager');
 if (!in_array($plugin_setting, ['yes', 'forced'])) {
-	register_error(elgg_echo('widget_manager:action:force_tool_widgets:error:not_enabled'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('widget_manager:action:force_tool_widgets:error:not_enabled'));
 }
 
 $counter = 0;
 
-$batch = new ElggBatch('elgg_get_entities', ['type' => 'group',	'limit' => false]);
-foreach ($batch as $group) {
+$groups = elgg_get_entities([
+	'type' => 'group',
+	'limit' => false,
+	'batch' => true,
+]);
+foreach ($groups as $group) {
 	$group->save();
 	$counter++;
 }
 
-system_message(elgg_echo('widget_manager:action:force_tool_widgets:succes', [$counter]));
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('widget_manager:action:force_tool_widgets:succes', [$counter]));

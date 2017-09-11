@@ -40,6 +40,4 @@ foreach ($widgets_config as $widget_id => $widget_config) {
 
 elgg_set_plugin_setting('widgets_config', json_encode($widgets_config), 'widget_manager');
 
-system_message(elgg_echo('widget_manager:action:manage:success'));
-
-forward(REFERER);
+return elgg_ok_response('', elgg_echo('widget_manager:action:manage:success'));

@@ -7,20 +7,16 @@ $group_guid = (int) get_input('group_guid');
 $new_access = get_input('widget_access_level'); // can't cast directly to int because of ACCESS_PRIVATE
 
 if (empty($group_guid) || $new_access === null) {
-	register_error(elgg_echo('error:missing_data'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 
 $group = get_entity($group_guid);
-
-if (!elgg_instanceof($group, 'group')) {
-	register_error(elgg_echo('groups:notfound:details'));
-	forward(REFERER);
+if (!$group instanceof \ElggGroup) {
+	return elgg_error_response(elgg_echo('groups:notfound:details'));
 }
 
 if (!$group->canEdit()) {
-	register_error(elgg_echo('groups:cantedit'));
-	forward(REFERER);
+	return elgg_error_response(elgg_echo('groups:cantedit'));
 }
 
 $new_access = (int) $new_access;
@@ -28,7 +24,7 @@ $new_access = (int) $new_access;
 $widgets = elgg_get_entities_from_private_settings([
 	'type' => 'object',
 	'subtype' => 'widget',
-	'owner_guid' => $group->getGUID(),
+	'owner_guid' => $group->guid,
 	'private_setting_name' => 'context',
 	'private_setting_value' => 'groups',
 	'limit' => false,
@@ -41,5 +37,4 @@ if ($widgets) {
 	}
 }
 
-system_message(elgg_echo('widget_manager:action:groups:update_widget_access:success'));
-forward($group->getURL());
+return elgg_ok_response('', elgg_echo('widget_manager:action:groups:update_widget_access:success'), $group->getURL());
