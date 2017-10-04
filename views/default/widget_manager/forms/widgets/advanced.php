@@ -22,29 +22,24 @@ $fields = [
 		'name' => 'params[widget_manager_custom_url]',
 		'value' => $widget->widget_manager_custom_url,
 	],
+	[
+		'#type' => 'text',
+		'#label' => elgg_echo('widget_manager:widgets:edit:custom_more_title'),
+		'name' => 'params[widget_manager_custom_more_title]',
+		'value' => $widget->widget_manager_custom_more_title,
+	],
+	[
+		'#type' => 'text',
+		'#label' => elgg_echo('widget_manager:widgets:edit:custom_more_url'),
+		'name' => 'params[widget_manager_custom_more_url]',
+		'value' => $widget->widget_manager_custom_more_url,
+	],
 ];
 
 $advanced_context = elgg_trigger_plugin_hook('advanced_context', 'widget_manager', ['entity' => $widget], ['index']);
 
 if (is_array($advanced_context) && in_array($widget_context, $advanced_context)) {
-	$collapse_state_options = [
-		'0' => elgg_echo('status:open'),
-		'closed' => elgg_echo('status:closed'),
-	];
-
 	
-	$fields[] = [
-		'#type' => 'text',
-		'#label' => elgg_echo('widget_manager:widgets:edit:custom_more_title'),
-		'name' => 'params[widget_manager_custom_more_title]',
-		'value' => $widget->widget_manager_custom_more_title,
-	];
-	$fields[] = [
-		'#type' => 'text',
-		'#label' => elgg_echo('widget_manager:widgets:edit:custom_more_url'),
-		'name' => 'params[widget_manager_custom_more_url]',
-		'value' => $widget->widget_manager_custom_more_url,
-	];
 	$fields[] = [
 		'#type' => 'dropdown',
 		'#label' => elgg_echo('widget_manager:widgets:edit:hide_header'),
@@ -83,7 +78,10 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		'#label' => elgg_echo('widget_manager:widgets:edit:collapse_state'),
 		'name' => 'params[widget_manager_collapse_state]',
 		'value' => $widget->widget_manager_collapse_state,
-		'options_values' => $collapse_state_options,
+		'options_values' => [
+			'0' => elgg_echo('status:open'),
+			'closed' => elgg_echo('status:closed'),
+		],
 	];
 }
 
