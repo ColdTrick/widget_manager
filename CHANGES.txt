@@ -1,6 +1,11 @@
 Version history
 ===============
 
+8.1 (2017-10-19):
+
+- changed: allow to set a custom more link on every widget on all contexts
+- changed: use elgg_view_field function for widget form fields
+
 8.0 (2017-02-27):
 
 - changed: updated min requirements to Elgg 2.3
