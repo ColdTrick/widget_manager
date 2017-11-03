@@ -14,7 +14,7 @@ class Menus {
 	 *
 	 * @return boolean
 	 */
-	public static function registerAdminPageMenu($hook_name, $entity_type, $return_value, $params) {		
+	public static function registerAdminPageMenu($hook_name, $entity_type, $return_value, $params) {
 		if (!elgg_is_admin_logged_in() || !elgg_in_context('admin')) {
 			return;
 		}
@@ -73,7 +73,7 @@ class Menus {
 			return;
 		}
 		
-		$widget = elgg_extract('entity', $params);	
+		$widget = elgg_extract('entity', $params);
 		if (!in_array($widget->context, ['profile', 'dashboard'])) {
 			return;
 		}
@@ -135,9 +135,9 @@ class Menus {
 				}
 					
 				if ($item->getName() == 'collapse') {
-					if ($widget->widget_manager_collapse_disable === 'yes' && $widget->widget_manager_collapse_state !== 'closed') {
+					if (!$widget->canCollapse() && $widget->widget_manager_collapse_state !== 'closed') {
 						unset($return_value[$section_key][$item_key]);
-					} elseif ($widget->widget_manager_collapse_disable !== 'yes') {
+					} elseif ($widget->canCollapse()) {
 						$widget_is_collapsed = false;
 						$widget_is_open = true;
 							

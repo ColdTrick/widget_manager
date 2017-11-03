@@ -223,13 +223,30 @@ class WidgetManagerWidget extends ElggWidget {
 	}
 	
 	/**
+	 * Checks if a widget can be collapsed
+	 *
+	 * @return boolean
+	 */
+	public function canCollapse() {
+		if (!elgg_is_logged_in()) {
+			return false;
+		}
+		
+		$result = $this->widget_manager_collapse_disable !== 'yes';
+		
+		$result = elgg_trigger_plugin_hook('collapsable', "widgets:{$this->handler}", ['entity' => $this], $result);
+		
+		return $result;
+	}
+	
+	/**
 	 * Return a boolean if the widget should show collapsed
 	 *
 	 * @return bool
 	 */
 	public function showCollapsed() {
 		
-		if ($this->widget_manager_collapse_disable == 'yes') {
+		if (!$this->canCollapse()) {
 			return false;
 		}
 		
