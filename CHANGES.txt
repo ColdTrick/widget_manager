@@ -1,6 +1,10 @@
 Version history
 ===============
 
+8.2 (2017-11-15):
+
+- added: widget collapse capability is now hookable
+
 8.1 (2017-10-19):
 
 - changed: allow to set a custom more link on every widget on all contexts
