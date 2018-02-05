@@ -1,7 +1,7 @@
 define(['elgg', 'jquery'], function (elgg, $) {
-
+	console.log('fix loaded');
 	$(document).on('click', '.widget-manager-fix', function (event) {
-		$(this).find(' > .elgg-icon').toggleClass('elgg-icon-hover');
+		$(this).toggleClass('elgg-state-active');
 		var guid = $(this).attr('href').replace('#', '');
 
 		elgg.action('widget_manager/widgets/toggle_fix', {

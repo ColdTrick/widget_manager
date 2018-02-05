@@ -1,10 +1,8 @@
 define(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 
-	$(document).on('click', '#widget_manager_widgets_select li.elgg-state-available', widgets.add);
-	
 	$(document).on('keyup', '#widget_manager_widgets_search input[type="text"]', function() {
-		var $container = $('#widget_manager_widgets_select');
-		var $items = $container.find('.widget_manager_widgets_lightbox_wrapper');
+		var $container = $('.elgg-widgets-add-panel');
+		var $items = $container.find('> .elgg-body > ul > li');
 		var q = $(this).val();
 
 		if (q === "") {

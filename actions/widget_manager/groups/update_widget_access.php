@@ -19,8 +19,6 @@ if (!$group->canEdit()) {
 	return elgg_error_response(elgg_echo('groups:cantedit'));
 }
 
-$new_access = (int) $new_access;
-
 $widgets = elgg_get_entities_from_private_settings([
 	'type' => 'object',
 	'subtype' => 'widget',
@@ -32,7 +30,7 @@ $widgets = elgg_get_entities_from_private_settings([
 
 if ($widgets) {
 	foreach ($widgets as $widget) {
-		$widget->access_id = $new_access;
+		$widget->access_id = (int) $new_access;
 		$widget->save();
 	}
 }

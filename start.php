@@ -16,17 +16,10 @@ elgg_register_event_handler('init', 'system', 'widget_manager_init_group');
  */
 function widget_manager_init() {
 	
-	$base_dir = dirname(__FILE__);
-	
-	// check valid WidgetManagerWidget class
-	if (get_subtype_class('object', 'widget') == 'ElggWidget') {
-		update_subtype('object', 'widget', 'WidgetManagerWidget');
-	}
-	
 	elgg_register_plugin_hook_handler('widget_settings', 'all', '\ColdTrick\WidgetManager\Cache::clearWidgetCacheOnSettingsSave');
 	
 	// register plugin hooks
-	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
+// 	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
 	elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
 	
 	elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
@@ -42,17 +35,16 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
 	
 	// extend CSS
-	elgg_extend_view('css/elgg', 'css/widget_manager/site.css');
-	elgg_extend_view('css/elgg', 'css/widget_manager/global.css');
+// 	elgg_extend_view('css/elgg', 'css/widget_manager/site.css');
+// 	elgg_extend_view('css/elgg', 'css/widget_manager/global.css');
 	
 	elgg_extend_view('css/admin', 'css/widget_manager/admin.css');
-	elgg_extend_view('css/admin', 'css/widget_manager/global.css');
+// 	elgg_extend_view('css/admin', 'css/widget_manager/global.css');
 	
 	elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
 	
 	// register a widget title url handler
-	// core widgets
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'widget_manager_widgets_url');
+	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
 
 	// index page
 	elgg_register_plugin_hook_handler('route', 'all', '\ColdTrick\WidgetManager\Router::routeIndex');
@@ -67,6 +59,8 @@ function widget_manager_init() {
 			}
 		}
 	}
+	
+	elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
 		
 	elgg_register_plugin_hook_handler('action', 'plugins/settings/save', 'widget_manager_plugins_settings_save_hook_handler');
 	elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_action_hook_handler');
@@ -74,8 +68,10 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
 
-	elgg_register_plugin_hook_handler('view_vars', 'admin/appearance/default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::defaultWidgetsViewVars');
+	elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
 	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Layouts::checkFixedWidgets');
+	elgg_register_plugin_hook_handler('view_vars', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
+	elgg_register_plugin_hook_handler('view', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
 
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 	
@@ -85,15 +81,8 @@ function widget_manager_init() {
 	
 	elgg_register_event_handler('all', 'object', '\ColdTrick\WidgetManager\Widgets::createFixedParentMetadata', 1000); // is only a fallback
 
-	elgg_register_ajax_view('page/layouts/widgets/add_panel');
 	elgg_register_ajax_view('widget_manager/widgets/settings');
 	elgg_register_ajax_view('widgets/user_search/content');
-	
-	// register actions
-	elgg_register_action('widget_manager/manage_widgets', $base_dir . '/actions/manage_widgets.php', 'admin');
-	elgg_register_action('widget_manager/widgets/toggle_fix', $base_dir . '/actions/widgets/toggle_fix.php', 'admin');
-	elgg_register_action('widget_manager/force_tool_widgets', $base_dir . '/actions/force_tool_widgets.php', 'admin');
-	elgg_register_action('widget_manager/widgets/toggle_collapse', $base_dir . '/actions/widgets/toggle_collapse.php');
 }
 
 /**
@@ -110,11 +99,8 @@ function widget_manager_init_group() {
 	if (!in_array($group_enable, ['yes', 'forced'])) {
 		return;
 	}
-	
-	$base_dir = dirname(__FILE__);
 
 	elgg_extend_view('groups/edit', 'widget_manager/forms/groups_widget_access');
-	elgg_register_action('widget_manager/groups/update_widget_access', $base_dir . '/actions/groups/update_widget_access.php');
 		
 	// cleanup widgets in group context
 	elgg_extend_view('page/layouts/widgets/add_panel', 'widget_manager/group_tool_widgets', 400);

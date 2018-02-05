@@ -23,6 +23,7 @@ foreach ($contexts as $context) {
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][enabled]",
 		'label' => $context,
 		'value' => 1,
+		'switch' => true,
 		'checked' => in_array($context, $widget_definition->context),
 		'label_class' => [],
 	];
@@ -61,17 +62,21 @@ $body .= '</table>';
 
 
 // multiple
-$options = [
+$multiple_options = [
 	'#type' => 'checkbox',
+	'#class' => 'widget-manager-manage-widgets-toggle-multiple',
 	'#label' => elgg_echo('widget_manager:forms:manage_widgets:multiple'),
 	'name' => "widgets_config[{$widget_definition->id}][multiple]",
 	'value' => 1,
+	'switch' => true,
 	'checked' => $widget_definition->multiple,
 ];
-if ($widget_definition->multiple !== $originals['multiple']) {
-	$options['label_class'] = 'widget-manager-manage-widgets-non-default';
-	$options['title'] = elgg_echo('widget_manager:forms:manage_widgets:non_default');
-}
-$body .= elgg_view_field($options);
 
-echo elgg_view_module('inline', $widget_definition->name . ' [' . $widget_definition->id . ']', $body, ['class' => 'man']);
+if ($widget_definition->multiple !== $originals['multiple']) {
+	$multiple_options['label_class'] = 'widget-manager-manage-widgets-non-default';
+	$multiple_options['title'] = elgg_echo('widget_manager:forms:manage_widgets:non_default');
+}
+
+echo elgg_view_module('info', $widget_definition->name . ' [' . $widget_definition->id . ']', $body, [
+	'menu' => elgg_view_field($multiple_options),
+]);

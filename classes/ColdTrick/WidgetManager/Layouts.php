@@ -7,22 +7,23 @@ class Layouts {
 	/**
 	 * Updates fixed widgets on profile and dashboard
 	 *
-	 * @param string  $hook_name    name of the hook
-	 * @param string  $entity_type  type of the hook
-	 * @param unknown $return_value return value
-	 * @param unknown $params       hook parameters
+	 * @param \Elgg\Hook $hook hook
 	 *
 	 * @return void
 	 */
-	public static function checkFixedWidgets($hook_name, $entity_type, $return_value, $params) {
+	public static function checkFixedWidgets(\Elgg\Hook $hook) {
+		if (elgg_in_context('default_widgets')) {
+			return;
+		}
+		
 		$context = elgg_get_context();
 		if (!in_array($context, ['profile', 'dashboard'])) {
 			// only check things if you are viewing a profile or dashboard page
 			return;
 		}
 		
-		$page_owner_guid = elgg_get_page_owner_guid();
-		if (empty($page_owner_guid)) {
+		$page_owner = elgg_get_page_owner_entity();
+		if (!$page_owner instanceof \ElggUser) {
 			return;
 		}
 		
@@ -34,9 +35,9 @@ class Layouts {
 		}
 		
 		// get the ts of the profile/dashboard you are viewing
-		$user_fixed_ts = elgg_get_plugin_user_setting($context . '_fixed_ts', $page_owner_guid, 'widget_manager');
+		$user_fixed_ts = elgg_get_plugin_user_setting($context . '_fixed_ts', $page_owner->guid, 'widget_manager');
 		if ($user_fixed_ts < $fixed_ts) {
-			widget_manager_update_fixed_widgets($context, $page_owner_guid);
+			widget_manager_update_fixed_widgets($context, $page_owner->guid);
 		}
 	}
 }

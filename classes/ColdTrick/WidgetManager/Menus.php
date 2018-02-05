@@ -20,7 +20,7 @@ class Menus {
 		}
 		
 		foreach ($return_value as $menu_item) {
-			if ($menu_item->getName() == 'appearance:default_widgets') {
+			if ($menu_item->getName() == 'default_widgets') {
 				// move defaultwidgets menu item
 				$menu_item->setParentName('widgets');
 			}
@@ -78,21 +78,18 @@ class Menus {
 			return;
 		}
 		
-		if(empty($widget->fixed_parent_guid)) {
-			return;
-		}
-		
-		$class = [];
+		$class = ['widget-manager-fix'];
 		if ($widget->fixed) {
-			$class[] = 'elgg-icon-hover';
+			$class[] = 'elgg-state-active';
 		}
 			
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'fix',
-			'text' => elgg_view_icon('thumb-tack', ['class' => $class]),
+			'text' => elgg_view_icon('thumb-tack'),
 			'title' => elgg_echo('widget_manager:widgets:fix'),
 			'href' => "#{$widget->guid}",
-			'link_class' => 'widget-manager-fix',
+			'link_class' => $class,
+			'deps' => 'widget_manager/toggle_fix',
 		]);
 	
 		return $return_value;

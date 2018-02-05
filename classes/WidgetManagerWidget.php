@@ -25,32 +25,15 @@ class WidgetManagerWidget extends ElggWidget {
 	];
 
 	/**
-	 * Loads all settings into a settings cache when a widget gets loaded
-	 *
-	 * @param int $guid guid of the entity
-	 *
-	 * @return boolean
+	 * @inheritdoc
 	 */
-	protected function load($guid) {
+	protected function load(stdClass $row) {
 		// Load data from entity table if needed
-		if (!parent::load($guid)) {
+		if (!parent::load($row)) {
 			return false;
 		}
 		
-		// Only work with GUID from here
-		if ($guid instanceof stdClass) {
-			$guid = $guid->guid;
-		}
-		
-		$query = "SELECT * from " . elgg_get_config("dbprefix") . "private_settings where entity_guid = {$guid}";
-		$result = get_data($query);
-		if (empty($result)) {
-			return true;
-		}
-		
-		foreach ($result as $r) {
-			$this->settings_cache[$r->name] = $r->value;
-		}
+		$this->settings_cache = $this->getAllPrivateSettings();
 		
 		return true;
 	}
@@ -104,37 +87,11 @@ class WidgetManagerWidget extends ElggWidget {
 		// If memcache is available then delete this entry from the cache
 		static $newentity_cache;
 		if ((!$newentity_cache) && (is_memcache_available())) {
-			$newentity_cache = new ElggMemcache('new_entity_cache');
+			$newentity_cache = new \ElggMemcache('new_entity_cache');
 		}
 		if ($newentity_cache) {
 			$newentity_cache->delete($this->getGUID());
 		}
-	}
-	
-	/**
-	 * Returns title of the widget
-	 *
-	 * @return string
-	 */
-	public function getTitle() {
-		if ($custom_title = $this->widget_manager_custom_title) {
-			return $custom_title;
-		}
-		
-		return parent::getTitle();
-	}
-	
-	/**
-	 * Returns url of the widget
-	 *
-	 * @return string
-	 */
-	public function getURL() {
-		if ($custom_url = $this->widget_manager_custom_url) {
-			return $custom_url;
-		}
-		
-		return parent::getURL();
 	}
 	
 	/**
@@ -181,45 +138,6 @@ class WidgetManagerWidget extends ElggWidget {
 		}
 	
 		return true;
-	}
-	
-	/**
-	 * Returns an array of classes used in displaying widget objects
-	 *
-	 * @return string[]
-	 */
-	public function getClasses() {
-		$result = [
-			'elgg-module',
-			'elgg-module-widget',
-			"elgg-widget-instance-{$this->handler}"
-		];
-		
-		$can_edit = $this->canEdit();
-		if ($can_edit) {
-			$result[] = 'elgg-state-draggable';
-		} else {
-			$result[] = 'elgg-state-fixed';
-		}
-		
-		if ($this->widget_manager_custom_class) {
-			// optional custom class for this widget
-			$result[] = $this->widget_manager_custom_class;
-		}
-		
-		if ($this->widget_manager_hide_header == 'yes') {
-			if ($can_edit) {
-				$result[] = 'widget_manager_hide_header_admin';
-			} else {
-				$result[] = 'widget_manager_hide_header';
-			}
-		}
-		
-		if ($this->widget_manager_disable_widget_content_style == 'yes') {
-			$result[] = 'widget_manager_disable_widget_content_style';
-		}
-		
-		return $result;
 	}
 	
 	/**

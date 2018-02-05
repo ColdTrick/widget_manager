@@ -2,105 +2,152 @@
 /**
  * Elgg widgets layout
  *
- * @uses $vars['content']          Optional display box at the top of layout
+ * @uses $vars['no_widgets']       Optional string or Closure that will be show if there are no widgets
  * @uses $vars['num_columns']      Number of widget columns for this layout (3)
  * @uses $vars['show_add_widgets'] Display the add widgets button and panel (true)
- * @uses $vars['exact_match']      Widgets must match the current context (false)
  * @uses $vars['show_access']      Show the access control (true)
+ * @uses $vars['owner_guid']       Widget owner GUID (optional, defaults to page owner GUID)
  */
 
 $num_columns = (int) elgg_extract('num_columns', $vars, 3);
 $show_add_widgets = elgg_extract('show_add_widgets', $vars, true);
-$exact_match = elgg_extract('exact_match', $vars, false);
 $show_access = elgg_extract('show_access', $vars, true);
+$owner_guid = elgg_extract('owner_guid', $vars);
 
-$owner = elgg_get_page_owner_entity();
+$page_owner = elgg_get_page_owner_entity();
+if ($owner_guid) {
+	$owner = get_entity($owner_guid);
+} else {
+	$owner = $page_owner;
+}
+
+if (!$owner) {
+	return;
+}
+
+// Underlying views and functions assume that the page owner is the owner of the widgets
+if ($owner->guid != $page_owner->guid) {
+	elgg_set_page_owner_guid($owner->guid);
+}
 
 $context = elgg_get_context();
 
-$available_widgets_context = elgg_trigger_plugin_hook('available_widgets_context', 'widget_manager', [], $context);
-
-$widget_types = elgg_get_widget_types([
-	'context' => $available_widgets_context,
-	'exact' => $exact_match,
-	'container' => $owner,
-]);
-
-elgg_push_context('widgets');
-
 $widgets = elgg_extract('widgets', $vars);
-if (!isset($vars['widgets'])) {
+if ($widgets === null) {
 	$widgets = elgg_get_widgets($owner->guid, $context);
 }
+
+$result = '';
+$no_widgets = elgg_extract('no_widgets', $vars);
+if (empty($widgets) && !empty($no_widgets)) {
+	if ($no_widgets instanceof \Closure) {
+		echo $no_widgets();
+	} else {
+		$result .= $no_widgets;
+	}
+}
+
+// adjusts context to get correct widgets for special widget pages
+$available_widgets_context = elgg_trigger_plugin_hook('available_widgets_context', 'widget_manager', [], $context);
+if ($widgets) {
+	$widget_types = elgg_get_widget_types([
+		'context' => $available_widgets_context,
+		'container' => $owner,
+	]);
+}
+
+if ($show_add_widgets && elgg_can_edit_widget_layout($context)) {
+	$result .= elgg_view('page/layouts/widgets/add_button', $vars);
+}
+
+// push context after the add_button as add button uses current context
+elgg_push_context('widgets');
 
 $top_row_used = elgg_extract('top_row_used', $vars);
 if ($top_row_used) {
 	unset($widgets[4]);
 }
 
-echo "<div class='elgg-layout-widgets layout-widgets-{$context}'>";
-
-if (elgg_can_edit_widget_layout($context) && $show_add_widgets) {
-	echo elgg_view('page/layouts/widgets/add_button', [
-		'context' => $context,
-		'exact_match' => $exact_match,
-		'show_access' => $show_access,
-	]);
-}
-
-if (empty($widgets) || $context !== 'dashboard') {
-	echo elgg_extract('content', $vars);
-}
-
+$grid = '';
 if ($context == 'groups') {
 	$groups_top_row = '';
 	
-	if (isset($widgets[3]) && (sizeof($widgets[3]) > 0)) {
-		foreach ($widgets[3] as $widget) {
-			if (array_key_exists($widget->handler, $widget_types)) {
-				$groups_top_row .= elgg_view_entity($widget, ['show_access' => $show_access]);
-			}
+	$top_row_widgets = (array) elgg_extract(3, $widgets, []);
+	foreach ($top_row_widgets as $widget) {
+		if (array_key_exists($widget->handler, $widget_types)) {
+			$groups_top_row .= elgg_view_entity($widget, ['show_access' => $show_access]);
 		}
 	}
 	
-	echo elgg_format_element('div', [
+	unset($widgets[3]);
+	$grid .= elgg_format_element('div', [
 		'id' => 'elgg-widget-col-3',
-		'class' => 'elgg-col-1of1 elgg-widgets widget-manager-groups-widgets-top-row',
+		'class' => 'elgg-widgets widget-manager-groups-widgets-top-row',
 	], $groups_top_row);
+}
 
-} elseif (in_array($context, ['index', 'dashboard']) || widget_manager_is_extra_context($context)) {
-	
-	foreach ($widgets as $index => $column) {
-		if ($index > $num_columns) {
-			if (!isset($widgets[$num_columns])) {
-				$widgets[$num_columns] = [];
-			}
-			
-			// add overflow column widgets to the max column
-			$widgets[$num_columns] = array_merge($widgets[$index], $widgets[$num_columns]);
-			unset($widgets[$index]);
-		}
+// move hidden columns widgets to last visible column
+if (!isset($widgets[$num_columns])) {
+	$widgets[$num_columns] = [];
+}
+
+foreach ($widgets as $index => $column_widgets) {
+	if ($index <= $num_columns) {
+		continue;
 	}
+	
+	// append widgets to last column and retain order
+	foreach ($column_widgets as $column_widget) {
+		$widgets[$num_columns][] = $column_widget;
+	}
+	unset($widgets[$index]);
 }
 
 for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
-	$column_widgets = elgg_extract($column_index, $widgets, []);
+	$column_widgets = (array) elgg_extract($column_index, $widgets, []);
 	
-	$column_content = '';
+	$widgets_content = '';
 	foreach ($column_widgets as $widget) {
-		if (array_key_exists($widget->handler, $widget_types)) {
-			$column_content .= elgg_view_entity($widget, ['show_access' => $show_access]);
+		if (!array_key_exists($widget->handler, $widget_types)) {
+			continue;
 		}
+		
+		$widgets_content .= elgg_view_entity($widget, ['show_access' => $show_access]);
 	}
 	
-	echo elgg_format_element('div', [
+	$grid .= elgg_format_element('div', [
 		'id' => "elgg-widget-col-{$column_index}",
-		'class' => "elgg-col-1of{$num_columns} elgg-widgets",
-	], $column_content);
+		'class' => [
+			'elgg-widgets',
+		],
+	], $widgets_content);
 }
 
-echo '</div>';
+$result .= elgg_format_element('div', [
+	'class' => 'elgg-widgets-grid',
+], $grid);
 
 elgg_pop_context();
 
-echo elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
+$result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
+
+echo elgg_format_element('div', [
+	'class' => [
+		'elgg-layout-widgets',
+		"layout-widgets-{$context}",
+	],
+	'data-page-owner-guid' => $owner->guid,
+], $result);
+
+?>
+<script>
+require(['elgg/widgets'], function (widgets) {
+	widgets.init();
+});
+</script>
+<?php
+
+// Restore original page owner
+if ($owner->guid != $page_owner->guid) {
+	elgg_set_page_owner_guid($page_owner->guid);
+}

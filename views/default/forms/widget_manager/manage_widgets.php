@@ -14,10 +14,19 @@ $widget_output = [];
 
 foreach ($widgets as $widget_definition) {
 	$key = $widget_definition->name . '_' . $widget_definition->id;
-	$widget_output[$key] = elgg_view('forms/widget_manager/manage_widgets/widget', ['widget' => $widget_definition, 'contexts' => $contexts]);
+	$widget_output[$key] = elgg_view('forms/widget_manager/manage_widgets/widget', [
+		'widget' => $widget_definition,
+		'contexts' => $contexts,
+	]);
 }
 
 ksort($widget_output);
 
 echo implode('', $widget_output);
-echo elgg_view('input/submit', ['value' => elgg_echo('save')]);
+
+$footer =elgg_view_field([
+	'#type' => 'submit',
+	'value' => elgg_echo('save'),
+]);
+
+elgg_set_form_footer($footer);

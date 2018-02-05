@@ -2,6 +2,8 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\Hook;
+
 class Groups {
 	
 	/**
@@ -145,5 +147,38 @@ class Groups {
 				elgg_set_ignore_access($ia);
 			}
 		}
+	}
+	
+	/**
+	 * Bypasses the widgets content on the group profile
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function getGroupWidgetsLayout(\Elgg\Hook $hook) {
+		$vars = $hook->getParam('vars', []);
+		$group = elgg_extract('entity', $vars);
+		
+		if (!$group instanceof \ElggGroup) {
+			return;
+		}
+		
+		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
+		if (!in_array($group_enable, ['forced', 'yes'])) {
+			return;
+		}
+		
+		if ($group_enable == 'yes' && !$group->isToolEnabled('widget_manager')) {
+			return;
+		}
+		
+// 		(elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes')) {
+		
+		$result = $hook->getValue();
+		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', ['num_columns' => 2]);
+		
+		return $result;
+		
 	}
 }

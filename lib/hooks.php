@@ -142,50 +142,6 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 	
 	return $return_value;
 }
-	
-/**
- * Fallback widget title urls for non widget manager widgets
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return string
- */
-function widget_manager_widgets_url($hook_name, $entity_type, $return_value, $params) {
-	$result = $return_value;
-	$widget = elgg_extract('entity', $params);
-	if (!elgg_instanceof($widget, 'object', 'widget')) {
-		return $result;
-	}
-	
-	if (!empty($result)) {
-		return $result;
-	}
-	
-	$owner = $widget->getOwnerEntity();
-	switch ($widget->handler) {
-		case 'friends':
-			$result = "/friends/{$owner->username}";
-			break;
-		case 'messageboard':
-			$result = "/messageboard/{$owner->username}";
-			break;
-		case 'river_widget':
-			$result = '/activity';
-			break;
-		case 'bookmarks':
-			if ($owner instanceof ElggGroup) {
-				$result = "/bookmarks/group/{$owner->getGUID()}/all";
-			} else {
-				$result = "/bookmarks/owner/{$owner->username}";
-			}
-			break;
-	}
-
-	return $result;
-}
 
 /**
  * Updates the pluginsettings for the contexts

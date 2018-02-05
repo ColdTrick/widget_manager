@@ -3,6 +3,7 @@
 namespace ColdTrick\WidgetManager;
 
 use Elgg\WidgetDefinition;
+use Elgg\Hook;
 class Widgets {
 	
 	/**
@@ -189,5 +190,107 @@ class Widgets {
 		}
 		
 		return $return_value;
+	}
+	
+	/**
+	 * Returns widget content from cache
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function getContentFromCache(\Elgg\Hook $hook) {
+		$widget = $hook->getEntityParam();
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		$cacheable = widget_manager_is_cacheable_widget($widget);
+		
+		if (!$cacheable) {
+			return;
+		}
+		
+		$cached_data = $widget->widget_manager_cached_data;
+		if (empty($cached_data)) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+		$result[\Elgg\ViewsService::OUTPUT_KEY] = $cached_data;
+		
+		return $result;
+	}
+
+	/**
+	 * Returns widget content from cache
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function saveContentInCache(\Elgg\Hook $hook) {
+		$widget = $hook->getEntityParam();
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		$cacheable = widget_manager_is_cacheable_widget($widget);
+		
+		if (!$cacheable) {
+			return;
+		}
+		
+		$widget->widget_manager_cached_data = $hook->getValue();
+	}
+	
+	/**
+	 * Fallback widget title urls for non widget manager widgets
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return string
+	 */
+	public static function getWidgetURL(\Elgg\Hook $hook) {
+		$widget = $hook->getEntityParam();
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		if (!empty($hook->getValue())) {
+			// already got a link
+			return;
+		}
+		
+		if ($widget->widget_manager_custom_url) {
+			return $widget->widget_manager_custom_url;
+		}
+		
+		if (elgg_in_context('default_widgets')) {
+			return;
+		}
+		
+		$owner = $widget->getOwnerEntity();
+		switch ($widget->handler) {
+			case 'friends':
+				return elgg_generate_url('collection:friends:owner', [
+					'username' => $owner->username,
+				]);
+			case 'messageboard':
+				return elgg_generate_url('collection:annotation:messageboard:owner', [
+					'username' => $owner->username,
+				]);
+			case 'river_widget':
+				return elgg_generate_url('default:river');
+			case 'bookmarks':
+				if ($owner instanceof ElggGroup) {
+					return elgg_generate_url('collection:object:bookmarks:group', [
+						'guid' => $owner->guid,
+					]);
+				}
+				return elgg_generate_url('collection:object:bookmarks:owner', [
+					'username' => $owner->username,
+				]);
+		}
 	}
 }
