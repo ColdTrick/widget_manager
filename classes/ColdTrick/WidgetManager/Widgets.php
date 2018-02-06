@@ -86,7 +86,7 @@ class Widgets {
 	 */
 	public static function addExtraContextsWidgets($hook_name, $entity_type, $return_value, $params) {
 		$context = elgg_extract('context', $params);
-		if (!widget_manager_is_extra_context($context)) {
+		if (!self::isExtraContext($context)) {
 			return;
 		}
 		
@@ -103,6 +103,20 @@ class Widgets {
 		}
 		
 		return $return_value;
+	}
+	
+	protected function isExtraContext($context) {
+		$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
+		if (empty($extra_contexts)) {
+			return false;
+		}
+		
+		$contexts = string_to_tag_array($extra_contexts);
+		if (!is_array($contexts)) {
+			return false;
+		}
+		
+		return in_array($context, $contexts);
 	}
 	
 	/**

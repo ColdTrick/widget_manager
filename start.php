@@ -55,7 +55,10 @@ function widget_manager_init() {
 		$contexts = string_to_tag_array($extra_contexts);
 		if ($contexts) {
 			foreach ($contexts as $context) {
-				elgg_register_page_handler($context, '\ColdTrick\WidgetManager\PageHandlers::extraContexts');
+				elgg_register_route($context, [
+					'path' => $context,
+					'resource' => 'widget_manager/extra_contexts',
+				]);
 			}
 		}
 	}

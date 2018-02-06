@@ -252,28 +252,6 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 }
 
 /**
- * Check if a given handler is part of the configured extra contexts
- *
- * @param string $handler name of the context handler to check
- *
- * @return boolean
- */
-function widget_manager_is_extra_context($handler) {
-
-	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
-	if ($extra_contexts) {
-		$contexts = string_to_tag_array($extra_contexts);
-		if ($contexts) {
-			if (in_array($handler, $contexts)) {
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-/**
  * Checks if the logged in user has a open or closed collapsed state relationship with a given widget
  *
  * @param int    $widget_guid guid of the widget to check
