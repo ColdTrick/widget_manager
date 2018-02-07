@@ -127,7 +127,7 @@ class Menus {
 					$show_access = elgg_get_config('widget_show_access');
 					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->getGUID() . '&show_access=' . $show_access);
 					unset($item->rel);
-					$item->{"data-colorbox-opts"} = '{"width": 750, "height": 500, "trapFocus": false}';
+					$item->{"data-colorbox-opts"} = '{"width": 750, "max-height": "80%", "trapFocus": false, "fixed": true}';
 					$item->addLinkClass('elgg-lightbox');
 				}
 					

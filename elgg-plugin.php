@@ -1,6 +1,13 @@
 <?php
 
 return [
+	'entities' => [
+		[
+			'type' => 'object',
+			'subtype' => 'widget',
+			'class' => 'WidgetManagerWidget',
+		],
+	],
 	'actions' => [
 		'widget_manager/groups/update_widget_access' => [],
 		'widget_manager/widgets/toggle_collapse' => [],

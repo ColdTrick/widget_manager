@@ -50,7 +50,7 @@ class Cache {
 		}
 	
 		if (widget_manager_is_cacheable_widget($widget)) {
-			$widget->widget_manager_cached_data = null;
+			unset($widget->widget_manager_cached_data);
 		}
 	}
 }

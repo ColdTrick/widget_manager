@@ -105,7 +105,7 @@ class Widgets {
 		return $return_value;
 	}
 	
-	protected function isExtraContext($context) {
+	protected static function isExtraContext($context) {
 		$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
 		if (empty($extra_contexts)) {
 			return false;
