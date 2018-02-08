@@ -148,11 +148,6 @@ class Menus {
 						}
 					}
 				}
-					
-				if ($item->getName() == 'delete') {
-					// dirty fix to prevent incorrect reregistration of add widget js action (see js/lib/ui.widgets.js line 120)
-					$item->addLinkClass('elgg-widget-multiple');
-				}
 			}
 		}
 	

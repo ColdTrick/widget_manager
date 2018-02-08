@@ -51,24 +51,7 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 		return null;
 	}
 	
-	$result = false;
-	// check for old pre Widget Manager 7.0 plugin setting
-	$plugin_setting = elgg_get_plugin_setting("{$context}_{$widget_handler}_{$setting}", 'widget_manager', null);
-	if ($plugin_setting !== null) {
-		if ($plugin_setting == 'yes') {
-			$result = true;
-		}
-	} elseif ($setting == 'can_add') {
-		$result = true;
-	}
-	
-	$widgets_config[$widget_handler]['contexts'][$context][$setting] = (int) $result;
-	elgg_set_plugin_setting('widgets_config', json_encode($widgets_config), 'widget_manager');
-
-	// remove old plugin setting
-	elgg_unset_plugin_setting("{$context}_{$widget_handler}_{$setting}", 'widget_manager');
-	
-	return $result;
+	return false;
 }
 
 /**

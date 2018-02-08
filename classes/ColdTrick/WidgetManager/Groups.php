@@ -5,28 +5,6 @@ namespace ColdTrick\WidgetManager;
 use Elgg\Hook;
 
 class Groups {
-	
-	/**
-	 * Sets the widget manager tool option. This is needed because in some situation the tooloption is not available.
-	 *
-	 * @param string $event       name of the system event
-	 * @param string $object_type type of the event
-	 * @param mixed  $object      object related to the event
-	 *
-	 * @return void
-	 */
-	public static function setGroupToolOption($event, $object_type, $object) {
-	
-		if (!elgg_instanceof($object, 'group')) {
-			return;
-		}
-	
-		if (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') !== 'yes') {
-			return;
-		}
-	
-		$object->widget_manager_enable = 'yes';
-	}
 
 	/**
 	 * Sets the widget manager tool option. This is needed because in some situation the tool option is not available.
@@ -172,8 +150,6 @@ class Groups {
 		if ($group_enable == 'yes' && !$group->isToolEnabled('widget_manager')) {
 			return;
 		}
-		
-// 		(elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes')) {
 		
 		$result = $hook->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', ['num_columns' => 2]);

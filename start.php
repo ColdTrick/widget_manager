@@ -72,7 +72,7 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
 
 	elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
-	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Layouts::checkFixedWidgets');
+	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Widgets::checkFixedWidgets');
 	elgg_register_plugin_hook_handler('view_vars', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
 	elgg_register_plugin_hook_handler('view', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
 
@@ -110,19 +110,13 @@ function widget_manager_init_group() {
 		
 	if ($group_enable == 'yes') {
 		// add the widget manager tool option
-		$group_option_enabled = false;
-		if (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes') {
-			$group_option_enabled = true;
-		}
+		$group_option_enabled = (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes');
 
 		if (elgg_get_plugin_setting('group_option_admin_only', 'widget_manager') !== 'yes') {
 			// add the tool option for group admins
 			add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
 		} elseif (elgg_is_admin_logged_in()) {
 			add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
-		} elseif ($group_option_enabled) {
-			// register event to make sure newly created groups have the group option enabled
-			elgg_register_event_handler('create', 'group', '\ColdTrick\WidgetManager\Groups::setGroupToolOption');
 		}
 	}
 		

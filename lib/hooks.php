@@ -260,8 +260,7 @@ function widget_manager_permissions_check_object_hook_handler($hook_name, $entit
 		return;
 	}
 	
-	$site = $entity->getOwnerEntity();
-	if (!($site instanceof ElggSite)) {
+	if (!$entity->getOwnerEntity() instanceof \ElggSite) {
 		// special permission is only for widget owned by site
 		return;
 	}
