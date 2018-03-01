@@ -30,71 +30,69 @@ $index_top_row_options = [
 	'two_column_left' => elgg_echo('widget_manager:settings:index_top_row:two_column_left'),
 ];
 
-echo elgg_view_field([
-	'#type'	=> 'fieldset',
-	'#label' => elgg_echo('widget_manager:settings:index'),
-	'fields' => [
-		[
-			'#type' => 'select',
-			'#label' => elgg_echo('widget_manager:settings:custom_index'),
-			'name' => 'params[custom_index]',
-			'value' => $plugin->custom_index,
-			'options_values' => $custom_index_options,
-		], [
-			'#type' => 'select',
-			'#label' => elgg_echo('widget_manager:settings:widget_layout'),
-			'name' => 'params[widget_layout]',
-			'value' => $plugin->widget_layout,
-			'options_values' => $widget_layout_options,
-		], [
-			'#type' => 'select',
-			'#label' => elgg_echo('widget_manager:settings:index_top_row'),
-			'name' => 'params[index_top_row]',
-			'value' => $plugin->index_top_row,
-			'options_values' => $index_top_row_options,
-		],
-	],
+$index_settings = '';
+$index_settings .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:custom_index'),
+	'name' => 'params[custom_index]',
+	'value' => $plugin->custom_index,
+	'options_values' => $custom_index_options,
+]);
+$index_settings .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:widget_layout'),
+	'name' => 'params[widget_layout]',
+	'value' => $plugin->widget_layout,
+	'options_values' => $widget_layout_options,
+]);
+$index_settings .= elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('widget_manager:settings:index_top_row'),
+	'name' => 'params[index_top_row]',
+	'value' => $plugin->index_top_row,
+	'options_values' => $index_top_row_options,
 ]);
 
+echo elgg_view_module('info', elgg_echo('widget_manager:settings:index'), $index_settings);
+
 if (elgg_is_active_plugin('groups')) {
-	echo elgg_view_field([
-		'#type'	=> 'fieldset',
-		'#label' => elgg_echo('widget_manager:settings:group'),
-		'fields' => [
-			[
-				'#type' => 'select',
-				'#label' => elgg_echo('widget_manager:settings:group:enable'),
-				'#help' => elgg_view('output/url', [
-					'text' => elgg_echo('widget_manager:settings:group:force_tool_widgets'),
-					'href' => 'action/widget_manager/force_tool_widgets',
-					'confirm' => elgg_echo('widget_manager:settings:group:force_tool_widgets:confirm'),
-				]),
-				'name' => 'params[group_enable]',
-				'value' => $plugin->group_enable,
-				'options_values' => [
-					'no' => elgg_echo('option:no'),
-					'yes' => elgg_echo('widget_manager:settings:group:enable:yes'),
-					'forced' => elgg_echo('widget_manager:settings:group:enable:forced'),
-				],
-			], [
-				'#type' => 'checkbox',
-				'#label' => elgg_echo('widget_manager:settings:group:option_default_enabled'),
-				'name' => 'params[group_option_default_enabled]',
-				'checked' => $plugin->group_option_default_enabled === 'yes',
-				'switch' => true,
-				'default' => 'no',
-				'value' => 'yes',
-			], [
-				'#type' => 'checkbox',
-				'#label' => elgg_echo('widget_manager:settings:group:option_admin_only'),
-				'name' => 'params[group_option_admin_only]',
-				'checked' => $plugin->group_option_admin_only === 'yes',
-				'switch' => true,
-				'default' => 'no',
-				'value' => 'yes',
-			],
+	$group_settings = '';
+	$group_settings .= elgg_view_field([
+		'#type' => 'select',
+		'#label' => elgg_echo('widget_manager:settings:group:enable'),
+		'#help' => elgg_view('output/url', [
+			'text' => elgg_echo('widget_manager:settings:group:force_tool_widgets'),
+			'href' => 'action/widget_manager/force_tool_widgets',
+			'confirm' => elgg_echo('widget_manager:settings:group:force_tool_widgets:confirm'),
+		]),
+		'name' => 'params[group_enable]',
+		'value' => $plugin->group_enable,
+		'options_values' => [
+			'no' => elgg_echo('option:no'),
+			'yes' => elgg_echo('widget_manager:settings:group:enable:yes'),
+			'forced' => elgg_echo('widget_manager:settings:group:enable:forced'),
 		],
 	]);
+	$group_settings .= elgg_view_field([
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('widget_manager:settings:group:option_default_enabled'),
+		'name' => 'params[group_option_default_enabled]',
+		'checked' => $plugin->group_option_default_enabled === 'yes',
+		'switch' => true,
+		'default' => 'no',
+		'value' => 'yes',
+	]);
+	$group_settings .= elgg_view_field([
+		'#type' => 'checkbox',
+		'#label' => elgg_echo('widget_manager:settings:group:option_admin_only'),
+		'name' => 'params[group_option_admin_only]',
+		'checked' => $plugin->group_option_admin_only === 'yes',
+		'switch' => true,
+		'default' => 'no',
+		'value' => 'yes',
+	]);
+	
+	echo elgg_view_module('info', elgg_echo('widget_manager:settings:group'), $group_settings);
 }
 	
 $default_widget_layout = $plugin->widget_layout;
@@ -161,10 +159,11 @@ $settings_extra_contexts .= '</table>';
 
 $settings_extra_contexts .= elgg_format_element('span', ['class' => 'elgg-subtext'], elgg_echo('widget_manager:settings:extra_contexts:description'));
 
-echo elgg_view_module('inline', elgg_echo('widget_manager:settings:extra_contexts'), $settings_extra_contexts, [
-	'menu' => elgg_view('input/button', [
+echo elgg_view_module('info', elgg_echo('widget_manager:settings:extra_contexts'), $settings_extra_contexts, [
+	'menu' => elgg_view('output/url', [
 		'id' => 'widget-manager-settings-add-extra-context',
-		'value' => elgg_echo('widget_manager:settings:extra_contexts:add'),
-		'class' => 'elgg-button-action',
+		'text' => elgg_echo('widget_manager:settings:extra_contexts:add'),
+		'href' => false,
+		'icon' => 'plus',
 	]),
 ]);
