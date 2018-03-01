@@ -27,7 +27,7 @@ if (widget_manager_get_widget_setting($handler, 'hide', $widget->context)) {
 	return true;
 }
 
-$title = $widget->getTitle();
+$title = $widget->getDisplayName();
 
 $widget_title_link = $widget->getURL();
 if ($widget_title_link !== elgg_get_site_url()) {

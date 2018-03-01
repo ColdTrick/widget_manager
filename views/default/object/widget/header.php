@@ -12,7 +12,7 @@ if (!($widget instanceof \ElggWidget)) {
 
 $title_text = $widget->widget_manager_custom_title;
 if (empty($title_text)) {
-	$title_text = $widget->getTitle();
+	$title_text = $widget->getDisplayName();
 }
 
 $url = $widget->getURL();
