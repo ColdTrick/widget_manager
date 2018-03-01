@@ -51,6 +51,10 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 		return null;
 	}
 	
+	if ($setting === 'can_add') {
+		return true;
+	}
+	
 	return false;
 }
 
