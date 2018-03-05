@@ -150,11 +150,14 @@ class Groups {
 		if ($group_enable == 'yes' && !$group->isToolEnabled('widget_manager')) {
 			return;
 		}
-		
+		// need context = groups to fix the issue with the new group_profile context
+		elgg_push_context('groups');
+	
 		$result = $hook->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', ['num_columns' => 2]);
 		
-		return $result;
+		elgg_pop_context();
 		
+		return $result;
 	}
 }
