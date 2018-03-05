@@ -61,12 +61,6 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		'value' => $widget->widget_manager_custom_class,
 	];
 	$fields[] = [
-		'#type' => 'text',
-		'#label' => elgg_echo('widget_manager:widgets:edit:fixed_height'),
-		'name' => 'params[widget_manager_fixed_height]',
-		'value' => $widget->widget_manager_fixed_height,
-	];
-	$fields[] = [
 		'#type' => 'dropdown',
 		'#label' => elgg_echo('widget_manager:widgets:edit:collapse_disable'),
 		'name' => 'params[widget_manager_collapse_disable]',
