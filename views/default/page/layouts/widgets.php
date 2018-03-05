@@ -69,22 +69,6 @@ if ($top_row_used) {
 }
 
 $grid = '';
-if ($context == 'groups') {
-	$groups_top_row = '';
-	
-	$top_row_widgets = (array) elgg_extract(3, $widgets, []);
-	foreach ($top_row_widgets as $widget) {
-		if (array_key_exists($widget->handler, $widget_types)) {
-			$groups_top_row .= elgg_view_entity($widget, ['show_access' => $show_access]);
-		}
-	}
-	
-	unset($widgets[3]);
-	$grid .= elgg_format_element('div', [
-		'id' => 'elgg-widget-col-3',
-		'class' => 'elgg-widgets widget-manager-groups-widgets-top-row',
-	], $groups_top_row);
-}
 
 // move hidden columns widgets to last visible column
 if (!isset($widgets[$num_columns])) {

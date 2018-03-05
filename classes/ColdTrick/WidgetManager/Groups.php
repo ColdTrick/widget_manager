@@ -154,7 +154,7 @@ class Groups {
 		elgg_push_context('groups');
 	
 		$result = $hook->getValue();
-		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', ['num_columns' => 2]);
+		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', ['num_columns' => 3]);
 		
 		elgg_pop_context();
 		

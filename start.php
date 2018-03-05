@@ -33,7 +33,7 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
 	
 	// extend CSS
-// 	elgg_extend_view('css/elgg', 'css/widget_manager/site.css');
+	elgg_extend_view('elements/widgets.css', 'css/widget_manager/site.css');
 // 	elgg_extend_view('css/elgg', 'css/widget_manager/global.css');
 	
 	elgg_extend_view('css/admin', 'css/widget_manager/admin.css');

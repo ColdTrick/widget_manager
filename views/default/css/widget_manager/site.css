@@ -30,11 +30,19 @@
 	border: 2px solid #DEDEDE;
 }
 
-.widget-manager-groups-widgets-top-row {
-	width: 100%;
-	min-height: 0px !important;
+.elgg-widgets-grid {
+	flex-wrap: wrap;
 }
 
-.widget-manager-groups-widgets-top-row-highlight {
-	min-height: 50px !important;
+.elgg-widgets {
+	flex-basis: 0;
+}
+
+.layout-widgets-groups .elgg-widgets-grid #elgg-widget-col-3 {
+	flex-basis: 100%;
+	order: -1;
+	
+	&.elgg-state-active {
+		min-height: 50px; 
+	}
 }
