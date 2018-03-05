@@ -20,12 +20,12 @@ require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $) {
 	});
 	
 	elgg.register_hook_handler('init', 'system', function() {
-		$('.layout-widgets-groups .elgg-widgets').bind({
+		$('.widgets-top-row .elgg-widgets').bind({
 			sortstart: function () {
-				$('#elgg-widget-col-3').addClass('elgg-state-active');
+				$('.widgets-top-row .elgg-widgets:last-child').addClass('elgg-state-active');
 			},
 			sortstop: function () {
-				$('#elgg-widget-col-3').removeClass('elgg-state-active');
+				$('.widgets-top-row .elgg-widgets:last-child').removeClass('elgg-state-active');
 			}
 		});
 	});

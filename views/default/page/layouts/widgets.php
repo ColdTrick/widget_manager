@@ -7,6 +7,7 @@
  * @uses $vars['show_add_widgets'] Display the add widgets button and panel (true)
  * @uses $vars['show_access']      Show the access control (true)
  * @uses $vars['owner_guid']       Widget owner GUID (optional, defaults to page owner GUID)
+ * @uses $vars['class']            Classes for the layout
  */
 
 $num_columns = (int) elgg_extract('num_columns', $vars, 3);
@@ -63,13 +64,6 @@ if ($show_add_widgets && elgg_can_edit_widget_layout($context)) {
 // push context after the add_button as add button uses current context
 elgg_push_context('widgets');
 
-$top_row_used = elgg_extract('top_row_used', $vars);
-if ($top_row_used) {
-	unset($widgets[4]);
-}
-
-$grid = '';
-
 // move hidden columns widgets to last visible column
 if (!isset($widgets[$num_columns])) {
 	$widgets[$num_columns] = [];
@@ -87,6 +81,7 @@ foreach ($widgets as $index => $column_widgets) {
 	unset($widgets[$index]);
 }
 
+$grid = '';
 for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	$column_widgets = (array) elgg_extract($column_index, $widgets, []);
 	
@@ -116,10 +111,10 @@ elgg_pop_context();
 $result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
 
 echo elgg_format_element('div', [
-	'class' => [
+	'class' => elgg_extract_class($vars, [
 		'elgg-layout-widgets',
 		"layout-widgets-{$context}",
-	],
+	]),
 	'data-page-owner-guid' => $owner->guid,
 ], $result);
 

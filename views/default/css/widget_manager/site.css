@@ -38,7 +38,7 @@
 	flex-basis: 0;
 }
 
-.layout-widgets-groups .elgg-widgets-grid #elgg-widget-col-3 {
+.widgets-top-row .elgg-widgets-grid .elgg-widgets:last-child {
 	flex-basis: 100%;
 	order: -1;
 	
