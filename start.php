@@ -15,9 +15,7 @@ elgg_register_event_handler('init', 'system', 'widget_manager_init_group');
  * @return void
  */
 function widget_manager_init() {
-	
-	elgg_register_plugin_hook_handler('widget_settings', 'all', '\ColdTrick\WidgetManager\Cache::clearWidgetCacheOnSettingsSave');
-	
+
 	// register plugin hooks
 // 	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
 	elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
@@ -73,14 +71,13 @@ function widget_manager_init() {
 
 	elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
 	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Widgets::checkFixedWidgets');
-	elgg_register_plugin_hook_handler('view_vars', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
-	elgg_register_plugin_hook_handler('view', 'object/widget/elements/content', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
-
+	elgg_register_plugin_hook_handler('view_vars', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
+	elgg_register_plugin_hook_handler('view', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
+	elgg_register_plugin_hook_handler('widget_settings', 'all', '\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnSettingsSave');
+	
 	elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 	
 	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
-
-	elgg_register_event_handler('cache:flush', 'system', '\ColdTrick\WidgetManager\Cache::resetWidgetsCache');
 	
 	elgg_register_event_handler('all', 'object', '\ColdTrick\WidgetManager\Widgets::createFixedParentMetadata', 1000); // is only a fallback
 

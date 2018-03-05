@@ -214,18 +214,16 @@ class Widgets {
 	 * @return []
 	 */
 	public static function getContentFromCache(\Elgg\Hook $hook) {
-		$widget = $hook->getEntityParam();
+		$widget = elgg_extract('entity', $hook->getValue());
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
 		
-		$cacheable = widget_manager_is_cacheable_widget($widget);
-		
-		if (!$cacheable) {
+		if (!self::isCacheableWidget($widget)) {
 			return;
 		}
 		
-		$cached_data = $widget->widget_manager_cached_data;
+		$cached_data = elgg_load_system_cache("widget_cache_{$widget->guid}");
 		if (empty($cached_data)) {
 			return;
 		}
@@ -244,20 +242,54 @@ class Widgets {
 	 * @return []
 	 */
 	public static function saveContentInCache(\Elgg\Hook $hook) {
-		$widget = $hook->getEntityParam();
+		$widget = elgg_extract('entity', elgg_extract('vars', $hook->getParams()));
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
 		
-		$cacheable = widget_manager_is_cacheable_widget($widget);
-		
-		if (!$cacheable) {
+		if (!self::isCacheableWidget($widget)) {
 			return;
 		}
 		
-		$widget->widget_manager_cached_data = $hook->getValue();
+		elgg_save_system_cache("widget_cache_{$widget->guid}", $hook->getValue());
 	}
 	
+	/**
+	 * Unsets the cached data for cacheable widgets
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return bool
+	 */
+	public static function clearWidgetCacheOnSettingsSave(\Elgg\Hook $hook) {
+		$widget = $hook->getParam('widget');
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		if (!self::isCacheableWidget($widget)) {
+			return;
+		}
+	
+		elgg_delete_system_cache("widget_cache_{$widget->guid}");
+	}
+	
+	/**
+	 * Checks if the provide widget is registered as a cacheable widget
+	 *
+	 * @param ElggWidget $widget widget to check
+	 *
+	 * @return bool
+	 */
+	protected static function isCacheableWidget(\ElggWidget $widget) {
+		static $cacheable_handlers;
+		if (!isset($cacheable_handlers)) {
+			$cacheable_handlers = elgg_trigger_plugin_hook('cacheable_handlers', 'widget_manager', [], []);
+		}
+	
+		return in_array($widget->handler, $cacheable_handlers);
+	}
+		
 	/**
 	 * Fallback widget title urls for non widget manager widgets
 	 *
