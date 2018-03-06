@@ -98,10 +98,10 @@ if (elgg_is_active_plugin('groups')) {
 $default_widget_layout = $plugin->widget_layout;
 
 $settings_extra_contexts = '<table id="widget-manager-settings-extra-contexts" class="elgg-table-alt">';
-$settings_extra_contexts .= '<tr><th>' . elgg_echo('widget_manager:settings:extra_contexts:page') . '</th>';
+$settings_extra_contexts .= '<thead><tr><th>' . elgg_echo('widget_manager:settings:extra_contexts:page') . '</th>';
 $settings_extra_contexts .= '<th>' . elgg_echo('widget_manager:settings:extra_contexts:layout') . '</th>';
 $settings_extra_contexts .= '<th>' . elgg_echo('widget_manager:settings:extra_contexts:top_row') . '</th>';
-$settings_extra_contexts .= '<th>' . elgg_echo('widget_manager:settings:extra_contexts:manager') . '</th><th></th></tr>';
+$settings_extra_contexts .= '<th>' . elgg_echo('widget_manager:settings:extra_contexts:manager') . '</th><th></th></tr></thead>';
 
 $contexts = string_to_tag_array($plugin->extra_contexts);
 
