@@ -43,23 +43,10 @@ function widget_manager_init() {
 	
 	// register a widget title url handler
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
-
-	// index page
-	elgg_register_plugin_hook_handler('route', 'all', '\ColdTrick\WidgetManager\Router::routeIndex');
-			
+	
 	// add extra widget pages
-	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
-	if ($extra_contexts) {
-		$contexts = string_to_tag_array($extra_contexts);
-		if ($contexts) {
-			foreach ($contexts as $context) {
-				elgg_register_route($context, [
-					'path' => $context,
-					'resource' => 'widget_manager/extra_contexts',
-				]);
-			}
-		}
-	}
+	_widget_manager_register_index_route();
+	_widget_manager_register_extra_context_routes();
 	
 	elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
 		
@@ -83,6 +70,51 @@ function widget_manager_init() {
 
 	elgg_register_ajax_view('widget_manager/widgets/settings');
 	elgg_register_ajax_view('widgets/user_search/content');
+}
+
+/**
+ * Conditionally registers a route for the index page
+ *
+ * @return void
+ */
+function _widget_manager_register_index_route() {
+	$setting = elgg_get_plugin_setting('custom_index', 'widget_manager');
+	if (empty($setting)) {
+		return;
+	}
+	
+	list($non_loggedin, $loggedin) = explode('|', $setting);
+	
+	if ((!elgg_is_logged_in() && !empty($non_loggedin)) || (elgg_is_logged_in() && !empty($loggedin)) || (elgg_is_admin_logged_in() && (get_input('override') == true))) {
+		elgg_register_route('index', [
+			'path' => '/',
+			'resource' => 'widget_manager/custom_index',
+		]);
+	}
+}
+
+/**
+ * Registers routes for the extra contexts pages
+ *
+ * @return void
+ */
+function _widget_manager_register_extra_context_routes() {
+	$extra_contexts = elgg_get_plugin_setting('extra_contexts', 'widget_manager');
+	if (empty($extra_contexts)) {
+		return;
+	}
+	
+	$contexts = string_to_tag_array($extra_contexts);
+	if (empty($contexts)) {
+		return;
+	}
+	
+	foreach ($contexts as $context) {
+		elgg_register_route($context, [
+			'path' => $context,
+			'resource' => 'widget_manager/extra_contexts',
+		]);
+	}
 }
 
 /**
