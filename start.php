@@ -8,6 +8,7 @@ require_once(dirname(__FILE__) . '/lib/hooks.php');
 // register default Elgg events
 elgg_register_event_handler('init', 'system', 'widget_manager_init');
 elgg_register_event_handler('init', 'system', 'widget_manager_init_group');
+elgg_register_event_handler('init', 'system', '_widget_manager_register_index_route', 1001); // need later priority to win over walledgarden
 
 /**
  * Used to perform initialization of the widget manager features.
@@ -45,7 +46,6 @@ function widget_manager_init() {
 	elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
 	
 	// add extra widget pages
-	_widget_manager_register_index_route();
 	_widget_manager_register_extra_context_routes();
 	
 	elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
