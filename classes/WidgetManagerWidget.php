@@ -138,6 +138,16 @@ class WidgetManagerWidget extends ElggWidget {
 	}
 	
 	/**
+	 * Need to override to be able to use local cache
+	 *
+	 * {@inheritDoc}
+	 * @see ElggWidget::getContext()
+	 */
+	public function getContext() {
+		return $this->context;
+	}
+	
+	/**
 	 * Can someone edit this widget (normal users can not edit fixed widgets)
 	 *
 	 * @param int $user_guid optional user_guid to check
