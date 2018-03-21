@@ -173,4 +173,18 @@ class WidgetManagerWidget extends ElggWidget {
 		
 		return $default;
 	}
+	
+	/**
+	 * Returns the custom title or the regular displayname
+	 * {@inheritDoc}
+	 * @see ElggWidget::getDisplayName()
+	 */
+	public function getDisplayName() {
+		$result = $this->widget_manager_custom_title;
+		if ($result) {
+			return $result;
+		}
+		
+		return parent::getDisplayName();
+	}
 }
