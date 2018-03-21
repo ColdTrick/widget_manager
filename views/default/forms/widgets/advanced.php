@@ -79,16 +79,4 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 	];
 }
 
-$fieldset = elgg_view('input/fieldset', ['fields' => $fields]);
-
-echo elgg_view_module('info', elgg_echo('widget_manager:widgets:edit:advanced'), $fieldset, [
-	'class' => 'hidden',
-	'id' => "widget-manager-widget-edit-advanced-{$widget->getGUID()}",
-]);
-
-echo elgg_view('output/url', [
-	'rel' => 'toggle',
-	'href' => "#widget-manager-widget-edit-advanced-{$widget->getGUID()}",
-	'class' => 'elgg-button elgg-button-action float-alt',
-	'text' => elgg_echo('widget_manager:widgets:edit:advanced'),
-]);
+echo elgg_view('input/fieldset', ['fields' => $fields]);

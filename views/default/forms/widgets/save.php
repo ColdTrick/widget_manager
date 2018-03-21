@@ -25,13 +25,35 @@ if ($show_access) {
 	]);
 }
 
-echo $custom_form_section;
-echo $access;
+$basic_content = $custom_form_section . $access;
 
-echo elgg_view('widget_manager/forms/widgets/advanced', [
+$advanced_content = elgg_view('forms/widgets/advanced', [
 	'entity' => $widget,
 	'widget_context' => $widget->context,
 ]);
+
+if (empty($advanced_content)) {
+	echo $basic_content;
+} elseif (empty($basic_content)) {
+	echo $advanced_content;
+} else {
+	echo elgg_view('page/components/tabs', [
+		'class' => 'widget-settings',
+		'tabs' => [
+			[
+				'text' => elgg_echo('settings'),
+				'content' => $basic_content,
+				'selected' => true,
+			],
+			[
+				'text' => elgg_echo('widget_manager:widgets:edit:advanced'),
+				'content' => $advanced_content,
+			],
+		],
+	]);
+	
+	elgg_require_js('forms/widgets/advanced');
+}
 
 echo elgg_view_field([
 	'#type' => 'hidden',
