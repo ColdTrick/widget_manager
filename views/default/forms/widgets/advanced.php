@@ -41,18 +41,22 @@ $advanced_context = elgg_trigger_plugin_hook('advanced_context', 'widget_manager
 if (is_array($advanced_context) && in_array($widget_context, $advanced_context)) {
 	
 	$fields[] = [
-		'#type' => 'dropdown',
+		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:widgets:edit:hide_header'),
 		'name' => 'params[widget_manager_hide_header]',
-		'value' => $widget->widget_manager_hide_header,
-		'options_values' => $noyes_options,
+		'checked' => $widget->widget_manager_hide_header === 'yes',
+		'switch' => true,
+		'default' => 'no',
+		'value' => 'yes',
 	];
 	$fields[] = [
-		'#type' => 'dropdown',
+		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:widgets:edit:disable_widget_content_style'),
 		'name' => 'params[widget_manager_disable_widget_content_style]',
-		'value' => $widget->widget_manager_disable_widget_content_style,
-		'options_values' => $noyes_options,
+		'checked' => $widget->widget_manager_disable_widget_content_style === 'yes',
+		'switch' => true,
+		'default' => 'no',
+		'value' => 'yes',
 	];
 	$fields[] = [
 		'#type' => 'text',
@@ -61,11 +65,13 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		'value' => $widget->widget_manager_custom_class,
 	];
 	$fields[] = [
-		'#type' => 'dropdown',
+		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:widgets:edit:collapse_disable'),
 		'name' => 'params[widget_manager_collapse_disable]',
-		'value' => $widget->widget_manager_collapse_disable,
-		'options_values' => $noyes_options,
+		'checked' => $widget->widget_manager_collapse_disable === 'yes',
+		'switch' => true,
+		'default' => 'no',
+		'value' => 'yes',
 	];
 	$fields[] = [
 		'#type' => 'dropdown',
