@@ -1,6 +1,14 @@
 Version history
 ===============
 
+8.2.1.1 (2018-03-22):
+
+- several small chores/fixes
+
+8.2.1 (2018-03-22):
+
+- changed: override getContext to be able to use cache
+
 8.2 (2017-11-15):
 
 - added: widget collapse capability is now hookable
