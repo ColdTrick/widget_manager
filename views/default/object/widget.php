@@ -14,6 +14,10 @@ if (!elgg_instanceof($widget, 'object', 'widget')) {
 if (!($widget instanceof WidgetManagerWidget)) {
 	// need this for newly created widgets (elgg_create_widget returns ElggWidget)
 	$widget = new \WidgetManagerWidget($widget->toObject());
+	
+	// need this to prevent memcache issue where object is stored in cache and is not a WidgetManagerWidget
+	_elgg_invalidate_cache_for_entity($widget->guid);
+	_elgg_invalidate_memcache_for_entity($widget->guid);
 }
 
 $show_access = elgg_extract('show_access', $vars, true);
