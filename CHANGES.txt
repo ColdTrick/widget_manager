@@ -1,6 +1,10 @@
 Version history
 ===============
 
+8.2.2 (2018-03-28):
+
+- fix: memcache could contain the incorrect entity class for new widgets
+
 8.2.1.1 (2018-03-22):
 
 - several small chores/fixes
