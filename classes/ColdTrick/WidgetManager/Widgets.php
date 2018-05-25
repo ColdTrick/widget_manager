@@ -301,4 +301,31 @@ class Widgets {
 			widget_manager_update_fixed_widgets($context, $page_owner->guid);
 		}
 	}
+	
+	/**
+	 * Checks if a user can manage current widget layout
+	 *
+	 * @param \Elgg\Hook $hook 'permissions_check', 'widget_layout'
+	 *
+	 * @return boolean
+	 */
+	public static function layoutPermissionsCheck(\Elgg\Hook $hook) {
+
+		$user = $hook->getUserParam();
+		if (!$user instanceof \ElggUser) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+		if ($result) {
+			return;
+		}
+		
+		$page_owner = $hook->getParam('page_owner');
+		if (!($page_owner instanceof \ElggGroup) && !($page_owner instanceof \WidgetPage)) {
+			return;
+		}
+		
+		return $page_owner->canEdit($user->guid);
+	}
 }

@@ -101,47 +101,6 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 	
 	return $return_value;
 }
-
-/**
- * Checks if a user can manage current widget layout
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return boolean
- */
-function widget_manager_widget_layout_permissions_check($hook_name, $entity_type, $return_value, $params) {
-	$page_owner = elgg_extract('page_owner', $params);
-	$user = elgg_extract('user', $params);
-	$context = elgg_extract('context', $params);
-			
-	if (!$return_value && ($user instanceof ElggUser)) {
-		if (($page_owner instanceof ElggGroup) && $page_owner->canEdit($user->getGUID())) {
-			// group widget layout
-			$return_value = true;
-		} elseif (!in_array($context, ['index', 'dashboard', 'profile', 'groups'])) {
-			// extra widget contexts
-			$contexts_config = json_decode(elgg_get_plugin_setting('extra_contexts_config', 'widget_manager'), true);
-			if (!is_array($contexts_config)) {
-				$contexts_config = array();
-			}
-			$context_config = elgg_extract($context, $contexts_config, []);
-			$context_managers = string_to_tag_array(elgg_extract('manager', $context_config, ''));
-			if (!empty($context_managers)) {
-				foreach ($context_managers as $manager) {
-					if ($manager == $user->username) {
-						$return_value = true;
-						break;
-					}
-				}
-			}
-		}
-	}
-	
-	return $return_value;
-}
 	
 /**
  * Registers the extra context permissions check hook
