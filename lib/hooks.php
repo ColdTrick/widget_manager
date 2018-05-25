@@ -142,48 +142,6 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 	
 	return $return_value;
 }
-
-/**
- * Updates the pluginsettings for the contexts
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return void
- */
-function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_type, $return_value, $params) {
-	$plugin_id = get_input('plugin_id');
-	
-	if ($plugin_id !== 'widget_manager') {
-		return;
-	}
-	
-	$contexts = get_input('contexts', []);
-	$extra_contexts = [];
-	$extra_contexts_config = [];
-	
-	foreach ($contexts['page'] as $key => $page) {
-		$page = trim($page);
-		
-		if (empty($page)) {
-			continue;
-		}
-		
-		$extra_contexts[] = $page;
-		$extra_contexts_config[$page]['layout'] = $contexts['layout'][$key];
-		$extra_contexts_config[$page]['top_row'] = $contexts['top_row'][$key];
-		$extra_contexts_config[$page]['manager'] = $contexts['manager'][$key];
-	}
-	
-	$extra_contexts = implode(',', $extra_contexts);
-	
-	$extra_contexts_config = json_encode($extra_contexts_config);
-				
-	elgg_set_plugin_setting('extra_contexts', $extra_contexts, 'widget_manager');
-	elgg_set_plugin_setting('extra_contexts_config', $extra_contexts_config, 'widget_manager');
-}
 	
 /**
  * Registers the extra context permissions check hook

@@ -59,7 +59,6 @@ return array(
 	
 	'widget_manager:settings:extra_contexts' => "Contextes Extra widgets",
 	'widget_manager:settings:extra_contexts:add' => "Ajouter une page",
-	'widget_manager:settings:extra_contexts:description' => "Saisissez le nom de la page (nom unique) qui aura le même design que la page d'index.",
 	'widget_manager:settings:extra_contexts:page' => "Page",
 	'widget_manager:settings:extra_contexts:layout' => "Design",
 	'widget_manager:settings:extra_contexts:top_row' => "Colonne du haut en plus",

@@ -29,7 +29,7 @@ return array (
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'Widget beheer voor groepen is niet ingeschakeld',
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets voor groep tool geforceerd bij %s groepen',
   'widget_manager:settings:extra_contexts' => 'Extra widget pagina\'s',
-  'widget_manager:settings:extra_contexts:description' => 'Voer de url in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. U kunt zoveel pagina\'s toevoegen als nodig is. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen. U kunt ook de kolom indeling kiezen en optioneel gewone gebruikers als manager van deze pagina toewijzen door hun gebruikersnaam in te vullen. Eventueel meerdere managers is ook mogelijk door hun gebruikersnamen te scheiden met een comma.',
+  'widget_manager:settings:extra_contexts:description' => 'Voer de url in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. U kunt zoveel pagina\'s toevoegen als nodig is. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen. U kunt ook de kolom indeling kiezen en optioneel gewone gebruikers als manager van deze pagina toewijzen.',
   'admin:widgets' => 'Widgets',
   'admin:widgets:manage' => 'Beheren',
   'admin:widgets:manage:index' => 'Beheer startpagina',

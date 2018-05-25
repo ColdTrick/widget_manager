@@ -39,6 +39,13 @@ class Menus {
 			'parent_name' => 'widgets',
 			'section' => 'configure',
 		]);
+		$return_value[] = \ElggMenuItem::factory([
+			'name' => 'widgets:pages',
+			'href' => 'admin/widgets/pages',
+			'text' => elgg_echo('admin:widgets:pages'),
+			'parent_name' => 'widgets',
+			'section' => 'configure',
+		]);
 		
 		if (elgg_get_plugin_setting('custom_index', 'widget_manager') == '1|0') {
 			// a special link to manage homepages that are only available if logged out
@@ -93,6 +100,37 @@ class Menus {
 		]);
 	
 		return $return_value;
+	}
+
+	/**
+	 * Adds an optional fix link to the menu
+	 *
+	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
+	 *
+	 * @return array
+	 */
+	public static function addWidgetPageEntityMenuItems(\Elgg\Hook $hook) {
+		
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \WidgetPage) {
+			return;
+		}
+		
+		if (!$entity->canEdit()) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+			
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'edit',
+			'text' => elgg_echo('edit'),
+			'icon' => 'edit',
+			'href' => "ajax/form/widget_manager/widget_page?guid={$entity->guid}",
+			'link_class' => 'elgg-lightbox',
+		]);
+	
+		return $result;
 	}
 	
 	/**
