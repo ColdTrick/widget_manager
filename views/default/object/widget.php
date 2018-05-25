@@ -23,27 +23,6 @@ if (widget_manager_get_widget_setting($handler, 'hide', $widget->context)) {
 	return true;
 }
 
-// $widget_header = '';
-// if (($widget->widget_manager_hide_header !== 'yes') || $can_edit) {
-// 	$controls = elgg_view('object/widget/elements/controls', [
-// 		'widget' => $widget,
-// 		'show_edit' => $can_edit,
-// 	]);
-		
-// 	$widget_header = "<div class='elgg-widget-handle clearfix'><h3 class='elgg-widget-title'>$title</h3>$controls</div>";
-// }
-
-// $widget_body_vars = [
-// 	'id' => "elgg-widget-content-{$widget->guid}",
-// 	'class' => ['elgg-widget-content'],
-// ];
-
-// if ($widget->showCollapsed()) {
-// 	$widget_body_vars['class'][] = 'hidden';
-// }
-
-// $widget_body = elgg_format_element('div', $widget_body_vars, elgg_view('object/widget/elements/content', $vars));
-
 $widget_instance = preg_replace('/[^a-z0-9-]/i', '-', "elgg-widget-instance-$handler");
 
 $can_edit = $widget->canEdit();
@@ -65,6 +44,10 @@ if ($widget->widget_manager_hide_header == 'yes') {
 
 if ($widget->widget_manager_disable_widget_content_style == 'yes') {
 	$widget_class[] = 'widget_manager_disable_widget_content_style';
+}
+
+if ($widget->showCollapsed()) {
+	$widget_class[] = 'elgg-state-collapsed';
 }
 
 $body = elgg_view('object/widget/body', $vars);

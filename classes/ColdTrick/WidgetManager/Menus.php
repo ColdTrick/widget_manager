@@ -132,6 +132,61 @@ class Menus {
 	
 		return $result;
 	}
+
+	/**
+	 * Adds collapse widget control
+	 *
+	 * @param \Elgg\Hook $hook 'register', 'menu:widget_toggle'
+	 *
+	 * @return array
+	 */
+	public static function addWidgetToggleControls(\Elgg\Hook $hook) {
+		
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \WidgetManagerWidget) {
+			return;
+		}
+		
+		if (!$entity->canCollapse()) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+		
+		$collapsed = $entity->showCollapsed();
+		
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'collapse',
+			'icon' => 'chevron-down',
+			'text' => false,
+			'href' => elgg_generate_action_url('widget_manager/widgets/toggle_collapse', [
+				'guid' => $entity->guid,
+				'collapsed' => true,
+			]),
+			'link_class' => 'elgg-widget-collapse-button',
+			'item_class' => $collapsed ? 'hidden' : '',
+			'data-toggle' => 'expand',
+			'rel' => 'toggle',
+			'data-toggle-selector' => "#elgg-widget-{$entity->guid} > .elgg-body",
+		]);
+
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'expand',
+			'icon' => 'chevron-right',
+			'text' => false,
+			'href' => elgg_generate_action_url('widget_manager/widgets/toggle_collapse', [
+				'guid' => $entity->guid,
+				'collapsed' => false,
+			]),
+			'link_class' => 'elgg-widget-collapse-button',
+			'item_class' => $collapsed ? '' : 'hidden',
+			'data-toggle' => 'collapse',
+			'rel' => 'toggle',
+			'data-toggle-selector' => "#elgg-widget-{$entity->guid} > .elgg-body",
+		]);
+	
+		return $result;
+	}
 	
 	/**
 	 * Optionally removes the edit and delete links from the menu
@@ -165,24 +220,6 @@ class Menus {
 					unset($item->rel);
 					$item->{"data-colorbox-opts"} = '{"width": 750, "max-height": "80%", "trapFocus": false, "fixed": true}';
 					$item->addLinkClass('elgg-lightbox');
-				}
-					
-				if ($item->getName() == 'collapse') {
-					if (!$widget->canCollapse() && $widget->widget_manager_collapse_state !== 'closed') {
-						unset($return_value[$section_key][$item_key]);
-					} elseif ($widget->canCollapse()) {
-						$widget_is_collapsed = false;
-						$widget_is_open = true;
-							
-						if (elgg_is_logged_in()) {
-							$widget_is_collapsed = widget_manager_check_collapsed_state($widget->guid, 'widget_state_collapsed');
-							$widget_is_open = widget_manager_check_collapsed_state($widget->guid, 'widget_state_open');
-						}
-							
-						if (($widget->widget_manager_collapse_state === 'closed' || $widget_is_collapsed) && !$widget_is_open) {
-							$item->addLinkClass('elgg-widget-collapsed');
-						}
-					}
 				}
 			}
 		}

@@ -191,8 +191,8 @@ class WidgetManagerWidget extends ElggWidget {
 			return false;
 		}
 			
-		$user->addRelationship($guid, 'widget_state_collapsed');
-		$user->removeRelationship($guid, 'widget_state_open');
+		$user->addRelationship($this->guid, 'widget_state_collapsed');
+		$user->removeRelationship($this->guid, 'widget_state_open');
 		
 		return true;
 	}
@@ -214,8 +214,8 @@ class WidgetManagerWidget extends ElggWidget {
 			return false;
 		}
 			
-		$user->addRelationship($guid, 'widget_state_open');
-		$user->removeRelationship($guid, 'widget_state_collapsed');
+		$user->addRelationship($this->guid, 'widget_state_open');
+		$user->removeRelationship($this->guid, 'widget_state_collapsed');
 		
 		return true;
 	}

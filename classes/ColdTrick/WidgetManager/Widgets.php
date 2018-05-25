@@ -158,6 +158,33 @@ class Widgets {
 		
 		return $result;
 	}
+	
+	/**
+	 * Prevent widget controls
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function preventControls(\Elgg\Hook $hook) {
+		$widget = elgg_extract('widget', $hook->getValue());
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		if ($widget->widget_manager_hide_header !== 'yes') {
+			return;
+		}
+		
+		if ($widget->canEdit()) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+		$result[\Elgg\ViewsService::OUTPUT_KEY] = '';
+		
+		return $result;
+	}
 
 	/**
 	 * Returns widget content from cache

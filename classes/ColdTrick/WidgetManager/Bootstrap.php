@@ -24,10 +24,12 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
 		elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Widgets::checkFixedWidgets');
 		elgg_register_plugin_hook_handler('view_vars', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
+		elgg_register_plugin_hook_handler('view_vars', 'object/widget/elements/controls', '\ColdTrick\WidgetManager\Widgets::preventControls');
 		elgg_register_plugin_hook_handler('view', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
 		elgg_register_plugin_hook_handler('widget_settings', 'all', '\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnSettingsSave');
 		elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 		elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems');
+		elgg_register_plugin_hook_handler('register', 'menu:widget_toggle', '\ColdTrick\WidgetManager\Menus::addWidgetToggleControls');
 	
 		
 		elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
@@ -41,6 +43,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	// 	elgg_extend_view('css/admin', 'css/widget_manager/global.css');
 		elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
 		elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
+		elgg_extend_view('object/widget/header', 'object/widget/toggle', 400);
 			
 	
 		elgg_register_ajax_view('forms/widget_manager/widget_page');

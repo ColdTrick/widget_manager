@@ -38,6 +38,16 @@
 	flex-basis: 0;
 }
 
+.elgg-menu-widget-toggle > li > a {
+	font-size: .9rem;
+	color: $(text-color-mild);
+	height: auto;
+	vertical-align: middle;
+	margin-right: 0.5rem;
+	line-height: 1.8rem;
+	text-decoration: none;
+} 
+
 .widgets-top-row .elgg-widgets-grid .elgg-widgets:last-child {
 	flex-basis: 100%;
 	order: -1;
@@ -45,4 +55,8 @@
 	&.elgg-state-active {
 		min-height: 50px; 
 	}
+}
+
+.elgg-module-widget.elgg-state-collapsed > .elgg-body {
+	display: none;
 }
