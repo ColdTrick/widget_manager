@@ -45,7 +45,7 @@ if (!empty($top_row) && ($top_row !== 'none')) {
 
 
 $title = $widget_page->title ?: false;
-if ($title) {
+if ($title && elgg_can_edit_widget_layout($widget_page->context)) {
 	
 	$href = elgg_normalize_url(elgg_http_add_url_query_elements('widgets/add_panel', [
 		'context' => elgg_get_context(),
