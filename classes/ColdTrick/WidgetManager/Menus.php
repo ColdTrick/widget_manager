@@ -144,9 +144,6 @@ class Menus {
 	 * @return array
 	 */
 	public static function prepareWidgetEditDeleteMenuItems($hook_name, $entity_type, $return_value, $params) {
-		if (!is_array($return_value)) {
-			return;
-		}
 	
 		$widget = elgg_extract('entity', $params);
 		if ($widget->fixed && !elgg_in_context('default_widgets') && !elgg_is_admin_logged_in()) {
@@ -161,6 +158,7 @@ class Menus {
 	
 		foreach ($return_value as $section_key => $section) {
 			foreach ($section as $item_key => $item) {
+				
 				if ($item->getName() == 'settings') {
 					$show_access = elgg_get_config('widget_show_access');
 					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->getGUID() . '&show_access=' . $show_access);
