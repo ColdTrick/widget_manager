@@ -5,7 +5,7 @@ return [
 	// admin menu items
 	'admin:widgets' => "Widgets",
 	'admin:widgets:manage' => "Manage",
-	'admin:widgets:pages' => "Pages",
+	'admin:widgets:pages' => "Widget Pages",
 	'admin:widgets:manage:index' => "Manage Index",
 	'admin:statistics:widgets' => "Widget Usage",
 
