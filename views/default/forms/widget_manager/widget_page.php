@@ -20,7 +20,7 @@ echo elgg_view_field([
 
 echo elgg_view_field([
 	'#type' => 'text',
-	'#label' => elgg_echo('widget_manager:widget_page:title'),
+	'#label' => elgg_echo('title'),
 	'#help' => elgg_echo('widget_manager:widget_page:title:help'),
 	'name' => 'title',
 	'value' => $entity ? $entity->title : null,

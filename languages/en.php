@@ -86,6 +86,8 @@ return [
 	'widget_manager:widgets:lightbox:title:index' => "Add widgets to the index",
 	'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
 	'widget_manager:widgets:lightbox:title:admin' => "Add widgets to your admin dashboard",
+	
+	'widget_manager:widget_page:title:help' => "Setting a title, will display a title on the widget page. This is optional.",
 
 	// actions
 	// manage

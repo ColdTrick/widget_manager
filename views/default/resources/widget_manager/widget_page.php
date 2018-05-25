@@ -43,16 +43,42 @@ if (!empty($top_row) && ($top_row !== 'none')) {
 	$classes[] = 'widgets-top-row';
 }
 
+
+$title = $widget_page->title ?: false;
+if ($title) {
+	
+	$href = elgg_normalize_url(elgg_http_add_url_query_elements('widgets/add_panel', [
+		'context' => elgg_get_context(),
+		'context_stack' => elgg_get_context_stack(),
+		'show_access' => true,
+		'owner_guid' => elgg_get_page_owner_guid(),
+	]));
+
+	elgg_register_menu_item('title', [
+		'name' => 'widgets_add',
+		'href' => false,
+		'icon' => 'plus',
+		'text' => elgg_echo('widgets:add'),
+		'link_class' => 'elgg-lightbox elgg-button elgg-button-action',
+		'data-colorbox-opts' => json_encode([
+			'href' => $href,
+			'maxWidth' => '900px',
+			'maxHeight' => '90%',
+		]),
+	]);
+}
+
 // draw the page
 $content = elgg_view_layout('widgets', [
 	'class' => $classes,
 	'num_columns' => $num_columns,
 	'exact_match' => true,
+	'show_add_widgets' => empty($title),
 ]);
 
 $body = elgg_view_layout('one_column', [
 	'content' => $content,
-	'title' => false,
+	'title' => $title,
 ]);
 
 echo elgg_view_page('', $body);
