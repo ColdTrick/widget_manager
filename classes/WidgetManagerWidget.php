@@ -175,6 +175,52 @@ class WidgetManagerWidget extends ElggWidget {
 	}
 	
 	/**
+	 * Store collapse preference for a user
+	 *
+	 * @param int $user_guid guid of the user. Defaults to logged in user
+	 *
+	 * @return boolean
+	 */
+	public function collapse($user_guid = 0) {
+		if (empty($user_guid)) {
+			$user_guid = elgg_get_logged_in_user_guid();
+		}
+		
+		$user = get_entity($user_guid);
+		if (!$user instanceof \ElggUser) {
+			return false;
+		}
+			
+		$user->addRelationship($guid, 'widget_state_collapsed');
+		$user->removeRelationship($guid, 'widget_state_open');
+		
+		return true;
+	}
+	
+	/**
+	 * Store expand preference for a user
+	 *
+	 * @param int $user_guid guid of the user. Defaults to logged in user
+	 *
+	 * @return boolean
+	 */
+	public function expand($user_guid = 0) {
+		if (empty($user_guid)) {
+			$user_guid = elgg_get_logged_in_user_guid();
+		}
+		
+		$user = get_entity($user_guid);
+		if (!$user instanceof \ElggUser) {
+			return false;
+		}
+			
+		$user->addRelationship($guid, 'widget_state_open');
+		$user->removeRelationship($guid, 'widget_state_collapsed');
+		
+		return true;
+	}
+	
+	/**
 	 * Returns the custom title or the regular displayname
 	 * {@inheritDoc}
 	 * @see ElggWidget::getDisplayName()
