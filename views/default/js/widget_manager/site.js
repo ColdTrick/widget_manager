@@ -1,21 +1,15 @@
 require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $) {
 
-	$(document).on('click', '.elgg-module-widget .elgg-menu-item-collapse a', function (event) {
-		if (elgg.is_logged_in()) {
-			var collapsed = 1;
-			if ($(this).hasClass("elgg-widget-collapsed")) {
-				collapsed = 0;
-				// elgg changes collapsed class after this click event
-			}
-
-			var guid = $(this).attr("href").replace("#elgg-widget-content-", "");
-
-			elgg.action('widget_manager/widgets/toggle_collapse', {
-				data: {
-					collapsed: collapsed,
-					guid: guid
-				}
-			});
+	elgg.register_hook_handler('toggle', 'menu_item', function(type, subtype, params) {
+		if (!params.menu.hasClass('elgg-menu-widget-toggle')) {
+			return;
+		}
+		
+		var $widget = params.itemClicked.closest('.elgg-module-widget');
+		if (params.itemClicked.hasClass('elgg-menu-item-collapse')) {
+			$widget.addClass('elgg-state-collapsed');
+		} else {
+			$widget.removeClass('elgg-state-collapsed');
 		}
 	});
 	
