@@ -74,6 +74,8 @@ function widget_manager_init() {
 	
 	elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
 
+	elgg_register_plugin_hook_handler('setting', 'plugin', 'widget_manager_index_manager_setting_plugin_hook_handler');
+	
 	elgg_register_plugin_hook_handler('view_vars', 'admin/appearance/default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::defaultWidgetsViewVars');
 	elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Layouts::checkFixedWidgets');
 

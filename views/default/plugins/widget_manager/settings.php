@@ -41,6 +41,12 @@ $index_top_row_options = [
 	'two_column_left' => elgg_echo('widget_manager:settings:index_top_row:two_column_left'),
 ];
 
+
+$index_managers = $plugin->index_managers;
+if ($index_managers) {
+	$index_managers = explode(',', $index_managers);
+}
+
 $settings_index = elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('widget_manager:settings:custom_index'),
@@ -63,7 +69,14 @@ $settings_index .= elgg_view_field([
 	'name' => 'params[index_top_row]',
 	'value' => $plugin->index_top_row,
 	'options_values' => $index_top_row_options,
-]) . '</td>';
+]);
+
+$settings_index .= elgg_view_field([
+	'#type' => 'userpicker',
+	'#label' => elgg_echo('widget_manager:settings:index_managers'),
+	'name' => 'params[index_managers]',
+	'value' => $index_managers,
+]);
 
 echo elgg_view_module('inline', elgg_echo('widget_manager:settings:index'), $settings_index);
 

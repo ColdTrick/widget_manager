@@ -116,7 +116,7 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 	$page_owner = elgg_extract('page_owner', $params);
 	$user = elgg_extract('user', $params);
 	$context = elgg_extract('context', $params);
-			
+	
 	if (!$return_value && ($user instanceof ElggUser)) {
 		if (($page_owner instanceof ElggGroup) && $page_owner->canEdit($user->getGUID())) {
 			// group widget layout
@@ -137,6 +137,12 @@ function widget_manager_widget_layout_permissions_check($hook_name, $entity_type
 					}
 				}
 			}
+		} elseif ($context === 'index') {
+			$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
+			if (in_array($user->guid, $index_managers)) {
+				$return_value = true;
+			}
+			
 		}
 	}
 	
@@ -227,6 +233,28 @@ function widget_manager_plugins_settings_save_hook_handler($hook_name, $entity_t
 				
 	elgg_set_plugin_setting('extra_contexts', $extra_contexts, 'widget_manager');
 	elgg_set_plugin_setting('extra_contexts_config', $extra_contexts_config, 'widget_manager');
+}
+
+/**
+ * Flattens the settings value for index managers
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
+ */
+function widget_manager_index_manager_setting_plugin_hook_handler($hook_name, $entity_type, $return_value, $params) {
+	if (elgg_extract('plugin_id', $params) !== 'widget_manager') {
+		return;
+	}
+	
+	if (elgg_extract('name', $params) !== 'index_managers') {
+		return;
+	}
+	
+	return implode(',', $return_value);
 }
 	
 /**
