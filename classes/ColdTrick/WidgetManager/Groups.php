@@ -59,6 +59,9 @@ class Groups {
 			if (empty($result) || !is_array($result)) {
 				return;
 			}
+			
+			// push an extra context for others to know what's going on
+			elgg_push_context('widget_manager_group_tool_widgets');
 	
 			$current_widgets = elgg_get_widgets($object->getGUID(), 'groups');
 	
@@ -116,7 +119,23 @@ class Groups {
 						}
 					}
 				}
-					
+				
+				// check blacklist
+				$blacklist = $object->getPrivateSetting('widget_manager_widget_blacklist');
+				if (!empty($blacklist)) {
+					$blacklist = json_decode($blacklist, true);
+					foreach ($blacklist as $handler) {
+						$enable_index = array_search($handler, $enable_widget_handlers);
+						if ($enable_index === false) {
+							// blacklisted item wasn't going to be added
+							continue;
+						}
+						
+						// widget was removed manualy, don't add it automagicly
+						unset($enable_widget_handlers[$enable_index]);
+					}
+				}
+				
 				// add new widgets
 				if (!empty($enable_widget_handlers)) {
 					foreach ($enable_widget_handlers as $handler) {
@@ -144,6 +163,179 @@ class Groups {
 				// restore access restrictions
 				elgg_set_ignore_access($ia);
 			}
+			
+			// remove additional context
+			elgg_pop_context();
 		}
+	}
+	
+	/**
+	 * Prepare for group widget blacklist update when adding a widget manualy
+	 *
+	 * @param string      $event  'create'
+	 * @param string      $type   'object'
+	 * @param \ElggWidget $object the new widget
+	 *
+	 * @return void
+	 */
+	public static function addGroupWidget($event, $type, $object) {
+		
+		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets')) {
+			return;
+		}
+		
+		$owner = $object->getOwnerEntity();
+		if (!$owner instanceof \ElggGroup) {
+			// not a group widget
+			return;
+		}
+		
+		$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+		if (empty($blacklist)) {
+			// no blacklisted widgets, so no cleanup needed
+			return;
+		}
+		
+		global $widget_manager_group_guids;
+		if (!isset($widget_manager_group_guids)) {
+			$widget_manager_group_guids = [];
+			
+			elgg_register_event_handler('shutdown', 'system', self::class . '::addGroupWidgetShutdown');
+		}
+		$widget_manager_group_guids[$owner->guid][] = $object->guid;
+	}
+	
+	/**
+	 * Update the group widget blacklist when adding a widget manualy
+	 *
+	 * @param string $event  'shutdown'
+	 * @param string $type   'system'
+	 * @param mixed  $object misc
+	 *
+	 * @return void
+	 */
+	public static function addGroupWidgetShutdown($event, $type, $object) {
+		global $widget_manager_group_guids;
+		
+		if (empty($widget_manager_group_guids)) {
+			return;
+		}
+		
+		$ia = elgg_set_ignore_access(true);
+		
+		foreach ($widget_manager_group_guids as $owner_guid => $widget_guids) {
+			if (empty($widget_guids)) {
+				continue;
+			}
+			
+			$owner = get_entity($owner_guid);
+			if (!$owner instanceof  \ElggGroup) {
+				continue;
+			}
+			
+			$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+			if (empty($blacklist)) {
+				// no blacklisted widgets, so no cleanup needed
+				continue;
+			}
+			$blacklist = json_decode($blacklist, true);
+			
+			foreach ($widget_guids as $guid) {
+				$widget = get_entity($guid);
+				if (!$widget instanceof \ElggWidget) {
+					continue;
+				}
+				
+				if (!in_array($widget->handler, $blacklist)) {
+					// not blacklisted, so no cleanup needed
+					continue;
+				}
+				
+				$key = array_search($widget->handler, $blacklist);
+				unset($blacklist[$key]);
+			}
+			
+			if (empty($blacklist)) {
+				$owner->removePrivateSetting('widget_manager_widget_blacklist');
+			} else {
+				$owner->setPrivateSetting('widget_manager_widget_blacklist', json_encode($blacklist));
+			}
+		}
+		
+		elgg_set_ignore_access($ia);
+	}
+	
+	/**
+	 * Update the group widget blacklist when removing a widget manualy
+	 *
+	 * @param string      $event  'delete'
+	 * @param string      $type   'object'
+	 * @param \ElggWidget $object the new widget
+	 *
+	 * @return void
+	 */
+	public static function deleteGroupWidget($event, $type, $object) {
+		
+		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets')) {
+			return;
+		}
+		
+		$owner = $object->getOwnerEntity();
+		if (!$owner instanceof \ElggGroup) {
+			// not a group widget
+			return;
+		}
+		
+		// just in case
+		$ia = elgg_set_ignore_access(true);
+		
+		// get all group widgets
+		$group_widgets = elgg_get_widgets($owner->guid, 'groups');
+		$handlers = [];
+		if (!empty($group_widgets)) {
+			foreach ($group_widgets as $column => $widgets) {
+				if (empty($widgets)) {
+					continue;
+				}
+				
+				/* @var $widget \ElggWidget */
+				foreach ($widgets as $widget) {
+					if ($widget->guid === $object->guid) {
+						// don't add yourself
+						continue;
+					}
+					
+					$handlers[] = $widget->handler;
+				}
+			}
+			
+			$handlers = array_unique($handlers);
+		}
+		
+		// restore access
+		elgg_set_ignore_access($ia);
+		
+		if (in_array($object->handler, $handlers)) {
+			// not the last widget of it's type
+			return;
+		}
+		
+		$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+		if (!empty($blacklist)) {
+			// blacklisted widgets
+			$blacklist = json_decode($blacklist, true);
+		} else {
+			$blacklist = [];
+		}
+		
+		if (in_array($object->handler, $blacklist)) {
+			// already on the blacklist
+			return;
+		}
+		
+		$blacklist[] = $object->handler;
+		
+		// store new blacklist
+		$owner->setPrivateSetting('widget_manager_widget_blacklist', json_encode($blacklist));
 	}
 }

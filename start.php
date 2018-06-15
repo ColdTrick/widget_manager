@@ -142,6 +142,8 @@ function widget_manager_init_group() {
 	// register event to make sure all groups have the group option enabled if forces
 	// and configure tool enabled widgets
 	elgg_register_event_handler('update', 'group', '\ColdTrick\WidgetManager\Groups::updateGroupWidgets');
+	elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Groups::addGroupWidget');
+	elgg_register_event_handler('delete', 'object', '\ColdTrick\WidgetManager\Groups::deleteGroupWidget');
 		
 	// make default widget management available
 	elgg_register_plugin_hook_handler('get_list', 'default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::addGroupsContextToDefaultWidgets');
