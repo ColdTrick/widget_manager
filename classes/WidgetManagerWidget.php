@@ -6,54 +6,18 @@
  * @package WidgetManager
  */
 class WidgetManagerWidget extends ElggWidget {
-	protected $settings_cache = [];
-	protected $settings_defaults = [
-		'fixed' => NULL,
-		'widget_manager_hide_header' => NULL,
-		'widget_manager_show_toggle' => NULL,
-		'widget_manager_show_edit' => NULL,
-		'widget_manager_custom_title' => NULL,
-		'widget_manager_custom_url' => NULL,
-		'widget_manager_custom_more_title' => NULL,
-		'widget_manager_custom_more_url' => NULL,
-		'widget_manager_disable_widget_content_style' => NULL,
-		'widget_manager_custom_class' => NULL,
-		'widget_manager_collapse_state' => NULL,
-		'widget_manager_collapse_disable' => NULL,
-		'widget_manager_cached_data' => NULL,
-	];
 
 	/**
-	 * @inheritdoc
-	 */
-	protected function load(stdClass $row) {
-		// Load data from entity table if needed
-		if (!parent::load($row)) {
-			return false;
-		}
-		
-		$this->settings_cache = $this->getAllPrivateSettings();
-		
-		return true;
-	}
-
-	/**
-	 * Tries to get data from settings cache first
+	 * Converts json to arrays
 	 *
 	 * @param string $name name of the setting/metadata
 	 *
 	 * @return mixed
 	 */
 	public function __get($name) {
-		if (is_array($this->settings_cache) && array_key_exists($name, $this->settings_cache)) {
-			$result = $this->settings_cache[$name];
-		} elseif (array_key_exists($name, $this->settings_defaults)) {
-			return $this->settings_defaults[$name];
-		}
+
+		$result = parent::__get($name);
 		
-		if (!isset($result)) {
-			$result = parent::__get($name);
-		}
 		// check if it should be an array
 		$decoded_result = json_decode($result, true);
 		if (is_array($decoded_result)) {
@@ -80,8 +44,6 @@ class WidgetManagerWidget extends ElggWidget {
 		}
 		
 		parent::__set($name, $value);
-		
-		$this->settings_cache[$name] = $value;
 	}
 	
 	/**
