@@ -124,9 +124,15 @@ class Bootstrap extends DefaultPluginBootstrap {
 	
 			if (elgg_get_plugin_setting('group_option_admin_only', 'widget_manager') !== 'yes') {
 				// add the tool option for group admins
-				add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+				$this->elgg()->group_tools->register('widget_manager', [
+					'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
+					'default_on' => $group_option_enabled,
+				]);
 			} elseif (elgg_is_admin_logged_in()) {
-				add_group_tool_option('widget_manager', elgg_echo('widget_manager:groups:enable_widget_manager'), $group_option_enabled);
+				$this->elgg()->group_tools->register('widget_manager', [
+					'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
+					'default_on' => $group_option_enabled,
+				]);
 			}
 		}
 			
