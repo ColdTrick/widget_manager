@@ -35,10 +35,9 @@ if ($widget->widget_manager_custom_class) {
 }
 
 if ($widget->widget_manager_hide_header == 'yes') {
+	$widget_class[] = 'widget_manager_hide_header';
 	if ($can_edit) {
 		$widget_class[] = 'widget_manager_hide_header_admin';
-	} else {
-		$widget_class[] = 'widget_manager_hide_header';
 	}
 }
 
