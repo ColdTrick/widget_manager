@@ -1,5 +1,34 @@
-require(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $) {
+require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/widgets'], function(elgg, $, lightbox) {
 
+
+	$(document).on('submit', '.elgg-form-widgets-save', function(event) {
+		event.preventDefault();
+		
+		var data = $(this).serialize();
+		var guid = $(this).find('[name="guid"]').val();
+
+		lightbox.close();
+		
+		var $widgetContent = $('#elgg-widget-content-' + guid);
+
+		// stick the ajax loader in there
+		var $loader = $('#elgg-widget-loader').clone();
+		$loader.attr('id', '#elgg-widget-active-loader');
+		$loader.removeClass('hidden');
+		$widgetContent.html($loader);
+
+		elgg.action('widgets/save', {
+			data: data,
+			success: function (json) {
+				$widgetContent.html(json.output.content);
+				if (typeof (json.output.title) != "undefined") {
+					var $widgetTitle = $widgetContent.parent().parent().find('.elgg-widget-title');
+					$widgetTitle.html(json.title);
+				}
+			}
+		});
+	});
+	
 	elgg.register_hook_handler('toggle', 'menu_item', function(type, subtype, params) {
 		if (!params.menu.hasClass('elgg-menu-widget-toggle')) {
 			return;
