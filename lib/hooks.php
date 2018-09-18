@@ -101,6 +101,28 @@ function widget_manager_read_access_hook($hook_name, $entity_type, $return_value
 	
 	return $return_value;
 }
+
+/**
+ * Flattens the settings value for index managers
+ *
+ * @param string $hook_name    name of the hook
+ * @param string $entity_type  type of the hook
+ * @param string $return_value current return value
+ * @param array  $params       hook parameters
+ *
+ * @return void
+ */
+function widget_manager_index_manager_setting_plugin_hook_handler($hook_name, $entity_type, $return_value, $params) {
+	if (elgg_extract('plugin_id', $params) !== 'widget_manager') {
+		return;
+	}
+	
+	if (elgg_extract('name', $params) !== 'index_managers') {
+		return;
+	}
+	
+	return implode(',', $return_value);
+}
 	
 /**
  * Registers the extra context permissions check hook

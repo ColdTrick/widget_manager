@@ -337,7 +337,6 @@ class Widgets {
 	 * @return boolean
 	 */
 	public static function layoutPermissionsCheck(\Elgg\Hook $hook) {
-
 		$user = $hook->getUserParam();
 		if (!$user instanceof \ElggUser) {
 			return;
@@ -346,6 +345,15 @@ class Widgets {
 		$result = $hook->getValue();
 		if ($result) {
 			return;
+		}
+		
+		$context = $hook->getParam('context');
+		
+		if ($context === 'index') {
+			$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
+			if (in_array($user->guid, $index_managers)) {
+				return true;
+			}
 		}
 		
 		$page_owner = $hook->getParam('page_owner');

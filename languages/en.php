@@ -49,6 +49,7 @@ return [
 	'widget_manager:settings:index_top_row:none' => "No top row",
 	'widget_manager:settings:index_top_row:full_row' => "Full width row",
 	'widget_manager:settings:index_top_row:two_column_left' => "Two column aligned left",
+	'widget_manager:settings:index_managers' => "Index managers",
 
 	'widget_manager:settings:group:enable' => "Enable Widget Manager for groups",
 	'widget_manager:settings:group:enable:yes' => "Yes, managable by group tool option",

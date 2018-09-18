@@ -45,6 +45,13 @@ $index_settings .= elgg_view_field([
 	],
 ]);
 
+$index_settings .= elgg_view_field([
+	'#type' => 'userpicker',
+	'#label' => elgg_echo('widget_manager:settings:index_managers'),
+	'name' => 'params[index_managers]',
+	'value' => $plugin->index_managers ? explode(',', $plugin->index_managers) : null,
+]);
+
 echo elgg_view_module('info', elgg_echo('widget_manager:settings:index'), $index_settings);
 
 if (elgg_is_active_plugin('groups')) {

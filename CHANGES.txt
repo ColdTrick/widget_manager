@@ -1,6 +1,26 @@
 Version history
 ===============
 
+8.3.1 (2018-06-28):
+
+- changed: group tool widgets are less persistent
+
+8.3 (2018-06-15):
+
+- added: plugin setting to allow normal users to manage index widgets
+
+8.2.2 (2018-03-28):
+
+- fix: memcache could contain the incorrect entity class for new widgets
+
+8.2.1.1 (2018-03-22):
+
+- several small chores/fixes
+
+8.2.1 (2018-03-22):
+
+- changed: override getContext to be able to use cache
+
 8.2 (2017-11-15):
 
 - added: widget collapse capability is now hookable
