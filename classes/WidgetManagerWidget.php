@@ -1,12 +1,15 @@
 <?php
 
+use ColdTrick\WidgetManager\CollapsedState;
+
 /**
  * Extends the feature of default ElggWidgets
  *
  * @package WidgetManager
  */
 class WidgetManagerWidget extends ElggWidget {
-
+	use CollapsedState;
+	
 	/**
 	 * Converts json to arrays
 	 *
@@ -125,63 +128,17 @@ class WidgetManagerWidget extends ElggWidget {
 			return $default;
 		}
 		
-		if (widget_manager_check_collapsed_state($this->guid, 'widget_state_collapsed')) {
+		if ($this->checkCollapsedState('widget_state_collapsed')) {
 			return true;
 		}
 
-		if (widget_manager_check_collapsed_state($this->guid, 'widget_state_open')) {
+		if ($this->checkCollapsedState('widget_state_open')) {
 			return false;
 		}
 		
 		return $default;
 	}
-	
-	/**
-	 * Store collapse preference for a user
-	 *
-	 * @param int $user_guid guid of the user. Defaults to logged in user
-	 *
-	 * @return boolean
-	 */
-	public function collapse($user_guid = 0) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
 		
-		$user = get_entity($user_guid);
-		if (!$user instanceof \ElggUser) {
-			return false;
-		}
-			
-		$user->addRelationship($this->guid, 'widget_state_collapsed');
-		$user->removeRelationship($this->guid, 'widget_state_open');
-		
-		return true;
-	}
-	
-	/**
-	 * Store expand preference for a user
-	 *
-	 * @param int $user_guid guid of the user. Defaults to logged in user
-	 *
-	 * @return boolean
-	 */
-	public function expand($user_guid = 0) {
-		if (empty($user_guid)) {
-			$user_guid = elgg_get_logged_in_user_guid();
-		}
-		
-		$user = get_entity($user_guid);
-		if (!$user instanceof \ElggUser) {
-			return false;
-		}
-			
-		$user->addRelationship($this->guid, 'widget_state_open');
-		$user->removeRelationship($this->guid, 'widget_state_collapsed');
-		
-		return true;
-	}
-	
 	/**
 	 * Returns the custom title or the regular displayname
 	 * {@inheritDoc}
