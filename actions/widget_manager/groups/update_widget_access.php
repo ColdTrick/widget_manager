@@ -19,7 +19,7 @@ if (!$group->canEdit()) {
 	return elgg_error_response(elgg_echo('groups:cantedit'));
 }
 
-$widgets = elgg_get_entities_from_private_settings([
+$widgets = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
 	'owner_guid' => $group->guid,

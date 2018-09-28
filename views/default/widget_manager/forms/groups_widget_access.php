@@ -9,7 +9,7 @@ if (empty($group) || !($group instanceof ElggGroup) || !$group->canEdit()) {
 	return;
 }
 
-$widgets_count = elgg_get_entities_from_private_settings([
+$widgets_count = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
 	'owner_guid' => $group->getGUID(),

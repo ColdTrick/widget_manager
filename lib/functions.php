@@ -126,14 +126,14 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 	];
 	
 	// see if there are configured fixed widgets
-	$configured_fixed_widgets = elgg_get_entities_from_private_settings($options);
+	$configured_fixed_widgets = elgg_get_entities($options);
 	widget_manager_sort_widgets_guid($configured_fixed_widgets);
 	
 	// fetch all currently configured widgets fixed AND not fixed
 	$options['private_setting_name_value_pairs'] = ['context' => $context];
 	$options['owner_guid'] = $user_guid;
 	
-	$user_widgets = elgg_get_entities_from_private_settings($options);
+	$user_widgets = elgg_get_entities($options);
 	widget_manager_sort_widgets_guid($user_widgets);
 	
 	$default_widget_guids = [];
@@ -207,7 +207,7 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 			'column' => $column,
 		];
 		
-		$column_widgets = elgg_get_entities_from_private_settings($options);
+		$column_widgets = elgg_get_entities($options);
 		
 		$free_widgets = [];
 		$max_fixed_order = 0;
