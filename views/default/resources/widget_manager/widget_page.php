@@ -22,9 +22,8 @@ $num_columns = $widget_page->getNumColumns();
 $layout = $widget_page->layout;
 $top_row = $widget_page->top_row;
 
-$num_columns = 3;
-
 $classes = [];
+$column_classes = [];
 
 switch ($layout) {
 	case '33|33|33':
@@ -35,6 +34,11 @@ switch ($layout) {
 		break;
 	default:
 		$classes[] = "widgets-{$num_columns}-columns";
+		
+		$columns = array_reverse(explode('|', $layout));
+		foreach ($columns as $column_index => $column_width) {
+			$column_classes[$column_index + 1] = "col-width-{$column_width}";
+		}
 		break;
 }
 
@@ -72,6 +76,7 @@ if ($title && elgg_can_edit_widget_layout($widget_page->context)) {
 $content = elgg_view_layout('widgets', [
 	'class' => $classes,
 	'num_columns' => $num_columns,
+	'column_classes' => $column_classes,
 	'exact_match' => true,
 	'show_add_widgets' => empty($title),
 ]);

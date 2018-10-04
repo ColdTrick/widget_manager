@@ -13,6 +13,7 @@ if (!empty($layout)) {
 }
 
 $classes = [];
+$column_classes = [];
 
 switch ($layout) {
 	case '33|33|33':
@@ -23,6 +24,11 @@ switch ($layout) {
 		break;
 	default:
 		$classes[] = "widgets-{$num_columns}-columns";
+		
+		$columns = array_reverse(explode('|', $layout));
+		foreach ($columns as $column_index => $column_width) {
+			$column_classes[$column_index + 1] = "col-width-{$column_width}";
+		}
 		break;
 }
 
@@ -36,6 +42,7 @@ if (!empty($index_top_row) && ($index_top_row !== 'none')) {
 $content = elgg_view_layout('widgets', [
 	'class' => $classes,
 	'num_columns' => $num_columns,
+	'column_classes' => $column_classes,
 	'exact_match' => true,
 ]);
 

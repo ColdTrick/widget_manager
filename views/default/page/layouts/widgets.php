@@ -96,9 +96,7 @@ for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	
 	$grid .= elgg_format_element('div', [
 		'id' => "elgg-widget-col-{$column_index}",
-		'class' => [
-			'elgg-widgets',
-		],
+		'class' => elgg_extract_class(elgg_extract('column_classes', $vars, []), ['elgg-widgets'], $column_index),
 	], $widgets_content);
 }
 
