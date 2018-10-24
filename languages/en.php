@@ -2,6 +2,9 @@
 
 return [
 
+	'item:object:widget_page' => "Widget Page",
+	'collection:object:widget_page' => "Widget Pages",
+	
 	// admin menu items
 	'admin:widgets' => "Widgets",
 	'admin:widgets:manage' => "Manage",
