@@ -40,21 +40,27 @@
 	
 	&.col-width-25 {
 		flex-basis: 25%;
+		min-width: 25%;
 	}
 	&.col-width-33 {
 		flex-basis: 33%;
+		min-width: 33%;
 	}
 	&.col-width-40 {
 		flex-basis: 40%;
+		min-width: 40%;
 	}
 	&.col-width-50 {
 		flex-basis: 50%;
+		min-width: 50%;
 	}
 	&.col-width-60 {
 		flex-basis: 60%;
+		min-width: 60%;
 	}
 	&.col-width-75 {
 		flex-basis: 75%;
+		min-width: 75%;
 	}
 }
 
