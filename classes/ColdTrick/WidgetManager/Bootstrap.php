@@ -84,16 +84,18 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 * @return void
 	 */
 	protected function registerWidgetPagesRoutes() {
-		$widget_pages = elgg_get_entities([
+		
+		$urls = elgg_get_metadata([
 			'type' => 'object',
 			'subtype' => \WidgetPage::SUBTYPE,
 			'limit' => false,
 			'batch' => true,
+			'metadata_name' => 'url',
 		]);
 		
-		foreach ($widget_pages as $page) {
-			elgg_register_route($page->url, [
-				'path' => $page->url,
+		foreach ($urls as $url) {
+			elgg_register_route($url->value, [
+				'path' => $url->value,
 				'resource' => 'widget_manager/widget_page',
 			]);
 		}
