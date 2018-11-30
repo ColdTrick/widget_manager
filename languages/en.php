@@ -8,9 +8,13 @@ return [
 	// admin menu items
 	'admin:widgets' => "Widgets",
 	'admin:widgets:manage' => "Manage",
+	'admin:widgets:cleanup' => "Cleanup",
 	'admin:widgets:pages' => "Widget Pages",
 	'admin:widgets:manage:index' => "Manage Index",
 	'admin:statistics:widgets' => "Widget Usage",
+	
+	// cleanup
+	'admin:widgets:cleanup:info' => "Here you can remove all widgets that are currently in the database, even those that are no longer available.",
 
 	// widget edit wrapper
 	'widget_manager:widgets:edit:custom_title' => "Custom title",

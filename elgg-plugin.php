@@ -37,5 +37,8 @@ return [
 		'widget_manager/widget_page' => [
 			'access' => 'admin',
 		],
+		'widget_manager/cleanup' => [
+			'access' => 'admin',
+		],
 	],
 ];

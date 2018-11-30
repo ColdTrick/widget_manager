@@ -40,6 +40,13 @@ class Menus {
 			'section' => 'configure',
 		]);
 		$return_value[] = \ElggMenuItem::factory([
+			'name' => 'widgets:cleanup',
+			'href' => 'admin/widgets/cleanup',
+			'text' => elgg_echo('admin:widgets:cleanup'),
+			'parent_name' => 'widgets',
+			'section' => 'configure',
+		]);
+		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'widgets:pages',
 			'href' => 'admin/widgets/pages',
 			'text' => elgg_echo('admin:widgets:pages'),
