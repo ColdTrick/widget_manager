@@ -18,8 +18,8 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', '\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck');
 		elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
 		elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
-		elgg_register_plugin_hook_handler('action', 'widgets/add', 'widget_manager_widgets_action_hook_handler');
-		elgg_register_plugin_hook_handler('action', 'widgets/move', 'widget_manager_widgets_action_hook_handler');
+		elgg_register_plugin_hook_handler('action:validate', 'widgets/add', 'widget_manager_widgets_action_hook_handler');
+		elgg_register_plugin_hook_handler('action:validate', 'widgets/move', 'widget_manager_widgets_action_hook_handler');
 		elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
 		elgg_register_plugin_hook_handler('setting', 'plugin', 'widget_manager_index_manager_setting_plugin_hook_handler');
 		elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
