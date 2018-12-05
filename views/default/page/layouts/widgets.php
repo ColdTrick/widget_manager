@@ -27,7 +27,7 @@ if (!$owner) {
 }
 
 // Underlying views and functions assume that the page owner is the owner of the widgets
-if ($owner->guid != $page_owner->guid) {
+if (empty($page_owner) || ($owner->guid !== $page_owner->guid)) {
 	elgg_set_page_owner_guid($owner->guid);
 }
 
@@ -125,6 +125,8 @@ require(['elgg/widgets'], function (widgets) {
 <?php
 
 // Restore original page owner
-if ($owner->guid != $page_owner->guid) {
+if (empty($page_owner)) {
+	elgg_set_page_owner_guid(false);
+} elseif ($owner->guid !== $page_owner->guid) {
 	elgg_set_page_owner_guid($page_owner->guid);
 }
