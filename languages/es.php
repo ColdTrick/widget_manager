@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v6.0
- * On 2017-10-07 17:44
+ * This file was created by Translation Editor v7.0-beta
+ * On 2018-12-14 16:58
  */
 
 return array (
@@ -12,12 +12,6 @@ return array (
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets específicos de herramientas forzadas para grupos %s',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'La administración de widgets para grupos no está habilitada',
   'widget_manager:action:manage:success' => 'Configuración de widgets guardada correctamente',
-  'widget_manager:widgets:lightbox:title:admin' => 'Añadir widgets al panel de administración',
-  'widget_manager:widgets:lightbox:title:groups' => 'Agregar widgets al perfil de grupo',
-  'widget_manager:widgets:lightbox:title:index' => 'Añadir widgets al índice',
-  'widget_manager:widgets:lightbox:title:profile' => 'Añadir widgets a tu perfil público',
-  'widget_manager:widgets:lightbox:title:dashboard' => 'Añadir widgets a tu tablero personal',
-  'widget_manager:button:add' => 'Añadir widget',
   'widget_manager:forms:groups_widget_access:description' => 'Esta acción le permite actualizar el nivel de acceso de todos los widgets de este grupo al nivel de acceso especificado.',
   'widget_manager:forms:groups_widget_access:title' => 'Acceso de Widget',
   'widget_manager:forms:manage_widgets:unsupported_context:confirm' => '¿Estás seguro de que quieres habilitar este widget para este contexto? Si el widget no es compatible con el contexto, esto podría causar problemas.',
@@ -31,8 +25,6 @@ return array (
   'widget_manager:settings:extra_contexts:layout' => 'Diseño',
   'widget_manager:settings:extra_contexts:page' => 'Pagina',
   'widget_manager:settings:extra_contexts:description' => 'Introduzca el nombre del controlador de página de la nueva página que obtendrá un diseño similar al de la página de índice. Puedes agregar tantas páginas como necesites. Asegúrese de no agregar un manejador de página que ya esté en uso. También puede configurar el diseño de columna para esa página y, opcionalmente, asignar usuarios no administradores como administrador de la página introduciendo su nombre de usuario. Puede tener varios administradores separando su nombre de usuario por una coma.',
-  'widget_manager:settings:extra_contexts:add' => 'Añadir pagina',
-  'widget_manager:settings:extra_contexts' => 'Contextos adicionales de widgets',
   'widget_manager:settings:group:force_tool_widgets:confirm' => '¿Estás seguro? Esto agregará / eliminará todos los widgets específicos de una opción de herramienta para todos los grupos (donde la administración de widgets está habilitada).',
   'widget_manager:settings:group:force_tool_widgets' => 'Aplicar widgets de herramientas de grupo',
   'widget_manager:settings:group:option_admin_only' => 'Sólo el administrador puede habilitar widgets de grupo',
@@ -64,7 +56,6 @@ return array (
   'widget_manager:groups:enable_widget_manager' => 'Habilitar la administración de widgets',
   'widget_manager:widgets:edit:collapse_state' => 'Estado colapsado predeterminado',
   'widget_manager:widgets:edit:collapse_disable' => 'Deshabilitar la capacidad de colapso',
-  'widget_manager:widgets:edit:fixed_height' => 'Altura fija del widget (en píxeles)',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'No hay estilo de widget',
   'widget_manager:widgets:edit:custom_class' => 'Clase CSS personalizada',
   'widget_manager:widgets:edit:hide_header' => 'Ocultar encabezado',

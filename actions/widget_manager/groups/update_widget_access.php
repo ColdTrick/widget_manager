@@ -12,7 +12,7 @@ if (empty($group_guid) || $new_access === null) {
 
 $group = get_entity($group_guid);
 if (!$group instanceof \ElggGroup) {
-	return elgg_error_response(elgg_echo('groups:notfound:details'));
+	return elgg_error_response(elgg_echo('error:missing_data'));
 }
 
 if (!$group->canEdit()) {

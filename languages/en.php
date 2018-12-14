@@ -24,7 +24,6 @@ return [
 	'widget_manager:widgets:edit:hide_header' => "Hide header",
 	'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 	'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
-	'widget_manager:widgets:edit:fixed_height' => "Fixed widget height (in pixels)",
 	'widget_manager:widgets:edit:collapse_disable' => "Disable collapse ability",
 	'widget_manager:widgets:edit:collapse_state' => "Default collapsed state",
 
@@ -66,8 +65,6 @@ return [
 	'widget_manager:settings:group:force_tool_widgets' => "Enforce group tool widgets",
 	'widget_manager:settings:group:force_tool_widgets:confirm' => "Are you sure? This will add/remove all widgets specific to a tool option for all groups (where widget management is enabled).",
 
-	'widget_manager:settings:extra_contexts' => "Extra widget contexts",
-	'widget_manager:settings:extra_contexts:add' => "Add a page",
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page.",
 	'widget_manager:settings:extra_contexts:page' => "Page",
 	'widget_manager:settings:extra_contexts:layout' => "Layout",
@@ -86,15 +83,7 @@ return [
 	// groups widget access
 	'widget_manager:forms:groups_widget_access:title' => "Widget Access",
 	'widget_manager:forms:groups_widget_access:description' => "This action allows you to update the access level of all widgets in this group to the given access level.",
-	
-	// lightbox
-	'widget_manager:button:add' => "Add widget",
-	'widget_manager:widgets:lightbox:title:dashboard' => "Add widgets to your personal dashboard",
-	'widget_manager:widgets:lightbox:title:profile' => "Add widgets to your public profile",
-	'widget_manager:widgets:lightbox:title:index' => "Add widgets to the index",
-	'widget_manager:widgets:lightbox:title:groups' => "Add widgets to the group profile",
-	'widget_manager:widgets:lightbox:title:admin' => "Add widgets to your admin dashboard",
-	
+		
 	'widget_manager:widget_page:title:help' => "Setting a title, will display a title on the widget page. This is optional.",
 
 	// actions

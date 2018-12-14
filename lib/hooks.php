@@ -29,8 +29,8 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 			if (!empty($group->group_acl)) {
 				$return_value = [
 					$group->group_acl => elgg_echo('groups:group') . ': ' . $group->name,
-					ACCESS_LOGGED_IN => elgg_echo('LOGGED_IN'),
-					ACCESS_PUBLIC => elgg_echo('PUBLIC')
+					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+					ACCESS_PUBLIC => elgg_echo('access:label:public')
 				];
 			}
 		} elseif ($widget->getContainerGUID() === elgg_get_site_entity()->getGUID()) {
@@ -38,15 +38,15 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 			if (elgg_is_admin_logged_in()) {
 				$return_value = [
 					ACCESS_PRIVATE => elgg_echo('access:admin_only'),
-					ACCESS_LOGGED_IN => elgg_echo('LOGGED_IN'),
-					ACCESS_LOGGED_OUT => elgg_echo('LOGGED_OUT'),
-					ACCESS_PUBLIC => elgg_echo('PUBLIC')
+					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+					ACCESS_LOGGED_OUT => elgg_echo('access:label:logged_out'),
+					ACCESS_PUBLIC => elgg_echo('access:label:public')
 				];
 			} elseif(elgg_can_edit_widget_layout($widget_context)) {
 				// for non admins that can manage this widget context
 				$return_value = [
-					ACCESS_LOGGED_IN => elgg_echo('LOGGED_IN'),
-					ACCESS_PUBLIC => elgg_echo('PUBLIC')
+					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+					ACCESS_PUBLIC => elgg_echo('access:label:public')
 				];
 			}
 		}
@@ -54,9 +54,9 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 		// admins only have the following options for index widgets
 		$return_value = [
 			ACCESS_PRIVATE => elgg_echo('access:admin_only'),
-			ACCESS_LOGGED_IN => elgg_echo('LOGGED_IN'),
-			ACCESS_LOGGED_OUT => elgg_echo('LOGGED_OUT'),
-			ACCESS_PUBLIC => elgg_echo('PUBLIC')
+			ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+			ACCESS_LOGGED_OUT => elgg_echo('access:label:logged_out'),
+			ACCESS_PUBLIC => elgg_echo('access:label:public')
 		];
 		
 	} elseif (elgg_in_context('groups')) {
@@ -64,8 +64,8 @@ function widget_manager_write_access_hook($hook_name, $entity_type, $return_valu
 		if (!empty($group->group_acl)) {
 			$return_value = [
 				$group->group_acl => elgg_echo('groups:group') . ': ' . $group->name,
-				ACCESS_LOGGED_IN => elgg_echo('LOGGED_IN'),
-				ACCESS_PUBLIC => elgg_echo('PUBLIC')
+				ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+				ACCESS_PUBLIC => elgg_echo('access:label:public')
 			];
 		}
 	}

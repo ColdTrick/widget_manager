@@ -1,10 +1,19 @@
 <?php
 /**
- * This file was created by Translation Editor v5.2
- * On 2017-02-13 12:22
+ * This file was created by Translation Editor v7.0-beta
+ * On 2018-12-14 16:57
  */
 
 return array (
+  'item:object:widget_page' => 'Widget Pagina',
+  'collection:object:widget_page' => 'Widget Pagina\'s',
+  'admin:widgets:cleanup' => 'Opschonen',
+  'admin:widgets:pages' => 'Widget Pagina\'s',
+  'admin:widgets:cleanup:info' => 'Hier kun je alle widgets opruimen die zich op dit moment in de database bevinden, ook diegene die niet meer beschikbaar zijn.',
+  'widget_manager:settings:index_managers' => 'Voorpagina beheerders',
+  'widget_manager:widget_page:title:help' => 'Het optioneel opslaan van een titel toont deze op de widget pagina.',
+  'widget_manager:upgrade:2018052400:title' => 'Widget contexten naar widget pagina\'s',
+  'widget_manager:upgrade:2018052400:description' => 'Maakt van de plugininstellingen voor widget pagina\'s werkelijke widget pagina entiteiten',
   'widget_manager:forms:manage_widgets:context' => 'Beschikbaar in de context',
   'widget_manager:forms:manage_widgets:can_add' => 'Kan worden toegevoegd',
   'widget_manager:forms:manage_widgets:multiple' => 'Meerdere widgets toegestaan',
@@ -21,14 +30,12 @@ return array (
   'widget_manager:settings:group:enable:forced' => 'Ja, altijd aan',
   'widget_manager:settings:group:force_tool_widgets' => 'Forceer groep tool widgets',
   'widget_manager:settings:group:force_tool_widgets:confirm' => 'Weet je het zeker? Dit zal widgets toevoegen/verwijderen die beheerd worden door een groep tool optie (voor de groepen waar widget management is ingeschakeld)',
-  'widget_manager:settings:extra_contexts:add' => 'Nieuwe widget pagina',
   'widget_manager:settings:extra_contexts:page' => 'Pagina',
   'widget_manager:settings:extra_contexts:layout' => 'Layout',
   'widget_manager:settings:extra_contexts:top_row' => 'Extra top regel',
   'widget_manager:settings:extra_contexts:manager' => 'Beheerder',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'Widget beheer voor groepen is niet ingeschakeld',
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets voor groep tool geforceerd bij %s groepen',
-  'widget_manager:settings:extra_contexts' => 'Extra widget pagina\'s',
   'widget_manager:settings:extra_contexts:description' => 'Voer de url in van de nieuwe pagina welke een layout gelijk de widget manager startpagina krijgt. U kunt zoveel pagina\'s toevoegen als nodig is. Vergewis uzelve dat opgegeven pagina nog niet in gebruik is. Alle widgets die normaliter op de voorpagina beschikbaar zijn, zullen ook op deze nieuwe pagina beschikbaar komen. U kunt ook de kolom indeling kiezen en optioneel gewone gebruikers als manager van deze pagina toewijzen.',
   'admin:widgets' => 'Widgets',
   'admin:widgets:manage' => 'Beheren',
@@ -36,7 +43,6 @@ return array (
   'admin:statistics:widgets' => 'Widget gebruik',
   'widget_manager:widgets:edit:custom_url' => 'Aangepaste titel link',
   'widget_manager:widgets:edit:custom_class' => 'Aangepaste CSS class',
-  'widget_manager:widgets:edit:fixed_height' => 'Vaste widget hoogte (in pixels)',
   'widget_manager:groups:enable_widget_manager' => 'Schakelen het beheer van widgets in',
   'widget_manager:settings:index' => 'Startpagina',
   'widget_manager:settings:group' => 'Groep',
@@ -45,15 +51,12 @@ return array (
   'widget_manager:settings:group:option_default_enabled' => 'Widgets beheer voor groepen standaard ingeschakeld',
   'widget_manager:settings:group:option_admin_only' => 'Alleen beheerders kunnen groep widgets inschakelen',
   'widget_manager:forms:manage_widgets:no_widgets' => 'Geen widgets om te beheren',
-  'widget_manager:widgets:lightbox:title:groups' => 'Voeg widgets toe op het groep profiel',
-  'widget_manager:widgets:lightbox:title:admin' => 'Voeg widgets toe aan je admin dashboard',
   'widget_manager:widgets:edit:advanced' => 'Geavanceerd',
   'widget_manager:widgets:fix' => 'Pin deze widget op het dashboard/profiel',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'Verwijder widget stijl',
   'widget_manager:settings:index_top_row:none' => 'Geen top regel',
   'widget_manager:settings:index_top_row:full_row' => 'Volle breedte regel',
   'widget_manager:settings:index_top_row:two_column_left' => 'Twee kolommen links uitgelijnd',
-  'widget_manager:widgets:lightbox:title:index' => 'Voeg een widget toe aan de voorpagina',
   'widget_manager:widgets:edit:custom_title' => 'Eigen titel',
   'widget_manager:widgets:edit:hide_header' => 'Verberg titel',
   'widget_manager:settings:custom_index' => 'Gebruik Widget Manager aangepaste index?',
@@ -71,8 +74,5 @@ return array (
   'widget_manager:settings:widget_layout:40|60' => 'Twee kolommen (40%, 60%)',
   'widget_manager:settings:widget_layout:25|75' => 'Twee kolommen (25%, 75%)',
   'widget_manager:settings:widget_layout:100' => 'Enkele kolom (100%)',
-  'widget_manager:button:add' => 'Voeg toe',
-  'widget_manager:widgets:lightbox:title:dashboard' => 'Voeg widgets toe aan je dashboard',
-  'widget_manager:widgets:lightbox:title:profile' => 'Voeg widgets toe aan je profiel',
   'widget_manager:action:manage:success' => 'Widget configuratie succesvol opgeslagen',
 );
