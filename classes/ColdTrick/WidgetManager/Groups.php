@@ -177,8 +177,8 @@ class Groups {
 	
 		$result = $hook->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', [
-			'num_columns' => 3,
-			'class' => 'widgets-top-row',
+			'num_columns' => elgg_extract('num_columns', $result, 3),
+			'class' => elgg_extract('show_widgets_top_row', $result, true) ? 'widgets-top-row' : null,
 		]);
 		
 		elgg_pop_context();
