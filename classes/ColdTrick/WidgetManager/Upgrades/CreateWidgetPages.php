@@ -31,7 +31,7 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 	public function countItems() {
 		
 		$plugin = elgg_get_plugin_from_id('widget_manager');
-		$contexts = string_to_tag_array($plugin->extra_contexts);
+		$contexts = (array) string_to_tag_array($plugin->extra_contexts);
 				
 		return count($contexts);
 	}
