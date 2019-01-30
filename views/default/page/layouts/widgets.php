@@ -61,6 +61,11 @@ if ($show_add_widgets && elgg_can_edit_widget_layout($context)) {
 	$result .= elgg_view('page/layouts/widgets/add_button', $vars);
 }
 
+$show_empty_grid = (bool) elgg_extract('show_empty_grid', $vars, true);
+if (!$show_empty_grid && empty($result) && empty($widgets)) {
+	return;
+}
+
 // push context after the add_button as add button uses current context
 elgg_push_context('widgets');
 
