@@ -72,6 +72,11 @@ class Groups {
 	
 			// enable widgets
 			$column_counts = [];
+			$max_columns = elgg_trigger_plugin_hook('groups:column_count', 'widget_manager', [], 2);
+			for ($i = 1; $i <= $max_columns; $i++) {
+				$column_counts[$i] = 0;
+			}
+			
 			$enable_widget_handlers = elgg_extract('enable', $result);
 			if (!empty($enable_widget_handlers) || is_array($enable_widget_handlers)) {
 					
@@ -100,6 +105,21 @@ class Groups {
 					}
 				}
 				
+				$determine_target_column = function($column_counts) {
+					
+					$current_target = 1;
+					$current_min = elgg_extract($current_target, $column_counts, 0);
+					
+					foreach ($column_counts as $column => $column_count) {
+						if ($column_count < $current_min) {
+							$current_target = $column;
+							$current_min = $column_count;
+						}
+					}
+					
+					return $current_target;
+				};
+				
 				// check blacklist
 				$blacklist = $object->getPrivateSetting('widget_manager_widget_blacklist');
 				if (!empty($blacklist)) {
@@ -125,18 +145,12 @@ class Groups {
 						}
 							
 						$widget = get_entity($widget_guid);
-							
-						if ($column_counts[1] <= $column_counts[2]) {
-							// move to the end of the first column
-							$widget->move(1, 9000);
-	
-							$column_counts[1]++;
-						} else {
-							// move to the end of the second
-							$widget->move(2, 9000);
-	
-							$column_counts[2]++;
-						}
+						
+						$target_column = $determine_target_column($column_counts);
+
+						// move to the end of the target column
+						$widget->move($target_column, 9000);
+						$column_counts[$target_column]++;
 					}
 				}
 					
