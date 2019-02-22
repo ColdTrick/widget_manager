@@ -63,6 +63,13 @@ if ($show_add_widgets && elgg_can_edit_widget_layout($context)) {
 
 $show_empty_grid = (bool) elgg_extract('show_empty_grid', $vars, true);
 if (!$show_empty_grid && empty($result) && empty($widgets)) {
+	// Restore original page owner
+	if (empty($page_owner)) {
+		elgg_set_page_owner_guid(false);
+	} elseif ($owner->guid !== $page_owner->guid) {
+		elgg_set_page_owner_guid($page_owner->guid);
+	}
+
 	return;
 }
 
