@@ -162,7 +162,7 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 				// update settings for currently configured widgets
 				
 				// pull in settings
-				$settings = get_all_private_settings($configured_fixed_widgets[$default_widget_guid]->guid);
+				$settings = $configured_fixed_widgets[$default_widget_guid]->getAllPrivateSettings();
 				foreach ($settings as $name => $value) {
 					$widget->$name = $value;
 				}
@@ -189,7 +189,7 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 			$new_widget->owner_guid = $user_guid;
 			
 			// pull in settings
-			$settings = get_all_private_settings($guid);
+			$settings = $widget->getAllPrivateSettings();
 			
 			foreach ($settings as $name => $value) {
 				$new_widget->$name = $value;
