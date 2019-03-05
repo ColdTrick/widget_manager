@@ -18,7 +18,7 @@ $vars['byline'] = false;
 
 $title = $entity->url;
 if (!empty($entity->title)) {
-	$title = $entity->title . ' [' . $title . ']';
+	$title .= " [{$entity->title}]";
 }
 
 $vars['title'] = elgg_view('output/url', [
