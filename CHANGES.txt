@@ -1,6 +1,28 @@
 Version history
 ===============
 
+9.0 (2019-03-27):
+
+- added: admin feature to delete widgets from the database
+- added: max columns for group tool based widgets can now be hooked
+- added: setting a widget page title sets it as a page title
+- added: widget pages are now their own entities
+- changed: advanced widget settings now show in a tab
+- changed: custom widget title is now returned from getDisplayName
+- changed: more changes for Elgg 3.0
+- changed: more changes for Elgg 3.0
+- changed: moved extra contexts page handler to route registration
+- changed: moved widget_manager_check_collapsed_state function into class
+- changed: started updating code for Elgg 3.0
+- changed: toggle form elements now are switches
+- changed: widget cache now uses system_cache
+- changed: widget settings save now uses elgg/Ajax
+- changed: widgets no longer cache private settings, now done by core
+- feat: added collapse/expand functions to widget class
+- fixed: force correct column widths for widgets
+- removed: no longer support fixed height setting on widgets
+- Spanish translation
+
 8.3.2 (2018-10-04):
 
 - changed: fallback logic for widget setting
