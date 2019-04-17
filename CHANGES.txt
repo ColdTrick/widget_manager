@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.0.1 (2019-04-17):
+
+- several small chores/fixes
+
 9.0 (2019-03-27):
 
 - added: admin feature to delete widgets from the database
