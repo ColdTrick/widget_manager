@@ -26,4 +26,6 @@ $entity->save();
 
 $entity->setManagers((array) get_input('manager', []));
 
+elgg_delete_system_cache('widget_pages');
+
 return elgg_ok_response('', elgg_echo('save:success'));

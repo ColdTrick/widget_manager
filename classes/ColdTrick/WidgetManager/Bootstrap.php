@@ -85,7 +85,26 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 */
 	protected function registerWidgetPagesRoutes() {
 		
-		$urls = elgg_get_metadata([
+		$urls = $this->getWidgetPagesUrls();
+		
+		foreach ($urls as $url) {
+			elgg_register_route($url, [
+				'path' => $url,
+				'resource' => 'widget_manager/widget_page',
+			]);
+		}
+	}
+	
+	protected function getWidgetPagesUrls() {
+		
+		$urls = elgg_load_system_cache('widget_pages');
+		if ($urls) {
+			return $urls;
+		}
+		
+		$urls = [];
+		
+		$metadata = elgg_get_metadata([
 			'type' => 'object',
 			'subtype' => \WidgetPage::SUBTYPE,
 			'limit' => false,
@@ -93,12 +112,13 @@ class Bootstrap extends DefaultPluginBootstrap {
 			'metadata_name' => 'url',
 		]);
 		
-		foreach ($urls as $url) {
-			elgg_register_route($url->value, [
-				'path' => $url->value,
-				'resource' => 'widget_manager/widget_page',
-			]);
+		foreach ($metadata as $md) {
+			$urls[] = $md->value;
 		}
+		
+		elgg_save_system_cache('widget_pages', $urls);
+		
+		return $urls;
 	}
 	
 	/**
