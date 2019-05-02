@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.0.2 (2019-05-02):
+
+- changed: widget pages urls are stored in system cache for performance
+
 9.0.1 (2019-04-17):
 
 - several small chores/fixes
