@@ -53,7 +53,7 @@ class Widgets {
 			return;
 		}
 	
-		if (!stristr($_SERVER['HTTP_REFERER'], '/admin/appearance/default_widgets')) {
+		if (!stristr(elgg_extract('HTTP_REFERER', $_SERVER), '/admin/appearance/default_widgets')) {
 			return;
 		}
 	
