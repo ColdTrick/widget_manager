@@ -11,7 +11,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 */
 	public function init() {
 		// register plugin hooks
-	// 	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'widget_manager_write_access_hook', 999);
+		elgg_register_plugin_hook_handler('access:collections:write', 'all', '\ColdTrick\WidgetManager\Access::setWriteAccess', 999);
 		elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
 		elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
 		elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
@@ -31,11 +31,9 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 		elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems');
 		elgg_register_plugin_hook_handler('register', 'menu:widget_toggle', '\ColdTrick\WidgetManager\Menus::addWidgetToggleControls');
-	
 		
 		elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
 		elgg_register_event_handler('all', 'object', '\ColdTrick\WidgetManager\Widgets::createFixedParentMetadata', 1000); // is only a fallback
-		
 		
 		// extend CSS
 		elgg_extend_view('elements/widgets.css', 'css/widget_manager/site.css');
@@ -43,7 +41,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
 		elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
 		elgg_extend_view('object/widget/header', 'object/widget/toggle', 400);
-			
 	
 		elgg_register_ajax_view('forms/widget_manager/widget_page');
 		elgg_register_ajax_view('widget_manager/widgets/settings');

@@ -2,7 +2,6 @@
 
 namespace ColdTrick\WidgetManager;
 
-use Elgg\WidgetDefinition;
 use Elgg\Hook;
 class Widgets {
 	
@@ -17,26 +16,26 @@ class Widgets {
 	 */
 	public static function fixPrivateAccess($event, $object_type, $object) {
 	
-		if (!elgg_instanceof($object, 'object', 'widget', 'ElggWidget')) {
+		if (!$object instanceof \ElggWidget) {
 			return;
 		}
 
 		if ((int) $object->access_id !== ACCESS_PRIVATE) {
 			return;
 		}
-
-		$owner = $object->getOwnerEntity();
 		
 		// Updates access for privately created widgets in a group or on site
-		$old_ia = elgg_set_ignore_access();
-		if ($owner instanceof \ElggGroup) {
-			$object->access_id = $owner->group_acl;
-			$object->save();
-		} elseif ($owner instanceof \ElggSite) {
-			$object->access_id = ACCESS_PUBLIC;
-			$object->save();
-		}
-		elgg_set_ignore_access($old_ia);
+		elgg_call(ELGG_IGNORE_ACCESS, function() use ($object) {
+			$owner = $object->getOwnerEntity();
+		
+			if ($owner instanceof \ElggGroup) {
+				$object->access_id = $owner->getOwnedAccessCollection('group_acl')->id;
+				$object->save();
+			} elseif ($owner instanceof \ElggSite) {
+				$object->access_id = ACCESS_PUBLIC;
+				$object->save();
+			}
+		});
 	}
 	
 	/**
