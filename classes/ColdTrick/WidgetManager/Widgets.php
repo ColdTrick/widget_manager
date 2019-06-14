@@ -341,25 +341,17 @@ class Widgets {
 			return;
 		}
 		
-		$result = $hook->getValue();
-		if ($result) {
+		if ($hook->getValue()) {
 			return;
 		}
 		
-		$context = $hook->getParam('context');
-		
-		if ($context === 'index') {
-			$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
-			if (in_array($user->guid, $index_managers)) {
-				return true;
-			}
-		}
-		
-		$page_owner = $hook->getParam('page_owner');
-		if (!($page_owner instanceof \ElggGroup) && !($page_owner instanceof \WidgetPage)) {
+		if ($hook->getParam('context') !== 'index') {
 			return;
 		}
 		
-		return $page_owner->canEdit($user->guid);
+		$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
+		if (in_array($user->guid, $index_managers)) {
+			return true;
+		}
 	}
 }

@@ -57,4 +57,33 @@ class Access {
 			}
 		}
 	}
+	
+	/**
+	 * Allow write access for index managers
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function writeAccessForIndexManagers(\Elgg\Hook $hook) {
+		$result = $hook->getValue();
+		
+		if ($result) {
+			return;
+		}
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggSite) {
+			return;
+		}
+		
+		$user = $hook->getUserParam();
+		if (!$user instanceof \ElggUser) {
+			return;
+		}
+		
+		$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
+		if (in_array($user->guid, $index_managers)) {
+			return true;
+		}
+	}
 }

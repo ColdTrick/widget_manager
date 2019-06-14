@@ -87,29 +87,8 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
 			elgg_register_widget_type($handler, $index_widget->name, $index_widget->description, $contexts, $index_widget->multiple);
 		}
 	} elseif ($entity_type == 'widgets/add') {
-		elgg_register_plugin_hook_handler('permissions_check', 'site', 'widget_manager_permissions_check_site_hook_handler');
+		elgg_register_plugin_hook_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
 	}
-}
-	
-/**
- * Checks if current user can edit a given widget context. Hook gets registered by widget_manager_widgets_action_hook_handler
- *
- * @param string $hook_name    name of the hook
- * @param string $entity_type  type of the hook
- * @param string $return_value current return value
- * @param array  $params       hook parameters
- *
- * @return boolean
- */
-function widget_manager_permissions_check_site_hook_handler($hook_name, $entity_type, $return_value, $params) {
-	$user = elgg_extract('user', $params);
-	$context = get_input('context');
-	
-	if ($return_value || !$user || empty($context)) {
-		return;
-	}
-	
-	return elgg_can_edit_widget_layout($context, $user->getGUID());
 }
 
 /**
