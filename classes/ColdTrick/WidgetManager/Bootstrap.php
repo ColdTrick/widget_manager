@@ -39,9 +39,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		
 		// extend CSS
 		elgg_extend_view('elements/widgets.css', 'css/widget_manager/site.css');
-	// 	elgg_extend_view('css/elgg', 'css/widget_manager/global.css');
 		elgg_extend_view('css/admin', 'css/widget_manager/admin.css');
-	// 	elgg_extend_view('css/admin', 'css/widget_manager/global.css');
 		elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
 		elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
 		elgg_extend_view('object/widget/header', 'object/widget/toggle', 400);

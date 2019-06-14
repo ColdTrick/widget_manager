@@ -112,7 +112,7 @@ $search_box = elgg_format_element('div', ['id' => 'widget_manager_widgets_search
 	'placeholder' => elgg_echo('search'),
 ]));
 
-echo elgg_view_module('aside', elgg_echo('widgets:add'), $result, [
+echo elgg_view_module('info', elgg_echo('widgets:add'), $result, [
 	'class' => 'elgg-widgets-add-panel',
 	'menu' => $search_box,
 ]);
