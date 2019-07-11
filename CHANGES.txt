@@ -1,6 +1,11 @@
 Version history
 ===============
 
+9.0.3 (2019-07-11):
+
+- fixed: index manager can create widgets again
+- fixed: provide correct write access arrays
+
 9.0.2 (2019-05-02):
 
 - changed: widget pages urls are stored in system cache for performance
