@@ -26,7 +26,7 @@ class WidgetPage extends ElggObject {
 	 * @see ElggEntity::canEdit()
 	 */
 	public function canEdit($user_guid = 0) {
-		
+		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 		if (in_array($user_guid, $this->getManagers())) {
 			return true;
 		}

@@ -345,6 +345,17 @@ class Widgets {
 			return;
 		}
 		
+		// check if widgetpage manager can manage
+		$page_owner = $hook->getParam('page_owner');
+		if ($page_owner instanceof \WidgetPage) {
+			if ($page_owner->canEdit()) {
+				return true;
+			}
+			
+			return;
+		}
+		
+		// check if it is an index manager
 		if ($hook->getParam('context') !== 'index') {
 			return;
 		}
