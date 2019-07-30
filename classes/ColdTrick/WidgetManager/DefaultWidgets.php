@@ -9,14 +9,13 @@ class DefaultWidgets {
 	/**
 	 * Allow for group default widgets
 	 *
-	 * @param string $hook_name    name of the hook
-	 * @param string $entity_type  type of the hook
-	 * @param string $return_value current return value
-	 * @param array  $params       hook parameters
+	 * @param \Elgg\Hook $hook 'get_list', 'default_widgets'
 	 *
 	 * @return string
 	 */
-	public static function addGroupsContextToDefaultWidgets($hook_name, $entity_type, $return_value, $params) {
+	public static function addGroupsContextToDefaultWidgets(\Elgg\Hook $hook) {
+		$return_value = $hook->getValue();
+
 		if (!is_array($return_value)) {
 			$return_value = [];
 		}
@@ -27,7 +26,7 @@ class DefaultWidgets {
 			'widget_columns' => 2,
 			'event' => 'create',
 			'entity_type' => 'group',
-			'entity_subtype' => NULL,
+			'entity_subtype' => null,
 		];
 	
 		return $return_value;

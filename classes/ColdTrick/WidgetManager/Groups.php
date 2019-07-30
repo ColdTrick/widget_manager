@@ -11,15 +11,14 @@ class Groups {
 	 *
 	 * And add/remove tool enabled widgets
 	 *
-	 * @param string $event       name of the system event
-	 * @param string $object_type type of the event
-	 * @param mixed  $object      object related to the event
+	 * @param \Elgg\Event $event 'update', 'group'
 	 *
 	 * @return void
 	 */
-	public static function updateGroupWidgets($event, $object_type, $object) {
+	public static function updateGroupWidgets(\Elgg\Event $event) {
 	
-		if (!($object instanceof \ElggGroup)) {
+		$object = $event->getObject();
+		if (!$object instanceof \ElggGroup) {
 			return;
 		}
 	
@@ -203,14 +202,13 @@ class Groups {
 	/**
 	 * Prepare for group widget blacklist update when adding a widget manualy
 	 *
-	 * @param string      $event  'create'
-	 * @param string      $type   'object'
-	 * @param \ElggWidget $object the new widget
+	 * @param \Elgg\Event $event 'create', 'object'
 	 *
 	 * @return void
 	 */
-	public static function addGroupWidget($event, $type, $object) {
+	public static function addGroupWidget(\Elgg\Event $event) {
 		
+		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets')) {
 			return;
 		}
@@ -239,13 +237,11 @@ class Groups {
 	/**
 	 * Update the group widget blacklist when adding a widget manualy
 	 *
-	 * @param string $event  'shutdown'
-	 * @param string $type   'system'
-	 * @param mixed  $object misc
+	 * @param \Elgg\Event $event 'shutdown', 'system'
 	 *
 	 * @return void
 	 */
-	public static function addGroupWidgetShutdown($event, $type, $object) {
+	public static function addGroupWidgetShutdown(\Elgg\Event $event) {
 		global $widget_manager_group_guids;
 		
 		if (empty($widget_manager_group_guids)) {
@@ -299,14 +295,12 @@ class Groups {
 	/**
 	 * Update the group widget blacklist when removing a widget manualy
 	 *
-	 * @param string      $event  'delete'
-	 * @param string      $type   'object'
-	 * @param \ElggWidget $object the new widget
+	 * @param \Elgg\Event $event 'delete', 'object'
 	 *
 	 * @return void
 	 */
-	public static function deleteGroupWidget($event, $type, $object) {
-		
+	public static function deleteGroupWidget(\Elgg\Event $event) {
+		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets')) {
 			return;
 		}

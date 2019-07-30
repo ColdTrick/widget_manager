@@ -11,7 +11,7 @@ if ($context != 'groups') {
 }
 
 $page_owner = elgg_get_page_owner_entity();
-if (empty($page_owner) || !elgg_instanceof($page_owner, 'group')) {
+if (empty($page_owner) || !$page_owner instanceof \ElggGroup) {
 	// we need a group
 	return;
 }

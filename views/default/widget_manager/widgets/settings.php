@@ -7,7 +7,7 @@ if (!$widget_guid) {
 }
 
 $widget = get_entity($widget_guid);
-if (!elgg_instanceof($widget, 'object', 'widget') || !$widget->canEdit()) {
+if (!$widget instanceof \ElggWidget || !$widget->canEdit()) {
 	return;
 }
 

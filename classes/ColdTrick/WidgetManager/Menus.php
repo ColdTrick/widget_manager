@@ -7,18 +7,16 @@ class Menus {
 	/**
 	 * Hook to register menu items on the admin pages
 	 *
-	 * @param string $hook_name    name of the hook
-	 * @param string $entity_type  type of the hook
-	 * @param array  $return_value current return value
-	 * @param array  $params       hook parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:page'
 	 *
 	 * @return boolean
 	 */
-	public static function registerAdminPageMenu($hook_name, $entity_type, $return_value, $params) {
+	public static function registerAdminPageMenu(\Elgg\Hook $hook) {
 		if (!elgg_is_admin_logged_in() || !elgg_in_context('admin')) {
 			return;
 		}
 		
+		$return_value = $hook->getValue();
 		foreach ($return_value as $menu_item) {
 			if ($menu_item->getName() == 'default_widgets') {
 				// move defaultwidgets menu item
@@ -71,14 +69,11 @@ class Menus {
 	/**
 	 * Adds an optional fix link to the menu
 	 *
-	 * @param string $hook_name    name of the hook
-	 * @param string $entity_type  type of the hook
-	 * @param string $return_value current return value
-	 * @param array  $params       hook parameters
+	 * @param \Elgg\Hook $hook 'register', 'menu:widget'
 	 *
 	 * @return array
 	 */
-	public static function addFixDefaultWidgetMenuItem($hook_name, $entity_type, $return_value, $params) {
+	public static function addFixDefaultWidgetMenuItem(\Elgg\Hook $hook) {
 		if (!elgg_is_admin_logged_in()) {
 			return;
 		}
@@ -87,7 +82,7 @@ class Menus {
 			return;
 		}
 		
-		$widget = elgg_extract('entity', $params);
+		$widget = $hook->getEntityParam();
 		if (!in_array($widget->context, ['profile', 'dashboard'])) {
 			return;
 		}
@@ -96,7 +91,8 @@ class Menus {
 		if ($widget->fixed) {
 			$class[] = 'elgg-state-active';
 		}
-			
+		
+		$return_value = $hook->getValue();
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'fix',
 			'text' => elgg_view_icon('thumb-tack'),
@@ -198,16 +194,14 @@ class Menus {
 	/**
 	 * Optionally removes the edit and delete links from the menu
 	 *
-	 * @param string $hook_name    name of the hook
-	 * @param string $entity_type  type of the hook
-	 * @param string $return_value current return value
-	 * @param array  $params       hook parameters
+	 * @param \Elgg\Hook $hook 'prepare', 'menu:widget'
 	 *
 	 * @return array
 	 */
-	public static function prepareWidgetEditDeleteMenuItems($hook_name, $entity_type, $return_value, $params) {
-	
-		$widget = elgg_extract('entity', $params);
+	public static function prepareWidgetEditDeleteMenuItems(\Elgg\Hook $hook) {
+		$widget = $hook->getEntityParam();
+		$return_value = $hook->getValue();
+
 		if ($widget->fixed && !elgg_in_context('default_widgets') && !elgg_is_admin_logged_in()) {
 			foreach ($return_value as $section_key => $section) {
 				foreach ($section as $item_key => $item) {

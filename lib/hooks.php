@@ -73,7 +73,7 @@ function widget_manager_widgets_action_hook_handler($hook_name, $entity_type, $r
 		}
 
 		$widget = get_entity($widget_guid);
-		if (!elgg_instanceof($widget, 'object', 'widget')) {
+		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
 		

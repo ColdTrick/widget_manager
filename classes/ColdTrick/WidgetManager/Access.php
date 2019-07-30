@@ -10,7 +10,7 @@ class Access {
 	/**
 	 * Sets the write access array for widgets
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'access:collections:write', 'all'
 	 *
 	 * @return []
 	 */
@@ -61,7 +61,7 @@ class Access {
 	/**
 	 * Allow write access for index managers
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'permissions_check', 'site'
 	 *
 	 * @return []
 	 */

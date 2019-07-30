@@ -8,14 +8,12 @@ class Widgets {
 	/**
 	 * Updates widget access for private widgets in group or site
 	 *
-	 * @param string $event       name of the system event
-	 * @param string $object_type type of the event
-	 * @param mixed  $object      object related to the event
+	 * @param \Elgg\Event $event 'create', 'object'
 	 *
 	 * @return void
 	 */
-	public static function fixPrivateAccess($event, $object_type, $object) {
-	
+	public static function fixPrivateAccess(\Elgg\Event $event) {
+		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget) {
 			return;
 		}
@@ -41,14 +39,13 @@ class Widgets {
 	/**
 	 * Sets the fixed parent guid to default widgets to be used when cloning, so relationship can stay intact.
 	 *
-	 * @param string $event       name of the system event
-	 * @param string $object_type type of the event
-	 * @param mixed  $object      object related to the event
+	 * @param \Elgg\Event $event 'all', 'object'
 	 *
 	 * @return void
 	 */
-	public static function createFixedParentMetadata($event, $object_type, $object) {
-		if (!($object instanceof \ElggWidget) || !in_array($event, ['create', 'update', 'delete'])) {
+	public static function createFixedParentMetadata(\Elgg\Event $event) {
+		$object = $event->getObject();
+		if (!($object instanceof \ElggWidget) || !in_array($event->getName(), ['create', 'update', 'delete'])) {
 			return;
 		}
 	
@@ -57,7 +54,7 @@ class Widgets {
 		}
 	
 		// on create set a parent guid
-		if ($event == 'create') {
+		if ($event->getName() == 'create') {
 			$object->fixed_parent_guid = $object->guid;
 		}
 	
@@ -76,14 +73,12 @@ class Widgets {
 	/**
 	 * Applies the saved widgets config
 	 *
-	 * @param string $hook_name    name of the hook
-	 * @param string $entity_type  type of the hook
-	 * @param bool   $return_value current return value
-	 * @param array  $params       hook parameters
+	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
 	 *
 	 * @return void
 	 */
-	public static function applyWidgetsConfig($hook_name, $entity_type, $return_value, $params) {
+	public static function applyWidgetsConfig(\Elgg\Hook $hook) {
+		$return_value = $hook->getValue();
 		foreach ($return_value as $id => $widget_definition) {
 			$widget_config = widget_manager_get_widget_setting($widget_definition->id, 'all');
 			if (empty($widget_config)) {
@@ -133,7 +128,7 @@ class Widgets {
 	/**
 	 * Returns widget content from cache
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'view_vars', 'object/widget/body'
 	 *
 	 * @return []
 	 */
@@ -161,7 +156,7 @@ class Widgets {
 	/**
 	 * Prevent widget controls
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'view_vars', 'object/widget/elements/controls'
 	 *
 	 * @return []
 	 */
@@ -188,7 +183,7 @@ class Widgets {
 	/**
 	 * Returns widget content from cache
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'view', 'object/widget/body'
 	 *
 	 * @return []
 	 */
@@ -208,7 +203,7 @@ class Widgets {
 	/**
 	 * Unsets the cached data for cacheable widgets
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'widget_settings', 'all'
 	 *
 	 * @return bool
 	 */
@@ -244,7 +239,7 @@ class Widgets {
 	/**
 	 * Fallback widget title urls for non widget manager widgets
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'entity:url', 'object'
 	 *
 	 * @return string
 	 */
@@ -294,7 +289,7 @@ class Widgets {
 	/**
 	 * Updates fixed widgets on profile and dashboard
 	 *
-	 * @param \Elgg\Hook $hook hook
+	 * @param \Elgg\Hook $hook 'view_vars', 'page/layouts/widgets'
 	 *
 	 * @return void
 	 */
