@@ -9,13 +9,12 @@ if (empty($group) || !($group instanceof ElggGroup) || !$group->canEdit()) {
 	return;
 }
 
-$widgets_count = elgg_get_entities([
+$widgets_count = elgg_count_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
 	'owner_guid' => $group->getGUID(),
 	'private_setting_name' => 'context',
 	'private_setting_value' => 'groups',
-	'count' => true,
 ]);
 if (!$widgets_count) {
 	// no widgets = no need for this form
