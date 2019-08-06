@@ -3,7 +3,6 @@
 define('ACCESS_LOGGED_OUT', -5);
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
-require_once(dirname(__FILE__) . '/lib/hooks.php');
 
 return [
 	'bootstrap' => \ColdTrick\WidgetManager\Bootstrap::class,

@@ -12,16 +12,16 @@ class Bootstrap extends DefaultPluginBootstrap {
 	public function init() {
 		// register plugin hooks
 		elgg_register_plugin_hook_handler('access:collections:write', 'all', '\ColdTrick\WidgetManager\Access::setWriteAccess', 999);
-		elgg_register_plugin_hook_handler('access:collections:read', 'user', 'widget_manager_read_access_hook');
+		elgg_register_plugin_hook_handler('access:collections:read', 'user', '\ColdTrick\WidgetManager\Access::addLoggedOutReadAccess');
 		elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
 		elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
 		elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', '\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck');
 		elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
 		elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
-		elgg_register_plugin_hook_handler('action:validate', 'widgets/add', 'widget_manager_widgets_action_hook_handler');
-		elgg_register_plugin_hook_handler('action:validate', 'widgets/move', 'widget_manager_widgets_action_hook_handler');
-		elgg_register_plugin_hook_handler('permissions_check', 'object', 'widget_manager_permissions_check_object_hook_handler');
-		elgg_register_plugin_hook_handler('setting', 'plugin', 'widget_manager_index_manager_setting_plugin_hook_handler');
+		elgg_register_plugin_hook_handler('action:validate', 'widgets/add', '\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager');
+		elgg_register_plugin_hook_handler('action:validate', 'widgets/move', '\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager');
+		elgg_register_plugin_hook_handler('permissions_check', 'object', '\ColdTrick\WidgetManager\Access::canEditWidgetOnManagedLayout');
+		elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\WidgetManager\Settings::implodeSettings');
 		elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
 		elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Widgets::checkFixedWidgets');
 		elgg_register_plugin_hook_handler('view_vars', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
