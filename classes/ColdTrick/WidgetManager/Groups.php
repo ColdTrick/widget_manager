@@ -82,7 +82,7 @@ class Groups {
 				// ignore access restrictions
 				// because if a group is created with a visibility of only group members
 				// the group owner is not yet added to the acl and thus can't edit the newly created widgets
-				elgg_call(ELGG_IGNORE_ACCESS, function() use ($current_widgets, $enable_widget_handlers, $column_counts) {
+				elgg_call(ELGG_IGNORE_ACCESS, function() use ($object, $current_widgets, $enable_widget_handlers, $column_counts) {
 					if (!empty($current_widgets) && is_array($current_widgets)) {
 						foreach ($current_widgets as $column => $widgets) {
 							// count for later balancing
