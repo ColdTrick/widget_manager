@@ -1,6 +1,10 @@
 Version history
 ===============
 
+9.0.4 (2019-08-07):
+
+- fixed: correctly check if user is allowed to manage a widget page
+
 9.0.3 (2019-07-11):
 
 - fixed: index manager can create widgets again
