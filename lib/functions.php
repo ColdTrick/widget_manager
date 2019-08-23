@@ -210,21 +210,26 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 		$column_widgets = elgg_get_entities_from_private_settings($options);
 		
 		$free_widgets = [];
-		$max_fixed_order = 0;
 		
 		if ($column_widgets) {
 			foreach ($column_widgets as $widget) {
 				if ($widget->fixed) {
-					if ($widget->order > $max_fixed_order) {
+					if ((!isset($max_fixed_order)) || ($widget->order > $max_fixed_order)) {
 						$max_fixed_order = $widget->order;
 					}
 				} else {
+					if ((!isset($min_free_order)) || ($widget->order < $min_free_order)) {
+						$min_free_order = $widget->order;
+					}
 					$free_widgets[] = $widget;
 				}
 			}
-			if (!empty($max_fixed_order) && !empty($free_widgets)) {
-				foreach ($free_widgets as $widget) {
-					$widget->order += $max_fixed_order;
+			if (isset($max_fixed_order) && isset($min_free_order) && !empty($free_widgets)) {
+				if ($min_free_order <= $max_fixed_order) {
+					$delta_order = $max_fixed_order - $min_free_order + 10;
+					foreach ($free_widgets as $widget) {
+						$widget->order += $delta_order;
+					}
 				}
 			}
 		}
