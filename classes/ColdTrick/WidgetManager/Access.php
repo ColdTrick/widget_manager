@@ -40,18 +40,12 @@ class Access {
 				}
 			}
 		} elseif ($widget->container_guid === elgg_get_site_entity()->guid) {
-			// admins only have the following options for index widgets
-			if (elgg_is_admin_logged_in()) {
+			// sepcial options for index widgets
+			if (elgg_can_edit_widget_layout($widget_context)) {
 				return [
 					ACCESS_PRIVATE => elgg_echo('access:admin_only'),
 					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
 					ACCESS_LOGGED_OUT => elgg_echo('access:label:logged_out'),
-					ACCESS_PUBLIC => elgg_echo('access:label:public')
-				];
-			} elseif(elgg_can_edit_widget_layout($widget_context)) {
-				// for non admins that can manage this widget context
-				return [
-					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
 					ACCESS_PUBLIC => elgg_echo('access:label:public')
 				];
 			}

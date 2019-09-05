@@ -6,7 +6,10 @@ if (!$widget_guid) {
 	return;
 }
 
-$widget = get_entity($widget_guid);
+$widget = elgg_call(ELGG_IGNORE_ACCESS, function() use ($widget_guid) {
+	return get_entity($widget_guid);
+});
+
 if (!$widget instanceof \ElggWidget || !$widget->canEdit()) {
 	return;
 }

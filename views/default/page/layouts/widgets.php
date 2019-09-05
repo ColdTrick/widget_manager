@@ -32,10 +32,14 @@ if (empty($page_owner) || ($owner->guid !== $page_owner->guid)) {
 }
 
 $context = elgg_get_context();
+$can_edit_layout = elgg_can_edit_widget_layout($context);
 
 $widgets = elgg_extract('widgets', $vars);
 if ($widgets === null) {
-	$widgets = elgg_get_widgets($owner->guid, $context);
+	$ignore_access = $can_edit_layout ? ELGG_IGNORE_ACCESS : 0;
+	$widgets = elgg_call($ignore_access, function() use ($owner, $context) {
+		return elgg_get_widgets($owner->guid, $context);
+	});
 }
 
 $result = '';
@@ -57,7 +61,7 @@ if ($widgets) {
 	]);
 }
 
-if ($show_add_widgets && elgg_can_edit_widget_layout($context)) {
+if ($show_add_widgets && $can_edit_layout) {
 	$result .= elgg_view('page/layouts/widgets/add_button', $vars);
 }
 
