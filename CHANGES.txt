@@ -1,6 +1,10 @@
 Version history
 ===============
 
+10.0.1 (2019-09-18):
+
+- fixed: index manager now can manage admin only widgets
+
 10.0 (2019-08-22):
 
 - changed: minimal Elgg requirement is now 3.1
