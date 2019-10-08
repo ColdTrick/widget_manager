@@ -307,7 +307,7 @@ class Groups {
 			return;
 		}
 		
-		$handlers = elgg_call(ELGG_IGNORE_ACCESS, function() use ($owner) {
+		$handlers = elgg_call(ELGG_IGNORE_ACCESS, function() use ($owner, $object) {
 			// get all group widgets
 			$group_widgets = elgg_get_widgets($owner->guid, 'groups');
 			$handlers = [];
