@@ -25,7 +25,13 @@ $title = elgg_echo('widget_manager:forms:groups_widget_access:title');
 
 $form_body = '<div>' . elgg_echo('widget_manager:forms:groups_widget_access:description') . '</div>';
 
-$form_body .= '<div>' . elgg_view('input/access', ['name' => 'widget_access_level']) . '</div>';
+$form_body .= '<div>' . elgg_view('input/access', [
+	'name' => 'widget_access_level',
+	'entity_type' => 'object',
+	'entity_subtype' => 'widget',
+	'container_guid' => $group->guid,
+	'purpose' => 'groups_widget_access',
+]) . '</div>';
 
 $form_body .= '<div class="elgg-footer">';
 $form_body .= elgg_view('input/hidden', ['name' => 'group_guid', 'value' => $group->getGUID()]);

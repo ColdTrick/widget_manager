@@ -17,31 +17,33 @@ class Access {
 	public static function setWriteAccess(\Elgg\Hook $hook) {
 		
 		$input_params = $hook->getParam('input_params', []);
-		
-		$widget = elgg_extract('entity', $input_params);
-		if (!$widget instanceof \ElggWidget) {
+		if (elgg_extract('entity_type', $input_params) !== 'object' || elgg_extract('entity_subtype', $input_params) !== 'widget') {
 			return;
 		}
 		
-		$result = $hook->getValue();
+		$container = get_entity(elgg_extract('container_guid', $input_params));
+		if (!$container instanceof \ElggEntity) {
+			return;
+		}
 		
-		$widget_context = $widget->context;
-		
-		if ($widget_context === 'groups') {
-			$group = $widget->getContainerEntity();
-			if ($group instanceof \ElggGroup) {
-				$acl = $group->getOwnedAccessCollection('group_acl');
-				if ($acl) {
-					return [
-						$acl->id => elgg_echo('groups:access:group'),
-						ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
-						ACCESS_PUBLIC => elgg_echo('access:label:public')
-					];
-				}
+		if ($container instanceof \ElggGroup) {
+			$acl = $container->getOwnedAccessCollection('group_acl');
+			if ($acl) {
+				return [
+					$acl->id => elgg_echo('groups:access:group'),
+					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
+					ACCESS_PUBLIC => elgg_echo('access:label:public')
+				];
 			}
-		} elseif ($widget->container_guid === elgg_get_site_entity()->guid) {
+		} elseif ($container instanceof \ElggSite) {
 			// sepcial options for index widgets
-			if (elgg_can_edit_widget_layout($widget_context)) {
+			
+			$widget = elgg_extract('entity', $input_params);
+			if (!$widget instanceof \ElggWidget) {
+				return;
+			}
+			
+			if (elgg_can_edit_widget_layout($widget->context)) {
 				return [
 					ACCESS_PRIVATE => elgg_echo('access:admin_only'),
 					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
