@@ -1,6 +1,11 @@
 Version history
 ===============
 
+10.0.2 (2019-10-15):
+
+- fixed: bulk update widget access in groups now show correct access opts
+- fixed: removed widgets blacklist correctly populated
+
 10.0.1 (2019-09-18):
 
 - fixed: index manager now can manage admin only widgets
