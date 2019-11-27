@@ -45,7 +45,8 @@ if ($widget->widget_manager_disable_widget_content_style == 'yes') {
 	$widget_class[] = 'widget_manager_disable_widget_content_style';
 }
 
-if ($widget->showCollapsed()) {
+// need to check class because theme sandbox creates unsaved ElggWidget entities, but will try to show them using this view
+if ($widget instanceof WidgetManagerWidget && $widget->showCollapsed()) {
 	$widget_class[] = 'elgg-state-collapsed';
 }
 
