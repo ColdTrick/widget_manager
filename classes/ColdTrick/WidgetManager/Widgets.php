@@ -80,7 +80,7 @@ class Widgets {
 	public static function applyWidgetsConfig(\Elgg\Hook $hook) {
 		$return_value = $hook->getValue();
 		foreach ($return_value as $id => $widget_definition) {
-			$widget_config = widget_manager_get_widget_setting($widget_definition->id, 'all');
+			$widget_config = WidgetsSettingsConfig::instance()->getAll($widget_definition->id);
 			if (empty($widget_config)) {
 				continue;
 			}
@@ -99,27 +99,29 @@ class Widgets {
 			
 			// fix contexts
 			$contexts = elgg_extract('contexts', $widget_config);
-			if (!empty($contexts)) {
-				foreach ($contexts as $context => $context_config) {
-					if (!isset($context_config['enabled'])) {
-						continue;
-					}
-					
-					$enabled = elgg_extract('enabled', $context_config);
-					$existing_key = array_search($context, $widget_definition->context);
-					if ($existing_key !== false) {
-						// already existing in default contexts
-						if (!$enabled) {
-							// remove if disabled in config
-							unset($widget_definition->context[$existing_key]);
-						}
-					} elseif ($enabled) {
-						// add if not existing
-						$widget_definition->context[] = $context;
-					}
-				}
-				$return_value[$id] = $widget_definition;
+			if (empty($contexts)) {
+				continue;	
 			}
+			
+			foreach ($contexts as $context => $context_config) {
+				if (!isset($context_config['enabled'])) {
+					continue;
+				}
+				
+				$enabled = elgg_extract('enabled', $context_config);
+				$existing_key = array_search($context, $widget_definition->context);
+				if ($existing_key !== false) {
+					// already existing in default contexts
+					if (!$enabled) {
+						// remove if disabled in config
+						unset($widget_definition->context[$existing_key]);
+					}
+				} elseif ($enabled) {
+					// add if not existing
+					$widget_definition->context[] = $context;
+				}
+			}
+			$return_value[$id] = $widget_definition;
 		}
 		
 		return $return_value;

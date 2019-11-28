@@ -1,5 +1,7 @@
 <?php
 
+use ColdTrick\WidgetManager\WidgetsSettingsConfig;
+
 $contexts = elgg_extract('contexts', $vars);
 $widget_definition = elgg_extract('widget', $vars);
 if (!($widget_definition instanceof \Elgg\WidgetDefinition)) {
@@ -47,13 +49,13 @@ foreach ($contexts as $context) {
 	$body .= elgg_view('input/checkbox', [
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][can_add]",
 		'value' => 1,
-		'checked' => widget_manager_get_widget_setting($widget_definition->id, 'can_add', $context),
+		'checked' => WidgetsSettingsConfig::instance()->getSetting($widget_definition->id, 'can_add', $context),
 	]);
 	$body .= '</td><td class="center">';
 	$body .= elgg_view('input/checkbox', [
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][hide]",
 		'value' => 1,
-		'checked' => widget_manager_get_widget_setting($widget_definition->id, 'hide', $context),
+		'checked' => WidgetsSettingsConfig::instance()->getSetting($widget_definition->id, 'hide', $context),
 	]);
 	
 	$body .= '</td></tr>';

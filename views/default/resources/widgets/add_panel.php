@@ -1,4 +1,6 @@
 <?php
+use ColdTrick\WidgetManager\WidgetsSettingsConfig;
+
 /**
  * Widget add panel
  *
@@ -46,9 +48,11 @@ $result = elgg_format_element('p', [
 ], elgg_echo('widgets:add:description'));
 
 $list_items = '';
+$settings_service = WidgetsSettingsConfig::instance();
+
 foreach ($widget_types as $handler => $widget_type) {
-	$can_add = widget_manager_get_widget_setting($handler, 'can_add', $context);
-	$hide = widget_manager_get_widget_setting($handler, 'hide', $context);
+	$can_add = $settings_service->getSetting($handler, 'can_add', $context);
+	$hide = $settings_service->getSetting($handler, 'hide', $context);
 	
 	if (!$can_add || $hide) {
 		// can not add or should be hidden

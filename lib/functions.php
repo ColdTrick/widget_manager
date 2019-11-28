@@ -5,60 +5,6 @@
  */
 
 /**
- * Gets the value of a setting for a specific widget handler in a specific widget context
- *
- * @param string $widget_handler handler of the widget
- * @param string $setting        name of the setting
- * @param string $context        context of the widget (default current context)
- *
- * @return boolean|array|void
- */
-function widget_manager_get_widget_setting($widget_handler, $setting, $context = null) {
-	if (empty($widget_handler) || empty($setting)) {
-		return false;
-	}
-	
-	if (is_null($context)) {
-		$context = elgg_get_context();
-	}
-	
-	static $widgets_config;
-			
-	if (!isset($widgets_config)) {
-		$widgets_config = elgg_get_plugin_setting('widgets_config', 'widget_manager');
-		if ($widgets_config === null) {
-			$widgets_config = [];
-		} else {
-			$widgets_config = json_decode($widgets_config, true);
-		}
-	}
-	if (!isset($widgets_config[$widget_handler])) {
-		$widgets_config[$widget_handler] = ['contexts' => []];
-	}
-	if (!isset($widgets_config[$widget_handler]['contexts'][$context])) {
-		$widgets_config[$widget_handler]['contexts'][$context] = [];
-	}
-	
-	if ($setting == 'all') {
-		return $widgets_config[$widget_handler];
-	}
-	
-	if (isset($widgets_config[$widget_handler]['contexts'][$context][$setting])) {
-		return (bool) $widgets_config[$widget_handler]['contexts'][$context][$setting];
-	}
-	
-	if (!in_array($setting, ['can_add', 'hide'])) {
-		return null;
-	}
-	
-	if ($setting === 'can_add') {
-		return true;
-	}
-	
-	return false;
-}
-
-/**
  * Returns a given array of widgets with the guids as key
  *
  * @param array &$widgets array of widgets to be sorted
