@@ -59,28 +59,6 @@ function widget_manager_get_widget_setting($widget_handler, $setting, $context =
 }
 
 /**
- * Sorts a given array of widgets alphabetically based on the widget name
- *
- * @param array &$widgets array of widgets to be sorted
- *
- * @return void
- */
-function widget_manager_sort_widgets(&$widgets) {
-	if (empty($widgets)) {
-		return;
-	}
-	
-	$name = [];
-	
-	foreach ($widgets as $key => $row) {
-		$name[$key] = $row->name;
-	}
-	$name = array_map('strtolower', $name);
-	
-	array_multisort($name, SORT_STRING, $widgets);
-}
-
-/**
  * Returns a given array of widgets with the guids as key
  *
  * @param array &$widgets array of widgets to be sorted
