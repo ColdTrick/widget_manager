@@ -15,6 +15,11 @@ foreach ($contexts as $context) {
 	$configured_widgets += elgg_get_widget_types($context);
 }
 
+// make sure widgets are manageable, even if they are not configured for any context
+elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext', 10000);
+$configured_widgets += elgg_get_widget_types('manage_widgets');
+elgg_unregister_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext');
+
 foreach ($widgets_config as $widget_id => $widget_config) {
 	$configured_widget = elgg_extract($widget_id, $configured_widgets);
 	if (empty($configured_widget)) {

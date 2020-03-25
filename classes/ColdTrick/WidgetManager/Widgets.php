@@ -80,16 +80,17 @@ class Widgets {
 	public static function applyWidgetsConfig(\Elgg\Hook $hook) {
 		$return_value = $hook->getValue();
 		foreach ($return_value as $id => $widget_definition) {
-			$widget_config = WidgetsSettingsConfig::instance()->getAll($widget_definition->id);
-			if (empty($widget_config)) {
-				continue;
-			}
-			
+		
 			if (!isset($widget_definition->originals)) {
 				$widget_definition->originals = [
 					'multiple' => $widget_definition->multiple,
 					'context' => $widget_definition->context,
 				];
+			}
+			
+			$widget_config = WidgetsSettingsConfig::instance()->getAll($widget_definition->id);
+			if (empty($widget_config)) {
+				continue;
 			}
 			
 			// fix multiple
@@ -100,7 +101,7 @@ class Widgets {
 			// fix contexts
 			$contexts = elgg_extract('contexts', $widget_config);
 			if (empty($contexts)) {
-				continue;	
+				continue;
 			}
 			
 			foreach ($contexts as $context => $context_config) {
@@ -121,6 +122,23 @@ class Widgets {
 					$widget_definition->context[] = $context;
 				}
 			}
+			$return_value[$id] = $widget_definition;
+		}
+		
+		return $return_value;
+	}
+			
+	/**
+	 * Adds manage_widgets context so the widgets always show up in admin/manage/widgets
+	 *
+	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 *
+	 * @return void
+	 */
+	public static function addManageWidgetsContext(\Elgg\Hook $hook) {
+		$return_value = $hook->getValue();
+		foreach ($return_value as $id => $widget_definition) {
+			$widget_definition->context[] = 'manage_widgets';
 			$return_value[$id] = $widget_definition;
 		}
 		
