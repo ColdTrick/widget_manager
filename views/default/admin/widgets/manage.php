@@ -17,4 +17,23 @@ elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManag
 $configured_widgets += elgg_get_widget_types('manage_widgets');
 elgg_unregister_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext');
 
-echo elgg_view_form('widget_manager/manage_widgets', [], ['widgets' => $configured_widgets, 'contexts' => $contexts]);
+if (empty($configured_widgets)) {
+	echo elgg_echo('widget_manager:forms:manage_widgets:no_widgets');
+	return;
+}
+
+elgg_require_js('widget_manager/manage_widgets');
+
+$widget_output = [];
+
+foreach ($configured_widgets as $widget_definition) {
+	$key = $widget_definition->name . '_' . $widget_definition->id;
+	$widget_output[$key] = elgg_view('forms/widget_manager/manage_widgets/widget', [
+		'widget' => $widget_definition,
+		'contexts' => $contexts,
+	]);
+}
+
+ksort($widget_output);
+
+echo implode('', $widget_output);
