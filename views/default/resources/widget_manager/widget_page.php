@@ -47,7 +47,6 @@ if (!empty($top_row) && ($top_row !== 'none')) {
 	$classes[] = 'widgets-top-row';
 }
 
-
 $title = $widget_page->title ?: false;
 if ($title && elgg_can_edit_widget_layout($widget_page->context)) {
 	
@@ -81,9 +80,4 @@ $content = elgg_view_layout('widgets', [
 	'show_add_widgets' => empty($title),
 ]);
 
-$body = elgg_view_layout('one_column', [
-	'content' => $content,
-	'title' => $title,
-]);
-
-echo elgg_view_page('', $body);
+echo elgg_view_page($title, ['content' => $content]);

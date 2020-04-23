@@ -46,9 +46,4 @@ $content = elgg_view_layout('widgets', [
 	'exact_match' => true,
 ]);
 
-$body = elgg_view_layout('one_column', [
-	'content' => $content,
-	'title' => false,
-]);
-
-echo elgg_view_page('', $body);
+echo elgg_view_page('', ['content' => $content]);
