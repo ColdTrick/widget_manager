@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90c6b9dd004603d31b2f7620076d8e20",
+    "content-hash": "b8510b44ac7f40904b68026914054d69",
     "packages": [
         {
             "name": "composer/installers",
@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ColdTrick/releases.git",
-                "reference": "bc13aa2831343af35df21022a8458871908111b6"
+                "reference": "8fcc4cbc2c0a5156fce4283304deac6facec95f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ColdTrick/releases/zipball/bc13aa2831343af35df21022a8458871908111b6",
-                "reference": "bc13aa2831343af35df21022a8458871908111b6",
+                "url": "https://api.github.com/repos/ColdTrick/releases/zipball/8fcc4cbc2c0a5156fce4283304deac6facec95f6",
+                "reference": "8fcc4cbc2c0a5156fce4283304deac6facec95f6",
                 "shasum": ""
             },
             "type": "library",
@@ -153,7 +153,7 @@
                 "release",
                 "travis"
             ],
-            "time": "2019-01-11T08:49:49+00:00"
+            "time": "2020-02-04T10:35:14+00:00"
         },
         {
             "name": "coldtrick/sniffs",
@@ -243,5 +243,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
