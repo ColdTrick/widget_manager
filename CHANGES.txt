@@ -1,6 +1,16 @@
 Version history
 ===============
 
+11.0 (2020-05-26):
+
+- changed: increased minimal Elgg requirement to 3.3
+- changed: layouts now use the default layout
+- changed: manage widget now instant saves setting
+- changed: the widget settings config can now be used as a service
+- fixed: do not crash when viewing unsaved widgets
+- fixed: make sure all widgets are manageable
+- removed: unused function widget_manager_sort_widgets
+
 10.0.2 (2019-10-15):
 
 - fixed: bulk update widget access in groups now show correct access opts
