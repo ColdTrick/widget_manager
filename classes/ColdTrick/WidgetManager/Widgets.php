@@ -268,14 +268,15 @@ class Widgets {
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
+	
+		// custom urls always trump existing values
+		if ($widget->widget_manager_custom_url) {
+			return $widget->widget_manager_custom_url;
+		}
 		
 		if (!empty($hook->getValue())) {
 			// already got a link
 			return;
-		}
-		
-		if ($widget->widget_manager_custom_url) {
-			return $widget->widget_manager_custom_url;
 		}
 		
 		if (elgg_in_context('default_widgets')) {

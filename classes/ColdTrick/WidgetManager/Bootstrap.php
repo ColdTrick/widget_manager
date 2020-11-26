@@ -17,7 +17,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
 		elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', '\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck');
 		elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
-		elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL');
+		elgg_register_plugin_hook_handler('entity:url', 'object', '\ColdTrick\WidgetManager\Widgets::getWidgetURL', 9999);
 		elgg_register_plugin_hook_handler('action:validate', 'widgets/add', '\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager');
 		elgg_register_plugin_hook_handler('action:validate', 'widgets/move', '\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager');
 		elgg_register_plugin_hook_handler('permissions_check', 'object', '\ColdTrick\WidgetManager\Access::canEditWidgetOnManagedLayout');
