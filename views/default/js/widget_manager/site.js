@@ -24,7 +24,13 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 				$widgetContent.html(result.content);
 				if (typeof (result.title) != "undefined") {
 					var $widgetTitle = $widgetContent.parent().parent().find('.elgg-widget-title');
-					$widgetTitle.html(result.title);
+					
+					var newWidgetTitle = result.title;
+					if (typeof (result.href) != "undefined") {
+						newWidgetTitle = "<a href='" + result.href + "' class='elgg-anchor'><span class='elgg-anchor-label'>" + newWidgetTitle + "</span></a>";
+					}
+					
+					$widgetTitle.html(newWidgetTitle);
 				}
 			}
 		});
