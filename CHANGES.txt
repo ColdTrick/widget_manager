@@ -1,6 +1,11 @@
 Version history
 ===============
 
+11.0.1 (2020-12-08):
+
+- fixed: make sure custom link for widgets are always used
+- fixed: update widget title correctly with new title and href
+
 11.0 (2020-05-26):
 
 - changed: increased minimal Elgg requirement to 3.3
