@@ -7,6 +7,7 @@ use ColdTrick\WidgetManager\WidgetsSettingsConfig;
  * @uses $vars['entity']      ElggWidget
  * @uses $vars['show_access'] Show the access control in edit area? (true)
  * @uses $vars['class']       Optional additional CSS class
+ * @uses $vars['layout_info'] Additional layout info to be used by lazy loading logic
  */
 
 $widget = elgg_extract('entity', $vars);
@@ -52,7 +53,12 @@ if ($widget instanceof WidgetManagerWidget && $widget->showCollapsed()) {
 	$widget_class[] = 'elgg-state-collapsed';
 }
 
-$body = elgg_view('object/widget/body', $vars);
+if ($widget instanceof WidgetManagerWidget && WidgetsSettingsConfig::instance()->showLazyLoaded($widget, (array) elgg_extract('layout_info', $vars, []))) {
+	$body = elgg_view('graphics/ajax_loader', ['hidden' => false]);
+	$widget_class[] = 'lazy-loading';
+} else {
+	$body = elgg_view('object/widget/body', $vars);
+}
 
 echo elgg_view_module('widget', '', $body, [
 	'class' => $widget_class,

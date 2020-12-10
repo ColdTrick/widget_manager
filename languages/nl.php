@@ -1,10 +1,19 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 16:57
+ * This file was created by Translation Editor v7.0.4
+ * On 2020-12-10 11:55
  */
 
 return array (
+  'widget_manager:settings:lazy_loading' => 'Lazy Loading',
+  'widget_manager:widgets:edit:lazy_load_content' => 'Laad widget content vertraagd in',
+  'widget_manager:settings:lazy_loading:enabled' => 'Lazy Loading activeren',
+  'widget_manager:settings:lazy_loading:enabled:help' => 'Activeert de functionaliteit om widget content vertraagd in te laden',
+  'widget_manager:settings:lazy_loading:lazy_loading_mobile_columns' => 'Kolommen vertraagd laden op mobiele devices',
+  'widget_manager:settings:lazy_loading:lazy_loading_mobile_columns:help' => 'Widgets in de 2e en 3e kolom zullen altijd vertraagd inladen op mobiele devices',
+  'widget_manager:settings:lazy_loading:lazy_loading_under_fold' => 'Onder de vouw limiet',
+  'widget_manager:forms:manage_widgets:always_lazy_load' => 'Altijd vertraagd laden',
+  'widget_manager:settings:lazy_loading:lazy_loading_under_fold:help' => 'Widgets in dezelfde kolom zullen vertraagd inladen indien gepositioneerd na deze waarde',
   'item:object:widget_page' => 'Widget Pagina',
   'collection:object:widget_page' => 'Widget Pagina\'s',
   'admin:widgets:cleanup' => 'Opschonen',

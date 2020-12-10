@@ -1,4 +1,6 @@
 <?php
+use ColdTrick\WidgetManager\WidgetsSettingsConfig;
+
 $widget = elgg_extract('entity', $vars);
 $widget_context = elgg_extract('widget_context', $vars);
 
@@ -83,6 +85,18 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 			'closed' => elgg_echo('status:closed'),
 		],
 	];
+	
+	if ((bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager') && !WidgetsSettingsConfig::instance()->getSetting($widget->handler, 'always_lazy_load', $widget->context)) {
+		$fields[] = [
+			'#type' => 'checkbox',
+			'#label' => elgg_echo('widget_manager:widgets:edit:lazy_load_content'),
+			'name' => 'params[widget_manager_lazy_load_content]',
+			'checked' => !empty($widget->widget_manager_lazy_load_content),
+			'switch' => true,
+			'default' => 0,
+			'value' => 1,
+		];
+	}
 }
 
 echo elgg_view('input/fieldset', ['fields' => $fields]);

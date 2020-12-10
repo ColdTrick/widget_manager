@@ -97,19 +97,25 @@ foreach ($widgets as $index => $column_widgets) {
 	unset($widgets[$index]);
 }
 
+// remove unsupported widgets
+foreach ($widgets as $column_index => $column_widgets) {
+	foreach ($column_widgets as $widget_index => $column_widget) {
+		if (!array_key_exists($column_widget->handler, $widget_types)) {
+			unset($widgets[$column_index][$widget_index]);
+		}
+	}
+}
+
 $grid = '';
 for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	$column_widgets = (array) elgg_extract($column_index, $widgets, []);
 	
 	$widgets_content = '';
 	foreach ($column_widgets as $widget) {
-		if (!array_key_exists($widget->handler, $widget_types)) {
-			continue;
-		}
-		
 		$widgets_content .= elgg_view_entity($widget, [
 			'show_access' => $show_access,
 			'register_rss_link' => false,
+			'layout_info' => $widgets,
 		]);
 	}
 	
@@ -133,6 +139,7 @@ echo elgg_format_element('div', [
 		"layout-widgets-{$context}",
 	]),
 	'data-page-owner-guid' => $owner->guid,
+	'data-context-stack' => json_encode(elgg_get_context_stack()),
 ], $result);
 
 ?>

@@ -93,3 +93,36 @@ if (elgg_is_active_plugin('groups')) {
 	
 	echo elgg_view_module('info', elgg_echo('widget_manager:settings:group'), $group_settings);
 }
+
+$lazy_settings = elgg_view_field([
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('widget_manager:settings:lazy_loading:enabled'),
+	'#help' => elgg_echo('widget_manager:settings:lazy_loading:enabled:help'),
+	'name' => 'params[lazy_loading_enabled]',
+	'checked' => (bool) $plugin->lazy_loading_enabled,
+	'switch' => true,
+	'default' => 0,
+	'value' => 1,
+]);
+
+$lazy_settings .= elgg_view_field([
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_mobile_columns'),
+	'#help' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_mobile_columns:help'),
+	'name' => 'params[lazy_loading_mobile_columns]',
+	'checked' => (bool) $plugin->lazy_loading_mobile_columns,
+	'switch' => true,
+	'default' => 0,
+	'value' => 1,
+]);
+
+$lazy_settings .= elgg_view_field([
+	'#type' => 'number',
+	'#label' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_under_fold'),
+	'#help' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_under_fold:help'),
+	'name' => 'params[lazy_loading_under_fold]',
+	'value' => $plugin->lazy_loading_under_fold,
+	'min' => 0,
+]);
+
+echo elgg_view_module('info', elgg_echo('widget_manager:settings:lazy_loading'), $lazy_settings);

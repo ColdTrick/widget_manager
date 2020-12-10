@@ -6,6 +6,11 @@ require_once(dirname(__FILE__) . '/lib/functions.php');
 
 return [
 	'bootstrap' => \ColdTrick\WidgetManager\Bootstrap::class,
+	'settings' => [
+		'lazy_loading_enabled' => 0,
+		'lazy_loading_mobile_columns' => 1,
+		'lazy_loading_under_fold' => 5,
+	],
 	'entities' => [
 		[
 			'type' => 'object',
@@ -22,6 +27,9 @@ return [
 		'ColdTrick\WidgetManager\Upgrades\CreateWidgetPages',
 	],
 	'actions' => [
+		'widget_manager/lazy_load_widgets' => [
+			'access' => 'public',
+		],
 		'widget_manager/groups/update_widget_access' => [],
 		'widget_manager/widgets/toggle_collapse' => [],
 		'widget_manager/widgets/toggle_fix' => [

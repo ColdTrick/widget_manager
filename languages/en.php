@@ -26,6 +26,7 @@ return [
 	'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
 	'widget_manager:widgets:edit:collapse_disable' => "Disable collapse ability",
 	'widget_manager:widgets:edit:collapse_state' => "Default collapsed state",
+	'widget_manager:widgets:edit:lazy_load_content' => "Lazy load the content",
 
 	// group
 	'widget_manager:groups:enable_widget_manager' => "Enable management of widgets",
@@ -33,6 +34,7 @@ return [
 	// admin settings
 	'widget_manager:settings:index' => "Index",
 	'widget_manager:settings:group' => "Group",
+	'widget_manager:settings:lazy_loading' => "Lazy Loading",
 
 	'widget_manager:settings:custom_index' => "Use Widget Manager custom index?",
 	'widget_manager:settings:custom_index:non_loggedin' => "For non-loggedin users only",
@@ -71,12 +73,20 @@ return [
 	'widget_manager:settings:extra_contexts:top_row' => "Extra Top Row",
 	'widget_manager:settings:extra_contexts:manager' => "Manager",
 
+	'widget_manager:settings:lazy_loading:enabled' => "Enable Lazy Loading",
+	'widget_manager:settings:lazy_loading:enabled:help' => "Globally enables the lazy loading feature",
+	'widget_manager:settings:lazy_loading:lazy_loading_mobile_columns' => "Lazy Load columns on mobile",
+	'widget_manager:settings:lazy_loading:lazy_loading_mobile_columns:help' => "If on a mobile device the second and third column in a widget layout will always lazy load",
+	'widget_manager:settings:lazy_loading:lazy_loading_under_fold' => "Under the fold threshold",
+	'widget_manager:settings:lazy_loading:lazy_loading_under_fold:help' => "Widgets in the same column will lazy load if they are after this threshold",
+	
 	// views
 	// settings
 	'widget_manager:forms:manage_widgets:no_widgets' => "No widgets to manage",
 	'widget_manager:forms:manage_widgets:context' => 'Available in the context',
 	'widget_manager:forms:manage_widgets:can_add' => "Can be added",
 	'widget_manager:forms:manage_widgets:multiple' => "Multiple widgets allowed",
+	'widget_manager:forms:manage_widgets:always_lazy_load' => "Always lazy load",
 	'widget_manager:forms:manage_widgets:non_default' => "This setting is different from the default setting",
 	'widget_manager:forms:manage_widgets:unsupported_context:confirm' => "Are you sure you wish to enable this widget for this context? If the widget does not support the context this could cause issues.",
 

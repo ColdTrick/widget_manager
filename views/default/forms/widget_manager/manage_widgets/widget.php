@@ -17,6 +17,7 @@ $body .= '<tr>';
 $body .= '<th>' . elgg_echo('widget_manager:forms:manage_widgets:context') . '</th>';
 $body .= '<th class="center">' . elgg_echo('widget_manager:forms:manage_widgets:can_add') . '</th>';
 $body .= '<th class="center">' . elgg_echo('hide') . '</th>';
+$body .= '<th class="center">' . elgg_echo('widget_manager:forms:manage_widgets:always_lazy_load') . '</th>';
 $body .= '</tr>';
 foreach ($contexts as $context) {
 	$body .= '<tr><td>';
@@ -56,6 +57,13 @@ foreach ($contexts as $context) {
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][hide]",
 		'value' => 1,
 		'checked' => WidgetsSettingsConfig::instance()->getSetting($widget_definition->id, 'hide', $context),
+	]);
+	
+	$body .= '</td><td class="center">';
+	$body .= elgg_view('input/checkbox', [
+		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][always_lazy_load]",
+		'value' => 1,
+		'checked' => WidgetsSettingsConfig::instance()->getSetting($widget_definition->id, 'always_lazy_load', $context),
 	]);
 	
 	$body .= '</td></tr>';
