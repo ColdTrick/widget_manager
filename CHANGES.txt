@@ -1,6 +1,10 @@
 Version history
 ===============
 
+11.1 (2021-01-05):
+
+- added: lazy loading widget features
+
 11.0.1 (2020-12-08):
 
 - fixed: make sure custom link for widgets are always used
