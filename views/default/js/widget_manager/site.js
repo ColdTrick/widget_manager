@@ -62,7 +62,7 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 		if ($('.elgg-module-widget.lazy-loading').length) {
 			$('.elgg-layout-widgets').each(function(i, layout) {
 				var $lazy_widgets = $(layout).find('.elgg-module-widget.lazy-loading');
-				if (!$('.elgg-module-widget.lazy-loading').length) {
+				if (!$lazy_widgets.length) {
 					return;
 				}
 				
