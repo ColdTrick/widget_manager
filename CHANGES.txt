@@ -1,6 +1,11 @@
 Version history
 ===============
 
+11.2 (2021-05-25):
+
+- added: improved core widget logic if you have multiple layouts on a page
+- fixed: correctly detected if lazy loading is needed for a widget layout
+
 11.1 (2021-01-05):
 
 - added: lazy loading widget features
