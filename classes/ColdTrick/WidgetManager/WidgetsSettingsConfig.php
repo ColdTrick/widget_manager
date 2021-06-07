@@ -180,6 +180,6 @@ class WidgetsSettingsConfig {
 			return false;
 		};
 						
-		return (bool) elgg_trigger_plugin_hook('lazy_load', 'widget_manager', ['entity' => $this, 'layout_info' => $layout_info], $detect_lazy_loading());
+		return (bool) elgg_trigger_plugin_hook('lazy_load', 'widget_manager', ['entity' => $widget, 'layout_info' => $layout_info], $detect_lazy_loading());
 	}
 }
