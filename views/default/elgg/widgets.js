@@ -114,16 +114,23 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 		
 		event.preventDefault();
 	};
-
-	$(".elgg-widgets").sortable({
-		items: 'div.elgg-module-widget.elgg-state-draggable',
-		connectWith: '.elgg-widgets',
-		handle: '.elgg-widget-handle',
-		forcePlaceholderSize: true,
-		placeholder: 'elgg-widget-placeholder',
-		opacity: 0.8,
-		revert: 500,
-		stop: widgets.move
+	
+	$('.elgg-widgets').each(function() {
+		
+		var opts = $(this).data().sortableOptions;
+		var defaults = {
+			items: 'div.elgg-module-widget.elgg-state-draggable',
+			connectWith: '.elgg-widgets',
+			handle: '.elgg-widget-handle',
+			forcePlaceholderSize: true,
+			placeholder: 'elgg-widget-placeholder',
+			opacity: 0.8,
+			revert: 500,
+			stop: widgets.move
+		};
+		var settings = $.extend({}, defaults, opts);
+		
+		$(this).sortable(settings);
 	});
 
 	$(document).on('click', 'a.elgg-widget-delete-button', widgets.remove);

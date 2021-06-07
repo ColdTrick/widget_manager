@@ -106,6 +106,7 @@ foreach ($widgets as $column_index => $column_widgets) {
 	}
 }
 
+$grid_id = uniqid('elgg-widgets-grid-');
 $grid = '';
 for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	$column_widgets = (array) elgg_extract($column_index, $widgets, []);
@@ -122,11 +123,15 @@ for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	$grid .= elgg_format_element('div', [
 		'id' => "elgg-widget-col-{$column_index}",
 		'class' => elgg_extract_class(elgg_extract('column_classes', $vars, []), ['elgg-widgets'], $column_index),
+		'data-sortable-options' => json_encode([
+			'connectWith' => '#' . $grid_id . ' .elgg-widgets',
+		]),
 	], $widgets_content);
 }
 
 $result .= elgg_format_element('div', [
 	'class' => 'elgg-widgets-grid',
+	'id' => $grid_id,
 ], $grid);
 
 elgg_pop_context();
