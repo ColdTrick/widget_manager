@@ -1,6 +1,11 @@
 Version history
 ===============
 
+11.2.1 (2021-06-08):
+
+- fixed: correctly pass widget entity in lazy loading hook
+- fixed: multiple layouts should not connect with eachother
+
 11.2 (2021-05-25):
 
 - added: improved core widget logic if you have multiple layouts on a page
