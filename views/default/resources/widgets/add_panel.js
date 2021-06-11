@@ -10,6 +10,8 @@ define(['jquery', 'elgg/Ajax'], function($, Ajax) {
 	 * @return void
 	 */
 	var add = function (event) {
+		event.preventDefault();
+		
 		var $item = $(this).closest('li');
 
 		// if multiple instances not allow, disable this widget type add button
@@ -30,11 +32,14 @@ define(['jquery', 'elgg/Ajax'], function($, Ajax) {
 			}
 			
 			$(selector).prepend(output);
+
+			var $layout = $(selector).closest('.elgg-layout-widgets');
+			$layout.trigger({
+				type: 'widgetAdd',
+				layout: $layout
+			});
 		});
-		
-		event.preventDefault();
 	};
 	
 	$(document).on('click', '.elgg-widgets-add-panel .elgg-widgets-add-actions .elgg-button-submit', add);
-	
 });

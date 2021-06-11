@@ -56,25 +56,19 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 			event.preventDefault();
 			return;
 		}
-
+		
+		event.preventDefault();
+		
+		var $layout = $(this).closest('.elgg-layout-widgets');
 		$(this).closest('.elgg-module-widget').remove();
 
 		// delete the widget through ajax
 		elgg.action($(this).attr('href'));
-
-		event.preventDefault();
-	};
-
-	/**
-	 * Toggle the collapse state of the widget
-	 *
-	 * @param {Object} event
-	 * @return void
-	 */
-	widgets.collapseToggle = function (event) {
-		$(this).toggleClass('elgg-widget-collapsed');
-		$(this).parent().parent().find('.elgg-body').slideToggle('medium');
-		event.preventDefault();
+		
+		$layout.trigger({
+			type: 'widgetRemove',
+			layout: $layout
+		});
 	};
 
 	/**
@@ -86,21 +80,21 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 	 * @return void
 	 */
 	widgets.saveSettings = function (event) {
-		$(this).parent().slideToggle('medium');
-		var $widgetContent = $(this).parent().parent().children('.elgg-widget-content');
+		var $widget = $(this).closest('.elgg-module-widget');
+		var $widgetContent = $widget.find('.elgg-widget-content');
 
 		// stick the ajax loader in there
 		var $loader = $('#elgg-widget-loader').clone();
 		$loader.attr('id', '#elgg-widget-active-loader');
 		$loader.removeClass('hidden');
 		$widgetContent.html($loader);
-
+		
 		elgg.action('widgets/save', {
 			data: $(this).serialize(),
 			success: function (json) {
 				$widgetContent.html(json.output.content);
 				if (typeof (json.output.title) != "undefined") {
-					var $widgetTitle = $widgetContent.parent().parent().find('.elgg-widget-title');
+					var $widgetTitle = $widget.find('.elgg-widget-title');
 					
 					var newWidgetTitle = json.output.title;
 					if (typeof (json.output.href) != "undefined") {
@@ -109,13 +103,17 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 					
 					$widgetTitle.html(newWidgetTitle);
 				}
+				
+				$widget.trigger('saveSettings', {
+					widget: $widget
+				});
 			}
 		});
 		
 		event.preventDefault();
 	};
 	
-	$('.elgg-widgets').each(function() {
+	$('.elgg-layout-widgets:not(.widgets-fluid-columns)').find('.elgg-widgets').each(function() {
 		
 		var opts = $(this).data().sortableOptions;
 		var defaults = {
@@ -135,7 +133,6 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 
 	$(document).on('click', 'a.elgg-widget-delete-button', widgets.remove);
 	$(document).on('submit', '.elgg-widget-edit > form ', widgets.saveSettings);
-	$(document).on('click', 'a.elgg-widget-collapse-button', widgets.collapseToggle);
 
 	return widgets;
 });

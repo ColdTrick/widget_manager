@@ -10,7 +10,8 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 
 		lightbox.close();
 		
-		var $widgetContent = $('#elgg-widget-content-' + guid);
+		var $widget = $('#elgg-widget-' + guid);
+		var $widgetContent = $widget.find('.elgg-widget-content');
 
 		// stick the ajax loader in there
 		var $loader = $('#elgg-widget-loader').clone();
@@ -32,6 +33,11 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 					
 					$widgetTitle.html(newWidgetTitle);
 				}
+				
+				$widget.trigger({
+					type: 'saveSettings',
+					widget: $widget
+				});
 			}
 		});
 	});
@@ -47,6 +53,11 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 		} else {
 			$widget.removeClass('elgg-state-collapsed');
 		}
+		
+		$widget.trigger({
+			type: 'collapseToggle',
+			widget: $widget
+		});
 	});
 	
 	elgg.register_hook_handler('init', 'system', function() {
@@ -66,6 +77,7 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 					return;
 				}
 				
+				
 				var guids = [];
 				
 				$lazy_widgets.each(function(index, item) {
@@ -83,6 +95,11 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 					success: function (result) {
 						$.each(result, function(guid, body) {
 						    $('#elgg-widget-' + guid + ' > .elgg-body').html(body);
+						});
+						
+						$(layout).trigger({
+							type: 'lazyLoaded',
+							layout: $(layout)
 						});
 					}
 				});	

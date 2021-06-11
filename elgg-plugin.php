@@ -4,6 +4,11 @@ define('ACCESS_LOGGED_OUT', -5);
 
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
+$composer_path = '';
+if (is_dir(__DIR__ . '/vendor')) {
+	$composer_path = __DIR__ . '/';
+}
+
 return [
 	'bootstrap' => \ColdTrick\WidgetManager\Bootstrap::class,
 	'settings' => [
@@ -46,6 +51,11 @@ return [
 		],
 		'widget_manager/cleanup' => [
 			'access' => 'admin',
+		],
+	],
+	'views' => [
+		'default' => [
+			'packery.js' => $composer_path . 'vendor/npm-asset/packery/dist/packery.pkgd.js',
 		],
 	],
 ];

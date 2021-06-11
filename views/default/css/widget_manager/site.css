@@ -35,6 +35,12 @@
 	flex-wrap: wrap;
 }
 
+.widgets-columns-fluid {
+	.elgg-widgets {
+		padding: 0;
+	}
+}
+
 @media $(media-desktop-up) {
 	.elgg-widgets {
 		flex-basis: 0;

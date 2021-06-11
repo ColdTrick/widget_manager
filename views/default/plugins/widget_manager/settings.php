@@ -21,6 +21,7 @@ $index_settings .= elgg_view_field([
 	'name' => 'params[widget_layout]',
 	'value' => $plugin->widget_layout,
 	'options_values' => [
+		'fluid' => elgg_echo('widget_manager:settings:widget_layout:fluid'),
 		'33|33|33' => elgg_echo('widget_manager:settings:widget_layout:33|33|33'),
 		'50|25|25' => elgg_echo('widget_manager:settings:widget_layout:50|25|25'),
 		'25|50|25' => elgg_echo('widget_manager:settings:widget_layout:25|50|25'),

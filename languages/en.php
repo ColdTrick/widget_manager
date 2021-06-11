@@ -42,6 +42,7 @@ return [
 	'widget_manager:settings:custom_index:all' => "For all users",
 
 	'widget_manager:settings:widget_layout' => "Choose a widget layout",
+	'widget_manager:settings:widget_layout:fluid' => "Fluid layout",
 	'widget_manager:settings:widget_layout:33|33|33' => "Default layout (33% per column)",
 	'widget_manager:settings:widget_layout:50|25|25' => "Wide left column (50%, 25%, 25%)",
 	'widget_manager:settings:widget_layout:25|50|25' => "Wide middle column (25%, 50%, 25%)",
