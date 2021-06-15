@@ -35,11 +35,11 @@ define(['elgg', 'jquery', 'widget_manager/packery', 'elgg/widgets'], function (e
 		
 		var $widgets = $elem.find('.elgg-module-widget');
 		if (container_width > 1200) {
-			$widgets.css('width', 'calc(33% - 15px)');
-			options.gutter = 20;
+			$widgets.css('width', 'calc(33% - 14px)');
+			options.gutter = 28;
 		} else if (container_width > 800) {
-			$widgets.css('width', 'calc(50% - 10px)');
-			options.gutter = 20;
+			$widgets.css('width', 'calc(50% - 14px)');
+			options.gutter = 28;
 		} else {
 			$widgets.css('width', '100%');
 		}
@@ -80,7 +80,7 @@ define(['elgg', 'jquery', 'widget_manager/packery', 'elgg/widgets'], function (e
 	
 	$(window).resize(debounce(gridcheck, 50));
 	
-	$(document).on('saveSettings collapseToggle', '.widgets-fluid-columns .elgg-module-widget', gridcheck);
+	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
 		
-	$(document).on('lazyLoaded widgetAdd widgetRemove', '.widgets-fluid-columns', gridcheck);
+	$(document).on('lazyLoaded widgetAdd widgetRemove', '.elgg-layout-widgets', gridcheck);
 });
