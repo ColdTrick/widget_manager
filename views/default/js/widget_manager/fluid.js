@@ -34,53 +34,62 @@ define(['elgg', 'jquery', 'widget_manager/packery', 'elgg/widgets'], function (e
 		options.gutter_size = 0;
 		
 		var $widgets = $elem.find('.elgg-module-widget');
+		$widgets.removeClass('no-margin');
 		if (container_width > 1200) {
-			$widgets.css('width', 'calc(33% - 14px)');
+			$widgets.css('width', 'calc(33% - 16px)');
+			$widgets.addClass('no-margin');
 			options.gutter = 28;
 		} else if (container_width > 800) {
-			$widgets.css('width', 'calc(50% - 14px)');
+			$widgets.css('width', 'calc(50% - 16px)');
+			$widgets.addClass('no-margin');
 			options.gutter = 28;
 		} else {
 			$widgets.css('width', '100%');
 		}
-	}
+	};
 	
 	function gridcheck() {
 		$('.widgets-fluid-columns #elgg-widget-col-1').each(function() {
 			setItemSizes($(this));
 			var grid = new Packery(this, options);
 		});
-	}
+	};
 	
-	$('.widgets-fluid-columns #elgg-widget-col-1').each(function() {
-		// make all items draggable
-		var $items = $(this).find('.elgg-module-widget').draggable();
-		
-		setItemSizes($(this));
-		
-		var grid = new Packery(this, options);
-		grid.on('dragItemPositioned', function(draggedItem ) {
+	function initWidgets() {
+		$('.widgets-fluid-columns #elgg-widget-col-1').each(function() {
+			// make all items draggable
+			var $items = $(this).find('.elgg-module-widget').draggable();
 			
-			var $widget = $(draggedItem.element);
-			var guidString = $widget.attr('id');
-			guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
+			setItemSizes($(this));
 			
-			elgg.action('widgets/move', {
-				data: {
-					widget_guid: guidString,
-					column: 1,
-					position: $(grid.getItemElements()).index($widget)
-				}
+			var grid = new Packery(this, options);
+			grid.on('dragItemPositioned', function(draggedItem ) {
+				
+				var $widget = $(draggedItem.element);
+				var guidString = $widget.attr('id');
+				guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
+				
+				elgg.action('widgets/move', {
+					data: {
+						widget_guid: guidString,
+						column: 1,
+						position: $(grid.getItemElements()).index($widget)
+					}
+				});
 			});
+			
+			// bind drag events to Packery
+			grid.bindUIDraggableEvents($items);
 		});
-		
-		// bind drag events to Packery
-		grid.bindUIDraggableEvents($items);
-	});
+	};
+	
+	initWidgets();
 	
 	$(window).resize(debounce(gridcheck, 50));
 	
 	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
 		
-	$(document).on('lazyLoaded widgetAdd widgetRemove', '.elgg-layout-widgets', gridcheck);
+	$(document).on('lazyLoaded widgetRemove', '.elgg-layout-widgets', gridcheck);
+
+	$(document).on('widgetAdd', '.elgg-layout-widgets', initWidgets);
 });

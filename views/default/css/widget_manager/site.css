@@ -39,6 +39,16 @@
 	.elgg-widgets {
 		padding: 0;
 	}
+	
+	.elgg-module-widget.no-margin {
+		margin: 0;
+	}
+	
+	.packery-drop-placeholder {
+		outline: 3px dashed $(border-color-soft);
+		outline-offset: -6px;
+		transition: transform 0.2s;
+	}
 }
 
 @media $(media-desktop-up) {
