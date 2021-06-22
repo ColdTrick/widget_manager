@@ -1,6 +1,10 @@
 Version history
 ===============
 
+11.3 (2021-06-22):
+
+- added: fluid/packery/masonry index layout
+
 11.2.1 (2021-06-08):
 
 - fixed: correctly pass widget entity in lazy loading hook
