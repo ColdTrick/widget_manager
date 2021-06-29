@@ -22,7 +22,7 @@
 	"require": {
 		"composer/installers": "^1.0.8",
 		"mobiledetect/mobiledetectlib": "~2.8.0",
-		"npm-asset/packery": "~2.1.2"
+		"npm-asset/muuri": "~0.9.3"
 	},
 	"require-dev": {
 		"coldtrick/sniffs": "dev-master",

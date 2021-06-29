@@ -36,18 +36,32 @@
 }
 
 .widgets-fluid-columns {
+	.elgg-widgets-grid {
+		display: block;
+	}
+
 	.elgg-widgets {
 		padding: 0;
+		position: relative;
 	}
 	
-	.elgg-module-widget.no-margin {
-		margin: 0;
+	.elgg-module-widget {
+		position: absolute;
+		margin: 14px;
+		
+		&.muuri-item-dragging {
+			z-index: 3;
+		}
+		&.muuri-item-releasing {
+			z-index: 2;
+		}
+		&.muuri-item-hidden {
+			z-index: 0;
+		}
 	}
 	
-	.packery-drop-placeholder {
-		outline: 3px dashed $(border-color-soft);
-		outline-offset: -6px;
-		transition: transform 0.2s;
+	.fluid-placeholder {
+		border: 3px dashed $(border-color-mild);
 	}
 }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62bddd2eb3beb793323b6ca1769c7522",
+    "content-hash": "ec652c331bd0b15394795609215d0eb2",
     "packages": [
         {
             "name": "composer/installers",
@@ -219,87 +219,15 @@
             "time": "2021-02-19T21:22:57+00:00"
         },
         {
-            "name": "npm-asset/desandro-matches-selector",
-            "version": "2.0.2",
+            "name": "npm-asset/muuri",
+            "version": "0.9.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz"
+                "url": "https://registry.npmjs.org/muuri/-/muuri-0.9.3.tgz"
             },
             "type": "npm-asset",
             "license": [
                 "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/ev-emitter",
-            "version": "1.1.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/ev-emitter/-/ev-emitter-1.1.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/fizzy-ui-utils",
-            "version": "2.0.7",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz"
-            },
-            "require": {
-                "npm-asset/desandro-matches-selector": ">=2.0.0,<3.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/get-size",
-            "version": "2.0.3",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/get-size/-/get-size-2.0.3.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/outlayer",
-            "version": "2.1.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/outlayer/-/outlayer-2.1.1.tgz"
-            },
-            "require": {
-                "npm-asset/ev-emitter": ">=1.0.0,<2.0.0",
-                "npm-asset/fizzy-ui-utils": ">=2.0.0,<3.0.0",
-                "npm-asset/get-size": ">=2.0.2,<3.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/packery",
-            "version": "2.1.2",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/packery/-/packery-2.1.2.tgz"
-            },
-            "require": {
-                "npm-asset/get-size": ">=2.0.2,<3.0.0",
-                "npm-asset/outlayer": ">=2.0.0,<3.0.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "GPL-3.0"
             ]
         }
     ],

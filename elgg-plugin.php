@@ -52,10 +52,11 @@ return [
 		'widget_manager/cleanup' => [
 			'access' => 'admin',
 		],
+		'widget_manager/fluid_order' => [],
 	],
 	'views' => [
 		'default' => [
-			'packery.js' => $composer_path . 'vendor/npm-asset/packery/dist/packery.pkgd.js',
+			'muuri.js' => $composer_path . 'vendor/npm-asset/muuri/dist/muuri.js',
 		],
 	],
 ];

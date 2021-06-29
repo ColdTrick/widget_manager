@@ -45,11 +45,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_ajax_view('forms/widget_manager/widget_page');
 		elgg_register_ajax_view('widget_manager/widgets/settings');
 		elgg_register_ajax_view('widgets/user_search/content');
-		
-		elgg_define_js('widget_manager/packery', [
-			'src' => elgg_get_simplecache_url('packery.js'),
-			'exports' => 'Packery',
-		]);
 
 		$this->registerIndexRoute();
 		$this->registerWidgetPagesRoutes();

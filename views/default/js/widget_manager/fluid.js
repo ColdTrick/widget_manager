@@ -1,14 +1,16 @@
 /**
  * @module widget_manager/fluid
  */
-define(['elgg', 'jquery', 'widget_manager/packery', 'elgg/widgets'], function (elgg, $, Packery) {
-
-	var options = {
-		itemSelector: '.elgg-module-widget',
-		percentPosition: true,
-		gutter: 0,
-		resize: false,
+define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muuri) {
+	
+	var grid;
+	var grid_selector = '.widgets-fluid-columns #elgg-widget-col-1';
+	var grid_options = {
+		items: '.elgg-module-widget',
+		dragEnabled: true,
+		itemPlaceholderClass: 'fluid-placeholder',
 	};
+	var ajax = new Ajax();
 	
 	// Returns a function, that, as long as it continues to be invoked, will not
 	// be triggered. The function will be called after it stops being called for
@@ -31,65 +33,66 @@ define(['elgg', 'jquery', 'widget_manager/packery', 'elgg/widgets'], function (e
 	
 	function setItemSizes($elem) {
 		var container_width = $elem.width();
-		options.gutter_size = 0;
-		
+
 		var $widgets = $elem.find('.elgg-module-widget');
-		$widgets.removeClass('no-margin');
 		if (container_width > 1200) {
-			$widgets.css('width', 'calc(33% - 16px)');
-			$widgets.addClass('no-margin');
-			options.gutter = 28;
+			$widgets.css('width', 'calc(33% - 28px)');
 		} else if (container_width > 800) {
-			$widgets.css('width', 'calc(50% - 16px)');
-			$widgets.addClass('no-margin');
-			options.gutter = 28;
+			$widgets.css('width', 'calc(50% - 28px)');
 		} else {
-			$widgets.css('width', '100%');
+			$widgets.css('width', 'calc(100% - 28px)');
 		}
 	};
 	
 	function gridcheck() {
-		$('.widgets-fluid-columns #elgg-widget-col-1').each(function() {
+		$(grid_selector).each(function() {
 			setItemSizes($(this));
-			var grid = new Packery(this, options);
+			grid.refreshItems().layout();
 		});
 	};
 	
-	function initWidgets() {
-		$('.widgets-fluid-columns #elgg-widget-col-1').each(function() {
-			// make all items draggable
-			var $items = $(this).find('.elgg-module-widget').draggable();
+	function initGrid() {
+		if (grid) {
+			grid.destroy();
+		}
+		
+		setItemSizes($(grid_selector));
+		
+		grid = new Muuri(grid_selector, grid_options);
+		
+		grid.on('dragEnd', function (item, event) {
+			if (event.distance === 0) {
+				return;
+			}
 			
-			setItemSizes($(this));
+			// update dom with new positions	
+			grid.synchronize();
 			
-			var grid = new Packery(this, options);
-			grid.on('dragItemPositioned', function(draggedItem ) {
+			var guids = [];
+			$.each(grid.getItems(), function(index, item) {
+				var guidString = $(item._element).attr('id');
+				guidString = guidString.substr(guidString.indexOf('elgg-widget-') + 'elgg-widget-'.length);
 				
-				var $widget = $(draggedItem.element);
-				var guidString = $widget.attr('id');
-				guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
-				
-				elgg.action('widgets/move', {
-					data: {
-						widget_guid: guidString,
-						column: 1,
-						position: $(grid.getItemElements()).index($widget)
-					}
-				});
+				guids.push(guidString);
 			});
 			
-			// bind drag events to Packery
-			grid.bindUIDraggableEvents($items);
+			ajax.action('widget_manager/fluid_order', {
+				data: {
+					guids: guids
+				}
+			});
 		});
-	};
+	}
 	
-	initWidgets();
-	
-	$(window).resize(debounce(gridcheck, 50));
-	
-	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
+	initGrid();
 		
-	$(document).on('lazyLoaded widgetRemove', '.elgg-layout-widgets', gridcheck);
+	$(window).resize(debounce(gridcheck, 50));
 
-	$(document).on('widgetAdd', '.elgg-layout-widgets', initWidgets);
+	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
+	$(document).on('lazyLoaded', '.elgg-layout-widgets', gridcheck);
+	
+	$(document).on('widgetRemove widgetAdd', '.elgg-layout-widgets', initGrid);
+	
+	// mmenu support
+	$(document).on('mmenu.toggle', gridcheck);
 });
