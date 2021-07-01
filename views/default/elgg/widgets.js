@@ -60,14 +60,16 @@ define(['elgg', 'jquery', 'elgg/ready'], function (elgg, $) {
 		event.preventDefault();
 		
 		var $layout = $(this).closest('.elgg-layout-widgets');
-		$(this).closest('.elgg-module-widget').remove();
+		var $widget = $(this).closest('.elgg-module-widget');
+		$widget.remove();
 
 		// delete the widget through ajax
 		elgg.action($(this).attr('href'));
 		
 		$layout.trigger({
 			type: 'widgetRemove',
-			layout: $layout
+			layout: $layout,
+			widget: $widget
 		});
 	};
 

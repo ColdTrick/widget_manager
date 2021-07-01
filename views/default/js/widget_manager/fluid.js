@@ -9,6 +9,9 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 		items: '.elgg-module-widget',
 		dragEnabled: true,
 		itemPlaceholderClass: 'fluid-placeholder',
+		layoutDuration: 0,
+		showDuration: 0,
+		layoutOnInit: false,
 	};
 	var ajax = new Ajax();
 	
@@ -45,44 +48,51 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	};
 	
 	function gridcheck() {
-		$(grid_selector).each(function() {
-			setItemSizes($(this));
-			grid.refreshItems().layout();
-		});
+		setTimeout(function() {
+			$(grid_selector).each(function() {
+				setItemSizes($(this));
+				grid.refreshItems().layout();
+			});
+		}, 100);
 	};
 	
 	function initGrid() {
-		if (grid) {
-			grid.destroy();
-		}
-		
-		setItemSizes($(grid_selector));
-		
-		grid = new Muuri(grid_selector, grid_options);
-		
-		grid.on('dragEnd', function (item, event) {
-			if (event.distance === 0) {
-				return;
+		setTimeout(function() {
+			// added bit of delay to allow images to load
+			if (grid) {
+				grid.destroy();
 			}
 			
-			// update dom with new positions	
-			grid.synchronize();
+			setItemSizes($(grid_selector));
 			
-			var guids = [];
-			$.each(grid.getItems(), function(index, item) {
-				var guidString = $(item._element).attr('id');
-				guidString = guidString.substr(guidString.indexOf('elgg-widget-') + 'elgg-widget-'.length);
-				
-				guids.push(guidString);
-			});
+			grid = new Muuri(grid_selector, grid_options);
 			
-			ajax.action('widget_manager/fluid_order', {
-				data: {
-					guids: guids
+			grid.on('dragEnd', function (item, event) {
+				if (event.distance === 0) {
+					return;
 				}
-			});
-		});
-	}
+				
+				// update dom with new positions	
+				grid.synchronize();
+				
+				var guids = [];
+				$.each(grid.getItems(), function(index, item) {
+					var guidString = $(item._element).attr('id');
+					guidString = guidString.substr(guidString.indexOf('elgg-widget-') + 'elgg-widget-'.length);
+					
+					guids.push(guidString);
+				});
+				
+				ajax.action('widget_manager/fluid_order', {
+					data: {
+						guids: guids
+					}
+				});
+			}).on('layoutEnd', function() {
+				$(grid_selector).css('visibility', 'visible');
+			}).layout();
+		}, 100);
+	};
 	
 	initGrid();
 		
@@ -91,7 +101,16 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
 	$(document).on('lazyLoaded', '.elgg-layout-widgets', gridcheck);
 	
-	$(document).on('widgetRemove widgetAdd', '.elgg-layout-widgets', initGrid);
+	$(document).on('widgetAdd', '.elgg-layout-widgets', initGrid);
+	$(document).on('widgetRemove', '.elgg-layout-widgets', function(event) {
+		// need to explicitely remove item from the grid
+		var removed_item = grid.getItems().filter(function(item) {
+			return $(item._element).attr('id') === event.widget.attr('id');
+		});
+		grid.remove(removed_item, {removeElements: true});
+
+		initGrid();
+	});
 	
 	// mmenu support
 	$(document).on('mmenu.toggle', gridcheck);

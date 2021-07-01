@@ -38,6 +38,7 @@
 .widgets-fluid-columns {
 	.elgg-widgets-grid {
 		display: block;
+		visibility: hidden;
 	}
 
 	.elgg-widgets {
