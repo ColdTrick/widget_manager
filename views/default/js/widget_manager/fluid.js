@@ -13,6 +13,10 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 		showDuration: 0,
 		layoutOnInit: false,
 		dragHandle: '.elgg-widget-handle',
+		dragStartPredicate: {
+			distance: 10,
+			delay: 10
+		},
 	};
 	var ajax = new Ajax();
 	
