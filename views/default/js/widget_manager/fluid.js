@@ -12,6 +12,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 		layoutDuration: 0,
 		showDuration: 0,
 		layoutOnInit: false,
+		dragHandle: '.elgg-widget-handle',
 	};
 	var ajax = new Ajax();
 	
