@@ -48,12 +48,14 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	};
 	
 	function gridcheck() {
-		setTimeout(function() {
-			$(grid_selector).each(function() {
-				setItemSizes($(this));
-				grid.refreshItems().layout();
-			});
-		}, 100);
+		if (grid) {
+			setTimeout(function() {
+				$(grid_selector).each(function() {
+					setItemSizes($(this));
+					grid.refreshItems().layout();
+				});
+			}, 200);
+		}
 	};
 	
 	function initGrid() {
@@ -91,7 +93,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 			}).on('layoutEnd', function() {
 				$(grid_selector).css('visibility', 'visible');
 			}).layout();
-		}, 100);
+		}, 200);
 	};
 	
 	initGrid();
