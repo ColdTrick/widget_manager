@@ -7,7 +7,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	var grid_selector = '.widgets-fluid-columns #elgg-widget-col-1';
 	var grid_options = {
 		items: '.elgg-module-widget',
-		dragEnabled: true,
+		dragEnabled: false,
 		itemPlaceholderClass: 'fluid-placeholder',
 		layoutDuration: 0,
 		showDuration: 0,
@@ -18,6 +18,11 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 			delay: 10
 		},
 	};
+	
+	if ($('.widgets-fluid-columns.elgg-layout-can-edit').length) {
+		grid_options.dragEnabled = true;
+	}
+	
 	var ajax = new Ajax();
 	
 	// Returns a function, that, as long as it continues to be invoked, will not
@@ -65,7 +70,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	
 	function initGrid() {
 		setTimeout(function() {
-			// added bit of delay to allow images to load
+			// added bit of delay to allow images to load (also required for correct working of delete event)
 			if (grid) {
 				grid.destroy();
 			}
@@ -108,16 +113,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
 	$(document).on('lazyLoaded', '.elgg-layout-widgets', gridcheck);
 	
-	$(document).on('widgetAdd', '.elgg-layout-widgets', initGrid);
-	$(document).on('widgetRemove', '.elgg-layout-widgets', function(event) {
-		// need to explicitely remove item from the grid
-		var removed_item = grid.getItems().filter(function(item) {
-			return $(item._element).attr('id') === event.widget.attr('id');
-		});
-		grid.remove(removed_item, {removeElements: true});
-
-		initGrid();
-	});
+	$(document).on('widgetAdd widgetRemove', '.elgg-layout-widgets', initGrid);
 	
 	// mmenu support
 	$(document).on('mmenu.toggle', gridcheck);

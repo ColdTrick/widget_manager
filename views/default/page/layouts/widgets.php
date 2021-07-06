@@ -138,11 +138,17 @@ elgg_pop_context();
 
 $result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
 
+$classes = elgg_extract_class($vars, [
+	'elgg-layout-widgets',
+	"layout-widgets-{$context}",
+]);
+
+if ($can_edit_layout) {
+	$classes[] = 'elgg-layout-can-edit';
+}
+
 echo elgg_format_element('div', [
-	'class' => elgg_extract_class($vars, [
-		'elgg-layout-widgets',
-		"layout-widgets-{$context}",
-	]),
+	'class' => $classes,
 	'data-page-owner-guid' => $owner->guid,
 	'data-context-stack' => json_encode(elgg_get_context_stack()),
 ], $result);
