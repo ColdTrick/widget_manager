@@ -53,6 +53,7 @@ foreach ($widgets_config as $widget_id => $widget_config) {
 	}
 }
 
-elgg_set_plugin_setting('widgets_config', json_encode($setting), 'widget_manager');
+$plugin = elgg_get_plugin_from_id('widget_manager');
+$plugin->setSetting('widgets_config', json_encode($setting));
 
 return elgg_ok_response('', elgg_echo('widget_manager:action:manage:success'));

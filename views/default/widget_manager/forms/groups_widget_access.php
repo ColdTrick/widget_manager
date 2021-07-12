@@ -12,7 +12,7 @@ if (empty($group) || !($group instanceof ElggGroup) || !$group->canEdit()) {
 $widgets_count = elgg_count_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
-	'owner_guid' => $group->getGUID(),
+	'owner_guid' => $group->guid,
 	'private_setting_name' => 'context',
 	'private_setting_value' => 'groups',
 ]);
@@ -34,7 +34,7 @@ $form_body .= '<div>' . elgg_view('input/access', [
 ]) . '</div>';
 
 $form_body .= '<div class="elgg-footer">';
-$form_body .= elgg_view('input/hidden', ['name' => 'group_guid', 'value' => $group->getGUID()]);
+$form_body .= elgg_view('input/hidden', ['name' => 'group_guid', 'value' => $group->guid]);
 $form_body .= elgg_view('input/submit', ['value' => elgg_echo('save')]);
 $form_body .= '</div>';
 

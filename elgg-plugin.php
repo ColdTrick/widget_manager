@@ -1,6 +1,8 @@
 <?php
 
-require_once(dirname(__FILE__) . '/lib/functions.php');
+if (!defined('ACCESS_LOGGED_OUT')) {
+	define('ACCESS_LOGGED_OUT', -5);
+}
 
 $composer_path = '';
 if (is_dir(__DIR__ . '/vendor')) {
@@ -49,9 +51,6 @@ return [
 		],
 		'widget_manager/groups/update_widget_access' => [],
 		'widget_manager/widgets/toggle_collapse' => [],
-		'widget_manager/widgets/toggle_fix' => [
-			'access' => 'admin',
-		],
 		'widget_manager/force_tool_widgets' => [
 			'access' => 'admin',
 		],

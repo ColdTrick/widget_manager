@@ -69,45 +69,6 @@ class Menus {
 	/**
 	 * Adds an optional fix link to the menu
 	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:widget'
-	 *
-	 * @return array
-	 */
-	public static function addFixDefaultWidgetMenuItem(\Elgg\Hook $hook) {
-		if (!elgg_is_admin_logged_in()) {
-			return;
-		}
-		
-		if (!elgg_in_context('default_widgets')) {
-			return;
-		}
-		
-		$widget = $hook->getEntityParam();
-		if (!in_array($widget->context, ['profile', 'dashboard'])) {
-			return;
-		}
-		
-		$class = ['widget-manager-fix'];
-		if ($widget->fixed) {
-			$class[] = 'elgg-state-active';
-		}
-		
-		$return_value = $hook->getValue();
-		$return_value[] = \ElggMenuItem::factory([
-			'name' => 'fix',
-			'text' => elgg_view_icon('thumb-tack'),
-			'title' => elgg_echo('widget_manager:widgets:fix'),
-			'href' => "#{$widget->guid}",
-			'link_class' => $class,
-			'deps' => 'widget_manager/toggle_fix',
-		]);
-	
-		return $return_value;
-	}
-
-	/**
-	 * Adds an optional fix link to the menu
-	 *
 	 * @param \Elgg\Hook $hook 'register', 'menu:entity'
 	 *
 	 * @return array
@@ -201,23 +162,13 @@ class Menus {
 	public static function prepareWidgetEditDeleteMenuItems(\Elgg\Hook $hook) {
 		$widget = $hook->getEntityParam();
 		$return_value = $hook->getValue();
-
-		if ($widget->fixed && !elgg_in_context('default_widgets') && !elgg_is_admin_logged_in()) {
-			foreach ($return_value as $section_key => $section) {
-				foreach ($section as $item_key => $item) {
-					if (in_array($item->getName(), ['delete', 'settings'])) {
-						unset($return_value[$section_key][$item_key]);
-					}
-				}
-			}
-		}
 	
 		foreach ($return_value as $section_key => $section) {
 			foreach ($section as $item_key => $item) {
 				
 				if ($item->getName() == 'settings') {
 					$show_access = elgg_get_config('widget_show_access');
-					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->getGUID() . '&show_access=' . $show_access);
+					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->guid . '&show_access=' . $show_access);
 					unset($item->rel);
 					$item->{"data-colorbox-opts"} = '{"width": 750, "max-height": "80%", "trapFocus": false, "fixed": true}';
 					$item->addLinkClass('elgg-lightbox');

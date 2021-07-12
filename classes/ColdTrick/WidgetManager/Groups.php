@@ -42,7 +42,7 @@ class Groups {
 			// push an extra context for others to know what's going on
 			elgg_push_context('widget_manager_group_tool_widgets');
 	
-			$current_widgets = elgg_get_widgets($object->getGUID(), 'groups');
+			$current_widgets = elgg_get_widgets($object->guid, 'groups');
 	
 			// disable widgets
 			$disable_widget_handlers = elgg_extract('disable', $result);
@@ -137,7 +137,7 @@ class Groups {
 					// add new widgets
 					if (!empty($enable_widget_handlers)) {
 						foreach ($enable_widget_handlers as $handler) {
-							$widget_guid = elgg_create_widget($object->getGUID(), $handler, 'groups', $object->access_id);
+							$widget_guid = elgg_create_widget($object->guid, $handler, 'groups', $object->access_id);
 							if (empty($widget_guid)) {
 								continue;
 							}

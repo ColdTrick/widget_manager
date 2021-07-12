@@ -50,22 +50,6 @@ class WidgetManagerWidget extends ElggWidget {
 	}
 	
 	/**
-	 * Can someone edit this widget (normal users can not edit fixed widgets)
-	 *
-	 * @param int $user_guid optional user_guid to check
-	 *
-	 * @return boolean
-	 */
-	public function canEdit($user_guid = 0) {
-		$result = parent::canEdit($user_guid);
-		
-		if ($result && ($this->fixed && !elgg_is_admin_logged_in())) {
-			$result = false;
-		}
-		return $result;
-	}
-	
-	/**
 	 * need to take over from ElggWidget to allow saving arrays
 	 *
 	 * @param array $params new settings

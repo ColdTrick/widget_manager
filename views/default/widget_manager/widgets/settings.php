@@ -27,7 +27,7 @@ $form = elgg_view_form('widgets/save', $form_vars, $body_vars);
 
 echo elgg_format_element('div', [
 	'class' => 'widget-manager-lightbox-edit',
-	'id' => "widget-edit-{$widget->getGUID()}",
+	'id' => "widget-edit-{$widget->guid}",
 ], $form);
 
 elgg_pop_context(); // undo widgets

@@ -13,7 +13,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		// register plugin hooks
 		elgg_register_plugin_hook_handler('access:collections:write', 'all', '\ColdTrick\WidgetManager\Access::setWriteAccess', 999);
 		elgg_register_plugin_hook_handler('access:collections:read', 'user', '\ColdTrick\WidgetManager\Access::addLoggedOutReadAccess');
-		elgg_register_plugin_hook_handler('register', 'menu:widget', '\ColdTrick\WidgetManager\Menus::addFixDefaultWidgetMenuItem');
 		elgg_register_plugin_hook_handler('prepare', 'menu:widget', '\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems');
 		elgg_register_plugin_hook_handler('permissions_check', 'widget_layout', '\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck');
 		elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig', 9999);
@@ -23,7 +22,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('permissions_check', 'object', '\ColdTrick\WidgetManager\Access::canEditWidgetOnManagedLayout');
 		elgg_register_plugin_hook_handler('setting', 'plugin', '\ColdTrick\WidgetManager\Settings::implodeSettings');
 		elgg_register_plugin_hook_handler('view_vars', 'groups/profile/widgets', '\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout');
-		elgg_register_plugin_hook_handler('view_vars', 'page/layouts/widgets', '\ColdTrick\WidgetManager\Widgets::checkFixedWidgets');
 		elgg_register_plugin_hook_handler('view_vars', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::getContentFromCache');
 		elgg_register_plugin_hook_handler('view_vars', 'object/widget/elements/controls', '\ColdTrick\WidgetManager\Widgets::preventControls');
 		elgg_register_plugin_hook_handler('view', 'object/widget/body', '\ColdTrick\WidgetManager\Widgets::saveContentInCache', 9999);
@@ -33,7 +31,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('register', 'menu:widget_toggle', '\ColdTrick\WidgetManager\Menus::addWidgetToggleControls');
 		
 		elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
-		elgg_register_event_handler('all', 'object', '\ColdTrick\WidgetManager\Widgets::createFixedParentMetadata', 1000); // is only a fallback
 		
 		// extend CSS
 		elgg_extend_view('elements/widgets.css', 'css/widget_manager/site.css');

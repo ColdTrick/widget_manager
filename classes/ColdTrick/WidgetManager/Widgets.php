@@ -35,40 +35,6 @@ class Widgets {
 			}
 		});
 	}
-	
-	/**
-	 * Sets the fixed parent guid to default widgets to be used when cloning, so relationship can stay intact.
-	 *
-	 * @param \Elgg\Event $event 'all', 'object'
-	 *
-	 * @return void
-	 */
-	public static function createFixedParentMetadata(\Elgg\Event $event) {
-		$object = $event->getObject();
-		if (!($object instanceof \ElggWidget) || !in_array($event->getName(), ['create', 'update', 'delete'])) {
-			return;
-		}
-	
-		if (!stristr(elgg_extract('HTTP_REFERER', $_SERVER), '/admin/appearance/default_widgets')) {
-			return;
-		}
-	
-		// on create set a parent guid
-		if ($event->getName() == 'create') {
-			$object->fixed_parent_guid = $object->guid;
-		}
-	
-		// update time stamp
-		$context = $object->context;
-		if (empty($context)) {
-			// only situation is on create probably, as context is metadata and saved after creation of the object, this is the fallback
-			$context = get_input('context', false);
-		}
-	
-		if ($context) {
-			elgg_set_plugin_setting($context . '_fixed_ts', time(), 'widget_manager');
-		}
-	}
 			
 	/**
 	 * Applies the saved widgets config
@@ -304,43 +270,6 @@ class Widgets {
 				return elgg_generate_url('collection:object:bookmarks:owner', [
 					'username' => $owner->username,
 				]);
-		}
-	}
-	
-	/**
-	 * Updates fixed widgets on profile and dashboard
-	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'page/layouts/widgets'
-	 *
-	 * @return void
-	 */
-	public static function checkFixedWidgets(\Elgg\Hook $hook) {
-		if (elgg_in_context('default_widgets')) {
-			return;
-		}
-		
-		$context = elgg_get_context();
-		if (!in_array($context, ['profile', 'dashboard'])) {
-			// only check things if you are viewing a profile or dashboard page
-			return;
-		}
-		
-		$page_owner = elgg_get_page_owner_entity();
-		if (!$page_owner instanceof \ElggUser) {
-			return;
-		}
-		
-		$fixed_ts = elgg_get_plugin_setting($context . '_fixed_ts', 'widget_manager');
-		if (empty($fixed_ts)) {
-			// there should always be a fixed ts, so fix it now. This situation only occurs after activating widget_manager the first time.
-			$fixed_ts = time();
-			elgg_set_plugin_setting($context . '_fixed_ts', $fixed_ts, 'widget_manager');
-		}
-		
-		// get the ts of the profile/dashboard you are viewing
-		$user_fixed_ts = elgg_get_plugin_user_setting($context . '_fixed_ts', $page_owner->guid, 'widget_manager');
-		if ($user_fixed_ts < $fixed_ts) {
-			widget_manager_update_fixed_widgets($context, $page_owner->guid);
 		}
 	}
 	
