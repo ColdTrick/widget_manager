@@ -18,7 +18,7 @@ $select->groupBy('md_handler.value');
 $select->addGroupBy('md_context.value');
 $select->orderBy('md_handler.value, md_context.value');
 
-$res = $select->execute()->fetchAll();
+$res = elgg()->db->getData($select);
 
 $handler = '';
 foreach ($res as $row) {
