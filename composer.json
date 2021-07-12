@@ -23,7 +23,7 @@
 	"require": {
 		"composer/installers": "^1.0.8",
 		"mobiledetect/mobiledetectlib": "~2.8.0",
-		"npm-asset/muuri": "~0.9.3"
+		"npm-asset/muuri": "~0.9.5"
 	},
 	"require-dev": {
 		"coldtrick/sniffs": "dev-master",

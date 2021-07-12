@@ -16,6 +16,11 @@ if (empty($page_owner) || !$page_owner instanceof \ElggGroup) {
 	return;
 }
 
+$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
+if (!in_array($group_enable, ['yes', 'forced'])) {
+	return;
+}
+
 $result = ['enable' => [], 'disable' => []];
 $params = ['entity' => $page_owner];
 

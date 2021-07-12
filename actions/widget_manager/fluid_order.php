@@ -11,6 +11,7 @@ foreach ($guids as $index => $guid) {
 		continue;
 	}
 	
+	$widget->column = 1;
 	$widget->order = $index + 1;
 }
 

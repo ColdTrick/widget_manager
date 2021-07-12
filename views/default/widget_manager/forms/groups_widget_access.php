@@ -9,6 +9,11 @@ if (empty($group) || !($group instanceof ElggGroup) || !$group->canEdit()) {
 	return;
 }
 
+$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
+if (!in_array($group_enable, ['yes', 'forced'])) {
+	return;
+}
+
 $widgets_count = elgg_count_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
@@ -16,28 +21,41 @@ $widgets_count = elgg_count_entities([
 	'private_setting_name' => 'context',
 	'private_setting_value' => 'groups',
 ]);
+
 if (!$widgets_count) {
-	// no widgets = no need for this form
+	// no widgets = no need for these actions
 	return;
 }
 
-$title = elgg_echo('widget_manager:forms:groups_widget_access:title');
-
-$form_body = '<div>' . elgg_echo('widget_manager:forms:groups_widget_access:description') . '</div>';
-
-$form_body .= '<div>' . elgg_view('input/access', [
-	'name' => 'widget_access_level',
+$access_options = get_write_access_array(0, 0, false, [
+	'container_guid' => $group->guid,
+	'value' => $group->access_id,
 	'entity_type' => 'object',
 	'entity_subtype' => 'widget',
-	'container_guid' => $group->guid,
 	'purpose' => 'groups_widget_access',
-]) . '</div>';
+]);
 
-$form_body .= '<div class="elgg-footer">';
-$form_body .= elgg_view('input/hidden', ['name' => 'group_guid', 'value' => $group->guid]);
-$form_body .= elgg_view('input/submit', ['value' => elgg_echo('save')]);
-$form_body .= '</div>';
+if (empty($access_options)) {
+	return;
+}
 
-$content = elgg_view('input/form', ['action' => 'action/widget_manager/groups/update_widget_access', 'body' => $form_body]);
+$content = elgg_view('output/longtext', [
+	'value' => elgg_echo('widget_manager:forms:groups_widget_access:description'),
+]);
 
-echo elgg_view_module('info', $title, $content);
+foreach ($access_options as $access_id => $option) {
+	$content .= elgg_view('output/url', [
+		'href' => elgg_http_add_url_query_elements('action/widget_manager/groups/update_widget_access', [
+			'widget_access_level' => $access_id,
+			'group_guid' => $group->guid,
+		]),
+		'text' => $option,
+		'is_action' => true,
+		'class' => [
+			'elgg-button',
+			'elgg-button-action',
+		],
+	]);
+}
+
+echo elgg_view_module('info', elgg_echo('widget_manager:forms:groups_widget_access:title'), $content);

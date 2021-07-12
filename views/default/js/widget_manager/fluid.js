@@ -5,6 +5,9 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 	var grid_options = {
 		items: '.elgg-module-widget',
 		dragEnabled: false,
+		dragPlaceholder: {
+			enabled: true,
+		},
 		itemPlaceholderClass: 'fluid-placeholder',
 		layoutDuration: 0,
 		showDuration: 0,

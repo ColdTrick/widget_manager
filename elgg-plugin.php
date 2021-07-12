@@ -70,4 +70,46 @@ return [
 			'muuri.js' => $composer_path . 'vendor/npm-asset/muuri/dist/muuri.js',
 		],
 	],
+	'view_extensions' => [
+		'css/admin' => [
+			'css/widget_manager/admin.css' => [],
+		],
+		'elements/widgets.css' => [
+			'css/widget_manager/site.css' => [],
+		],
+		'groups/edit/settings' => [
+			'widget_manager/forms/groups_widget_access' => [],
+		],
+		'js/elgg' => [
+			'js/widget_manager/site.js' => [],
+		],
+		'object/widget/elements/content' => [
+			'widget_manager/widgets/custom_more' => [],
+		],
+		'object/widget/header' => [
+			'object/widget/toggle' => ['priority' => 400],
+		],
+		'page/layouts/widgets/add_panel' => [
+			'widget_manager/group_tool_widgets' => ['priority' => 400],
+		],
+	],
+	'view_options' => [
+		'forms/widget_manager/widget_page' => ['ajax' => true],
+		'widget_manager/widgets/settings' => ['ajax' => true],
+		'widgets/user_search/content' => ['ajax' => true],
+	],
+	'events' => [
+		'create' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Widgets::fixPrivateAccess' =>[],
+			],
+		],
+	],
+	'hooks' => [
+		'tool_options' => [
+			'group' => [
+				'\ColdTrick\WidgetManager\Groups::registerGroupWidgetsTool' => [],
+			],
+		],
+	],
 ];

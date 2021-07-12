@@ -3,6 +3,7 @@
 namespace ColdTrick\WidgetManager;
 
 use Elgg\Hook;
+use Elgg\Groups\Tool;
 
 class Groups {
 
@@ -182,15 +183,42 @@ class Groups {
 		if ($group_enable == 'yes' && !$group->isToolEnabled('widget_manager')) {
 			return;
 		}
+		
 		// need context = groups to fix the issue with the new group_profile context
 		elgg_push_context('groups');
 	
 		$result = $hook->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', [
-			'num_columns' => elgg_extract('num_columns', $result, 3),
+			'num_columns' => elgg_extract('num_columns', $result, 2),
 		]);
 		
 		elgg_pop_context();
+		
+		return $result;
+	}
+	
+	/**
+	 * Adds the group tool option
+	 *
+	 * @param \Elgg\Hook $hook Hook
+	 *
+	 * @return []
+	 */
+	public static function registerGroupWidgetsTool(\Elgg\Hook $hook) {
+		$plugin = elgg_get_plugin_from_id('widget_manager');
+		if ($plugin->getSetting('group_enable') !== 'yes') {
+			return;
+		}
+		
+		$result = $hook->getValue();
+		
+		if (($plugin->getSetting('group_option_admin_only') !== 'yes') || elgg_is_admin_logged_in()) {
+			// add the tool option for group admins
+			$result[] = new Tool('widget_manager', [
+				'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
+				'default_on' => $plugin->getSetting('group_option_default_enabled') === 'yes',
+			]);
+		}
 		
 		return $result;
 	}

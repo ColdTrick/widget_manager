@@ -29,19 +29,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_register_plugin_hook_handler('register', 'menu:page', '\ColdTrick\WidgetManager\Menus::registerAdminPageMenu');
 		elgg_register_plugin_hook_handler('register', 'menu:entity', '\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems');
 		elgg_register_plugin_hook_handler('register', 'menu:widget_toggle', '\ColdTrick\WidgetManager\Menus::addWidgetToggleControls');
-		
-		elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Widgets::fixPrivateAccess');
-		
-		// extend CSS
-		elgg_extend_view('elements/widgets.css', 'css/widget_manager/site.css');
-		elgg_extend_view('css/admin', 'css/widget_manager/admin.css');
-		elgg_extend_view('js/elgg', 'js/widget_manager/site.js');
-		elgg_extend_view('object/widget/elements/content', 'widget_manager/widgets/custom_more');
-		elgg_extend_view('object/widget/header', 'object/widget/toggle', 400);
-	
-		elgg_register_ajax_view('forms/widget_manager/widget_page');
-		elgg_register_ajax_view('widget_manager/widgets/settings');
-		elgg_register_ajax_view('widgets/user_search/content');
 
 		$this->registerIndexRoute();
 		$this->registerWidgetPagesRoutes();
@@ -127,30 +114,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		if (!in_array($group_enable, ['yes', 'forced'])) {
 			return;
 		}
-	
-		elgg_extend_view('groups/edit', 'widget_manager/forms/groups_widget_access');
-			
-		// cleanup widgets in group context
-		elgg_extend_view('page/layouts/widgets/add_panel', 'widget_manager/group_tool_widgets', 400);
-			
-		if ($group_enable == 'yes') {
-			// add the widget manager tool option
-			$group_option_enabled = (elgg_get_plugin_setting('group_option_default_enabled', 'widget_manager') == 'yes');
-	
-			if (elgg_get_plugin_setting('group_option_admin_only', 'widget_manager') !== 'yes') {
-				// add the tool option for group admins
-				$this->elgg()->group_tools->register('widget_manager', [
-					'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
-					'default_on' => $group_option_enabled,
-				]);
-			} elseif (elgg_is_admin_logged_in()) {
-				$this->elgg()->group_tools->register('widget_manager', [
-					'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
-					'default_on' => $group_option_enabled,
-				]);
-			}
-		}
-			
+					
 		// register event to make sure all groups have the group option enabled if forces
 		// and configure tool enabled widgets
 		elgg_register_event_handler('update', 'group', '\ColdTrick\WidgetManager\Groups::updateGroupWidgets');

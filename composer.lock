@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ed84b736da271710372d38fc8e04612",
+    "content-hash": "b333717ce2b046d7a7a0b81649253a7e",
     "packages": [
         {
             "name": "composer/installers",
@@ -220,10 +220,10 @@
         },
         {
             "name": "npm-asset/muuri",
-            "version": "0.9.3",
+            "version": "0.9.5",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/muuri/-/muuri-0.9.3.tgz"
+                "url": "https://registry.npmjs.org/muuri/-/muuri-0.9.5.tgz"
             },
             "type": "npm-asset",
             "license": [
