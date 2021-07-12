@@ -67,7 +67,6 @@ return [
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page.",
 	'widget_manager:settings:extra_contexts:page' => "Page",
 	'widget_manager:settings:extra_contexts:layout' => "Layout",
-	'widget_manager:settings:extra_contexts:top_row' => "Extra Top Row",
 	'widget_manager:settings:extra_contexts:manager' => "Manager",
 
 	'widget_manager:settings:lazy_loading:enabled' => "Enable Lazy Loading",
@@ -106,7 +105,6 @@ return [
 	
 	// widgets
 	'widget_manager:widgets:edit:advanced' => "Advanced",
-	'widget_manager:widgets:fix' => "Fix this widget on the dashboard/profile",
 	
 	// upgrades
 	'widget_manager:upgrade:2018052400:title' => "Widget contexts to pages",

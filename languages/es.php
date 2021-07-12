@@ -1,12 +1,11 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 16:58
+ * This file was created by Translation Editor v8.0
+ * On 2021-07-12 15:20
  */
 
 return array (
   'admin:widgets' => 'Widgets',
-  'widget_manager:widgets:fix' => 'Fijar este widget en el panel de control / perfil',
   'widget_manager:widgets:edit:advanced' => 'Avanzado',
   'widget_manager:action:groups:update_widget_access:success' => 'Se actualiza el acceso a todos los widgets de este grupo',
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets específicos de herramientas forzadas para grupos %s',
@@ -21,7 +20,6 @@ return array (
   'widget_manager:forms:manage_widgets:context' => 'Disponible en el contexto',
   'widget_manager:forms:manage_widgets:no_widgets' => 'No hay widgets para administrar',
   'widget_manager:settings:extra_contexts:manager' => 'Administrador',
-  'widget_manager:settings:extra_contexts:top_row' => 'Fila adicional superior',
   'widget_manager:settings:extra_contexts:layout' => 'Diseño',
   'widget_manager:settings:extra_contexts:page' => 'Pagina',
   'widget_manager:settings:extra_contexts:description' => 'Introduzca el nombre del controlador de página de la nueva página que obtendrá un diseño similar al de la página de índice. Puedes agregar tantas páginas como necesites. Asegúrese de no agregar un manejador de página que ya esté en uso. También puede configurar el diseño de columna para esa página y, opcionalmente, asignar usuarios no administradores como administrador de la página introduciendo su nombre de usuario. Puede tener varios administradores separando su nombre de usuario por una coma.',
@@ -32,10 +30,6 @@ return array (
   'widget_manager:settings:group:enable:forced' => 'Sí, siempre en',
   'widget_manager:settings:group:enable:yes' => 'Sí, manejable por opción de herramienta de grupo',
   'widget_manager:settings:group:enable' => 'Habilitar el Administrador de widgets para grupos',
-  'widget_manager:settings:index_top_row:two_column_left' => 'Dos columnas alineadas a la izquierda',
-  'widget_manager:settings:index_top_row:full_row' => 'Fila de ancho completo',
-  'widget_manager:settings:index_top_row:none' => 'Sin fila superior',
-  'widget_manager:settings:index_top_row' => 'Mostrar una fila superior en la página de índice',
   'widget_manager:settings:widget_layout:100' => 'Columna simple (100%)',
   'widget_manager:settings:widget_layout:25|75' => 'Dos columnas (25%, 75%)',
   'widget_manager:settings:widget_layout:40|60' => 'Dos columnas (40%, 60%)',

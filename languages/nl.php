@@ -1,10 +1,11 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0.4
- * On 2020-12-10 11:55
+ * This file was created by Translation Editor v8.0
+ * On 2021-07-12 15:19
  */
 
 return array (
+  'widget_manager:settings:widget_layout:fluid' => 'Fluïde layout',
   'widget_manager:settings:lazy_loading' => 'Lazy Loading',
   'widget_manager:widgets:edit:lazy_load_content' => 'Laad widget content vertraagd in',
   'widget_manager:settings:lazy_loading:enabled' => 'Lazy Loading activeren',
@@ -41,7 +42,6 @@ return array (
   'widget_manager:settings:group:force_tool_widgets:confirm' => 'Weet je het zeker? Dit zal widgets toevoegen/verwijderen die beheerd worden door een groep tool optie (voor de groepen waar widget management is ingeschakeld)',
   'widget_manager:settings:extra_contexts:page' => 'Pagina',
   'widget_manager:settings:extra_contexts:layout' => 'Layout',
-  'widget_manager:settings:extra_contexts:top_row' => 'Extra top regel',
   'widget_manager:settings:extra_contexts:manager' => 'Beheerder',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'Widget beheer voor groepen is niet ingeschakeld',
   'widget_manager:action:force_tool_widgets:succes' => 'Widgets voor groep tool geforceerd bij %s groepen',
@@ -55,17 +55,12 @@ return array (
   'widget_manager:groups:enable_widget_manager' => 'Schakelen het beheer van widgets in',
   'widget_manager:settings:index' => 'Startpagina',
   'widget_manager:settings:group' => 'Groep',
-  'widget_manager:settings:index_top_row' => 'Toon een top regel op de startpagina',
   'widget_manager:settings:group:enable' => 'Schakel Widget Manager in voor groepen',
   'widget_manager:settings:group:option_default_enabled' => 'Widgets beheer voor groepen standaard ingeschakeld',
   'widget_manager:settings:group:option_admin_only' => 'Alleen beheerders kunnen groep widgets inschakelen',
   'widget_manager:forms:manage_widgets:no_widgets' => 'Geen widgets om te beheren',
   'widget_manager:widgets:edit:advanced' => 'Geavanceerd',
-  'widget_manager:widgets:fix' => 'Pin deze widget op het dashboard/profiel',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'Verwijder widget stijl',
-  'widget_manager:settings:index_top_row:none' => 'Geen top regel',
-  'widget_manager:settings:index_top_row:full_row' => 'Volle breedte regel',
-  'widget_manager:settings:index_top_row:two_column_left' => 'Twee kolommen links uitgelijnd',
   'widget_manager:widgets:edit:custom_title' => 'Eigen titel',
   'widget_manager:widgets:edit:hide_header' => 'Verberg titel',
   'widget_manager:settings:custom_index' => 'Gebruik Widget Manager aangepaste index?',

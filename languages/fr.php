@@ -1,7 +1,7 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 16:59
+ * This file was created by Translation Editor v8.0
+ * On 2021-07-12 15:20
  */
 
 return array (
@@ -36,10 +36,6 @@ return array (
   'widget_manager:settings:widget_layout:40|60' => '2 colonnes (40%, 60%)',
   'widget_manager:settings:widget_layout:25|75' => '2 colonnes (25%, 75%)',
   'widget_manager:settings:widget_layout:100' => '1 seule colonne (100%)',
-  'widget_manager:settings:index_top_row' => 'Afficher une colonne en haut de la page d\'accueil',
-  'widget_manager:settings:index_top_row:none' => 'Pas de colonne en haut',
-  'widget_manager:settings:index_top_row:full_row' => '1 colonne pleine page',
-  'widget_manager:settings:index_top_row:two_column_left' => '2 colonnes alignées à gauche',
   'widget_manager:settings:group:enable' => 'Activer la gestion des blocs d\'infos pour les groupes',
   'widget_manager:settings:group:enable:yes' => 'Oui, gérable par l\'option outils de groupes',
   'widget_manager:settings:group:enable:forced' => 'Oui, toujours actif',
@@ -49,7 +45,6 @@ return array (
   'widget_manager:settings:group:force_tool_widgets:confirm' => 'Êtes vous sûr/e? Cette action s\'appliquera pour tous les groupes.',
   'widget_manager:settings:extra_contexts:page' => 'Page',
   'widget_manager:settings:extra_contexts:layout' => 'Design',
-  'widget_manager:settings:extra_contexts:top_row' => 'Colonne du haut en plus',
   'widget_manager:settings:extra_contexts:manager' => 'Gestionnaire',
   'widget_manager:forms:manage_widgets:context' => 'Disponible dans ce contexte',
   'widget_manager:forms:manage_widgets:multiple' => 'Widget multiple autorisé',
@@ -62,5 +57,4 @@ return array (
   'widget_manager:action:force_tool_widgets:succes' => 'Activer l\'outil widgets pour les groupes %s',
   'widget_manager:action:groups:update_widget_access:success' => 'L\'accès à tous les blocs d\'infos pour ce groupe a été mis à jour',
   'widget_manager:widgets:edit:advanced' => 'Avancé',
-  'widget_manager:widgets:fix' => 'Fixer ce widget sur le tableau de bord/profil',
 );
