@@ -62,6 +62,6 @@ if ($widget instanceof WidgetManagerWidget && WidgetsSettingsConfig::instance()-
 
 echo elgg_view_module('widget', '', $body, [
 	'class' => $widget_class,
-	'id' => "elgg-widget-$widget->guid",
+	'id' => "elgg-widget-{$widget->guid}",
 	'header' => elgg_view('object/widget/header', $vars),
 ]);

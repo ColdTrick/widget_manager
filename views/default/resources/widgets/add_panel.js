@@ -1,4 +1,4 @@
-define(['jquery', 'elgg/Ajax'], function($, Ajax) {
+define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 	var ajax = new Ajax();
 	
 	/**

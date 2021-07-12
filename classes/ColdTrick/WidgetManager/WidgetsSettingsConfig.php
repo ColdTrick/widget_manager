@@ -2,7 +2,7 @@
 
 namespace ColdTrick\WidgetManager;
 
-use Elgg\Di\ServiceFacade;
+use Elgg\Traits\Di\ServiceFacade;
 
 /**
  * Widgets Settings Config Service

@@ -3,5 +3,5 @@
 use ColdTrick\WidgetManager\WidgetsSettingsConfig;
 
 return [
-	WidgetsSettingsConfig::name() => DI\object(WidgetsSettingsConfig::class),
+	WidgetsSettingsConfig::name() => DI\get(WidgetsSettingsConfig::class),
 ];

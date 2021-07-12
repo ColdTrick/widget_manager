@@ -1,7 +1,5 @@
 <?php
 
-define('ACCESS_LOGGED_OUT', -5);
-
 require_once(dirname(__FILE__) . '/lib/functions.php');
 
 $composer_path = '';
@@ -10,8 +8,22 @@ if (is_dir(__DIR__ . '/vendor')) {
 }
 
 return [
+	'plugin' => [
+		'version' => '11.4',
+		'dependencies' => [
+			'profile' => [
+				'must_be_active' => false,
+				'position' => 'after',
+			],
+			'groups' => [
+				'must_be_active' => false,
+				'position' => 'after',
+			],
+		],
+	],
 	'bootstrap' => \ColdTrick\WidgetManager\Bootstrap::class,
 	'settings' => [
+		'widget_layout' => '33|33|33',
 		'lazy_loading_enabled' => 0,
 		'lazy_loading_mobile_columns' => 1,
 		'lazy_loading_under_fold' => 5,

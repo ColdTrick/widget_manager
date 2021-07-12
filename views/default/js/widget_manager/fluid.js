@@ -1,6 +1,3 @@
-/**
- * @module widget_manager/fluid
- */
 define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muuri) {
 	
 	var grid;

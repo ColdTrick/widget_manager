@@ -1,11 +1,13 @@
-define(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
+define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax, widgets) {
 
+	var ajax = new Ajax(false);
+	
 	$(document).on('keyup', '#widget_manager_widgets_search input[type="text"]', function() {
 		var $container = $('.elgg-widgets-add-panel');
 		var $items = $container.find('> .elgg-body > ul > li');
 		var q = $(this).val();
 
-		if (q === "") {
+		if (q === '') {
 			$items.show();
 		} else {
 			$items.hide();
@@ -27,7 +29,7 @@ define(['elgg', 'jquery', 'elgg/widgets'], function(elgg, $, widgets) {
 				var guidString = $widget.attr('id');
 				guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
 
-				elgg.action('widgets/move', {
+				ajax.action('widgets/move', {
 					data: {
 						widget_guid: guidString,
 						column: 1,

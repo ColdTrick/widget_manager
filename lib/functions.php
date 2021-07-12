@@ -1,5 +1,7 @@
 <?php
 
+define('ACCESS_LOGGED_OUT', -5);
+
 /**
  * All functions related to widget manager
  */
@@ -11,7 +13,7 @@
  *
  * @return void
  */
-function widget_manager_sort_widgets_guid(&$widgets) {
+function widget_manager_sort_widgets_guid(&$widgets): void {
 	if (empty($widgets)) {
 		return;
 	}
@@ -33,7 +35,7 @@ function widget_manager_sort_widgets_guid(&$widgets) {
  *
  * @return void
  */
-function widget_manager_update_fixed_widgets($context, $user_guid) {
+function widget_manager_update_fixed_widgets(string $context, int $user_guid): void {
 	elgg_call(ELGG_IGNORE_ACCESS, function() use ($context, $user_guid) {
 		elgg_push_context('create_default_widgets');
 	
@@ -157,5 +159,7 @@ function widget_manager_update_fixed_widgets($context, $user_guid) {
 	});
 	
 	// set the user timestamp
-	elgg_set_plugin_user_setting($context . '_fixed_ts', time(), $user_guid, 'widget_manager');
+	/** @var \ElggUser $user */
+	$user = get_entity($user_guid);
+	$user->setPluginSetting('widget_manager', $context . '_fixed_ts', time());
 }

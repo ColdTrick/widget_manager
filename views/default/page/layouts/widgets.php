@@ -153,14 +153,6 @@ echo elgg_format_element('div', [
 	'data-context-stack' => json_encode(elgg_get_context_stack()),
 ], $result);
 
-?>
-<script>
-require(['elgg/widgets'], function (widgets) {
-	widgets.init();
-});
-</script>
-<?php
-
 // Restore original page owner
 if (empty($page_owner)) {
 	elgg_set_page_owner_guid(false);

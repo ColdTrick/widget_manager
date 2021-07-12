@@ -1,5 +1,7 @@
 <?php
 
+use Elgg\Exceptions\Http\EntityNotFoundException;
+
 $handler = elgg_extract('_route', $vars);
 
 $pages = elgg_get_entities([
@@ -10,7 +12,7 @@ $pages = elgg_get_entities([
 ]);
 
 if (empty($pages)) {
-	throw new \Elgg\EntityNotFoundException();
+	throw new EntityNotFoundException();
 }
 
 $widget_page = $pages[0];

@@ -145,11 +145,6 @@ class WidgetManagerWidget extends ElggWidget {
 	 * @see ElggWidget::getDisplayName()
 	 */
 	public function getDisplayName() {
-		$result = $this->widget_manager_custom_title;
-		if ($result) {
-			return $result;
-		}
-		
-		return parent::getDisplayName();
+		return $this->widget_manager_custom_title ?: parent::getDisplayName();
 	}
 }

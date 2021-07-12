@@ -95,26 +95,25 @@ trait CollapsedState {
 	protected function getCollapsedCache($user_guid) {
 		$return = elgg()->session->get(self::$COLLAPSED_CACHE_NAME);
 		
-		if ($return === null) {
-			
-			$return = [];
-			
-			$db = elgg()->db;
-			
-			$query = "SELECT * FROM {$db->prefix}entity_relationships WHERE guid_one = {$user_guid} AND relationship IN ('widget_state_collapsed', 'widget_state_open')";
-			$rows = $db->getData($query);
-
-			if ($rows) {
-				foreach ($rows as $row) {
-					if (!isset($return[$row->guid_two])) {
-						$return[$row->guid_two] = [];
-					}
-					$return[$row->guid_two][] = $row->relationship;
-				}
-			}
-			
-			elgg()->session->set(self::$COLLAPSED_CACHE_NAME, $return);
+		if ($return !== null) {
+			return $return;
 		}
+			
+		$return = [];
+					
+		$rels = elgg_get_relationships([
+			'relationship_guid' => $user_guid,
+			'relationship' => ['widget_state_collapsed', 'widget_state_open'],
+		]);
+
+		foreach ($rels as $rel) {
+			if (!isset($return[$rel->guid_two])) {
+				$return[$rel->guid_two] = [];
+			}
+			$return[$rel->guid_two][] = $rel->relationship;
+		}
+		
+		elgg()->session->set(self::$COLLAPSED_CACHE_NAME, $return);
 		
 		return $return;
 	}
