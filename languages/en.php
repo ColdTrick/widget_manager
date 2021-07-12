@@ -54,10 +54,6 @@ return [
 	'widget_manager:settings:widget_layout:25|75' => "Two column (25%, 75%)",
 	'widget_manager:settings:widget_layout:100' => "Single column (100%)",
 
-	'widget_manager:settings:index_top_row' => "Show a top row on the index page",
-	'widget_manager:settings:index_top_row:none' => "No top row",
-	'widget_manager:settings:index_top_row:full_row' => "Full width row",
-	'widget_manager:settings:index_top_row:two_column_left' => "Two column aligned left",
 	'widget_manager:settings:index_managers' => "Index managers",
 
 	'widget_manager:settings:group:enable' => "Enable Widget Manager for groups",

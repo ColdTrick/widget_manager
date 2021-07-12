@@ -22,7 +22,6 @@ elgg_set_page_owner_guid($widget_page->guid);
 
 $num_columns = $widget_page->getNumColumns();
 $layout = $widget_page->layout;
-$top_row = $widget_page->top_row;
 
 $classes = [];
 $column_classes = [];
@@ -42,11 +41,6 @@ switch ($layout) {
 			$column_classes[$column_index + 1] = "col-width-{$column_width}";
 		}
 		break;
-}
-
-if (!empty($top_row) && ($top_row !== 'none')) {
-	$num_columns++;
-	$classes[] = 'widgets-top-row';
 }
 
 $title = $widget_page->title ?: false;

@@ -46,18 +46,6 @@ echo elgg_view_field([
 ]);
 
 echo elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('widget_manager:settings:extra_contexts:top_row'),
-	'name' => 'top_row',
-	'options_values' => [
-		'none' => elgg_echo('widget_manager:settings:index_top_row:none'),
-		'full_row' => elgg_echo('widget_manager:settings:index_top_row:full_row'),
-		'two_column_left' => elgg_echo('widget_manager:settings:index_top_row:two_column_left'),
-	],
-	'value' => $entity ? $entity->top_row : null,
-]);
-
-echo elgg_view_field([
 	'#type' => 'userpicker',
 	'#label' => elgg_echo('widget_manager:settings:extra_contexts:manager'),
 	'name' => 'manager',

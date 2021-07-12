@@ -15,14 +15,11 @@ if (!empty($layout)) {
 $classes = [];
 $column_classes = [];
 
-$index_top_row = elgg_get_plugin_setting('index_top_row', 'widget_manager');
-
 switch ($layout) {
 	case 'fluid':
 		$classes[] = 'widgets-1-columns';
 		$classes[] = 'widgets-fluid-columns';
 		$num_columns = 1;
-		$index_top_row = false;
 		
 		elgg_require_js('widget_manager/fluid');
 		break;
@@ -40,11 +37,6 @@ switch ($layout) {
 			$column_classes[$column_index + 1] = "col-width-{$column_width}";
 		}
 		break;
-}
-
-if (!empty($index_top_row) && ($index_top_row !== 'none')) {
-	$num_columns++;
-	$classes[] = 'widgets-top-row';
 }
 
 // draw the page

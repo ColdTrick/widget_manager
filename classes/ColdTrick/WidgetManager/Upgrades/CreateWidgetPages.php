@@ -62,7 +62,6 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 			$widget_page = new \WidgetPage();
 			$widget_page->url = $context;
 			$widget_page->layout = elgg_extract('layout', $context_config, '33|33|33');
-			$widget_page->top_row = elgg_extract('top_row', $context_config);
 			
 			$widget_page->save();
 			

@@ -111,12 +111,3 @@
 	line-height: 1.8rem;
 	text-decoration: none;
 } 
-
-.widgets-top-row .elgg-widgets-grid .elgg-widgets:last-child {
-	flex-basis: 100%;
-	order: -1;
-	
-	&.elgg-state-active {
-		min-height: 50px; 
-	}
-}

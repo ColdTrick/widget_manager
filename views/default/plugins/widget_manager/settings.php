@@ -3,6 +3,7 @@
 $plugin = elgg_extract('entity', $vars);
 
 $index_settings = '';
+
 $index_settings .= elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('widget_manager:settings:custom_index'),
@@ -15,6 +16,7 @@ $index_settings .= elgg_view_field([
 		'1|1' => elgg_echo('widget_manager:settings:custom_index:all'),
 	],
 ]);
+
 $index_settings .= elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('widget_manager:settings:widget_layout'),
@@ -32,17 +34,6 @@ $index_settings .= elgg_view_field([
 		'40|60' => elgg_echo('widget_manager:settings:widget_layout:40|60'),
 		'25|75' => elgg_echo('widget_manager:settings:widget_layout:25|75'),
 		'100' => elgg_echo('widget_manager:settings:widget_layout:100'),
-	],
-]);
-$index_settings .= elgg_view_field([
-	'#type' => 'select',
-	'#label' => elgg_echo('widget_manager:settings:index_top_row'),
-	'name' => 'params[index_top_row]',
-	'value' => $plugin->index_top_row,
-	'options_values' => [
-		'none' => elgg_echo('widget_manager:settings:index_top_row:none'),
-		'full_row' => elgg_echo('widget_manager:settings:index_top_row:full_row'),
-		'two_column_left' => elgg_echo('widget_manager:settings:index_top_row:two_column_left'),
 	],
 ]);
 

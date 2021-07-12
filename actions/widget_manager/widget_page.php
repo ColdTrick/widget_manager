@@ -20,7 +20,6 @@ if (!isset($entity)) {
 $entity->url = $url;
 $entity->title = get_input('title');
 $entity->layout = get_input('layout');
-$entity->top_row = get_input('top_row');
 
 $entity->save();
 

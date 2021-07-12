@@ -58,15 +58,6 @@ require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], functi
 		});
 	});
 	
-	$('.widgets-top-row .elgg-widgets').bind({
-		sortstart: function () {
-			$('.widgets-top-row .elgg-widgets:last-child').addClass('elgg-state-active');
-		},
-		sortstop: function () {
-			$('.widgets-top-row .elgg-widgets:last-child').removeClass('elgg-state-active');
-		}
-	});
-	
 	if ($('.elgg-module-widget.lazy-loading').length) {
 		$('.elgg-layout-widgets').each(function(i, layout) {
 			var $lazy_widgets = $(layout).find('.elgg-module-widget.lazy-loading');
