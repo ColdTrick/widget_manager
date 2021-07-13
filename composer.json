@@ -3,7 +3,7 @@
 	"description": "Manage your widgets",
 	"homepage": "https://www.coldtrick.com",
 	"type": "elgg-plugin",
-	"keywords": ["elgg", "plugin", "widgets"],
+	"keywords": ["elgg", "plugin", "widget"],
 	"license": "GPL-2.0-only",
 	"support": {
 		"source": "https://github.com/ColdTrick/widget_manager",
