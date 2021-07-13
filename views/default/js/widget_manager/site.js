@@ -1,44 +1,4 @@
-require(['elgg', 'jquery', 'elgg/lightbox', 'elgg/Ajax', 'elgg/widgets'], function(elgg, $, lightbox, Ajax) {
-	$(document).on('submit', '.elgg-form-widgets-save', function(event) {
-		event.preventDefault();
-		
-		var ajax = new Ajax(false);
-		
-		var guid = $(this).find('[name="guid"]').val();
-
-		lightbox.close();
-		
-		var $widget = $('#elgg-widget-' + guid);
-		var $widgetContent = $widget.find('.elgg-widget-content');
-
-		// stick the ajax loader in there
-		var $loader = $('#elgg-widget-loader').clone();
-		$loader.attr('id', '#elgg-widget-active-loader');
-		$loader.removeClass('hidden');
-		$widgetContent.html($loader);
-
-		ajax.action('widgets/save', {
-			data: ajax.objectify(this),
-			success: function (result) {
-				$widgetContent.html(result.content);
-				if (typeof (result.title) != "undefined") {
-					var $widgetTitle = $widgetContent.parent().parent().find('.elgg-widget-title');
-					
-					var newWidgetTitle = result.title;
-					if (typeof (result.href) != "undefined") {
-						newWidgetTitle = "<a href='" + result.href + "' class='elgg-anchor'><span class='elgg-anchor-label'>" + newWidgetTitle + "</span></a>";
-					}
-					
-					$widgetTitle.html(newWidgetTitle);
-				}
-				
-				$widget.trigger({
-					type: 'saveSettings',
-					widget: $widget
-				});
-			}
-		});
-	});
+require(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax) {
 	
 	elgg.register_hook_handler('toggle', 'menu_item', function(type, subtype, params) {
 		if (!params.menu.hasClass('elgg-menu-widget-toggle')) {

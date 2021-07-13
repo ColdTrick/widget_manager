@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'jquery-ui/widgets/sortable'], function ($, elgg, Ajax) {
+define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], function ($, elgg, Ajax, lightbox) {
 
 	var widgets = {};
 
@@ -71,7 +71,11 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'jquery-ui/widgets/sortable'], function (
 	widgets.saveSettings = function (event) {
 		event.preventDefault();
 		
-		var $widget = $(this).closest('.elgg-module-widget');
+		var guid = $(this).find('[name="guid"]').val();
+
+		lightbox.close();
+		
+		var $widget = $('#elgg-widget-' + guid);
 		var $widgetContent = $widget.find('.elgg-widget-content');
 
 		// stick the ajax loader in there
@@ -79,21 +83,23 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'jquery-ui/widgets/sortable'], function (
 		
 		var ajax = new Ajax(false);
 		ajax.action('widgets/save', {
-			data: $(this).serialize(),
+			data: ajax.objectify(this),
 			success: function (result) {
 				$widgetContent.html(result.content);
-				if (typeof (result.title) != "undefined") {
+				
+				if (result.title !== '') {
 					var $widgetTitle = $widget.find('.elgg-widget-title');
 					
 					var newWidgetTitle = result.title;
-					if (typeof (result.href) != "undefined") {
+					if (result.href !== '') {
 						newWidgetTitle = "<a href='" + result.href + "' class='elgg-anchor'><span class='elgg-anchor-label'>" + newWidgetTitle + "</span></a>";
 					}
 					
 					$widgetTitle.html(newWidgetTitle);
 				}
 				
-				$widget.trigger('saveSettings', {
+				$widget.trigger({
+					type: 'saveSettings',
 					widget: $widget
 				});
 			}
@@ -119,7 +125,7 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'jquery-ui/widgets/sortable'], function (
 	});
 
 	$(document).on('click', 'a.elgg-widget-delete-button', widgets.remove);
-	$(document).on('submit', '.elgg-widget-edit > form ', widgets.saveSettings);
+	$(document).on('submit', '.elgg-form-widgets-save', widgets.saveSettings);
 
 	return widgets;
 });
