@@ -14,21 +14,21 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getVersion() {
+	public function getVersion(): int {
 		return 2018052400;
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public function shouldBeSkipped() {
+	public function shouldBeSkipped(): bool {
 		return empty($this->countItems());
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public function countItems() {
+	public function countItems(): int {
 		
 		$plugin = elgg_get_plugin_from_id('widget_manager');
 		$contexts = (array) string_to_tag_array($plugin->extra_contexts);
@@ -39,14 +39,14 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function needsIncrementOffset() {
+	public function needsIncrementOffset(): bool {
 		return false;
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public function run(Result $result, $offset) {
+	public function run(Result $result, $offset): Result {
 		
 		$plugin = elgg_get_plugin_from_id('widget_manager');
 		$contexts = string_to_tag_array($plugin->extra_contexts);
