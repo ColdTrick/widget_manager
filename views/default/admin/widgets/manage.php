@@ -1,4 +1,5 @@
 <?php
+
 $contexts = ['index'];
 
 // Use contexts defined for default widgets
@@ -6,6 +7,8 @@ $list = elgg_trigger_plugin_hook('get_list', 'default_widgets', null, []);
 foreach ($list as $context_opts) {
 	$contexts[] = $context_opts['widget_context'];
 }
+
+natcasesort($contexts);
 
 $configured_widgets = [];
 foreach ($contexts as $context) {
