@@ -2,7 +2,6 @@
 
 namespace ColdTrick\WidgetManager;
 
-use Elgg\Hook;
 class Widgets {
 	
 	/**
@@ -209,7 +208,7 @@ class Widgets {
 	/**
 	 * Checks if the provide widget is registered as a cacheable widget
 	 *
-	 * @param ElggWidget $widget widget to check
+	 * @param \ElggWidget $widget widget to check
 	 *
 	 * @return bool
 	 */
@@ -262,7 +261,7 @@ class Widgets {
 			case 'river_widget':
 				return elgg_generate_url('default:river');
 			case 'bookmarks':
-				if ($owner instanceof ElggGroup) {
+				if ($owner instanceof \ElggGroup) {
 					return elgg_generate_url('collection:object:bookmarks:group', [
 						'guid' => $owner->guid,
 					]);
