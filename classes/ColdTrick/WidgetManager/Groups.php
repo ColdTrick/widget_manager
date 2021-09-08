@@ -137,8 +137,13 @@ class Groups {
 					
 					// add new widgets
 					if (!empty($enable_widget_handlers)) {
+						$widget_access_id = $object->access_id;
+						if ($widget_access_id === ACCESS_PUBLIC && elgg_get_config('walled_garden')) {
+							$widget_access_id = ACCESS_LOGGED_IN;
+						}
+						
 						foreach ($enable_widget_handlers as $handler) {
-							$widget_guid = elgg_create_widget($object->guid, $handler, 'groups', $object->access_id);
+							$widget_guid = elgg_create_widget($object->guid, $handler, 'groups', $widget_access_id);
 							if (empty($widget_guid)) {
 								continue;
 							}
