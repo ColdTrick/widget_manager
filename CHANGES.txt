@@ -1,6 +1,13 @@
 Version history
 ===============
 
+12.0 (2021-09-27):
+
+- changed: updated for Elgg 4
+- fix: prevent widgets being auto created public on walled garden site
+- removed: no longer supports a top row column in widget layout
+- removed: widgets can no longer be positioned fixed in a layout
+
 11.4 (2021-07-06):
 
 - changed: replaced packer with muuri for fluid layouts
