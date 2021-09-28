@@ -23,6 +23,11 @@ class Settings {
 			return;
 		}
 		
-		return implode(',', $hook->getValue());
+		$current_value = $hook->getValue();
+		if (!is_array($current_value)) {
+			return;
+		}
+		
+		return implode(',', $current_value);
 	}
 }
