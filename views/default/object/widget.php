@@ -31,7 +31,9 @@ $widget_instance = preg_replace('/[^a-z0-9-]/i', '-', "elgg-widget-instance-$han
 $can_edit = $widget->canEdit();
 
 $widget_class = elgg_extract_class($vars, $widget_instance);
-$widget_class[] = $can_edit ? 'elgg-state-draggable' : 'elgg-state-fixed';
+if ($can_edit) {
+	$widget_class[] = 'elgg-state-draggable';
+}
 
 if ($widget->widget_manager_custom_class) {
 	$widget_class[] = $widget->widget_manager_custom_class; // optional custom class for this widget

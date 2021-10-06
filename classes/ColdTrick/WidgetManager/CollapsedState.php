@@ -104,6 +104,7 @@ trait CollapsedState {
 		$rels = elgg_get_relationships([
 			'relationship_guid' => $user_guid,
 			'relationship' => ['widget_state_collapsed', 'widget_state_open'],
+			'limit' => false,
 		]);
 
 		foreach ($rels as $rel) {
