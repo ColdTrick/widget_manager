@@ -168,12 +168,12 @@ class Groups {
 	/**
 	 * Bypasses the widgets content on the group profile
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Hook $hook 'view_vars', 'groups/profile/widgets'
 	 *
 	 * @return []
 	 */
 	public static function getGroupWidgetsLayout(\Elgg\Hook $hook) {
-		$vars = $hook->getParam('vars', []);
+		$vars = $hook->getValue();
 		$group = elgg_extract('entity', $vars);
 		
 		if (!$group instanceof \ElggGroup) {
@@ -191,15 +191,19 @@ class Groups {
 		
 		// need context = groups to fix the issue with the new group_profile context
 		elgg_push_context('groups');
-	
-		$result = $hook->getValue();
-		$result[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', [
-			'num_columns' => elgg_extract('num_columns', $result, 2),
+		
+		$num_columns = (int) elgg_extract('num_columns', $vars, 2);
+		
+		$vars[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', [
+			'num_columns' => $num_columns,
+			'class' => [
+				"widgets-{$num_columns}-columns",
+			],
 		]);
 		
 		elgg_pop_context();
 		
-		return $result;
+		return $vars;
 	}
 	
 	/**
