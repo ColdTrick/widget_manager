@@ -1,6 +1,12 @@
 Version history
 ===============
 
+12.0.1 (2021-10-12):
+
+- fixed: added missing class in group widget layout
+- fixed: check for array when saving settings
+- fixed: get all widgets when checking for collapsed state
+
 12.0 (2021-09-27):
 
 - changed: updated for Elgg 4
