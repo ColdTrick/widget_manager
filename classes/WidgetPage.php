@@ -1,7 +1,5 @@
 <?php
 
-use Phinx\Migration\Manager;
-
 class WidgetPage extends ElggObject {
 	
 	const SUBTYPE = 'widget_page';
