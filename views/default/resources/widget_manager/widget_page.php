@@ -46,12 +46,12 @@ switch ($layout) {
 $title = $widget_page->title ?: false;
 if ($title && elgg_can_edit_widget_layout($widget_page->context)) {
 	
-	$href = elgg_normalize_url(elgg_http_add_url_query_elements('widgets/add_panel', [
+	$href = elgg_generate_url('widgets:add_panel', [
 		'context' => elgg_get_context(),
 		'context_stack' => elgg_get_context_stack(),
 		'show_access' => true,
 		'owner_guid' => elgg_get_page_owner_guid(),
-	]));
+	]);
 
 	elgg_register_menu_item('title', [
 		'name' => 'widgets_add',
