@@ -21,6 +21,10 @@ class WidgetManagerWidget extends ElggWidget {
 
 		$result = parent::__get($name);
 		
+		if (!is_string($result)) {
+			return $result;
+		}
+		
 		// check if it should be an array
 		$decoded_result = json_decode($result, true);
 		if (is_array($decoded_result)) {
