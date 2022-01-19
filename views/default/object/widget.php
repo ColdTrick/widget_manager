@@ -22,7 +22,7 @@ $show_access = elgg_extract('show_access', $vars, true);
 elgg_set_config('widget_show_access', $show_access);
 
 // check if config says this widget should be hidden;
-if (WidgetsSettingsConfig::instance()->getSetting($handler, 'hide', $widget->context)) {
+if (WidgetsSettingsConfig::instance()->getSetting($handler, 'hide', (string) $widget->context)) {
 	return true;
 }
 
