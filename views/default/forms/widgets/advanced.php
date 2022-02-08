@@ -86,7 +86,7 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		],
 	];
 	
-	if ((bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager') && !WidgetsSettingsConfig::instance()->getSetting($widget->handler, 'always_lazy_load', $widget->context)) {
+	if ((bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager') && !WidgetsSettingsConfig::instance()->getSetting($widget->handler, 'always_lazy_load', (string) $widget->context)) {
 		$fields[] = [
 			'#type' => 'checkbox',
 			'#label' => elgg_echo('widget_manager:widgets:edit:lazy_load_content'),

@@ -19,7 +19,7 @@ if (!empty($context_stack) && is_array($context_stack)) {
 elgg_require_js('resources/widgets/add_panel');
 elgg_require_js('widget_manager/add_panel');
 
-$context = elgg_extract('context', $vars, get_input('context'));
+$context = (string) elgg_extract('context', $vars, get_input('context'));
 $owner_guid = (int) elgg_extract('owner_guid', $vars, (int) get_input('owner_guid'));
 elgg_entity_gatekeeper($owner_guid);
 

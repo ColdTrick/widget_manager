@@ -135,7 +135,7 @@ class WidgetsSettingsConfig {
 			}
 			
 			// configured as always lazy loaded handler for context
-			if ($this->getSetting($widget->handler, 'always_lazy_load', $widget->context)) {
+			if ($this->getSetting($widget->handler, 'always_lazy_load', (string) $widget->context)) {
 				return true;
 			}
 						
