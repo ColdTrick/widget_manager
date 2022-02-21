@@ -238,38 +238,6 @@ class Widgets {
 		if ($widget->widget_manager_custom_url) {
 			return $widget->widget_manager_custom_url;
 		}
-		
-		if (!empty($hook->getValue())) {
-			// already got a link
-			return;
-		}
-		
-		if (elgg_in_context('default_widgets')) {
-			return;
-		}
-		
-		$owner = $widget->getOwnerEntity();
-		switch ($widget->handler) {
-			case 'friends':
-				return elgg_generate_url('collection:friends:owner', [
-					'username' => $owner->username,
-				]);
-			case 'messageboard':
-				return elgg_generate_url('collection:annotation:messageboard:owner', [
-					'username' => $owner->username,
-				]);
-			case 'river_widget':
-				return elgg_generate_url('default:river');
-			case 'bookmarks':
-				if ($owner instanceof \ElggGroup) {
-					return elgg_generate_url('collection:object:bookmarks:group', [
-						'guid' => $owner->guid,
-					]);
-				}
-				return elgg_generate_url('collection:object:bookmarks:owner', [
-					'username' => $owner->username,
-				]);
-		}
 	}
 	
 	/**
