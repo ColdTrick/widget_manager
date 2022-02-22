@@ -2,6 +2,8 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\WidgetDefinition;
+
 class Widgets {
 	
 	/**
@@ -238,6 +240,64 @@ class Widgets {
 		if ($widget->widget_manager_custom_url) {
 			return $widget->widget_manager_custom_url;
 		}
+	}
+		
+	/**
+	 * Register the discussions widget to groups context
+	 *
+	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 *
+	 * @return void|\Elgg\WidgetDefinition[]
+	 */
+	public static function addDiscussionsWidgetToGroup(\Elgg\Hook $hook) {
+		
+		$context = $hook->getParam('context');
+		if ($context !== 'groups') {
+			return;
+		}
+		
+		$container = $hook->getParam('container');
+		if (!$container instanceof \ElggGroup || !$container->isToolEnabled('forum')) {
+			return;
+		}
+		
+		$return_value = $hook->getValue();
+		
+		$return_value[] = WidgetDefinition::factory([
+			'id' => 'discussions',
+			'context' => ['groups'],
+		]);
+		
+		return $return_value;
+	}
+			
+	/**
+	 * Add or remove widgets based on the group tool option
+	 *
+	 * @param \Elgg\Hook $hook 'group_tool_widgets', 'widget_manager'
+	 *
+	 * @return void|array
+	 */
+	public static function groupToolWidgets(\Elgg\Hook $hook) {
+		
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggGroup) {
+			return;
+		}
+		
+		$return_value = $hook->getValue();
+		if (!is_array($return_value)) {
+			return;
+		}
+		
+		// check different group tools for which we supply widgets
+		if ($entity->isToolEnabled('forum')) {
+			$return_value['enable'][] = 'discussions';
+		} else {
+			$return_value['disable'][] = 'discussions';
+		}
+		
+		return $return_value;
 	}
 	
 	/**

@@ -106,6 +106,16 @@ return [
 		],
 	],
 	'hooks' => [
+		'group_tool_widgets' => [
+			'widget_manager' => [
+				'ColdTrick\WidgetManager\Widgets::groupToolWidgets' => [],
+			],
+		],
+		'handlers' => [
+			'widgets' => [
+				'ColdTrick\WidgetManager\Widgets::addDiscussionsWidgetToGroup' => [],
+			],
+		],
 		'tool_options' => [
 			'group' => [
 				'\ColdTrick\WidgetManager\Groups::registerGroupWidgetsTool' => [],
