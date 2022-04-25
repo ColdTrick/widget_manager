@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], function ($, elgg, Ajax, lightbox) {
+define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], function ($, i18n, Ajax, lightbox) {
 
 	var widgets = {};
 
@@ -41,7 +41,7 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sorta
 	widgets.remove = function (event) {
 		event.preventDefault();
 		
-		if (confirm(elgg.echo('deleteconfirm')) === false) {
+		if (confirm(i18n.echo('deleteconfirm')) === false) {
 			return;
 		}
 		

@@ -35,11 +35,17 @@ return [
 			'type' => 'object',
 			'subtype' => 'widget',
 			'class' => 'WidgetManagerWidget',
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 		[
 			'type' => 'object',
 			'subtype' => 'widget_page',
 			'class' => 'WidgetPage',
+			'capabilities' => [
+				'commentable' => false,
+			],
 		],
 	],
 	'upgrades' => [

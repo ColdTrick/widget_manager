@@ -4,13 +4,6 @@ use ColdTrick\WidgetManager\WidgetsSettingsConfig;
 $widget = elgg_extract('entity', $vars);
 $widget_context = elgg_extract('widget_context', $vars);
 
-$yesno_options = [
-	'yes' => elgg_echo('option:yes'),
-	'no' => elgg_echo('option:no')
-];
-
-$noyes_options = array_reverse($yesno_options, true);
-
 $fields = [
 	[
 		'#type' => 'text',

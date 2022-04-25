@@ -1,6 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax, widgets) {
-
-	var ajax = new Ajax(false);
+define(['jquery'], function($) {
 	
 	$(document).on('keyup', '#widget_manager_widgets_search input[type="text"]', function() {
 		var $container = $('.elgg-widgets-add-panel');

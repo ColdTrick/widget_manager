@@ -1,10 +1,10 @@
-define(['elgg', 'jquery', 'elgg/Ajax'], function (elgg, $, Ajax) {
+define(['jquery', 'elgg/i18n', 'elgg/Ajax'], function ($, i18n, Ajax) {
 
 	$(document).on('click', '.widget-manager-unsupported-context .elgg-input-checkbox', function (e, elem) {
 		if(!$(this).is(':checked')) {
 			return;
 		}
-		if (!confirm(elgg.echo('widget_manager:forms:manage_widgets:unsupported_context:confirm'))) {
+		if (!confirm(i18n.echo('widget_manager:forms:manage_widgets:unsupported_context:confirm'))) {
 			return false;
 		}
 	});
