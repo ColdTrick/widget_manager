@@ -112,6 +112,29 @@ return [
 		],
 	],
 	'hooks' => [
+		'access:collections:write' => [
+			'all' => [
+				'\ColdTrick\WidgetManager\Access::setWriteAccess' => ['priority' => 999],
+			],
+		],
+		'access:collections:read' => [
+			'user' => [
+				'\ColdTrick\WidgetManager\Access::addLoggedOutReadAccess' => [],
+			],
+		],
+		'action:validate' => [
+			'widgets/add' => [
+				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
+			],
+			'widgets/move' => [
+				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
+			],
+		],
+		'entity:url' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Widgets::getWidgetURL' => ['priority' => 9999],
+			],
+		],
 		'group_tool_widgets' => [
 			'widget_manager' => [
 				'ColdTrick\WidgetManager\Widgets::groupToolWidgets' => [],
@@ -119,12 +142,63 @@ return [
 		],
 		'handlers' => [
 			'widgets' => [
-				'ColdTrick\WidgetManager\Widgets::addDiscussionsWidgetToGroup' => [],
+				'\ColdTrick\WidgetManager\Widgets::addDiscussionsWidgetToGroup' => [],
+				'\ColdTrick\WidgetManager\Widgets::applyWidgetsConfig' => ['priority' => 9999],
+			],
+		],
+		'permissions_check' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Access::canEditWidgetOnManagedLayout' => [],
+			],
+			'widget_layout' => [
+				'\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck' => [],
+			],
+		],
+		'prepare' => [
+			'menu:widget' => [
+				'\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems' => [],
+			],
+		],
+		'register' => [
+			'menu:entity' => [
+				'\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems' => [],
+			],
+			'menu:page' => [
+				'\ColdTrick\WidgetManager\Menus::registerAdminPageMenu' => [],
+			],
+			'menu:widget_toggle' => [
+				'\ColdTrick\WidgetManager\Menus::addWidgetToggleControls' => [],
+			],
+		],
+		'setting' => [
+			'plugin' => [
+				'\ColdTrick\WidgetManager\Settings::implodeSettings' => [],
 			],
 		],
 		'tool_options' => [
 			'group' => [
 				'\ColdTrick\WidgetManager\Groups::registerGroupWidgetsTool' => [],
+			],
+		],
+		'view' => [
+			'object/widget/body' => [
+				'\ColdTrick\WidgetManager\Widgets::saveContentInCache' => ['priority' => 9999],
+			],
+		],
+		'view_vars' => [
+			'groups/profile/widgets' => [
+				'\ColdTrick\WidgetManager\Groups::getGroupWidgetsLayout' => [],
+			],
+			'object/widget/body' => [
+				'\ColdTrick\WidgetManager\Widgets::getContentFromCache' => [],
+			],
+			'object/widget/elements/controls' => [
+				'\ColdTrick\WidgetManager\Widgets::preventControls' => [],
+			],
+		],
+		'widget_settings' => [
+			'all' => [
+				'\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnSettingsSave' => [],
 			],
 		],
 	],

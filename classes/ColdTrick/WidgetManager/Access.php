@@ -122,7 +122,7 @@ class Access {
 		$user = $hook->getUserParam();
 		$entity = $hook->getEntityParam();
 		
-		if ($hook->getValue() || !($user instanceof \ElggUser)|| !($entity instanceof \ElggWidget)) {
+		if ($hook->getValue() || !($user instanceof \ElggUser) || !($entity instanceof \ElggWidget)) {
 			return;
 		}
 		

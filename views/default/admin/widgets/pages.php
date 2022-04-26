@@ -19,4 +19,3 @@ echo elgg_list_entities([
 		'order' => 'ASC',
 	],
 ]);
-

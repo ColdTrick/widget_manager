@@ -11,7 +11,7 @@ use ColdTrick\WidgetManager\WidgetsSettingsConfig;
  */
 
 $widget = elgg_extract('entity', $vars);
-if (!($widget instanceof \ElggWidget)) {
+if (!$widget instanceof \ElggWidget) {
 	return;
 }
 

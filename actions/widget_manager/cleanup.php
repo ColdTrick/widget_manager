@@ -23,5 +23,4 @@ foreach ($entities as $entity) {
 	$entity->delete();
 }
 
-$message = elgg_echo('entity:delete:success', [elgg_echo('collection:object:widget')]);
-return elgg_ok_response('', $message);
+return elgg_ok_response('', elgg_echo('entity:delete:success', [elgg_echo('collection:object:widget')]));

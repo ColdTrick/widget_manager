@@ -21,9 +21,6 @@ if (!empty($entity->title)) {
 	$title .= " [{$entity->title}]";
 }
 
-$vars['title'] = elgg_view('output/url', [
-	'text' => elgg_get_excerpt($title, 100),
-	'href' => $entity->getURL(),
-]);
+$vars['title'] = elgg_view_url($entity->getURL(), elgg_get_excerpt($title, 100));
 
 echo elgg_view('object/elements/summary', $vars);
