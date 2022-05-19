@@ -63,6 +63,7 @@ return [
 	'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
 	'widget_manager:settings:group:force_tool_widgets' => "Enforce group tool widgets",
 	'widget_manager:settings:group:force_tool_widgets:confirm' => "Are you sure? This will add/remove all widgets specific to a tool option for all groups (where widget management is enabled).",
+	'widget_manager:settings:group:group_column_count' => "Number of widget columns in a group",
 
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page.",
 	'widget_manager:settings:extra_contexts:page' => "Page",

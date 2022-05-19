@@ -72,7 +72,7 @@ class Groups {
 	
 			// enable widgets
 			$column_counts = [];
-			$max_columns = elgg_trigger_plugin_hook('groups:column_count', 'widget_manager', [], 2);
+			$max_columns = elgg_trigger_plugin_hook('groups:column_count', 'widget_manager', [], elgg_get_plugin_setting('group_column_count', 'widget_manager'));
 			for ($i = 1; $i <= $max_columns; $i++) {
 				$column_counts[$i] = 0;
 			}
@@ -192,7 +192,7 @@ class Groups {
 		// need context = groups to fix the issue with the new group_profile context
 		elgg_push_context('groups');
 		
-		$num_columns = (int) elgg_extract('num_columns', $vars, 2);
+		$num_columns = (int) elgg_extract('num_columns', $vars, elgg_get_plugin_setting('group_column_count', 'widget_manager'));
 		
 		$vars[\Elgg\ViewsService::OUTPUT_KEY] = elgg_view_layout('widgets', [
 			'num_columns' => $num_columns,

@@ -82,6 +82,13 @@ if (elgg_is_active_plugin('groups')) {
 		'default' => 'no',
 		'value' => 'yes',
 	]);
+	$group_settings .= elgg_view_field([
+		'#type' => 'number',
+		'#label' => elgg_echo('widget_manager:settings:group:group_column_count'),
+		'name' => 'params[group_column_count]',
+		'value' => $plugin->group_column_count,
+		'min' => 1,
+	]);
 	
 	echo elgg_view_module('info', elgg_echo('widget_manager:settings:group'), $group_settings);
 }

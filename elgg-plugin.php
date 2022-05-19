@@ -25,6 +25,7 @@ return [
 	],
 	'bootstrap' => \ColdTrick\WidgetManager\Bootstrap::class,
 	'settings' => [
+		'group_column_count' => 2,
 		'widget_layout' => '33|33|33',
 		'lazy_loading_enabled' => 0,
 		'lazy_loading_mobile_columns' => 1,

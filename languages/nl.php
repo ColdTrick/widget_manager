@@ -58,6 +58,7 @@ return array (
   'widget_manager:settings:group:enable' => 'Schakel Widget Manager in voor groepen',
   'widget_manager:settings:group:option_default_enabled' => 'Widgets beheer voor groepen standaard ingeschakeld',
   'widget_manager:settings:group:option_admin_only' => 'Alleen beheerders kunnen groep widgets inschakelen',
+  'widget_manager:settings:group:group_column_count' => 'Aantal widget kolommen in een groep',
   'widget_manager:forms:manage_widgets:no_widgets' => 'Geen widgets om te beheren',
   'widget_manager:widgets:edit:advanced' => 'Geavanceerd',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'Verwijder widget stijl',
