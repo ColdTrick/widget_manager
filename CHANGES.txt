@@ -1,6 +1,12 @@
 Version history
 ===============
 
+13.0 (2022-06-01):
+
+- added: discussions widget is now available in groups context
+- added: plugin setting to control number of columns in group widgets
+- changed: updated for Elgg 4.2
+
 12.0.3 (2022-02-16):
 
 - fixed: cast widget context as string
