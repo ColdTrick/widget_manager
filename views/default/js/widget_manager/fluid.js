@@ -110,7 +110,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 		
 	$(window).resize(debounce(gridcheck, 50));
 
-	$(document).on('saveSettings collapseToggle', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
+	$(document).on('saveSettings', '.elgg-layout-widgets .elgg-module-widget', gridcheck);
 	$(document).on('lazyLoaded', '.elgg-layout-widgets', gridcheck);
 	
 	$(document).on('widgetAdd widgetRemove', '.elgg-layout-widgets', initGrid);

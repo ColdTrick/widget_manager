@@ -48,8 +48,6 @@ return array (
   'widget_manager:settings:group' => 'Grupo',
   'widget_manager:settings:index' => 'Índice',
   'widget_manager:groups:enable_widget_manager' => 'Habilitar la administración de widgets',
-  'widget_manager:widgets:edit:collapse_state' => 'Estado colapsado predeterminado',
-  'widget_manager:widgets:edit:collapse_disable' => 'Deshabilitar la capacidad de colapso',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'No hay estilo de widget',
   'widget_manager:widgets:edit:custom_class' => 'Clase CSS personalizada',
   'widget_manager:widgets:edit:hide_header' => 'Ocultar encabezado',

@@ -98,61 +98,6 @@ class Menus {
 	}
 
 	/**
-	 * Adds collapse widget control
-	 *
-	 * @param \Elgg\Hook $hook 'register', 'menu:widget_toggle'
-	 *
-	 * @return array
-	 */
-	public static function addWidgetToggleControls(\Elgg\Hook $hook) {
-		
-		$entity = $hook->getEntityParam();
-		if (!$entity instanceof \WidgetManagerWidget) {
-			return;
-		}
-		
-		if (!$entity->canCollapse()) {
-			return;
-		}
-		
-		$result = $hook->getValue();
-		
-		$collapsed = $entity->showCollapsed();
-		
-		$result[] = \ElggMenuItem::factory([
-			'name' => 'collapse',
-			'icon' => 'chevron-down',
-			'text' => false,
-			'href' => elgg_generate_action_url('widget_manager/widgets/toggle_collapse', [
-				'guid' => $entity->guid,
-				'collapsed' => true,
-			]),
-			'link_class' => 'elgg-widget-collapse-button',
-			'item_class' => $collapsed ? 'hidden' : '',
-			'data-toggle' => 'expand',
-			'rel' => 'toggle',
-			'data-toggle-selector' => "#elgg-widget-{$entity->guid} > .elgg-body",
-		]);
-
-		$result[] = \ElggMenuItem::factory([
-			'name' => 'expand',
-			'icon' => 'chevron-right',
-			'text' => false,
-			'href' => elgg_generate_action_url('widget_manager/widgets/toggle_collapse', [
-				'guid' => $entity->guid,
-				'collapsed' => false,
-			]),
-			'link_class' => 'elgg-widget-collapse-button',
-			'item_class' => $collapsed ? '' : 'hidden',
-			'data-toggle' => 'collapse',
-			'rel' => 'toggle',
-			'data-toggle-selector' => "#elgg-widget-{$entity->guid} > .elgg-body",
-		]);
-	
-		return $result;
-	}
-	
-	/**
 	 * Optionally removes the edit and delete links from the menu
 	 *
 	 * @param \Elgg\Hook $hook 'prepare', 'menu:widget'

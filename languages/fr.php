@@ -16,8 +16,6 @@ return array (
   'widget_manager:widgets:edit:hide_header' => 'Cacher l\'entête',
   'widget_manager:widgets:edit:custom_class' => 'Classe CSS sur mesure',
   'widget_manager:widgets:edit:disable_widget_content_style' => 'Pas de style',
-  'widget_manager:widgets:edit:collapse_disable' => 'Désactiver l\'auto dimensionnement',
-  'widget_manager:widgets:edit:collapse_state' => 'Dimensionnement par défaut',
   'widget_manager:groups:enable_widget_manager' => 'Activer la gestion des blocs d\'info',
   'widget_manager:settings:index' => 'Page d\'index',
   'widget_manager:settings:group' => 'Groupe',

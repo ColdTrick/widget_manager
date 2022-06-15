@@ -1,23 +1,4 @@
 require(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax) {
-	
-	elgg.register_hook_handler('toggle', 'menu_item', function(type, subtype, params) {
-		if (!params.menu.hasClass('elgg-menu-widget-toggle')) {
-			return;
-		}
-		
-		var $widget = params.itemClicked.closest('.elgg-module-widget');
-		if (params.itemClicked.hasClass('elgg-menu-item-collapse')) {
-			$widget.addClass('elgg-state-collapsed');
-		} else {
-			$widget.removeClass('elgg-state-collapsed');
-		}
-		
-		$widget.trigger({
-			type: 'collapseToggle',
-			widget: $widget
-		});
-	});
-	
 	if ($('.elgg-module-widget.lazy-loading').length) {
 		$('.elgg-layout-widgets').each(function(i, layout) {
 			var $lazy_widgets = $(layout).find('.elgg-module-widget.lazy-loading');

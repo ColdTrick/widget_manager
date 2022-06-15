@@ -57,7 +57,6 @@ return [
 			'access' => 'public',
 		],
 		'widget_manager/groups/update_widget_access' => [],
-		'widget_manager/widgets/toggle_collapse' => [],
 		'widget_manager/force_tool_widgets' => [
 			'access' => 'admin',
 		],
@@ -92,9 +91,6 @@ return [
 		],
 		'object/widget/elements/content' => [
 			'widget_manager/widgets/custom_more' => [],
-		],
-		'object/widget/header' => [
-			'object/widget/toggle' => ['priority' => 400],
 		],
 		'page/layouts/widgets/add_panel' => [
 			'widget_manager/group_tool_widgets' => ['priority' => 400],
@@ -166,9 +162,6 @@ return [
 			],
 			'menu:page' => [
 				'\ColdTrick\WidgetManager\Menus::registerAdminPageMenu' => [],
-			],
-			'menu:widget_toggle' => [
-				'\ColdTrick\WidgetManager\Menus::addWidgetToggleControls' => [],
 			],
 		],
 		'setting' => [

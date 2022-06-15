@@ -59,25 +59,6 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 		'name' => 'params[widget_manager_custom_class]',
 		'value' => $widget->widget_manager_custom_class,
 	];
-	$fields[] = [
-		'#type' => 'checkbox',
-		'#label' => elgg_echo('widget_manager:widgets:edit:collapse_disable'),
-		'name' => 'params[widget_manager_collapse_disable]',
-		'checked' => $widget->widget_manager_collapse_disable === 'yes',
-		'switch' => true,
-		'default' => 'no',
-		'value' => 'yes',
-	];
-	$fields[] = [
-		'#type' => 'dropdown',
-		'#label' => elgg_echo('widget_manager:widgets:edit:collapse_state'),
-		'name' => 'params[widget_manager_collapse_state]',
-		'value' => $widget->widget_manager_collapse_state,
-		'options_values' => [
-			'0' => elgg_echo('status:open'),
-			'closed' => elgg_echo('status:closed'),
-		],
-	];
 	
 	if ((bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager') && !WidgetsSettingsConfig::instance()->getSetting($widget->handler, 'always_lazy_load', (string) $widget->context)) {
 		$fields[] = [

@@ -1,14 +1,11 @@
 <?php
 
-use ColdTrick\WidgetManager\CollapsedState;
-
 /**
  * Extends the feature of default ElggWidgets
  *
  * @package WidgetManager
  */
 class WidgetManagerWidget extends ElggWidget {
-	use CollapsedState;
 	
 	/**
 	 * Converts json to arrays
@@ -81,50 +78,6 @@ class WidgetManagerWidget extends ElggWidget {
 		}
 	
 		return true;
-	}
-	
-	/**
-	 * Checks if a widget can be collapsed
-	 *
-	 * @return boolean
-	 */
-	public function canCollapse() {
-		if (!elgg_is_logged_in()) {
-			return false;
-		}
-		
-		$result = $this->widget_manager_collapse_disable !== 'yes';
-		
-		$result = elgg_trigger_plugin_hook('collapsable', "widgets:{$this->handler}", ['entity' => $this], $result);
-		
-		return $result;
-	}
-	
-	/**
-	 * Return a boolean if the widget should show collapsed
-	 *
-	 * @return bool
-	 */
-	public function showCollapsed() {
-		
-		if (!$this->canCollapse()) {
-			return false;
-		}
-		
-		$default = ($this->widget_manager_collapse_state === 'closed');
-		if (!elgg_is_logged_in()) {
-			return $default;
-		}
-		
-		if ($this->checkCollapsedState('widget_state_collapsed')) {
-			return true;
-		}
-
-		if ($this->checkCollapsedState('widget_state_open')) {
-			return false;
-		}
-		
-		return $default;
 	}
 		
 	/**

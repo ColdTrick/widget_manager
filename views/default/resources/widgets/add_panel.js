@@ -1,5 +1,4 @@
 define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
-	var ajax = new Ajax();
 	
 	/**
 	 * Adds a new widget
@@ -20,7 +19,8 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 		}
 		
 		var href = $(this).attr('href');
-		
+		var ajax = new Ajax();
+	
 		ajax.path(href).done(function(output) {
 			var query_parts = elgg.parse_url(href, 'query', true);
 			var selector = '';

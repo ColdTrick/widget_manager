@@ -24,8 +24,6 @@ return [
 	'widget_manager:widgets:edit:hide_header' => "Hide header",
 	'widget_manager:widgets:edit:custom_class' => "Custom CSS class",
 	'widget_manager:widgets:edit:disable_widget_content_style' => "No widget style",
-	'widget_manager:widgets:edit:collapse_disable' => "Disable collapse ability",
-	'widget_manager:widgets:edit:collapse_state' => "Default collapsed state",
 	'widget_manager:widgets:edit:lazy_load_content' => "Lazy load the content",
 
 	// group

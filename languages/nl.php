@@ -34,8 +34,6 @@ return array (
   'widget_manager:action:groups:update_widget_access:success' => 'Zichtbaarheid van alle widgets in deze groep is bijgewerkt',
   'widget_manager:widgets:edit:custom_more_title' => 'Aangepaste lees meer tekst',
   'widget_manager:widgets:edit:custom_more_url' => 'Aangepaste lees meer link',
-  'widget_manager:widgets:edit:collapse_disable' => 'Schakel de invouwen mogelijkheid uit',
-  'widget_manager:widgets:edit:collapse_state' => 'Standaard ingevouwen status',
   'widget_manager:settings:group:enable:yes' => 'Ja, beheerbaar met groep tool optie',
   'widget_manager:settings:group:enable:forced' => 'Ja, altijd aan',
   'widget_manager:settings:group:force_tool_widgets' => 'Forceer groep tool widgets',
