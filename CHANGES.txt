@@ -1,6 +1,10 @@
 Version history
 ===============
 
+13.1 (2022-06-22):
+
+- removed: no longer provide widget toggle/collapse features
+
 13.0 (2022-06-01):
 
 - added: discussions widget is now available in groups context
