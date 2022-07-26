@@ -14,8 +14,8 @@ echo elgg_list_entities([
 	'subtype' => 'widget_page',
 	'limit' => false,
 	'no_results' => true,
-	'order_by_metadata' => [
-		'name' => 'url',
-		'order' => 'ASC',
+	'sort_by' => [
+		'property' => 'url',
+		'direction' => 'asc',
 	],
 ]);

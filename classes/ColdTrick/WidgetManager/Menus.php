@@ -114,9 +114,14 @@ class Menus {
 				if ($item->getName() == 'settings') {
 					$show_access = elgg_get_config('widget_show_access');
 					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->guid . '&show_access=' . $show_access);
-					unset($item->rel);
+
 					$item->{"data-colorbox-opts"} = '{"width": 750, "max-height": "80%", "trapFocus": false, "fixed": true}';
-					$item->addLinkClass('elgg-lightbox');
+					$link_classes = explode(' ', $item->getLinkClass());
+					if (($key = array_search('elgg-toggle', $link_classes)) !== false) {
+					    unset($link_classes[$key]);
+					}
+					$link_classes[] = 'elgg-lightbox';
+					$item->setLinkClass($link_classes);
 				}
 			}
 		}

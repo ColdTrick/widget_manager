@@ -12,4 +12,4 @@ if (empty($custom_more_title) || empty($custom_more_url)) {
 	return;
 }
 
-echo elgg_format_element('div', ['class' => 'elgg-widget-more'], elgg_view_url($custom_more_url, $custom_more_title));
+echo elgg_view('page/components/list/widget_more', ['widget_more' => elgg_view_url($custom_more_url, $custom_more_title)]);

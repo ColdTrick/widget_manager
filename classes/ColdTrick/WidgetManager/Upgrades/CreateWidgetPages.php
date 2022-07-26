@@ -31,7 +31,7 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 	public function countItems(): int {
 		
 		$plugin = elgg_get_plugin_from_id('widget_manager');
-		$contexts = (array) string_to_tag_array($plugin->extra_contexts);
+		$contexts = elgg_string_to_array((string) $plugin->extra_contexts);
 				
 		return count($contexts);
 	}
@@ -49,7 +49,7 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 	public function run(Result $result, $offset): Result {
 		
 		$plugin = elgg_get_plugin_from_id('widget_manager');
-		$contexts = string_to_tag_array($plugin->extra_contexts);
+		$contexts = elgg_string_to_array((string) $plugin->extra_contexts);
 		
 		$contexts_config = json_decode($plugin->extra_contexts_config, true);
 		if (!is_array($contexts_config)) {
@@ -65,7 +65,7 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 			
 			$widget_page->save();
 			
-			$managers = string_to_tag_array(elgg_extract('manager', $context_config, ''));
+			$managers = elgg_string_to_array((string) elgg_extract('manager', $context_config, ''));
 			foreach ($managers as $username) {
 				$user = get_user_by_username($username);
 				if ($user) {

@@ -27,7 +27,7 @@ if (!$widgets_count) {
 	return;
 }
 
-$access_options = get_write_access_array(0, 0, false, [
+$access_options = elgg_get_write_access_array(0, false, [
 	'container_guid' => $group->guid,
 	'value' => $group->access_id,
 	'entity_type' => 'object',

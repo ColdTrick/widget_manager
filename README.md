@@ -1,7 +1,7 @@
 Widget Manager
 ==============
 
-![Elgg 4.2](https://img.shields.io/badge/Elgg-4.2-green.svg)
+![Elgg 4.3](https://img.shields.io/badge/Elgg-4.3-green.svg)
 [![Build Status](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ColdTrick/widget_manager/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/coldtrick/widget_manager/v/stable.svg)](https://packagist.org/packages/coldtrick/widget_manager)
