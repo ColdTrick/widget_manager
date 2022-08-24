@@ -1,6 +1,10 @@
 Version history
 ===============
 
+14.0 (2022-08-24):
+
+- changed: updated for Elgg 4.3
+
 13.1 (2022-06-22):
 
 - removed: no longer provide widget toggle/collapse features
