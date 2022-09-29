@@ -95,4 +95,7 @@ $content = elgg_view_layout('widgets', [
 	'show_add_widgets' => empty($title),
 ]);
 
-echo elgg_view_page($title, ['content' => $content]);
+echo elgg_view_page($widget_page->getDisplayName(), [
+	'title' => $title,
+	'content' => $content,
+]);

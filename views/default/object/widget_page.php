@@ -16,10 +16,7 @@ if (!$entity instanceof WidgetPage) {
 $vars['icon'] = false;
 $vars['byline'] = false;
 
-$title = $entity->url;
-if (!empty($entity->title)) {
-	$title .= " [{$entity->title}]";
-}
+$title = $entity->getDisplayName() . " [{$entity->url}]";
 
 $vars['title'] = elgg_view_url($entity->getURL(), elgg_get_excerpt($title, 100));
 

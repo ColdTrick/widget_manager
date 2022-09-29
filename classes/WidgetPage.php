@@ -112,4 +112,12 @@ class WidgetPage extends ElggObject {
 	public function getNumColumns() {
 		return count(explode('|', $this->layout));
 	}
+	
+	public function getDisplayName() {
+		if (empty($this->title)) {
+			return ucwords(str_replace('_', ' ', $this->url));
+		}
+		
+		return parent::getDisplayName();
+	}
 }
