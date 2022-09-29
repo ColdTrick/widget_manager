@@ -30,6 +30,16 @@
 	flex-wrap: wrap;
 }
 
+.elgg-widgets-hide-content .elgg-module-widget {
+	>.elgg-head .elgg-widget-title {
+		display: block;
+	}
+	
+	> .elgg-body {
+		display: none;
+	}
+}
+
 .widgets-fluid-columns {
 	.elgg-widgets-grid {
 		display: block;

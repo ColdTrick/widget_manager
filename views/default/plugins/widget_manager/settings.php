@@ -125,3 +125,16 @@ $lazy_settings .= elgg_view_field([
 ]);
 
 echo elgg_view_module('info', elgg_echo('widget_manager:settings:lazy_loading'), $lazy_settings);
+
+$other_settings = elgg_view_field([
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('widget_manager:settings:show_collapse_content'),
+	'#help' => elgg_echo('widget_manager:settings:show_collapse_content:help'),
+	'name' => 'params[show_collapse_content]',
+	'checked' => (bool) $plugin->show_collapse_content,
+	'switch' => true,
+	'default' => 0,
+	'value' => 1,
+]);
+
+echo elgg_view_module('info', elgg_echo('widget_manager:settings:other'), $other_settings);

@@ -30,6 +30,7 @@ return [
 		'lazy_loading_enabled' => 0,
 		'lazy_loading_mobile_columns' => 1,
 		'lazy_loading_under_fold' => 5,
+		'show_collapse_content' => false,
 	],
 	'entities' => [
 		[
@@ -162,6 +163,9 @@ return [
 			],
 			'menu:page' => [
 				'\ColdTrick\WidgetManager\Menus::registerAdminPageMenu' => [],
+			],
+			'menu:title:widgets' => [
+				'\ColdTrick\WidgetManager\Menus::addWidgetsContentToggle' => [],
 			],
 		],
 		'setting' => [

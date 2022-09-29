@@ -33,6 +33,7 @@ return [
 	'widget_manager:settings:index' => "Index",
 	'widget_manager:settings:group' => "Group",
 	'widget_manager:settings:lazy_loading' => "Lazy Loading",
+	'widget_manager:settings:other' => "Other",
 
 	'widget_manager:settings:custom_index' => "Use Widget Manager custom index?",
 	'widget_manager:settings:custom_index:non_loggedin' => "For non-loggedin users only",
@@ -53,6 +54,8 @@ return [
 	'widget_manager:settings:widget_layout:100' => "Single column (100%)",
 
 	'widget_manager:settings:index_managers' => "Index managers",
+	'widget_manager:settings:show_collapse_content' => "Show widget content toggle on layout edit",
+	'widget_manager:settings:show_collapse_content:help' => "If enabled this will show a toggle next to the 'Add widget' button to toggle widget contents. This can help with organizing your widget layout.",
 
 	'widget_manager:settings:group:enable' => "Enable Widget Manager for groups",
 	'widget_manager:settings:group:enable:yes' => "Yes, managable by group tool option",
@@ -104,6 +107,8 @@ return [
 	
 	// widgets
 	'widget_manager:widgets:edit:advanced' => "Advanced",
+	'widget_manager:layout:content:hide' => "Hide widget content",
+	'widget_manager:layout:content:show' => "Show widget content",
 	
 	// upgrades
 	'widget_manager:upgrade:2018052400:title' => "Widget contexts to pages",

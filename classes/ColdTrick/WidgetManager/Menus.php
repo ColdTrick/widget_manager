@@ -98,6 +98,43 @@ class Menus {
 	}
 
 	/**
+	 * Adds a toggle to show/hide widget contents
+	 *
+	 * @param \Elgg\Hook $hook 'register', 'title:widgets'
+	 *
+	 * @return array
+	 */
+	public static function addWidgetsContentToggle(\Elgg\Hook $hook) {
+		
+		if (!elgg_get_plugin_setting('show_collapse_content', 'widget_manager')) {
+			return;
+		}
+		
+		$result = $hook->getValue();
+			
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'hide-widget-contents',
+			'class' => 'elgg-more',
+			'text' => elgg_echo('widget_manager:layout:content:hide'),
+			'icon' => 'eye-slash',
+			'href' => false,
+			'priority' => 80,
+		]);
+			
+		$result[] = \ElggMenuItem::factory([
+			'name' => 'show-widget-contents',
+			'class' => 'elgg-more',
+			'item_class' => 'hidden',
+			'text' => elgg_echo('widget_manager:layout:content:show'),
+			'icon' => 'eye',
+			'href' => false,
+			'priority' => 81,
+		]);
+		
+		return $result;
+	}
+
+	/**
 	 * Optionally removes the edit and delete links from the menu
 	 *
 	 * @param \Elgg\Hook $hook 'prepare', 'menu:widget'
