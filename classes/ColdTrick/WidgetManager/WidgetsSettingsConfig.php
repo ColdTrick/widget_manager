@@ -116,7 +116,6 @@ class WidgetsSettingsConfig {
 	 * @return bool
 	 */
 	public function showLazyLoaded(\WidgetManagerWidget $widget, array $layout_info = []) {
-		
 		if (elgg_is_xhr()) {
 			// no lazy loading body for ajax loaded widgets
 			return false;
@@ -126,9 +125,7 @@ class WidgetsSettingsConfig {
 			return false;
 		}
 		
-		
 		$detect_lazy_loading = function() use ($widget, $layout_info) {
-			
 			// configured in advanced widget config
 			if ($widget->widget_manager_lazy_load_content) {
 				return true;
@@ -138,12 +135,18 @@ class WidgetsSettingsConfig {
 			if ($this->getSetting($widget->handler, 'always_lazy_load', (string) $widget->context)) {
 				return true;
 			}
-						
+			
+			$widgets = elgg_extract('widgets', $layout_info, []);
+			
 			// under the fold
 			$under_fold_limit = elgg_get_plugin_setting('lazy_loading_under_fold', 'widget_manager');
-			if (!elgg_is_empty($under_fold_limit) && !empty($layout_info)) {
+			if (!elgg_is_empty($under_fold_limit) && !empty($widgets)) {
+				if (in_array('widgets-fluid-columns', elgg_extract('classes', $layout_info, []))) {
+					$under_fold_limit = $under_fold_limit * 3;
+				}
+				
 				// if invalid widgets are removed from the layout, the index could be messed up
-				$column_widgets = array_values((array) elgg_extract($widget->column, $layout_info, []));
+				$column_widgets = array_values((array) elgg_extract($widget->column, $widgets, []));
 				
 				foreach ($column_widgets as $column_index => $column_widget) {
 					// if position in column is over the fold limit than it should be lazy loaded
@@ -159,9 +162,9 @@ class WidgetsSettingsConfig {
 			}
 			
 			// mobile columns
-			if ((bool) elgg_get_plugin_setting('lazy_loading_mobile_columns', 'widget_manager') && !empty($layout_info)) {
+			if ((bool) elgg_get_plugin_setting('lazy_loading_mobile_columns', 'widget_manager') && !empty($widgets)) {
 				$first_column_with_data = 3;
-				while (empty($layout_info[$first_column_with_data])) {
+				while (empty($widgets[$first_column_with_data])) {
 					$first_column_with_data--;
 					
 					if ($first_column_with_data === 1) {

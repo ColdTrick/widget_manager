@@ -39,6 +39,10 @@ $classes = elgg_extract_class($vars, [
 	"layout-widgets-{$context}",
 ]);
 
+if ($can_edit_layout) {
+	$classes[] = 'elgg-layout-can-edit';
+}
+
 $widgets = elgg_extract('widgets', $vars);
 if ($widgets === null) {
 	$ignore_access = $can_edit_layout ? ELGG_IGNORE_ACCESS : 0;
@@ -123,7 +127,10 @@ for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 		$widgets_content .= elgg_view_entity($widget, [
 			'show_access' => $show_access,
 			'register_rss_link' => false,
-			'layout_info' => $widgets,
+			'layout_info' => [
+				'widgets' => $widgets,
+				'classes' => $classes,
+			],
 		]);
 	}
 	
@@ -144,10 +151,6 @@ $result .= elgg_format_element('div', [
 elgg_pop_context();
 
 $result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
-
-if ($can_edit_layout) {
-	$classes[] = 'elgg-layout-can-edit';
-}
 
 echo elgg_format_element('div', [
 	'class' => $classes,
