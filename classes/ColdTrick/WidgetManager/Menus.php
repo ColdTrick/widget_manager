@@ -110,6 +110,10 @@ class Menus {
 			return;
 		}
 		
+		if (!$hook->getParam('show_collapse_content', false)) {
+			return;
+		}
+		
 		$result = $hook->getValue();
 			
 		$result[] = \ElggMenuItem::factory([

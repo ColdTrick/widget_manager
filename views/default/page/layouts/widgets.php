@@ -34,6 +34,11 @@ if (empty($page_owner) || ($owner->guid !== $page_owner->guid)) {
 $context = elgg_get_context();
 $can_edit_layout = elgg_can_edit_widget_layout($context);
 
+$classes = elgg_extract_class($vars, [
+	'elgg-layout-widgets',
+	"layout-widgets-{$context}",
+]);
+
 $widgets = elgg_extract('widgets', $vars);
 if ($widgets === null) {
 	$ignore_access = $can_edit_layout ? ELGG_IGNORE_ACCESS : 0;
@@ -62,6 +67,8 @@ if ($widgets) {
 }
 
 if ($show_add_widgets && $can_edit_layout) {
+	$vars['show_collapse_content'] = !in_array('widgets-fluid-columns', $classes);
+	
 	$result .= elgg_view('page/layouts/widgets/add_button', $vars);
 }
 
@@ -137,11 +144,6 @@ $result .= elgg_format_element('div', [
 elgg_pop_context();
 
 $result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
-
-$classes = elgg_extract_class($vars, [
-	'elgg-layout-widgets',
-	"layout-widgets-{$context}",
-]);
 
 if ($can_edit_layout) {
 	$classes[] = 'elgg-layout-can-edit';
