@@ -1,6 +1,13 @@
 Version history
 ===============
 
+14.1 (2022-10-07):
+
+- added: toggle link for widget layout editors to hide/show widget content
+- changed: fluid layout widget are lazy loaded after 3 * the fold limit
+- changed: widget page display name falls back to url
+- fixed: correctly pass show_access to newly added widgets
+
 14.0 (2022-08-24):
 
 - changed: updated for Elgg 4.3
