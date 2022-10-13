@@ -5,7 +5,7 @@
  */
 
 return array (
-	'widget_manager:settings:widget_layout:fluid' => 'Fluïde layout',
+	'widget_manager:settings:widget_layout:fluid' => 'Fluï¿½de layout',
 	'widget_manager:settings:other' => 'Overig',
 	'widget_manager:settings:show_collapse_content' => 'Toon widget content verbergen optie bij bewerken layout',
 	'widget_manager:settings:show_collapse_content:help' => 'Indien geactiveerd toont er naast de \'Widget toevoegen\' knop een optie om de inhoud van widgets te verbergen. Dit kan helpen bij het organiseren van de widget layout.',
