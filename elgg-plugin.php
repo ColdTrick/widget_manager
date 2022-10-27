@@ -11,7 +11,7 @@ if (is_dir(__DIR__ . '/vendor')) {
 
 return [
 	'plugin' => [
-		'version' => '14.1',
+		'version' => '14.1.1',
 		'dependencies' => [
 			'profile' => [
 				'must_be_active' => false,

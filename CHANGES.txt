@@ -1,6 +1,10 @@
 Version history
 ===============
 
+14.1.1 (2022-10-27):
+
+- fixed: Dutch translation file encoding
+
 14.1 (2022-10-07):
 
 - added: toggle link for widget layout editors to hide/show widget content
