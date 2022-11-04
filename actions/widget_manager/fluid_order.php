@@ -6,7 +6,10 @@ if (empty($guids)) {
 }
 
 foreach ($guids as $index => $guid) {
-	$widget = get_entity($guid);
+	$widget = elgg_call(ELGG_IGNORE_ACCESS, function() use ($guid) {
+		return get_entity($guid);
+	});
+	
 	if (!$widget instanceof \ElggWidget || !$widget->canEdit()) {
 		continue;
 	}

@@ -124,7 +124,13 @@ return [
 			'widgets/add' => [
 				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
 			],
+			'widgets/delete' => [
+				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
+			],
 			'widgets/move' => [
+				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
+			],
+			'widgets/save' => [
 				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
 			],
 		],

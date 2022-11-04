@@ -2,6 +2,8 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\Database\QueryBuilder;
+
 /**
  * Access
  */
@@ -110,7 +112,6 @@ class Access {
 		return $return_value;
 	}
 	
-
 	/**
 	 * Checks if current user can edit a widget if it is in a context he/she can manage
 	 *
@@ -140,22 +141,52 @@ class Access {
 	/**
 	 * Registers the extra context permissions check hook
 	 *
-	 * @param \Elgg\Hook $hook_name 'action:validate', 'widgets/[add|move]'
+	 * @param \Elgg\Hook $hook_name 'action:validate', 'widgets/[add|delete|move|save]'
 	 *
 	 * @return void
 	 */
 	public static function moreRightsForWidgetManager(\Elgg\Hook $hook) {
-		if ($hook->getType() == 'widgets/move') {
-			$widget_guid = (int) get_input('widget_guid');
-			if (empty($widget_guid)) {
-				return;
-			}
-	
-			$widget = get_entity($widget_guid);
-			if (!$widget instanceof \ElggWidget) {
-				return;
-			}
-			
+		if ($hook->getType() === 'widgets/add') {
+			elgg_register_plugin_hook_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
+			return;
+		}
+		
+		$widget_guid = (int) get_input('widget_guid', get_input('guid'));
+		if (empty($widget_guid)) {
+			return;
+		}
+		
+		$widget = elgg_call(ELGG_IGNORE_ACCESS, function() use ($widget_guid) {
+			return get_entity($widget_guid);
+		});
+		
+		if (!$widget instanceof \ElggWidget) {
+			return;
+		}
+		
+		if ($widget->canEdit()) {
+			// the widgets action might not be able to get privately owned index widgets
+			//_elgg_services()->session->setIgnoreAccess();
+			elgg_register_plugin_hook_handler('get_sql', 'access', function(\Elgg\Hook $hook) use ($widget_guid) {
+				$result = $hook->getValue();
+				/**
+				 * @var QueryBuilder $qb
+				 */
+				$qb = $hook->getParam('query_builder');
+				$table_alias = $hook->getParam('table_alias');
+				$guid_column = $hook->getParam('guid_column');
+				
+				$alias = function ($column) use ($table_alias) {
+					return $table_alias ? "{$table_alias}.{$column}" : $column;
+				};
+
+				$result['ors']['special_widget_access'] = $qb->compare($alias($guid_column), '=', $widget_guid);
+				return $result;
+			});
+		}
+		
+		if ($hook->getType() === 'widgets/move') {
+			// allow 'index' widgets to be added to the same context as the current widget
 			$widget_context = $widget->context;
 			
 			$index_widgets = elgg_get_widget_types('index');
@@ -165,8 +196,6 @@ class Access {
 				$contexts[] = $widget_context;
 				elgg_register_widget_type($handler, $index_widget->name, $index_widget->description, $contexts, $index_widget->multiple);
 			}
-		} elseif ($hook->getType() == 'widgets/add') {
-			elgg_register_plugin_hook_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
 		}
 	}
 }
