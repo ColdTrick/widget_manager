@@ -12,7 +12,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	public function init() {
 		$this->registerIndexRoute();
 		$this->registerWidgetPagesRoutes();
-		$this->initGroups();
 	}
 
 	/**
@@ -43,7 +42,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 * @return void
 	 */
 	protected function registerWidgetPagesRoutes() {
-		
 		$urls = $this->getWidgetPagesUrls();
 		
 		foreach ($urls as $url) {
@@ -55,7 +53,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 	}
 	
 	protected function getWidgetPagesUrls() {
-		
 		$urls = elgg_load_system_cache('widget_pages');
 		if ($urls) {
 			return $urls;
@@ -78,30 +75,5 @@ class Bootstrap extends DefaultPluginBootstrap {
 		elgg_save_system_cache('widget_pages', $urls);
 		
 		return $urls;
-	}
-	
-	/**
-	 * Used to perform initialization of the group widgets features.
-	 *
-	 * @return void
-	 */
-	protected function initGroups() {
-		if (!elgg_is_active_plugin('groups')) {
-			return;
-		}
-		
-		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
-		if (!in_array($group_enable, ['yes', 'forced'])) {
-			return;
-		}
-					
-		// register event to make sure all groups have the group option enabled if forces
-		// and configure tool enabled widgets
-		elgg_register_event_handler('update', 'group', '\ColdTrick\WidgetManager\Groups::updateGroupWidgets');
-		elgg_register_event_handler('create', 'object', '\ColdTrick\WidgetManager\Groups::addGroupWidget');
-		elgg_register_event_handler('delete', 'object', '\ColdTrick\WidgetManager\Groups::deleteGroupWidget');
-			
-		// make default widget management available
-		elgg_register_plugin_hook_handler('get_list', 'default_widgets', '\ColdTrick\WidgetManager\DefaultWidgets::addGroupsContextToDefaultWidgets');
 	}
 }

@@ -91,11 +91,7 @@ class WidgetsSettingsConfig {
 	 * @return string
 	 */
 	protected function getContext(string $context = '') {
-		if (empty($context)) {
-			$context = elgg_get_context();
-		}
-		
-		return $context;
+		return $context ?: elgg_get_context();
 	}
 	
 	/**

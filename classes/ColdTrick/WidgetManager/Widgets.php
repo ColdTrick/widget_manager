@@ -309,11 +309,7 @@ class Widgets {
 	 */
 	public static function layoutPermissionsCheck(\Elgg\Hook $hook) {
 		$user = $hook->getUserParam();
-		if (!$user instanceof \ElggUser) {
-			return;
-		}
-		
-		if ($hook->getValue()) {
+		if (!$user instanceof \ElggUser || $hook->getValue()) {
 			return;
 		}
 		

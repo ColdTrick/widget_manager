@@ -4,7 +4,7 @@ use ColdTrick\WidgetManager\WidgetsSettingsConfig;
 
 $contexts = elgg_extract('contexts', $vars);
 $widget_definition = elgg_extract('widget', $vars);
-if (!($widget_definition instanceof \Elgg\WidgetDefinition)) {
+if (!$widget_definition instanceof \Elgg\WidgetDefinition) {
 	return;
 }
 

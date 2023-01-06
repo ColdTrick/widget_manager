@@ -74,13 +74,8 @@ class Menus {
 	 * @return array
 	 */
 	public static function addWidgetPageEntityMenuItems(\Elgg\Hook $hook) {
-		
 		$entity = $hook->getEntityParam();
-		if (!$entity instanceof \WidgetPage) {
-			return;
-		}
-		
-		if (!$entity->canEdit()) {
+		if (!$entity instanceof \WidgetPage || !$entity->canEdit()) {
 			return;
 		}
 		

@@ -105,7 +105,18 @@ return [
 	'events' => [
 		'create' => [
 			'object' => [
+				'\ColdTrick\WidgetManager\Groups::addGroupWidget' => [],
 				'\ColdTrick\WidgetManager\Widgets::fixPrivateAccess' =>[],
+			],
+		],
+		'delete' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Groups::deleteGroupWidget' => [],
+			],
+		],
+		'update' => [
+			'group' => [
+				'\ColdTrick\WidgetManager\Groups::updateGroupWidgets' => [],
 			],
 		],
 	],
@@ -137,6 +148,11 @@ return [
 		'entity:url' => [
 			'object' => [
 				'\ColdTrick\WidgetManager\Widgets::getWidgetURL' => ['priority' => 9999],
+			],
+		],
+		'get_list' => [
+			'default_widgets' => [
+				'\ColdTrick\WidgetManager\Groups::addGroupsContextToDefaultWidgets' => [],
 			],
 		],
 		'group_tool_widgets' => [

@@ -4,8 +4,7 @@
  */
 
 $group = elgg_extract('entity', $vars);
-
-if (empty($group) || !($group instanceof ElggGroup) || !$group->canEdit()) {
+if (!$group instanceof ElggGroup || !$group->canEdit()) {
 	return;
 }
 
@@ -45,12 +44,11 @@ $content = elgg_view('output/longtext', [
 
 foreach ($access_options as $access_id => $option) {
 	$content .= elgg_view('output/url', [
-		'href' => elgg_http_add_url_query_elements('action/widget_manager/groups/update_widget_access', [
+		'href' => elgg_generate_action_url('widget_manager/groups/update_widget_access', [
 			'widget_access_level' => $access_id,
 			'group_guid' => $group->guid,
 		]),
 		'text' => $option,
-		'is_action' => true,
 		'class' => [
 			'elgg-button',
 			'elgg-button-action',

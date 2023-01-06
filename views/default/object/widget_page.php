@@ -1,13 +1,4 @@
 <?php
-/**
- * ElggObject default view.
- *
- * @warning This view may be used for other ElggEntity objects
- *
- * @package Elgg
- * @subpackage Core
- */
-
 $entity = elgg_extract('entity', $vars);
 if (!$entity instanceof WidgetPage) {
 	return;

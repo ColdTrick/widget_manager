@@ -43,9 +43,7 @@ foreach ($widgets as $column_widgets) {
 	}
 }
 
-$result = elgg_format_element('p', [
-	'class' => 'elgg-text-help',
-], elgg_echo('widgets:add:description'));
+$result = elgg_format_element('p', ['class' => 'elgg-text-help'], elgg_echo('widgets:add:description'));
 
 $list_items = '';
 $settings_service = WidgetsSettingsConfig::instance();
@@ -74,43 +72,33 @@ foreach ($widget_types as $handler => $widget_type) {
 		$action .= elgg_format_element('span', ['class' => 'elgg-quiet'], elgg_echo('widget:unavailable'));
 	}
 	
-	$add_link = elgg_http_add_url_query_elements('action/widgets/add', [
-		'handler' => $handler,
-		'page_owner_guid' => $owner_guid,
-		'context' => $context,
-		'show_access' => elgg_extract('show_access', $vars, get_input('show_access')),
-		'default_widgets' => elgg_in_context('default_widgets'),
-	]);
-	
 	$action .= elgg_view('output/url', [
-		'class' => 'elgg-button elgg-button-submit elgg-size-small',
+		'class' => ['elgg-button', 'elgg-button-submit', 'elgg-size-small'],
 		'text' => elgg_echo('add'),
-		'href' => $add_link,
-		'is_action' => true,
+		'href' => elgg_generate_action_url('widgets/add', [
+			'handler' => $handler,
+			'page_owner_guid' => $owner_guid,
+			'context' => $context,
+			'show_access' => elgg_extract('show_access', $vars, get_input('show_access')),
+			'default_widgets' => elgg_in_context('default_widgets'),
+		]),
 	]);
 	$action .= '</div>';
 	
-	$description = "<h4>{$widget_type->name}</h4>";
+	$description = elgg_format_element('h4' ,[], $widget_type->name);
 	
 	if ($widget_type->description) {
 		$description .= elgg_format_element('div', ['class' => 'elgg-quiet'], $widget_type->description);
 	}
 	
-	$description = elgg_format_element('div', [
-		'class' => 'elgg-widgets-add-description',
-	], $description);
+	$description = elgg_format_element('div', ['class' => 'elgg-widgets-add-description'], $description);
 	
-	$item_content = elgg_format_element('div', [
-		'class' => 'elgg-level',
-	], $description . $action);
+	$item_content = elgg_format_element('div', ['class' => 'elgg-level'], $description . $action);
 	
-	$list_items .= elgg_format_element('li', [
-		'class' => $class,
-		'data-elgg-widget-type' => $handler,
-	], $item_content);
+	$list_items .= elgg_format_element('li', ['class' => $class, 'data-elgg-widget-type' => $handler], $item_content);
 }
 
-$result .= "<ul>$list_items</ul>";
+$result .= elgg_format_element('ul', [], $list_items);
 
 $search_box = elgg_format_element('div', ['id' => 'widget_manager_widgets_search'], elgg_view('input/text', [
 	'title' => elgg_echo('search'),

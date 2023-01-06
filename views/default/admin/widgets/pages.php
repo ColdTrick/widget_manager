@@ -8,7 +8,6 @@ elgg_register_menu_item('title', [
 	'icon' => 'plus',
 ]);
 
-
 echo elgg_list_entities([
 	'type' => 'object',
 	'subtype' => 'widget_page',
