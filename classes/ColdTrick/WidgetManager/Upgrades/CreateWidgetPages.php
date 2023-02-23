@@ -86,8 +86,8 @@ class CreateWidgetPages implements AsynchronousUpgrade {
 		$widgets = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => 'widget',
-			'private_setting_name' => 'context',
-			'private_setting_value' => $old_context,
+			'metadata_name' => 'context',
+			'metadata_value' => $old_context,
 			'batch' => true,
 			'batch_inc_offset' => false,
 			'limit' => false,

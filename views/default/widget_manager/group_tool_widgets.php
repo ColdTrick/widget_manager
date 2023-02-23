@@ -24,7 +24,7 @@ if (!in_array($group_enable, ['yes', 'forced'])) {
 $result = ['enable' => [], 'disable' => []];
 $params = ['entity' => $page_owner];
 
-$result = (array) elgg_trigger_plugin_hook('group_tool_widgets', 'widget_manager', $params, $result);
+$result = (array) elgg_trigger_event_results('group_tool_widgets', 'widget_manager', $params, $result);
 
 if (empty($result)) {
 	return;

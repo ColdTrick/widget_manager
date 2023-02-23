@@ -103,24 +103,6 @@ return [
 		'widgets/user_search/content' => ['ajax' => true],
 	],
 	'events' => [
-		'create' => [
-			'object' => [
-				'\ColdTrick\WidgetManager\Groups::addGroupWidget' => [],
-				'\ColdTrick\WidgetManager\Widgets::fixPrivateAccess' =>[],
-			],
-		],
-		'delete' => [
-			'object' => [
-				'\ColdTrick\WidgetManager\Groups::deleteGroupWidget' => [],
-			],
-		],
-		'update' => [
-			'group' => [
-				'\ColdTrick\WidgetManager\Groups::updateGroupWidgets' => [],
-			],
-		],
-	],
-	'hooks' => [
 		'access:collections:write' => [
 			'all' => [
 				'\ColdTrick\WidgetManager\Access::setWriteAccess' => ['priority' => 999],
@@ -143,6 +125,17 @@ return [
 			],
 			'widgets/save' => [
 				'\ColdTrick\WidgetManager\Access::moreRightsForWidgetManager' => [],
+			],
+		],
+		'create' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Groups::addGroupWidget' => [],
+				'\ColdTrick\WidgetManager\Widgets::fixPrivateAccess' => [],
+			],
+		],
+		'delete' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Groups::deleteGroupWidget' => [],
 			],
 		],
 		'entity:url' => [
@@ -180,11 +173,11 @@ return [
 			],
 		],
 		'register' => [
+			'menu:admin_header' => [
+				'\ColdTrick\WidgetManager\Menus::registerAdminHeaderMenu' => [],
+			],
 			'menu:entity' => [
 				'\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems' => [],
-			],
-			'menu:page' => [
-				'\ColdTrick\WidgetManager\Menus::registerAdminPageMenu' => [],
 			],
 			'menu:title:widgets' => [
 				'\ColdTrick\WidgetManager\Menus::addWidgetsContentToggle' => [],
@@ -198,6 +191,16 @@ return [
 		'tool_options' => [
 			'group' => [
 				'\ColdTrick\WidgetManager\Groups::registerGroupWidgetsTool' => [],
+			],
+		],
+		'update' => [
+			'group' => [
+				'\ColdTrick\WidgetManager\Groups::updateGroupWidgets' => [],
+			],
+		],
+		'update:after' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnUpdate' => [],
 			],
 		],
 		'view' => [
@@ -214,11 +217,6 @@ return [
 			],
 			'object/widget/elements/controls' => [
 				'\ColdTrick\WidgetManager\Widgets::preventControls' => [],
-			],
-		],
-		'widget_settings' => [
-			'all' => [
-				'\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnSettingsSave' => [],
 			],
 		],
 	],

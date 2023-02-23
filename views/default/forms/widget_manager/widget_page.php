@@ -7,7 +7,7 @@ echo elgg_format_element('div', ['class' => 'elgg-subtext mbm'], elgg_echo('widg
 echo elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'guid',
-	'value' => $entity ? $entity->guid: null,
+	'value' => $entity ? $entity->guid : null,
 ]);
 
 echo elgg_view_field([

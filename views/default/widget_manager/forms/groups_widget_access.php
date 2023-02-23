@@ -4,7 +4,7 @@
  */
 
 $group = elgg_extract('entity', $vars);
-if (!$group instanceof ElggGroup || !$group->canEdit()) {
+if (!$group instanceof \ElggGroup || !$group->canEdit()) {
 	return;
 }
 
@@ -17,8 +17,8 @@ $widgets_count = elgg_count_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
 	'owner_guid' => $group->guid,
-	'private_setting_name' => 'context',
-	'private_setting_value' => 'groups',
+	'metadata_name' => 'context',
+	'metadata_value' => 'groups',
 ]);
 
 if (!$widgets_count) {

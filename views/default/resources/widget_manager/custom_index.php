@@ -1,6 +1,5 @@
 <?php
-	
-// set context
+
 elgg_push_context('index');
 
 elgg_set_page_owner_guid(elgg_get_site_entity()->guid); // site owns the index widgets

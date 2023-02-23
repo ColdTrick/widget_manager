@@ -1,6 +1,4 @@
-define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], function ($, i18n, Ajax, lightbox) {
-
-	var widgets = {};
+define(['jquery', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], function ($, Ajax, lightbox) {
 
 	/**
 	 * Persist the widget's new position
@@ -10,16 +8,15 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/
 	 *
 	 * @return void
 	 */
-	widgets.move = function (event, ui) {
-
+	function moveWidget(event, ui) {
 		// elgg-widget-<guid>
 		var guidString = ui.item.attr('id');
-		guidString = guidString.substr(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
+		guidString = guidString.substring(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
 
 		// elgg-widget-col-<column>
 		var col = ui.item.parent().attr('id');
-		col = col.substr(col.indexOf('elgg-widget-col-') + "elgg-widget-col-".length);
-
+		col = col.substring(col.indexOf('elgg-widget-col-') + "elgg-widget-col-".length);
+		
 		var ajax = new Ajax(false);
 		ajax.action('widgets/move', {
 			data: {
@@ -38,13 +35,9 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/
 	 * @param {Object} event
 	 * @return void
 	 */
-	widgets.remove = function (event) {
+	function removeWidget(event) {
 		event.preventDefault();
-		
-		if (confirm(i18n.echo('deleteconfirm')) === false) {
-			return;
-		}
-		
+
 		var $layout = $(this).closest('.elgg-layout-widgets');
 		var $widget = $(this).closest('.elgg-module-widget');
 		$widget.remove();
@@ -68,7 +61,7 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/
 	 * @param {Object} event
 	 * @return void
 	 */
-	widgets.saveSettings = function (event) {
+	function saveWidgetSettings(event) {
 		event.preventDefault();
 		
 		var guid = $(this).find('[name="guid"]').val();
@@ -117,15 +110,12 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/
 			placeholder: 'elgg-widget-placeholder',
 			opacity: 0.8,
 			revert: 500,
-			stop: widgets.move
+			stop: moveWidget
 		};
 		var settings = $.extend({}, defaults, opts);
 		
 		$(this).sortable(settings);
 	});
-
-	$(document).on('click', 'a.elgg-widget-delete-button', widgets.remove);
-	$(document).on('submit', '.elgg-form-widgets-save', widgets.saveSettings);
 	
 	// regular layouts
 	$(document).on('click', '.elgg-menu-title-widgets .elgg-menu-item-hide-widget-contents a, .elgg-menu-title-widgets .elgg-menu-item-show-widget-contents a', function() {
@@ -145,7 +135,7 @@ define(['jquery', 'elgg/i18n', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/
 		
 		return false;
 	});
-
-	return widgets;
+	
+	$(document).on('click', 'a.elgg-widget-delete-button', removeWidget);
+	$(document).on('submit', '.elgg-form-widgets-save', saveWidgetSettings);
 });
-

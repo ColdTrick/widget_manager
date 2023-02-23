@@ -1,6 +1,6 @@
 <?php
 $entity = elgg_extract('entity', $vars);
-if (!$entity instanceof WidgetPage) {
+if (!$entity instanceof \WidgetPage) {
 	return;
 }
 

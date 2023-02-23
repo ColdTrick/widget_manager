@@ -8,7 +8,7 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 	 * @param {Object} event
 	 * @return void
 	 */
-	var add = function (event) {
+	function addWidget(event) {
 		event.preventDefault();
 		
 		var $item = $(this).closest('li');
@@ -20,18 +20,27 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 		
 		var href = $(this).attr('href');
 		var ajax = new Ajax();
-	
+		
 		ajax.path(href).done(function(output) {
 			var query_parts = elgg.parse_url(href, 'query', true);
 			var selector = '';
-		
-			if (query_parts['context'] && query_parts['page_owner_guid']) {
-				selector = '.layout-widgets-' + query_parts['context'] + '[data-page-owner-guid="' + query_parts['page_owner_guid'] + '"] #elgg-widget-col-1';
+			var context = query_parts['context'];
+			var page_owner_guid = query_parts['page_owner_guid'];
+			var new_widget_column = query_parts['new_widget_column'] || 1;
+			var new_widget_position = query_parts['new_widget_position'] || 'top';
+			
+			if (context && page_owner_guid) {
+				// target the correct widget layout
+				selector = '.elgg-layout-widgets-' + context + '[data-page-owner-guid="' + page_owner_guid + '"] #elgg-widget-col-' + new_widget_column;
 			} else {
-				selector = '#elgg-widget-col-1';		
+				selector = '#elgg-widget-col-' + new_widget_column;
 			}
 			
-			$(selector).prepend(output);
+			if (new_widget_position === 'top') {
+				$(selector).prepend(output);
+			} else {
+				$(selector).append(output);
+			}
 
 			var $layout = $(selector).closest('.elgg-layout-widgets');
 			$layout.trigger({
@@ -41,5 +50,20 @@ define(['jquery', 'elgg', 'elgg/Ajax'], function($, elgg, Ajax) {
 		});
 	};
 	
-	$(document).on('click', '.elgg-widgets-add-panel .elgg-widgets-add-actions .elgg-button-submit', add);
+	$(document).on('click', '.elgg-widgets-add-panel .elgg-widgets-add-actions .elgg-button-submit', addWidget);
+	
+	$(document).on('keyup', '.elgg-widgets-add-panel input[name="widget_search"]', function() {
+		var $container = $('.elgg-widgets-add-panel');
+		var $items = $container.find('> .elgg-body > ul > li');
+		var q = $(this).val();
+
+		if (q === '') {
+			$items.show();
+		} else {
+			$items.hide();
+			$items.filter(function () {
+				return $(this).text().toUpperCase().indexOf(q.toUpperCase()) >= 0;
+			}).show();
+		}
+	});
 });

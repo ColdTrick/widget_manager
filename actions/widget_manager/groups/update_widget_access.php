@@ -23,8 +23,8 @@ $widgets = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
 	'owner_guid' => $group->guid,
-	'private_setting_name' => 'context',
-	'private_setting_value' => 'groups',
+	'metadata_name' => 'context',
+	'metadata_value' => 'groups',
 	'limit' => false,
 ]);
 

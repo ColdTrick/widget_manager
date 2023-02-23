@@ -1,5 +1,4 @@
 .widget_manager_hide_header {
-	
 	> .elgg-head {
 		display: none;
 	}
@@ -11,7 +10,7 @@
 	}
 }
 
-.elgg-module-widget {	
+.elgg-module-widget {
 	&.widget_manager_disable_widget_content_style {
 		background: none;
 		border: 0px;

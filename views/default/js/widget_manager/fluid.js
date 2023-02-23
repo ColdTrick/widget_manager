@@ -84,7 +84,7 @@ define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muur
 					return;
 				}
 				
-				// update dom with new positions	
+				// update dom with new positions
 				grid.synchronize();
 				
 				var guids = [];

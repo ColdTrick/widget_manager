@@ -22,7 +22,7 @@ require(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax)
 				},
 				success: function (result) {
 					$.each(result, function(guid, body) {
-					    $('#elgg-widget-' + guid + ' > .elgg-body').html(body);
+						$('#elgg-widget-' + guid + ' > .elgg-body').html(body);
 					});
 					
 					$(layout).trigger({
@@ -30,7 +30,7 @@ require(['jquery', 'elgg', 'elgg/Ajax', 'elgg/widgets'], function($, elgg, Ajax)
 						layout: $(layout)
 					});
 				}
-			});	
-		});			
+			});
+		});
 	}
 });

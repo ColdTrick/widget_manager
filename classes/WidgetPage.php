@@ -1,14 +1,14 @@
 <?php
-
+/**
+ * Widget page
+ */
 class WidgetPage extends ElggObject {
 	
 	const SUBTYPE = 'widget_page';
 	const MANAGER_RELATIONSHIP = 'manager';
 	
 	/**
-	 * initializes the default class attributes
-	 *
-	 * @return void
+	 * {@inheritDoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -21,9 +21,8 @@ class WidgetPage extends ElggObject {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see ElggEntity::canEdit()
 	 */
-	public function canEdit($user_guid = 0) {
+	public function canEdit(int $user_guid = 0): bool {
 		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
 		if (in_array($user_guid, $this->getManagers())) {
 			return true;
@@ -34,9 +33,8 @@ class WidgetPage extends ElggObject {
 	
 	/**
 	 * {@inheritDoc}
-	 * @see ElggEntity::getURL()
 	 */
-	public function getURL() {
+	public function getURL(): string {
 		return elgg_normalize_url($this->url);
 	}
 	
@@ -46,7 +44,7 @@ class WidgetPage extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function addManager(\ElggUser $user) {
+	public function addManager(\ElggUser $user): bool {
 		return $user->addRelationship($this->guid, self::MANAGER_RELATIONSHIP);
 	}
 	
@@ -56,7 +54,7 @@ class WidgetPage extends ElggObject {
 	 *
 	 * @return bool
 	 */
-	public function removeManager(\ElggUser $user) {
+	public function removeManager(\ElggUser $user): bool {
 		return $user->removeRelationship($this->guid, self::MANAGER_RELATIONSHIP);
 	}
 	
@@ -67,11 +65,11 @@ class WidgetPage extends ElggObject {
 	 *
 	 * @return void
 	 */
-	public function setManagers($guids = []) {
+	public function setManagers(array $guids = []): void {
 		$current = $this->getManagers();
 		foreach ($current as $guid) {
 			if (!in_array($guid, $guids)) {
-				$user = get_entity($guid);
+				$user = get_entity((int) $guid);
 				if ($user) {
 					$this->removeManager($user);
 				}
@@ -80,7 +78,7 @@ class WidgetPage extends ElggObject {
 		
 		$new_managers = array_diff($guids, $current);
 		foreach ($new_managers as $guid) {
-			$user = get_entity($guid);
+			$user = get_entity((int) $guid);
 			if ($user) {
 				$this->addManager($user);
 			}
@@ -92,7 +90,7 @@ class WidgetPage extends ElggObject {
 	 *
 	 * @return array
 	 */
-	public function getManagers() {
+	public function getManagers(): array {
 		return (array) elgg_get_entities([
 			'type' => 'user',
 			'relationship' => self::MANAGER_RELATIONSHIP,
@@ -109,11 +107,14 @@ class WidgetPage extends ElggObject {
 	 *
 	 * @return int
 	 */
-	public function getNumColumns() {
+	public function getNumColumns(): int {
 		return count(explode('|', $this->layout));
 	}
 	
-	public function getDisplayName() {
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getDisplayName(): string {
 		if (empty($this->title)) {
 			return ucwords(str_replace('_', ' ', $this->url));
 		}

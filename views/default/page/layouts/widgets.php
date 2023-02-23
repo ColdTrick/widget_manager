@@ -13,7 +13,7 @@
 $num_columns = (int) elgg_extract('num_columns', $vars, 3);
 $show_add_widgets = elgg_extract('show_add_widgets', $vars, true);
 $show_access = elgg_extract('show_access', $vars, true);
-$owner_guid = elgg_extract('owner_guid', $vars);
+$owner_guid = (int) elgg_extract('owner_guid', $vars);
 
 $page_owner = elgg_get_page_owner_entity();
 if ($owner_guid) {
@@ -22,21 +22,27 @@ if ($owner_guid) {
 	$owner = $page_owner;
 }
 
-if (!$owner) {
+if (!$owner instanceof \ElggEntity) {
 	return;
 }
 
+$context = elgg_get_context();
+if (elgg_is_empty($context)) {
+	return;
+}
+
+elgg_require_js('elgg/widgets');
+
 // Underlying views and functions assume that the page owner is the owner of the widgets
-if (empty($page_owner) || ($owner->guid !== $page_owner->guid)) {
+if (empty($page_owner) || $owner->guid !== $page_owner->guid) {
 	elgg_set_page_owner_guid($owner->guid);
 }
 
-$context = elgg_get_context();
 $can_edit_layout = elgg_can_edit_widget_layout($context);
 
 $classes = elgg_extract_class($vars, [
 	'elgg-layout-widgets',
-	"layout-widgets-{$context}",
+	"elgg-layout-widgets-{$context}",
 ]);
 
 if ($can_edit_layout) {
@@ -62,7 +68,7 @@ if (empty($widgets) && !empty($no_widgets)) {
 }
 
 // adjusts context to get correct widgets for special widget pages
-$available_widgets_context = elgg_trigger_plugin_hook('available_widgets_context', 'widget_manager', [], $context);
+$available_widgets_context = elgg_trigger_event_results('available_widgets_context', 'widget_manager', [], $context);
 if ($widgets) {
 	$widget_types = elgg_get_widget_types([
 		'context' => $available_widgets_context,
@@ -105,6 +111,7 @@ foreach ($widgets as $index => $column_widgets) {
 	foreach ($column_widgets as $column_widget) {
 		$widgets[$num_columns][] = $column_widget;
 	}
+	
 	unset($widgets[$index]);
 }
 
@@ -150,8 +157,6 @@ $result .= elgg_format_element('div', [
 
 elgg_pop_context();
 
-$result .= elgg_view('graphics/ajax_loader', ['id' => 'elgg-widget-loader']);
-
 echo elgg_format_element('div', [
 	'class' => $classes,
 	'data-page-owner-guid' => $owner->guid,
@@ -160,7 +165,7 @@ echo elgg_format_element('div', [
 
 // Restore original page owner
 if (empty($page_owner)) {
-	elgg_set_page_owner_guid(false);
+	elgg_set_page_owner_guid(0);
 } elseif ($owner->guid !== $page_owner->guid) {
 	elgg_set_page_owner_guid($page_owner->guid);
 }

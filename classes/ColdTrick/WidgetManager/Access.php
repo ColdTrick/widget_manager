@@ -12,13 +12,13 @@ class Access {
 	/**
 	 * Sets the write access array for widgets
 	 *
-	 * @param \Elgg\Hook $hook 'access:collections:write', 'all'
+	 * @param \Elgg\Event $event 'access:collections:write', 'all'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function setWriteAccess(\Elgg\Hook $hook) {
+	public static function setWriteAccess(\Elgg\Event $event) {
 		
-		$input_params = $hook->getParam('input_params', []);
+		$input_params = $event->getParam('input_params', []);
 		if (elgg_extract('entity_type', $input_params) !== 'object' || elgg_extract('entity_subtype', $input_params) !== 'widget') {
 			return;
 		}
@@ -34,11 +34,11 @@ class Access {
 				return [
 					$acl->id => elgg_echo('groups:access:group'),
 					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
-					ACCESS_PUBLIC => elgg_echo('access:label:public')
+					ACCESS_PUBLIC => elgg_echo('access:label:public'),
 				];
 			}
 		} elseif ($container instanceof \ElggSite) {
-			// sepcial options for index widgets
+			// special options for index widgets
 			
 			$widget = elgg_extract('entity', $input_params);
 			if (!$widget instanceof \ElggWidget) {
@@ -50,7 +50,7 @@ class Access {
 					ACCESS_PRIVATE => elgg_echo('access:admin_only'),
 					ACCESS_LOGGED_IN => elgg_echo('access:label:logged_in'),
 					ACCESS_LOGGED_OUT => elgg_echo('access:label:logged_out'),
-					ACCESS_PUBLIC => elgg_echo('access:label:public')
+					ACCESS_PUBLIC => elgg_echo('access:label:public'),
 				];
 			}
 		}
@@ -59,22 +59,23 @@ class Access {
 	/**
 	 * Allow write access for index managers
 	 *
-	 * @param \Elgg\Hook $hook 'permissions_check', 'site'
+	 * @param \Elgg\Event $event 'permissions_check', 'site'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function writeAccessForIndexManagers(\Elgg\Hook $hook) {
-		$result = $hook->getValue();
+	public static function writeAccessForIndexManagers(\Elgg\Event $event) {
+		$result = $event->getValue();
 		
 		if ($result) {
 			return;
 		}
-		$entity = $hook->getEntityParam();
+		
+		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggSite) {
 			return;
 		}
 		
-		$user = $hook->getUserParam();
+		$user = $event->getUserParam();
 		if (!$user instanceof \ElggUser) {
 			return;
 		}
@@ -88,16 +89,17 @@ class Access {
 	/**
 	 * Creates the ability to see content only for logged_out users
 	 *
-	 * @param \Elgg\Hook $hook 'access:collections:read', 'user'
+	 * @param \Elgg\Event $event 'access:collections:read', 'user'
 	 *
 	 * @return array
 	 */
-	public static function addLoggedOutReadAccess(\Elgg\Hook $hook) {
+	public static function addLoggedOutReadAccess(\Elgg\Event $event) {
 		
 		if (elgg_is_logged_in() && !elgg_is_admin_logged_in()) {
 			return;
 		}
-		$return_value = $hook->getValue();
+		
+		$return_value = $event->getValue();
 		
 		if (empty($return_value)) {
 			$return_value = [];
@@ -115,15 +117,15 @@ class Access {
 	/**
 	 * Checks if current user can edit a widget if it is in a context he/she can manage
 	 *
-	 * @param \Elgg\Hook $hook 'permissions_check', 'object'
+	 * @param \Elgg\Event $event 'permissions_check', 'object'
 	 *
 	 * @return boolean
 	 */
-	public static function canEditWidgetOnManagedLayout(\Elgg\Hook $hook) {
-		$user = $hook->getUserParam();
-		$entity = $hook->getEntityParam();
+	public static function canEditWidgetOnManagedLayout(\Elgg\Event $event) {
+		$user = $event->getUserParam();
+		$entity = $event->getEntityParam();
 		
-		if ($hook->getValue() || !($user instanceof \ElggUser) || !($entity instanceof \ElggWidget)) {
+		if ($event->getValue() || !$user instanceof \ElggUser || !$entity instanceof \ElggWidget) {
 			return;
 		}
 		
@@ -139,15 +141,15 @@ class Access {
 	}
 	
 	/**
-	 * Registers the extra context permissions check hook
+	 * Registers the extra context permissions check event
 	 *
-	 * @param \Elgg\Hook $hook_name 'action:validate', 'widgets/[add|delete|move|save]'
+	 * @param \Elgg\Event $event 'action:validate', 'widgets/[add|delete|move|save]'
 	 *
 	 * @return void
 	 */
-	public static function moreRightsForWidgetManager(\Elgg\Hook $hook) {
-		if ($hook->getType() === 'widgets/add') {
-			elgg_register_plugin_hook_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
+	public static function moreRightsForWidgetManager(\Elgg\Event $event) {
+		if ($event->getType() === 'widgets/add') {
+			elgg_register_event_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
 			return;
 		}
 		
@@ -167,14 +169,14 @@ class Access {
 		if ($widget->canEdit()) {
 			// the widgets action might not be able to get privately owned index widgets
 			//_elgg_services()->session->setIgnoreAccess();
-			elgg_register_plugin_hook_handler('get_sql', 'access', function(\Elgg\Hook $hook) use ($widget_guid) {
-				$result = $hook->getValue();
+			elgg_register_event_handler('get_sql', 'access', function(\Elgg\Event $event) use ($widget_guid) {
+				$result = $event->getValue();
 				/**
 				 * @var QueryBuilder $qb
 				 */
-				$qb = $hook->getParam('query_builder');
-				$table_alias = $hook->getParam('table_alias');
-				$guid_column = $hook->getParam('guid_column');
+				$qb = $event->getParam('query_builder');
+				$table_alias = $event->getParam('table_alias');
+				$guid_column = $event->getParam('guid_column');
 				
 				$alias = function ($column) use ($table_alias) {
 					return $table_alias ? "{$table_alias}.{$column}" : $column;
@@ -185,7 +187,7 @@ class Access {
 			});
 		}
 		
-		if ($hook->getType() === 'widgets/move') {
+		if ($event->getType() === 'widgets/move') {
 			// allow 'index' widgets to be added to the same context as the current widget
 			$widget_context = $widget->context;
 			
@@ -194,7 +196,13 @@ class Access {
 			foreach ($index_widgets as $handler => $index_widget) {
 				$contexts = $index_widget->context;
 				$contexts[] = $widget_context;
-				elgg_register_widget_type($handler, $index_widget->name, $index_widget->description, $contexts, $index_widget->multiple);
+				elgg_register_widget_type([
+					'id' => $handler,
+					'name' => $index_widget->name,
+					'description' => $index_widget->description,
+					'context' => $contexts,
+					'multiple' => $index_widget->multiple,
+				]);
 			}
 		}
 	}

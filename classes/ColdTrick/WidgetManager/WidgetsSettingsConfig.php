@@ -14,7 +14,7 @@ class WidgetsSettingsConfig {
 	/**
 	 * Widgets configuration
 	 */
-	var $config = [];
+	protected array $config = [];
 	
 	/**
 	 * Constructor
@@ -34,9 +34,9 @@ class WidgetsSettingsConfig {
 	 * @param string $handler Widget to retrieve settings for
 	 * @param string $context optional context to return settings for
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public function getAll(string $handler, string $context = null) {
+	public function getAll(string $handler, string $context = null): array {
 		if (!isset($this->config[$handler]['contexts'])) {
 			if (!isset($context)) {
 				return [];
@@ -61,7 +61,7 @@ class WidgetsSettingsConfig {
 	 *
 	 * @return boolean|null
 	 */
-	public function getSetting(string $handler, string $setting, string $context = '') {
+	public function getSetting(string $handler, string $setting, string $context = ''): ?bool {
 		$context = $this->getContext($context);
 		
 		$setting_value = elgg_extract($setting, $this->getAll($handler, $context));
@@ -86,11 +86,11 @@ class WidgetsSettingsConfig {
 	/**
 	 * Returns given context or detects current context
 	 *
-	 * @param string $context
+	 * @param string $context context
 	 *
 	 * @return string
 	 */
-	protected function getContext(string $context = '') {
+	protected function getContext(string $context = ''): string {
 		return $context ?: elgg_get_context();
 	}
 	
@@ -101,7 +101,6 @@ class WidgetsSettingsConfig {
 	public static function name() {
 		return 'widgets.settings';
 	}
-	
 		
 	/**
 	 * Returns whether or not the widget body should be lazy loaded
@@ -111,13 +110,13 @@ class WidgetsSettingsConfig {
 	 *
 	 * @return bool
 	 */
-	public function showLazyLoaded(\WidgetManagerWidget $widget, array $layout_info = []) {
+	public function showLazyLoaded(\WidgetManagerWidget $widget, array $layout_info = []): bool {
 		if (elgg_is_xhr()) {
 			// no lazy loading body for ajax loaded widgets
 			return false;
 		}
 		
-		if (!((bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager'))) {
+		if (!(bool) elgg_get_plugin_setting('lazy_loading_enabled', 'widget_manager')) {
 			return false;
 		}
 		
@@ -179,6 +178,6 @@ class WidgetsSettingsConfig {
 			return false;
 		};
 						
-		return (bool) elgg_trigger_plugin_hook('lazy_load', 'widget_manager', ['entity' => $widget, 'layout_info' => $layout_info], $detect_lazy_loading());
+		return (bool) elgg_trigger_event_results('lazy_load', 'widget_manager', ['entity' => $widget, 'layout_info' => $layout_info], $detect_lazy_loading());
 	}
 }

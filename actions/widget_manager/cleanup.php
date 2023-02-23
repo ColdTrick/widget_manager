@@ -10,7 +10,7 @@ if (empty($handler) || empty($context)) {
 $entities = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => 'widget',
-	'private_setting_name_value_pairs' => [
+	'metadata_name_value_pairs' => [
 		'handler' => $handler,
 		'context' => $context,
 	],

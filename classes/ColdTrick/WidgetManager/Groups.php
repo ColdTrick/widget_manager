@@ -2,19 +2,21 @@
 
 namespace ColdTrick\WidgetManager;
 
-use Elgg\Hook;
 use Elgg\Groups\Tool;
 
+/**
+ * Groups related callbacks
+ */
 class Groups {
 
 	/**
 	 * Allow for group default widgets
 	 *
-	 * @param \Elgg\Hook $hook 'get_list', 'default_widgets'
+	 * @param \Elgg\Event $event 'get_list', 'default_widgets'
 	 *
 	 * @return string
 	 */
-	public static function addGroupsContextToDefaultWidgets(\Elgg\Hook $hook) {
+	public static function addGroupsContextToDefaultWidgets(\Elgg\Event $event) {
 		if (!elgg_is_active_plugin('groups')) {
 			return;
 		}
@@ -24,7 +26,7 @@ class Groups {
 			return;
 		}
 		
-		$return_value = $hook->getValue();
+		$return_value = $event->getValue();
 		
 		if (!is_array($return_value)) {
 			$return_value = [];
@@ -73,7 +75,7 @@ class Groups {
 		// add/remove tool enabled widgets
 		$result = ['enable' => [], 'disable' => []];
 		$params = ['entity' => $object];
-		$result = (array) elgg_trigger_plugin_hook('group_tool_widgets', 'widget_manager', $params, $result);
+		$result = (array) elgg_trigger_event_results('group_tool_widgets', 'widget_manager', $params, $result);
 
 		if (empty($result)) {
 			return;
@@ -116,7 +118,7 @@ class Groups {
 		}
 		
 		$column_counts = [];
-		$max_columns = elgg_trigger_plugin_hook('groups:column_count', 'widget_manager', [], elgg_get_plugin_setting('group_column_count', 'widget_manager'));
+		$max_columns = elgg_trigger_event_results('groups:column_count', 'widget_manager', [], elgg_get_plugin_setting('group_column_count', 'widget_manager'));
 		for ($i = 1; $i <= $max_columns; $i++) {
 			$column_counts[$i] = 0;
 		}
@@ -161,7 +163,7 @@ class Groups {
 			};
 			
 			// check blacklist
-			$blacklist = $object->getPrivateSetting('widget_manager_widget_blacklist');
+			$blacklist = $object->widget_manager_widget_blacklist;
 			if (!empty($blacklist)) {
 				$blacklist = json_decode($blacklist, true);
 				foreach ($blacklist as $handler) {
@@ -207,12 +209,12 @@ class Groups {
 	/**
 	 * Bypasses the widgets content on the group profile
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'groups/profile/widgets'
+	 * @param \Elgg\Event $event 'view_vars', 'groups/profile/widgets'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function getGroupWidgetsLayout(\Elgg\Hook $hook) {
-		$vars = $hook->getValue();
+	public static function getGroupWidgetsLayout(\Elgg\Event $event) {
+		$vars = $event->getValue();
 		$group = elgg_extract('entity', $vars);
 		
 		if (!$group instanceof \ElggGroup) {
@@ -248,19 +250,19 @@ class Groups {
 	/**
 	 * Adds the group tool option
 	 *
-	 * @param \Elgg\Hook $hook Hook
+	 * @param \Elgg\Event $event 'tool_options', 'group'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function registerGroupWidgetsTool(\Elgg\Hook $hook) {
+	public static function registerGroupWidgetsTool(\Elgg\Event $event) {
 		$plugin = elgg_get_plugin_from_id('widget_manager');
 		if ($plugin->getSetting('group_enable') !== 'yes') {
 			return;
 		}
 		
-		$result = $hook->getValue();
+		$result = $event->getValue();
 		
-		if (($plugin->getSetting('group_option_admin_only') !== 'yes') || elgg_is_admin_logged_in()) {
+		if ($plugin->getSetting('group_option_admin_only') !== 'yes' || elgg_is_admin_logged_in()) {
 			// add the tool option for group admins
 			$result[] = new Tool('widget_manager', [
 				'label' => elgg_echo('widget_manager:groups:enable_widget_manager'),
@@ -295,7 +297,7 @@ class Groups {
 			return;
 		}
 		
-		$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+		$blacklist = $owner->widget_manager_widget_blacklist;
 		if (empty($blacklist)) {
 			// no blacklisted widgets, so no cleanup needed
 			return;
@@ -307,6 +309,7 @@ class Groups {
 			
 			elgg_register_event_handler('shutdown', 'system', self::class . '::addGroupWidgetShutdown');
 		}
+		
 		$widget_manager_group_guids[$owner->guid][] = $object->guid;
 	}
 	
@@ -332,15 +335,16 @@ class Groups {
 				}
 				
 				$owner = get_entity($owner_guid);
-				if (!$owner instanceof  \ElggGroup) {
+				if (!$owner instanceof \ElggGroup) {
 					continue;
 				}
 				
-				$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+				$blacklist = $owner->widget_manager_widget_blacklist;
 				if (empty($blacklist)) {
 					// no blacklisted widgets, so no cleanup needed
 					continue;
 				}
+				
 				$blacklist = json_decode($blacklist, true);
 				
 				foreach ($widget_guids as $guid) {
@@ -359,9 +363,9 @@ class Groups {
 				}
 				
 				if (empty($blacklist)) {
-					$owner->removePrivateSetting('widget_manager_widget_blacklist');
+					unset($owner->widget_manager_widget_blacklist);
 				} else {
-					$owner->setPrivateSetting('widget_manager_widget_blacklist', json_encode($blacklist));
+					$owner->widget_manager_widget_blacklist = json_encode($blacklist);
 				}
 			}
 		});
@@ -414,6 +418,7 @@ class Groups {
 				
 				$handlers = array_unique($handlers);
 			}
+			
 			return $handlers;
 		});
 		
@@ -422,7 +427,7 @@ class Groups {
 			return;
 		}
 		
-		$blacklist = $owner->getPrivateSetting('widget_manager_widget_blacklist');
+		$blacklist = $owner->widget_manager_widget_blacklist;
 		if (!empty($blacklist)) {
 			// blacklisted widgets
 			$blacklist = json_decode($blacklist, true);
@@ -438,6 +443,6 @@ class Groups {
 		$blacklist[] = $object->handler;
 		
 		// store new blacklist
-		$owner->setPrivateSetting('widget_manager_widget_blacklist', json_encode($blacklist));
+		$owner->widget_manager_widget_blacklist = json_encode($blacklist);
 	}
 }

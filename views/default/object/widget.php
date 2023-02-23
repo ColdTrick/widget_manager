@@ -1,6 +1,4 @@
 <?php
-use ColdTrick\WidgetManager\WidgetsSettingsConfig;
-
 /**
  * Widget object
  *
@@ -9,6 +7,8 @@ use ColdTrick\WidgetManager\WidgetsSettingsConfig;
  * @uses $vars['class']       Optional additional CSS class
  * @uses $vars['layout_info'] Additional layout info to be used by lazy loading logic
  */
+
+use ColdTrick\WidgetManager\WidgetsSettingsConfig;
 
 $widget = elgg_extract('entity', $vars);
 if (!$widget instanceof \ElggWidget) {

@@ -68,8 +68,8 @@ foreach ($contexts as $context) {
 	
 	$body .= '</td></tr>';
 }
-$body .= '</table>';
 
+$body .= '</table>';
 
 // multiple
 $multiple_options = [

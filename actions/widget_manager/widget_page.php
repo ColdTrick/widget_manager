@@ -3,7 +3,7 @@
 $entity_guid = (int) get_input('guid');
 if ($entity_guid) {
 	$entity = get_entity($entity_guid);
-	if (!$entity instanceof WidgetPage) {
+	if (!$entity instanceof \WidgetPage) {
 		return elgg_error_response(elgg_echo('error:missing_data'));
 	}
 }
@@ -14,7 +14,7 @@ if (empty($url)) {
 }
 
 if (!isset($entity)) {
-	$entity = new WidgetPage();
+	$entity = new \WidgetPage();
 }
 
 $entity->url = $url;

@@ -4,6 +4,9 @@ namespace ColdTrick\WidgetManager;
 
 use Elgg\WidgetDefinition;
 
+/**
+ * Wdigets
+ */
 class Widgets {
 	
 	/**
@@ -40,14 +43,13 @@ class Widgets {
 	/**
 	 * Applies the saved widgets config
 	 *
-	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
 	 * @return void
 	 */
-	public static function applyWidgetsConfig(\Elgg\Hook $hook) {
-		$return_value = $hook->getValue();
+	public static function applyWidgetsConfig(\Elgg\Event $event) {
+		$return_value = $event->getValue();
 		foreach ($return_value as $id => $widget_definition) {
-		
 			if (!isset($widget_definition->originals)) {
 				$widget_definition->originals = [
 					'multiple' => $widget_definition->multiple,
@@ -89,6 +91,7 @@ class Widgets {
 					$widget_definition->context[] = $context;
 				}
 			}
+			
 			$return_value[$id] = $widget_definition;
 		}
 		
@@ -98,12 +101,12 @@ class Widgets {
 	/**
 	 * Adds manage_widgets context so the widgets always show up in admin/manage/widgets
 	 *
-	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
 	 * @return void
 	 */
-	public static function addManageWidgetsContext(\Elgg\Hook $hook) {
-		$return_value = $hook->getValue();
+	public static function addManageWidgetsContext(\Elgg\Event $event) {
+		$return_value = $event->getValue();
 		foreach ($return_value as $id => $widget_definition) {
 			$widget_definition->context[] = 'manage_widgets';
 			$return_value[$id] = $widget_definition;
@@ -115,12 +118,12 @@ class Widgets {
 	/**
 	 * Returns widget content from cache
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'object/widget/body'
+	 * @param \Elgg\Event $event 'view_vars', 'object/widget/body'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function getContentFromCache(\Elgg\Hook $hook) {
-		$widget = elgg_extract('entity', $hook->getValue());
+	public static function getContentFromCache(\Elgg\Event $event) {
+		$widget = elgg_extract('entity', $event->getValue());
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
@@ -134,7 +137,7 @@ class Widgets {
 			return;
 		}
 		
-		$result = $hook->getValue();
+		$result = $event->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = $cached_data;
 		
 		return $result;
@@ -143,12 +146,12 @@ class Widgets {
 	/**
 	 * Prevent widget controls
 	 *
-	 * @param \Elgg\Hook $hook 'view_vars', 'object/widget/elements/controls'
+	 * @param \Elgg\Event $event 'view_vars', 'object/widget/elements/controls'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function preventControls(\Elgg\Hook $hook) {
-		$widget = elgg_extract('widget', $hook->getValue());
+	public static function preventControls(\Elgg\Event $event) {
+		$widget = elgg_extract('widget', $event->getValue());
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
@@ -161,7 +164,7 @@ class Widgets {
 			return;
 		}
 		
-		$result = $hook->getValue();
+		$result = $event->getValue();
 		$result[\Elgg\ViewsService::OUTPUT_KEY] = '';
 		
 		return $result;
@@ -170,12 +173,12 @@ class Widgets {
 	/**
 	 * Returns widget content from cache
 	 *
-	 * @param \Elgg\Hook $hook 'view', 'object/widget/body'
+	 * @param \Elgg\Event $event 'view', 'object/widget/body'
 	 *
-	 * @return []
+	 * @return array
 	 */
-	public static function saveContentInCache(\Elgg\Hook $hook) {
-		$widget = elgg_extract('entity', elgg_extract('vars', $hook->getParams()));
+	public static function saveContentInCache(\Elgg\Event $event) {
+		$widget = elgg_extract('entity', elgg_extract('vars', $event->getParams()));
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
@@ -184,18 +187,18 @@ class Widgets {
 			return;
 		}
 		
-		elgg_save_system_cache("widget_cache_{$widget->guid}", $hook->getValue());
+		elgg_save_system_cache("widget_cache_{$widget->guid}", $event->getValue());
 	}
 	
 	/**
 	 * Unsets the cached data for cacheable widgets
 	 *
-	 * @param \Elgg\Hook $hook 'widget_settings', 'all'
+	 * @param \Elgg\Event $event 'update:after', 'object'
 	 *
 	 * @return bool
 	 */
-	public static function clearWidgetCacheOnSettingsSave(\Elgg\Hook $hook) {
-		$widget = $hook->getParam('widget');
+	public static function clearWidgetCacheOnUpdate(\Elgg\Event $event) {
+		$widget = $event->getObject();
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
@@ -217,7 +220,7 @@ class Widgets {
 	protected static function isCacheableWidget(\ElggWidget $widget) {
 		static $cacheable_handlers;
 		if (!isset($cacheable_handlers)) {
-			$cacheable_handlers = elgg_trigger_plugin_hook('cacheable_handlers', 'widget_manager', [], []);
+			$cacheable_handlers = elgg_trigger_event_results('cacheable_handlers', 'widget_manager', [], []);
 		}
 	
 		return in_array($widget->handler, $cacheable_handlers);
@@ -226,12 +229,12 @@ class Widgets {
 	/**
 	 * Fallback widget title urls for non widget manager widgets
 	 *
-	 * @param \Elgg\Hook $hook 'entity:url', 'object'
+	 * @param \Elgg\Event $event 'entity:url', 'object'
 	 *
 	 * @return string
 	 */
-	public static function getWidgetURL(\Elgg\Hook $hook) {
-		$widget = $hook->getEntityParam();
+	public static function getWidgetURL(\Elgg\Event $event) {
+		$widget = $event->getEntityParam();
 		if (!$widget instanceof \ElggWidget) {
 			return;
 		}
@@ -245,23 +248,23 @@ class Widgets {
 	/**
 	 * Register the discussions widget to groups context
 	 *
-	 * @param \Elgg\Hook $hook 'handlers', 'widgets'
+	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
 	 * @return void|\Elgg\WidgetDefinition[]
 	 */
-	public static function addDiscussionsWidgetToGroup(\Elgg\Hook $hook) {
+	public static function addDiscussionsWidgetToGroup(\Elgg\Event $event) {
 		
-		$context = $hook->getParam('context');
+		$context = $event->getParam('context');
 		if ($context !== 'groups') {
 			return;
 		}
 		
-		$container = $hook->getParam('container');
+		$container = $event->getParam('container');
 		if (!$container instanceof \ElggGroup || !$container->isToolEnabled('forum')) {
 			return;
 		}
 		
-		$return_value = $hook->getValue();
+		$return_value = $event->getValue();
 		
 		$return_value[] = WidgetDefinition::factory([
 			'id' => 'discussions',
@@ -274,18 +277,18 @@ class Widgets {
 	/**
 	 * Add or remove widgets based on the group tool option
 	 *
-	 * @param \Elgg\Hook $hook 'group_tool_widgets', 'widget_manager'
+	 * @param \Elgg\Event $event 'group_tool_widgets', 'widget_manager'
 	 *
 	 * @return void|array
 	 */
-	public static function groupToolWidgets(\Elgg\Hook $hook) {
+	public static function groupToolWidgets(\Elgg\Event $event) {
 		
-		$entity = $hook->getEntityParam();
+		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggGroup) {
 			return;
 		}
 		
-		$return_value = $hook->getValue();
+		$return_value = $event->getValue();
 		if (!is_array($return_value)) {
 			return;
 		}
@@ -303,18 +306,18 @@ class Widgets {
 	/**
 	 * Checks if a user can manage current widget layout
 	 *
-	 * @param \Elgg\Hook $hook 'permissions_check', 'widget_layout'
+	 * @param \Elgg\Event $event 'permissions_check', 'widget_layout'
 	 *
 	 * @return boolean
 	 */
-	public static function layoutPermissionsCheck(\Elgg\Hook $hook) {
-		$user = $hook->getUserParam();
-		if (!$user instanceof \ElggUser || $hook->getValue()) {
+	public static function layoutPermissionsCheck(\Elgg\Event $event) {
+		$user = $event->getUserParam();
+		if (!$user instanceof \ElggUser || $event->getValue()) {
 			return;
 		}
 		
 		// check if widgetpage manager can manage
-		$page_owner = $hook->getParam('page_owner');
+		$page_owner = $event->getParam('page_owner');
 		if ($page_owner instanceof \WidgetPage) {
 			if ($page_owner->canEdit()) {
 				return true;
@@ -324,7 +327,7 @@ class Widgets {
 		}
 		
 		// check if it is an index manager
-		if ($hook->getParam('context') !== 'index') {
+		if ($event->getParam('context') !== 'index') {
 			return;
 		}
 		

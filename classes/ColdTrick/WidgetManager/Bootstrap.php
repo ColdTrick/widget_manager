@@ -4,6 +4,9 @@ namespace ColdTrick\WidgetManager;
 
 use Elgg\DefaultPluginBootstrap;
 
+/**
+ * Plugin bootstrap
+ */
 class Bootstrap extends DefaultPluginBootstrap {
 
 	/**
@@ -19,7 +22,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 *
 	 * @return void
 	 */
-	protected function registerIndexRoute() {
+	protected function registerIndexRoute(): void {
 		// @todo check -> need later priority to win over walledgarden
 		$setting = elgg_get_plugin_setting('custom_index', 'widget_manager');
 		if (empty($setting)) {
@@ -41,7 +44,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 *
 	 * @return void
 	 */
-	protected function registerWidgetPagesRoutes() {
+	protected function registerWidgetPagesRoutes(): void {
 		$urls = $this->getWidgetPagesUrls();
 		
 		foreach ($urls as $url) {
@@ -52,7 +55,12 @@ class Bootstrap extends DefaultPluginBootstrap {
 		}
 	}
 	
-	protected function getWidgetPagesUrls() {
+	/**
+	 * Returns array of widget page urls
+	 *
+	 * @return array
+	 */
+	protected function getWidgetPagesUrls(): array {
 		$urls = elgg_load_system_cache('widget_pages');
 		if ($urls) {
 			return $urls;

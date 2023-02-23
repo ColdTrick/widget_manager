@@ -44,8 +44,7 @@ switch ($layout) {
 }
 
 $title = $widget_page->title ?: false;
-if ($title && elgg_can_edit_widget_layout($widget_page->context)) {
-	
+if ($title && $widget_page->canEdit()) {
 	$href = elgg_generate_url('widgets:add_panel', [
 		'context' => elgg_get_context(),
 		'context_stack' => elgg_get_context_stack(),

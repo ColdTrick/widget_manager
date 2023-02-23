@@ -31,10 +31,9 @@ $fields = [
 	],
 ];
 
-$advanced_context = elgg_trigger_plugin_hook('advanced_context', 'widget_manager', ['entity' => $widget], ['index']);
+$advanced_context = elgg_trigger_event_results('advanced_context', 'widget_manager', ['entity' => $widget], ['index']);
 
 if (is_array($advanced_context) && in_array($widget_context, $advanced_context)) {
-	
 	$fields[] = [
 		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:widgets:edit:hide_header'),

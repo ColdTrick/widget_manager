@@ -5,8 +5,8 @@ use Elgg\Database\Select;
 echo elgg_view('output/longtext', ['value' => elgg_echo('admin:widgets:cleanup:info')]);
 
 $select = Select::fromTable('entities', 'e');
-$select->join('e', 'private_settings', 'md_handler', 'md_handler.entity_guid = e.guid');
-$select->join('e', 'private_settings', 'md_context', 'md_context.entity_guid = e.guid');
+$select->join('e', 'metadata', 'md_handler', 'md_handler.entity_guid = e.guid');
+$select->join('e', 'metadata', 'md_context', 'md_context.entity_guid = e.guid');
 $select->select('md_handler.value AS handler');
 $select->addSelect('md_context.value AS context');
 $select->addSelect('count(*) AS total');

@@ -3,7 +3,7 @@
 $contexts = ['index'];
 
 // Use contexts defined for default widgets
-$list = elgg_trigger_plugin_hook('get_list', 'default_widgets', null, []);
+$list = elgg_trigger_event_results('get_list', 'default_widgets', [], []);
 foreach ($list as $context_opts) {
 	$contexts[] = $context_opts['widget_context'];
 }
@@ -16,9 +16,9 @@ foreach ($contexts as $context) {
 }
 
 // make sure widgets are manageable, even if they are not configured for any context
-elgg_register_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext', 10000);
+elgg_register_event_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext', 10000);
 $configured_widgets += elgg_get_widget_types('manage_widgets');
-elgg_unregister_plugin_hook_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext');
+elgg_unregister_event_handler('handlers', 'widgets', '\ColdTrick\WidgetManager\Widgets::addManageWidgetsContext');
 
 if (empty($configured_widgets)) {
 	echo elgg_echo('widget_manager:forms:manage_widgets:no_widgets');

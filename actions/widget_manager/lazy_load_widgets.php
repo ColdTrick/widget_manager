@@ -1,7 +1,6 @@
 <?php
 
 $guids = get_input('guids');
-
 if (empty($guids)) {
 	return elgg_error_response(elgg_echo('error:missing_data'));
 }
