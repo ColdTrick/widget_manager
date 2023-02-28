@@ -168,9 +168,12 @@ class Access {
 		
 		if ($widget->canEdit()) {
 			// the widgets action might not be able to get privately owned index widgets
-			//_elgg_services()->session->setIgnoreAccess();
 			elgg_register_event_handler('get_sql', 'access', function(\Elgg\Event $event) use ($widget_guid) {
-				$result = $event->getValue();
+				if ($event->getParam('ignore_access')) {
+					// no need to give extra access
+					return;
+				}
+				
 				/**
 				 * @var QueryBuilder $qb
 				 */
@@ -181,8 +184,11 @@ class Access {
 				$alias = function ($column) use ($table_alias) {
 					return $table_alias ? "{$table_alias}.{$column}" : $column;
 				};
-
+				
+				$result = $event->getValue();
+				
 				$result['ors']['special_widget_access'] = $qb->compare($alias($guid_column), '=', $widget_guid);
+				
 				return $result;
 			});
 		}
