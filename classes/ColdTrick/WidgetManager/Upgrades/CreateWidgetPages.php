@@ -9,7 +9,7 @@ use Elgg\Upgrade\Result;
 /**
  * Migrate extra contexts plugin settings to WidgetPage
  */
-class CreateWidgetPages implements AsynchronousUpgrade {
+class CreateWidgetPages extends AsynchronousUpgrade {
 	
 	/**
 	 * {@inheritDoc}
