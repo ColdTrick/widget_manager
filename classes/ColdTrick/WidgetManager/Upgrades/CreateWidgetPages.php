@@ -67,7 +67,7 @@ class CreateWidgetPages extends AsynchronousUpgrade {
 			
 			$managers = elgg_string_to_array((string) elgg_extract('manager', $context_config, ''));
 			foreach ($managers as $username) {
-				$user = get_user_by_username($username);
+				$user = elgg_get_user_by_username($username);
 				if ($user) {
 					$widget_page->addManager($user);
 				}
