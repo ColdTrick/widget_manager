@@ -1,37 +1,37 @@
 {
-	"name" : "coldtrick/widget_manager",
-	"description" : "Manage your widgets",
-	"homepage" : "https://www.coldtrick.com",
-	"type" : "elgg-plugin",
-	"keywords" : [
+	"name": "coldtrick/widget_manager",
+	"description": "Manage your widgets",
+	"homepage": "https://www.coldtrick.com",
+	"type": "elgg-plugin",
+	"keywords": [
 		"elgg",
 		"plugin",
 		"widget"
 	],
-	"license" : "GPL-2.0-only",
-	"support" : {
-		"source" : "https://github.com/ColdTrick/widget_manager",
-		"issues" : "https://github.com/ColdTrick/widget_manager/issues"
+	"license": "GPL-2.0-only",
+	"support": {
+		"source": "https://github.com/ColdTrick/widget_manager",
+		"issues": "https://github.com/ColdTrick/widget_manager/issues"
 	},
-	"repositories" : [{
-			"type" : "composer",
-			"url" : "https://asset-packagist.org"
+	"repositories": [{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
 		}
 	],
-	"config" : {
-		"fxp-asset" : {
-			"enabled" : false
+	"config": {
+		"fxp-asset": {
+			"enabled": false
 		},
 		"allow-plugins": {
 			"composer/installers": true
 		}
 	},
-	"require" : {
-		"composer/installers" : "^1.0.8",
-		"mobiledetect/mobiledetectlib" : "~2.8.0",
-		"npm-asset/muuri" : "~0.9.5"
+	"require": {
+		"composer/installers": "^1.0.8",
+		"mobiledetect/mobiledetectlib": "~2.8.0",
+		"npm-asset/muuri": "~0.9.5"
 	},
-	"conflict" : {
-		"elgg/elgg" : "<4.3"
+	"conflict": {
+		"elgg/elgg": "<5.0"
 	}
 }
