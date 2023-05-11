@@ -8,7 +8,7 @@ return array (
   'admin:widgets' => 'Widgets',
   'widget_manager:widgets:edit:advanced' => 'Avanzado',
   'widget_manager:action:groups:update_widget_access:success' => 'Se actualiza el acceso a todos los widgets de este grupo',
-  'widget_manager:action:force_tool_widgets:succes' => 'Widgets específicos de herramientas forzadas para grupos %s',
+  'widget_manager:action:force_tool_widgets:success' => 'Widgets específicos de herramientas forzadas para grupos %s',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'La administración de widgets para grupos no está habilitada',
   'widget_manager:action:manage:success' => 'Configuración de widgets guardada correctamente',
   'widget_manager:forms:groups_widget_access:description' => 'Esta acción le permite actualizar el nivel de acceso de todos los widgets de este grupo al nivel de acceso especificado.',

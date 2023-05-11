@@ -52,7 +52,7 @@ return array (
   'widget_manager:forms:groups_widget_access:description' => 'Cette action vous permet de mettre à jour le niveau d\'accès de tous les blocs d\'infos de ce groupe.',
   'widget_manager:action:manage:success' => 'La configuration des blocs d\'infos a été sauvegardée',
   'widget_manager:action:force_tool_widgets:error:not_enabled' => 'La gestionnaire de blocs d\'info pour les groupes n\'est pas activé',
-  'widget_manager:action:force_tool_widgets:succes' => 'Activer l\'outil widgets pour les groupes %s',
+  'widget_manager:action:force_tool_widgets:success' => 'Activer l\'outil widgets pour les groupes %s',
   'widget_manager:action:groups:update_widget_access:success' => 'L\'accès à tous les blocs d\'infos pour ce groupe a été mis à jour',
   'widget_manager:widgets:edit:advanced' => 'Avancé',
 );

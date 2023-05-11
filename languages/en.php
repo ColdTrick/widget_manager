@@ -58,7 +58,7 @@ return [
 	'widget_manager:settings:show_collapse_content:help' => "If enabled this will show a toggle next to the 'Add widget' button to toggle widget contents. This can help with organizing your widget layout.",
 
 	'widget_manager:settings:group:enable' => "Enable Widget Manager for groups",
-	'widget_manager:settings:group:enable:yes' => "Yes, managable by group tool option",
+	'widget_manager:settings:group:enable:yes' => "Yes, manageable by group tool option",
 	'widget_manager:settings:group:enable:forced' => "Yes, always on",
 	'widget_manager:settings:group:option_default_enabled' => "Widget management for groups default enabled",
 	'widget_manager:settings:group:option_admin_only' => "Only administrator can enable group widgets",
@@ -99,8 +99,8 @@ return [
 	'widget_manager:action:manage:success' => "Widget configuration saved successfully",
 
 	// force tool widgets
-	'widget_manager:action:force_tool_widgets:error:not_enabled' => "Widget managent for groups is not enabled",
-	'widget_manager:action:force_tool_widgets:succes' => "Enforced tool specific widgets for %s groups",
+	'widget_manager:action:force_tool_widgets:error:not_enabled' => "Widget management for groups is not enabled",
+	'widget_manager:action:force_tool_widgets:success' => "Enforced tool specific widgets for %s groups",
 	
 	// groups update widget access
 	'widget_manager:action:groups:update_widget_access:success' => "Access to all widgets in this group is updated",
@@ -112,7 +112,7 @@ return [
 	
 	// upgrades
 	'widget_manager:upgrade:2018052400:title' => "Widget contexts to pages",
-	'widget_manager:upgrade:2018052400:description' => "Moves pluginsettings for extra widget pages to actual entities",
+	'widget_manager:upgrade:2018052400:description' => "Moves plugin settings for extra widget pages to actual entities",
 	'widget_manager:upgrade:2023051101:title' => "Migrate widget settings",
 	'widget_manager:upgrade:2023051101:description' => "Previously Widget Manager allows the saving of arrays as widget settings, this is now supported in Elgg core. This upgrade will migrate the old settings.",
 ];

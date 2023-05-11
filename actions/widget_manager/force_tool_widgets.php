@@ -17,4 +17,4 @@ foreach ($groups as $group) {
 	$counter++;
 }
 
-return elgg_ok_response('', elgg_echo('widget_manager:action:force_tool_widgets:succes', [$counter]));
+return elgg_ok_response('', elgg_echo('widget_manager:action:force_tool_widgets:success', [$counter]));
