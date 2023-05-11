@@ -1,5 +1,8 @@
 <?php
 
+use ColdTrick\WidgetManager\Upgrades\CreateWidgetPages;
+use ColdTrick\WidgetManager\Upgrades\MigrateWidgetSettings;
+
 if (!defined('ACCESS_LOGGED_OUT')) {
 	define('ACCESS_LOGGED_OUT', -5);
 }
@@ -51,7 +54,8 @@ return [
 		],
 	],
 	'upgrades' => [
-		'ColdTrick\WidgetManager\Upgrades\CreateWidgetPages',
+		CreateWidgetPages::class,
+		MigrateWidgetSettings::class,
 	],
 	'actions' => [
 		'widget_manager/lazy_load_widgets' => [
