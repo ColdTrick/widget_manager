@@ -1,10 +1,12 @@
 <?php
 /**
- * This file was created by Translation Editor v11.0
- * On 2022-10-13 15:49
+ * This file was created by Translation Editor v11.1
+ * On 2023-05-17 15:30
  */
 
 return array (
+  'widget_manager:upgrade:2023051101:title' => 'Migreer widget instellingen',
+  'widget_manager:upgrade:2023051101:description' => 'In vorige versies van WIdget Manager werd het mogelijk gemaakt om widget instellingen als arrays op te slaan, dit wordt nu ondersteund vanuit Elgg core. Deze migratie zal de oude instellingen overzetten.',
   'widget_manager:settings:widget_layout:fluid' => 'Fluïde layout',
   'widget_manager:settings:other' => 'Overig',
   'widget_manager:settings:show_collapse_content' => 'Toon widget content verbergen optie bij bewerken layout',
