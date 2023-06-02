@@ -1,6 +1,14 @@
 Version history
 ===============
 
+15.0 (2023-06-02):
+
+- added: migration for old widget settings
+- changed: conflict with Elgg < 5.0
+- changed: updated for Elgg 5
+- fixed: expand access to allow editing private widgets on index pages
+- fixed: prevent error in shutdown hook
+
 14.1.1 (2022-10-27):
 
 - fixed: Dutch translation file encoding
