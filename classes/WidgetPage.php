@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Widget page
  */
@@ -35,11 +36,12 @@ class WidgetPage extends ElggObject {
 	 * {@inheritDoc}
 	 */
 	public function getURL(): string {
-		return elgg_normalize_url($this->url);
+		return elgg_normalize_url((string) $this->url);
 	}
 	
 	/**
 	 * Adds a manager relationship for this page
+	 *
 	 * @param \ElggUser $user Manager
 	 *
 	 * @return bool
@@ -50,6 +52,7 @@ class WidgetPage extends ElggObject {
 	
 	/**
 	 * Removes a manager relationship for this page
+	 *
 	 * @param \ElggUser $user Manager
 	 *
 	 * @return bool
