@@ -1,8 +1,11 @@
 <?php
+
 /**
  * Extends the feature of default ElggWidgets
+ *
+ * @property string $widget_manager_custom_title custom widget title
  */
-class WidgetManagerWidget extends ElggWidget {
+class WidgetManagerWidget extends \ElggWidget {
 		
 	/**
 	 * {@inheritDoc}

@@ -2,6 +2,9 @@
 
 /**
  * Widget page
+ *
+ * @property string $layout the layout to use on the widget page
+ * @property string $url    URL to the widget page
  */
 class WidgetPage extends ElggObject {
 	
@@ -72,7 +75,7 @@ class WidgetPage extends ElggObject {
 		$current = $this->getManagers();
 		foreach ($current as $guid) {
 			if (!in_array($guid, $guids)) {
-				$user = get_entity((int) $guid);
+				$user = get_user((int) $guid);
 				if ($user) {
 					$this->removeManager($user);
 				}
@@ -81,7 +84,7 @@ class WidgetPage extends ElggObject {
 		
 		$new_managers = array_diff($guids, $current);
 		foreach ($new_managers as $guid) {
-			$user = get_entity((int) $guid);
+			$user = get_user((int) $guid);
 			if ($user) {
 				$this->addManager($user);
 			}
