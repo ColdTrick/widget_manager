@@ -187,6 +187,11 @@ return [
 				'\ColdTrick\WidgetManager\Menus::addWidgetsContentToggle' => [],
 			],
 		],
+		'seeds' => [
+			'database' => [
+				'\ColdTrick\WidgetManager\Seeder::register' => [],
+			],
+		],
 		'setting' => [
 			'plugin' => [
 				'\ColdTrick\WidgetManager\Settings::implodeSettings' => [],
