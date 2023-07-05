@@ -1,6 +1,11 @@
 Version history
 ===============
 
+15.1 (2023-07-05):
+
+- added: widget page database seeder
+- fixed: return correct type
+
 15.0 (2023-06-02):
 
 - added: migration for old widget settings
