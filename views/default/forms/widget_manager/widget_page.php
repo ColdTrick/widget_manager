@@ -54,7 +54,7 @@ echo elgg_view_field([
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'value' => $entity ? elgg_echo('update') : elgg_echo('save'),
+	'text' => $entity ? elgg_echo('update') : elgg_echo('save'),
 ]);
 
 elgg_set_form_footer($footer);
