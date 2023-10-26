@@ -105,6 +105,13 @@ class Seeder extends Seed {
 	/**
 	 * {@inheritDoc}
 	 */
+	public static function getDefaultLimit(): int {
+		return 5;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function getCountOptions(): array {
 		return [
 			'type' => 'object',

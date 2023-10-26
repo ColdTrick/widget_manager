@@ -15,24 +15,26 @@ if (!$widget instanceof \ElggWidget) {
 	return;
 }
 
-$handler = $widget->handler;
-
 // show access is needed for menu items
 $show_access = elgg_extract('show_access', $vars, true);
 elgg_set_config('widget_show_access', $show_access);
 
 // check if config says this widget should be hidden;
-if (WidgetsSettingsConfig::instance()->getSetting($handler, 'hide', (string) $widget->context)) {
+if (WidgetsSettingsConfig::instance()->getSetting($widget->handler, 'hide', (string) $widget->context)) {
 	return true;
 }
 
-$widget_instance = preg_replace('/[^a-z0-9-]/i', '-', "elgg-widget-instance-$handler");
+$widget_instance = preg_replace('/[^a-z0-9-]/i', '-', "elgg-widget-instance-{$widget->handler}");
+$widget_class = elgg_extract_class($vars, $widget_instance);
 
 $can_edit = $widget->canEdit();
-
-$widget_class = elgg_extract_class($vars, $widget_instance);
 if ($can_edit) {
 	$widget_class[] = 'elgg-state-draggable';
+	
+	if (!elgg_view_exists("widgets/{$widget->handler}/edit") && elgg_extract('show_access', $vars) === false) {
+		// store for determining the edit menu item
+		$vars['show_edit'] = false;
+	}
 }
 
 if ($widget->widget_manager_custom_class) {

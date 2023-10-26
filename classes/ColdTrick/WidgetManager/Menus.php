@@ -132,37 +132,4 @@ class Menus {
 		
 		return $result;
 	}
-
-	/**
-	 * Optionally removes the edit and delete links from the menu
-	 *
-	 * @param \Elgg\Event $event 'prepare', 'menu:widget'
-	 *
-	 * @return array
-	 */
-	public static function prepareWidgetEditDeleteMenuItems(\Elgg\Event $event) {
-		$widget = $event->getEntityParam();
-		$return_value = $event->getValue();
-	
-		foreach ($return_value as $section) {
-			foreach ($section as $item) {
-				if ($item->getName() == 'settings') {
-					$show_access = elgg_get_config('widget_show_access');
-					$item->setHref('ajax/view/widget_manager/widgets/settings?guid=' . $widget->guid . '&show_access=' . $show_access);
-
-					$item->{'data-colorbox-opts'} = '{"width": 750, "max-height": "80%", "trapFocus": false, "fixed": true}';
-					$link_classes = explode(' ', $item->getLinkClass());
-					$key = array_search('elgg-toggle', $link_classes);
-					if ($key !== false) {
-						unset($link_classes[$key]);
-					}
-					
-					$link_classes[] = 'elgg-lightbox';
-					$item->setLinkClass($link_classes);
-				}
-			}
-		}
-	
-		return $return_value;
-	}
 }

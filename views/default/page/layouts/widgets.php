@@ -143,10 +143,11 @@ for ($column_index = 1; $column_index <= $num_columns; $column_index++) {
 	
 	$grid .= elgg_format_element('div', [
 		'id' => "elgg-widget-col-{$column_index}",
-		'class' => elgg_extract_class(elgg_extract('column_classes', $vars, []), ['elgg-widgets'], $column_index),
+		'class' => elgg_extract_class(elgg_extract('column_classes', $vars, []), ['elgg-widgets', "elgg-widget-col-{$column_index}"], $column_index),
 		'data-sortable-options' => json_encode([
 			'connectWith' => '#' . $grid_id . ' .elgg-widgets',
 		]),
+		'data-widget-column' => $column_index,
 	], $widgets_content);
 }
 

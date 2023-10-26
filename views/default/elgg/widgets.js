@@ -13,15 +13,11 @@ define(['jquery', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], f
 		var guidString = ui.item.attr('id');
 		guidString = guidString.substring(guidString.indexOf('elgg-widget-') + "elgg-widget-".length);
 
-		// elgg-widget-col-<column>
-		var col = ui.item.parent().attr('id');
-		col = col.substring(col.indexOf('elgg-widget-col-') + "elgg-widget-col-".length);
-		
 		var ajax = new Ajax(false);
 		ajax.action('widgets/move', {
 			data: {
 				widget_guid: guidString,
-				column: col,
+				column: ui.item.parent().data('widgetColumn'),
 				position: ui.item.index()
 			}
 		});
@@ -65,9 +61,6 @@ define(['jquery', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], f
 		event.preventDefault();
 		
 		var guid = $(this).find('[name="guid"]').val();
-
-		lightbox.close();
-		
 		var $widget = $('#elgg-widget-' + guid);
 		var $widgetContent = $widget.find('.elgg-widget-content');
 
@@ -78,6 +71,8 @@ define(['jquery', 'elgg/Ajax', 'elgg/lightbox', 'jquery-ui/widgets/sortable'], f
 		ajax.action('widgets/save', {
 			data: ajax.objectify(this),
 			success: function (result) {
+				lightbox.close();
+				
 				$widgetContent.html(result.content);
 				
 				if (result.title !== '') {

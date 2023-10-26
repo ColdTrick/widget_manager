@@ -32,6 +32,6 @@
 		"npm-asset/muuri": "~0.9.5"
 	},
 	"conflict": {
-		"elgg/elgg": "<5.0"
+		"elgg/elgg": "<5.1"
 	}
 }

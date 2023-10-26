@@ -171,11 +171,6 @@ return [
 				'\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck' => [],
 			],
 		],
-		'prepare' => [
-			'menu:widget' => [
-				'\ColdTrick\WidgetManager\Menus::prepareWidgetEditDeleteMenuItems' => [],
-			],
-		],
 		'register' => [
 			'menu:admin_header' => [
 				'\ColdTrick\WidgetManager\Menus::registerAdminHeaderMenu' => [],
