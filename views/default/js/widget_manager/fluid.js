@@ -1,7 +1,7 @@
 define(['jquery', 'elgg/Ajax', 'muuri', 'elgg/widgets'], function ($, Ajax, Muuri) {
 	
 	var grid;
-	var grid_selector = '.widgets-fluid-columns #elgg-widget-col-1';
+	var grid_selector = '.widgets-fluid-columns .elgg-widget-col-1';
 	var grid_options = {
 		items: '.elgg-module-widget',
 		dragEnabled: false,
