@@ -10,7 +10,7 @@
 		"issues": "https://github.com/ColdTrick/widget_manager/issues"
 	},
 	"require": {
-		"mobiledetect/mobiledetectlib": "~2.8.0",
+		"mobiledetect/mobiledetectlib": "~4.8.0",
 		"npm-asset/muuri": "~0.9.5"
 	},
 	"repositories": [{
