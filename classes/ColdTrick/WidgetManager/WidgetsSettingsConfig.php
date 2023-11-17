@@ -169,7 +169,7 @@ class WidgetsSettingsConfig {
 				
 				if ($widget->column < $first_column_with_data) {
 					$mobile_detect = new \Detection\MobileDetect();
-					if ($mobile_detect->isMobile()) {
+					if ($mobile_detect->hasUserAgent() && $mobile_detect->isMobile()) {
 						return true;
 					}
 				}
