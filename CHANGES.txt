@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0 (2023-11-30):
+
+- changed: updated for Elgg 5.1
+
 15.1.1 (2023-07-26):
 
 - fixed: buttons have a discernible text
