@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0.1 (2024-01-12):
+
+- fixed: toggling widget body should not influence layout
+
 16.0 (2023-11-30):
 
 - changed: updated for Elgg 5.1
