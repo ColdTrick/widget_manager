@@ -91,7 +91,7 @@ return [
 		'groups/edit/settings' => [
 			'widget_manager/forms/groups_widget_access' => [],
 		],
-		'js/elgg' => [
+		'elgg.js' => [
 			'js/widget_manager/site.js' => [],
 		],
 		'object/widget/elements/content' => [
