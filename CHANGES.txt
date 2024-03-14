@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.0.2 (2024-03-14):
+
+- several small chores/fixes
+
 16.0.1 (2024-01-12):
 
 - fixed: toggling widget body should not influence layout
