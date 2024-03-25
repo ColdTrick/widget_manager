@@ -29,6 +29,8 @@ return array (
   'admin:widgets:cleanup:info' => 'Hier kun je alle widgets opruimen die zich op dit moment in de database bevinden, ook diegene die niet meer beschikbaar zijn.',
   'widget_manager:settings:index_managers' => 'Voorpagina beheerders',
   'widget_manager:widget_page:title:help' => 'Het optioneel opslaan van een titel toont deze op de widget pagina.',
+  'widget_manager:widget_page:show_description' => "Toon omschrijving op widget pagina",
+  'widget_manager:widget_page:show_description:help' => "Toont de omschrijving op de widget indien geactiveerd. Als het niet is geactiveerd zie je de omschrijving mogelijk enkel in lijsten en zoekresultaten.",
   'widget_manager:upgrade:2018052400:title' => 'Widget contexten naar widget pagina\'s',
   'widget_manager:upgrade:2018052400:description' => 'Maakt van de plugininstellingen voor widget pagina\'s werkelijke widget pagina entiteiten',
   'widget_manager:forms:manage_widgets:context' => 'Beschikbaar in de context',

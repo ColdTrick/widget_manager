@@ -3,8 +3,11 @@
 /**
  * Widget page
  *
- * @property string $layout the layout to use on the widget page
- * @property string $url    URL to the widget page
+ * @property string $title            title of the widget page
+ * @property string $description      description of the widget page
+ * @property bool   $show_description should the description be shown on the widget page
+ * @property string $layout           the layout to use on the widget page
+ * @property string $url              URL to the widget page
  */
 class WidgetPage extends ElggObject {
 	

@@ -93,6 +93,8 @@ return [
 	'widget_manager:forms:groups_widget_access:description' => "This action allows you to update the access level of all widgets in this group to the given access level.",
 		
 	'widget_manager:widget_page:title:help' => "Setting a title, will display a title on the widget page. This is optional.",
+	'widget_manager:widget_page:show_description' => "Show description on the page",
+	'widget_manager:widget_page:show_description:help' => "If enabled the description will be shown on the widget page. If disabled you will probably only see it in listings like in search.",
 
 	// actions
 	// manage

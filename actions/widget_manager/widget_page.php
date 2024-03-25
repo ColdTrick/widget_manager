@@ -19,6 +19,8 @@ if (!isset($entity)) {
 
 $entity->url = $url;
 $entity->title = get_input('title');
+$entity->description = get_input('description');
+$entity->show_description = (bool) get_input('show_description');
 $entity->layout = get_input('layout');
 
 $entity->save();

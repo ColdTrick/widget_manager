@@ -85,8 +85,13 @@ if ($title && $widget_page->canEdit()) {
 	]);
 }
 
-// draw the page
-$content = elgg_view_layout('widgets', [
+$content = '';
+
+if ($widget_page->show_description !== false && !empty($widget_page->description)) {
+	$content .= elgg_view('output/longtext', ['value' => $widget_page->description]);
+}
+
+$content .= elgg_view_layout('widgets', [
 	'class' => $classes,
 	'num_columns' => $num_columns,
 	'column_classes' => $column_classes,

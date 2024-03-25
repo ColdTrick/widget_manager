@@ -50,6 +50,7 @@ return [
 			'class' => 'WidgetPage',
 			'capabilities' => [
 				'commentable' => false,
+				'searchable' => true,
 			],
 		],
 	],
