@@ -88,7 +88,7 @@ if ($title && $widget_page->canEdit()) {
 $content = '';
 
 if ($widget_page->show_description !== false && !empty($widget_page->description)) {
-	$content .= elgg_view('output/longtext', ['value' => $widget_page->description]);
+	$content .= elgg_view('output/longtext', ['value' => $widget_page->description, 'class' => 'widget-page-description']);
 }
 
 $content .= elgg_view_layout('widgets', [
