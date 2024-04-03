@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.1 (2024-04-03):
+
+- added: widget pages now can have a description and are searchable
+
 16.0.2 (2024-03-14):
 
 - several small chores/fixes
