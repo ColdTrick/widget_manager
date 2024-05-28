@@ -87,6 +87,9 @@ class Menus {
 			'icon' => 'edit',
 			'href' => "ajax/form/widget_manager/widget_page?guid={$entity->guid}",
 			'link_class' => 'elgg-lightbox',
+			'data-colorbox-opts' => json_encode([
+				'trapFocus' => false,
+			]),
 		]);
 	
 		return $result;
