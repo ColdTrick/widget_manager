@@ -5,8 +5,6 @@
  */
 
 return array (
-  'widget_manager:upgrade:2023051101:title' => 'Migreer widget instellingen',
-  'widget_manager:upgrade:2023051101:description' => 'In vorige versies van WIdget Manager werd het mogelijk gemaakt om widget instellingen als arrays op te slaan, dit wordt nu ondersteund vanuit Elgg core. Deze migratie zal de oude instellingen overzetten.',
   'widget_manager:settings:widget_layout:fluid' => 'Fluïde layout',
   'widget_manager:settings:other' => 'Overig',
   'widget_manager:settings:show_collapse_content' => 'Toon widget content verbergen optie bij bewerken layout',
@@ -31,8 +29,6 @@ return array (
   'widget_manager:widget_page:title:help' => 'Het optioneel opslaan van een titel toont deze op de widget pagina.',
   'widget_manager:widget_page:show_description' => "Toon omschrijving op widget pagina",
   'widget_manager:widget_page:show_description:help' => "Toont de omschrijving op de widget indien geactiveerd. Als het niet is geactiveerd zie je de omschrijving mogelijk enkel in lijsten en zoekresultaten.",
-  'widget_manager:upgrade:2018052400:title' => 'Widget contexten naar widget pagina\'s',
-  'widget_manager:upgrade:2018052400:description' => 'Maakt van de plugininstellingen voor widget pagina\'s werkelijke widget pagina entiteiten',
   'widget_manager:forms:manage_widgets:context' => 'Beschikbaar in de context',
   'widget_manager:forms:manage_widgets:can_add' => 'Kan worden toegevoegd',
   'widget_manager:forms:manage_widgets:multiple' => 'Meerdere widgets toegestaan',

@@ -8,7 +8,7 @@
 class WidgetManagerWidget extends \ElggWidget {
 		
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getDisplayName(): string {
 		return $this->widget_manager_custom_title ?: parent::getDisplayName();

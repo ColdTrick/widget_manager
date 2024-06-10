@@ -25,7 +25,7 @@ if (empty($configured_widgets)) {
 	return;
 }
 
-elgg_require_js('widget_manager/manage_widgets');
+elgg_import_esm('admin/widgets/manage');
 
 $widget_output = [];
 

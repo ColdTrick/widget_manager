@@ -14,16 +14,16 @@ class Groups {
 	 *
 	 * @param \Elgg\Event $event 'get_list', 'default_widgets'
 	 *
-	 * @return string
+	 * @return null|array
 	 */
-	public static function addGroupsContextToDefaultWidgets(\Elgg\Event $event) {
+	public static function addGroupsContextToDefaultWidgets(\Elgg\Event $event): ?array {
 		if (!elgg_is_active_plugin('groups')) {
-			return;
+			return null;
 		}
 		
 		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
 		if (!in_array($group_enable, ['yes', 'forced'])) {
-			return;
+			return null;
 		}
 		
 		$return_value = $event->getValue();
@@ -53,7 +53,7 @@ class Groups {
 	 *
 	 * @return void
 	 */
-	public static function updateGroupWidgets(\Elgg\Event $event) {
+	public static function updateGroupWidgets(\Elgg\Event $event): void {
 		$object = $event->getObject();
 		if (!$object instanceof \ElggGroup || !elgg_is_active_plugin('groups')) {
 			return;
@@ -211,23 +211,23 @@ class Groups {
 	 *
 	 * @param \Elgg\Event $event 'view_vars', 'groups/profile/widgets'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function getGroupWidgetsLayout(\Elgg\Event $event) {
+	public static function getGroupWidgetsLayout(\Elgg\Event $event): ?array {
 		$vars = $event->getValue();
 		$group = elgg_extract('entity', $vars);
 		
 		if (!$group instanceof \ElggGroup) {
-			return;
+			return null;
 		}
 		
 		$group_enable = elgg_get_plugin_setting('group_enable', 'widget_manager');
 		if (!in_array($group_enable, ['forced', 'yes'])) {
-			return;
+			return null;
 		}
 		
 		if ($group_enable === 'yes' && !$group->isToolEnabled('widget_manager')) {
-			return;
+			return null;
 		}
 		
 		// need context = groups to fix the issue with the new group_profile context
@@ -252,12 +252,12 @@ class Groups {
 	 *
 	 * @param \Elgg\Event $event 'tool_options', 'group'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function registerGroupWidgetsTool(\Elgg\Event $event) {
+	public static function registerGroupWidgetsTool(\Elgg\Event $event): ?array {
 		$plugin = elgg_get_plugin_from_id('widget_manager');
 		if ($plugin->getSetting('group_enable') !== 'yes') {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();
@@ -280,7 +280,7 @@ class Groups {
 	 *
 	 * @return void
 	 */
-	public static function addGroupWidget(\Elgg\Event $event) {
+	public static function addGroupWidget(\Elgg\Event $event): void {
 		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets') || !elgg_is_active_plugin('groups')) {
 			return;
@@ -320,7 +320,7 @@ class Groups {
 	 *
 	 * @return void
 	 */
-	public static function addGroupWidgetShutdown(\Elgg\Event $event) {
+	public static function addGroupWidgetShutdown(\Elgg\Event $event): void {
 		global $widget_manager_group_guids;
 		
 		if (empty($widget_manager_group_guids)) {
@@ -378,7 +378,7 @@ class Groups {
 	 *
 	 * @return void
 	 */
-	public static function deleteGroupWidget(\Elgg\Event $event) {
+	public static function deleteGroupWidget(\Elgg\Event $event): void {
 		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget || elgg_in_context('widget_manager_group_tool_widgets') || !elgg_is_active_plugin('groups')) {
 			return;

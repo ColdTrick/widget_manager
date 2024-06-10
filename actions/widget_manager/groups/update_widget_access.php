@@ -28,11 +28,9 @@ $widgets = elgg_get_entities([
 	'limit' => false,
 ]);
 
-if ($widgets) {
-	foreach ($widgets as $widget) {
-		$widget->access_id = (int) $new_access;
-		$widget->save();
-	}
+foreach ($widgets as $widget) {
+	$widget->access_id = (int) $new_access;
+	$widget->save();
 }
 
 return elgg_ok_response('', elgg_echo('widget_manager:action:groups:update_widget_access:success'), $group->getURL());

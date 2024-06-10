@@ -5,7 +5,7 @@ namespace ColdTrick\WidgetManager;
 use Elgg\WidgetDefinition;
 
 /**
- * Wdigets
+ * Widgets
  */
 class Widgets {
 	
@@ -16,7 +16,7 @@ class Widgets {
 	 *
 	 * @return void
 	 */
-	public static function fixPrivateAccess(\Elgg\Event $event) {
+	public static function fixPrivateAccess(\Elgg\Event $event): void {
 		$object = $event->getObject();
 		if (!$object instanceof \ElggWidget) {
 			return;
@@ -45,9 +45,9 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public static function applyWidgetsConfig(\Elgg\Event $event) {
+	public static function applyWidgetsConfig(\Elgg\Event $event): array {
 		$return_value = $event->getValue();
 		foreach ($return_value as $id => $widget_definition) {
 			if (!isset($widget_definition->originals)) {
@@ -103,9 +103,9 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public static function addManageWidgetsContext(\Elgg\Event $event) {
+	public static function addManageWidgetsContext(\Elgg\Event $event): array {
 		$return_value = $event->getValue();
 		foreach ($return_value as $id => $widget_definition) {
 			$widget_definition->context[] = 'manage_widgets';
@@ -120,21 +120,21 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'view_vars', 'object/widget/body'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function getContentFromCache(\Elgg\Event $event) {
+	public static function getContentFromCache(\Elgg\Event $event): ?array {
 		$widget = elgg_extract('entity', $event->getValue());
 		if (!$widget instanceof \ElggWidget) {
-			return;
+			return null;
 		}
 		
 		if (!self::isCacheableWidget($widget)) {
-			return;
+			return null;
 		}
 		
 		$cached_data = elgg_load_system_cache("widget_cache_{$widget->guid}");
 		if (empty($cached_data)) {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();
@@ -148,20 +148,20 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'view_vars', 'object/widget/elements/controls'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function preventControls(\Elgg\Event $event) {
+	public static function preventControls(\Elgg\Event $event): ?array {
 		$widget = elgg_extract('widget', $event->getValue());
 		if (!$widget instanceof \ElggWidget) {
-			return;
+			return null;
 		}
 		
 		if ($widget->widget_manager_hide_header !== 'yes') {
-			return;
+			return null;
 		}
 		
 		if ($widget->canEdit()) {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();
@@ -175,9 +175,9 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'view', 'object/widget/body'
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public static function saveContentInCache(\Elgg\Event $event) {
+	public static function saveContentInCache(\Elgg\Event $event): void {
 		$widget = elgg_extract('entity', elgg_extract('vars', $event->getParams()));
 		if (!$widget instanceof \ElggWidget) {
 			return;
@@ -195,9 +195,9 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'update:after', 'object'
 	 *
-	 * @return bool
+	 * @return void
 	 */
-	public static function clearWidgetCacheOnUpdate(\Elgg\Event $event) {
+	public static function clearWidgetCacheOnUpdate(\Elgg\Event $event): void {
 		$widget = $event->getObject();
 		if (!$widget instanceof \ElggWidget) {
 			return;
@@ -217,7 +217,7 @@ class Widgets {
 	 *
 	 * @return bool
 	 */
-	protected static function isCacheableWidget(\ElggWidget $widget) {
+	protected static function isCacheableWidget(\ElggWidget $widget): bool {
 		static $cacheable_handlers;
 		if (!isset($cacheable_handlers)) {
 			$cacheable_handlers = elgg_trigger_event_results('cacheable_handlers', 'widget_manager', [], []);
@@ -231,18 +231,16 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'entity:url', 'object'
 	 *
-	 * @return string
+	 * @return null|string
 	 */
-	public static function getWidgetURL(\Elgg\Event $event) {
+	public static function getWidgetURL(\Elgg\Event $event): ?string {
 		$widget = $event->getEntityParam();
 		if (!$widget instanceof \ElggWidget) {
-			return;
+			return null;
 		}
 	
 		// custom urls always trump existing values
-		if ($widget->widget_manager_custom_url) {
-			return $widget->widget_manager_custom_url;
-		}
+		return $widget->widget_manager_custom_url ?: null;
 	}
 		
 	/**
@@ -250,18 +248,18 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'handlers', 'widgets'
 	 *
-	 * @return void|\Elgg\WidgetDefinition[]
+	 * @return null|\Elgg\WidgetDefinition[]
 	 */
-	public static function addDiscussionsWidgetToGroup(\Elgg\Event $event) {
+	public static function addDiscussionsWidgetToGroup(\Elgg\Event $event): ?array {
 		
 		$context = $event->getParam('context');
 		if ($context !== 'groups') {
-			return;
+			return null;
 		}
 		
 		$container = $event->getParam('container');
 		if (!$container instanceof \ElggGroup || !$container->isToolEnabled('forum')) {
-			return;
+			return null;
 		}
 		
 		$return_value = $event->getValue();
@@ -279,18 +277,18 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'group_tool_widgets', 'widget_manager'
 	 *
-	 * @return void|array
+	 * @return null|array
 	 */
-	public static function groupToolWidgets(\Elgg\Event $event) {
+	public static function groupToolWidgets(\Elgg\Event $event): ?array {
 		
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggGroup) {
-			return;
+			return null;
 		}
 		
 		$return_value = $event->getValue();
 		if (!is_array($return_value)) {
-			return;
+			return null;
 		}
 		
 		// check different group tools for which we supply widgets
@@ -308,12 +306,12 @@ class Widgets {
 	 *
 	 * @param \Elgg\Event $event 'permissions_check', 'widget_layout'
 	 *
-	 * @return boolean
+	 * @return null|bool
 	 */
-	public static function layoutPermissionsCheck(\Elgg\Event $event) {
+	public static function layoutPermissionsCheck(\Elgg\Event $event): ?bool {
 		$user = $event->getUserParam();
 		if (!$user instanceof \ElggUser || $event->getValue()) {
-			return;
+			return null;
 		}
 		
 		// check if widgetpage manager can manage
@@ -323,17 +321,15 @@ class Widgets {
 				return true;
 			}
 			
-			return;
+			return null;
 		}
 		
 		// check if it is an index manager
 		if ($event->getParam('context') !== 'index') {
-			return;
+			return null;
 		}
 		
 		$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
-		if (in_array($user->guid, $index_managers)) {
-			return true;
-		}
+		return in_array($user->guid, $index_managers) ?: null;
 	}
 }

@@ -24,7 +24,7 @@ class Seeder extends Seed {
 	];
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function seed() {
 		$this->advance($this->getCount());
@@ -65,7 +65,7 @@ class Seeder extends Seed {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function unseed() {
 		/* @var $entities \ElggBatch */
@@ -96,21 +96,21 @@ class Seeder extends Seed {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public static function getType(): string {
 		return \WidgetPage::SUBTYPE;
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public static function getDefaultLimit(): int {
 		return 5;
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function getCountOptions(): array {
 		return [

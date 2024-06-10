@@ -38,7 +38,7 @@ echo elgg_view_field([
 	'#label' => elgg_echo('widget_manager:widget_page:show_description'),
 	'#help' => elgg_echo('widget_manager:widget_page:show_description:help'),
 	'name' => 'show_description',
-	'checked' => $entity->show_description !== false,
+	'checked' => $entity?->show_description !== false,
 	'switch' => true,
 	'default' => false,
 	'value' => true,

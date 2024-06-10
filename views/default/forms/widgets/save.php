@@ -7,12 +7,7 @@
  * @uses $vars['show_access'] (bool) should widget access setting be available default: true
  */
 
-$widget = elgg_extract('widget', $vars);
-if ($widget !== null) {
-	elgg_deprecated_notice('Passing the widget entity in $vars["widget"] is deprecated. Update your code to provide it in $vars["entity"].', '5.1');
-}
-
-$widget = elgg_extract('entity', $vars, $widget);
+$widget = elgg_extract('entity', $vars);
 if (!$widget instanceof \ElggWidget) {
 	return;
 }
@@ -60,7 +55,7 @@ if (empty($advanced_content)) {
 		],
 	]);
 	
-	elgg_require_js('forms/widgets/advanced');
+	elgg_import_esm('forms/widgets/advanced');
 }
 
 echo elgg_view_field([

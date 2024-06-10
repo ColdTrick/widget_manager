@@ -12,6 +12,7 @@ $groups = elgg_get_entities([
 	'limit' => false,
 	'batch' => true,
 ]);
+
 foreach ($groups as $group) {
 	$group->save();
 	$counter++;

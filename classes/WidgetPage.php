@@ -15,7 +15,7 @@ class WidgetPage extends ElggObject {
 	const MANAGER_RELATIONSHIP = 'manager';
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	protected function initializeAttributes() {
 		parent::initializeAttributes();
@@ -27,7 +27,7 @@ class WidgetPage extends ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function canEdit(int $user_guid = 0): bool {
 		$user_guid = $user_guid ?: elgg_get_logged_in_user_guid();
@@ -39,7 +39,7 @@ class WidgetPage extends ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getURL(): string {
 		return elgg_normalize_url((string) $this->url);
@@ -121,7 +121,7 @@ class WidgetPage extends ElggObject {
 	}
 	
 	/**
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 */
 	public function getDisplayName(): string {
 		if (empty($this->title)) {

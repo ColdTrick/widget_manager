@@ -2,6 +2,8 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\Menu\MenuItems;
+
 /**
  * Menu callbacks
  */
@@ -12,11 +14,11 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:admin_header'
 	 *
-	 * @return boolean
+	 * @return null|MenuItems
 	 */
-	public static function registerAdminHeaderMenu(\Elgg\Event $event) {
+	public static function registerAdminHeaderMenu(\Elgg\Event $event): ?MenuItems {
 		if (!elgg_is_admin_logged_in()) {
-			return;
+			return null;
 		}
 		
 		$return_value = $event->getValue();
@@ -71,12 +73,12 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'menu:entity'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function addWidgetPageEntityMenuItems(\Elgg\Event $event) {
+	public static function addWidgetPageEntityMenuItems(\Elgg\Event $event): ?MenuItems {
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \WidgetPage || !$entity->canEdit()) {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();
@@ -100,16 +102,16 @@ class Menus {
 	 *
 	 * @param \Elgg\Event $event 'register', 'title:widgets'
 	 *
-	 * @return array
+	 * @return null|MenuItems
 	 */
-	public static function addWidgetsContentToggle(\Elgg\Event $event) {
+	public static function addWidgetsContentToggle(\Elgg\Event $event): ?MenuItems {
 		
 		if (!elgg_get_plugin_setting('show_collapse_content', 'widget_manager')) {
-			return;
+			return null;
 		}
 		
 		if (!$event->getParam('show_collapse_content', false)) {
-			return;
+			return null;
 		}
 		
 		$result = $event->getValue();

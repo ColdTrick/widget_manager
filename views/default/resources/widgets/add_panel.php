@@ -18,7 +18,7 @@ if (!empty($context_stack) && is_array($context_stack)) {
 	elgg_set_context_stack($context_stack);
 }
 
-elgg_require_js('resources/widgets/add_panel');
+elgg_import_esm('resources/widgets/add_panel');
 
 $context = (string) elgg_extract('context', $vars, get_input('context'));
 $owner_guid = (int) elgg_extract('owner_guid', $vars, (int) get_input('owner_guid'));
@@ -93,7 +93,7 @@ foreach ($widget_types as $handler => $widget_type) {
 	]);
 	$action .= '</div>';
 	
-	$description = elgg_format_element('h4', [], $widget_type->name);
+	$description = elgg_format_element('div', ['class' => 'elgg-loud'], $widget_type->name);
 	
 	if ($widget_type->description) {
 		$description .= elgg_format_element('div', ['class' => 'elgg-quiet'], $widget_type->description);

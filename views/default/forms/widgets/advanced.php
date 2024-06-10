@@ -72,4 +72,7 @@ if (is_array($advanced_context) && in_array($widget_context, $advanced_context))
 	}
 }
 
-echo elgg_view('input/fieldset', ['fields' => $fields]);
+echo elgg_view_field([
+	'#type' => 'fieldset',
+	'fields' => $fields,
+]);

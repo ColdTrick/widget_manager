@@ -54,10 +54,6 @@ return [
 			],
 		],
 	],
-	'upgrades' => [
-		CreateWidgetPages::class,
-		MigrateWidgetSettings::class,
-	],
 	'actions' => [
 		'widget_manager/lazy_load_widgets' => [
 			'access' => 'public',
@@ -79,21 +75,18 @@ return [
 	],
 	'views' => [
 		'default' => [
-			'muuri.js' => $composer_path . 'vendor/npm-asset/muuri/dist/muuri.js',
+			'muuri.mjs' => $composer_path . 'vendor/npm-asset/muuri/dist/muuri.js',
 		],
 	],
 	'view_extensions' => [
-		'css/admin' => [
-			'css/widget_manager/admin.css' => [],
+		'admin.css' => [
+			'forms/widget_manager/manage_widgets/widget.css' => [],
 		],
 		'elements/widgets.css' => [
-			'css/widget_manager/site.css' => [],
+			'widget_manager/site.css' => [],
 		],
 		'groups/edit/settings' => [
 			'widget_manager/forms/groups_widget_access' => [],
-		],
-		'elgg.js' => [
-			'js/widget_manager/site.js' => [],
 		],
 		'object/widget/elements/content' => [
 			'widget_manager/widgets/custom_more' => [],

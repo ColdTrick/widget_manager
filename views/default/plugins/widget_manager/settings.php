@@ -2,9 +2,7 @@
 
 $plugin = elgg_extract('entity', $vars);
 
-$index_settings = '';
-
-$index_settings .= elgg_view_field([
+$index_settings = elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('widget_manager:settings:custom_index'),
 	'name' => 'params[custom_index]',
@@ -47,8 +45,7 @@ $index_settings .= elgg_view_field([
 echo elgg_view_module('info', elgg_echo('widget_manager:settings:index'), $index_settings);
 
 if (elgg_is_active_plugin('groups')) {
-	$group_settings = '';
-	$group_settings .= elgg_view_field([
+	$group_settings = elgg_view_field([
 		'#type' => 'select',
 		'#label' => elgg_echo('widget_manager:settings:group:enable'),
 		'#help' => elgg_view('output/url', [
@@ -64,6 +61,7 @@ if (elgg_is_active_plugin('groups')) {
 			'forced' => elgg_echo('widget_manager:settings:group:enable:forced'),
 		],
 	]);
+	
 	$group_settings .= elgg_view_field([
 		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:settings:group:option_default_enabled'),
@@ -73,6 +71,7 @@ if (elgg_is_active_plugin('groups')) {
 		'default' => 'no',
 		'value' => 'yes',
 	]);
+	
 	$group_settings .= elgg_view_field([
 		'#type' => 'checkbox',
 		'#label' => elgg_echo('widget_manager:settings:group:option_admin_only'),
@@ -82,6 +81,7 @@ if (elgg_is_active_plugin('groups')) {
 		'default' => 'no',
 		'value' => 'yes',
 	]);
+	
 	$group_settings .= elgg_view_field([
 		'#type' => 'number',
 		'#label' => elgg_echo('widget_manager:settings:group:group_column_count'),

@@ -12,20 +12,20 @@ class Settings {
 	 *
 	 * @param \Elgg\Event $event 'setting', 'plugin'
 	 *
-	 * @return void
+	 * @return null|string
 	 */
-	public static function implodeSettings(\Elgg\Event $event) {
+	public static function implodeSettings(\Elgg\Event $event): ?string {
 		if ($event->getParam('plugin_id') !== 'widget_manager') {
-			return;
+			return null;
 		}
 		
 		if ($event->getParam('name') !== 'index_managers') {
-			return;
+			return null;
 		}
 		
 		$current_value = $event->getValue();
 		if (!is_array($current_value)) {
-			return;
+			return null;
 		}
 		
 		return implode(',', $current_value);

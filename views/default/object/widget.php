@@ -53,6 +53,7 @@ if ($widget->widget_manager_disable_widget_content_style == 'yes') {
 }
 
 if ($widget instanceof WidgetManagerWidget && WidgetsSettingsConfig::instance()->showLazyLoaded($widget, (array) elgg_extract('layout_info', $vars, []))) {
+	elgg_import_esm('widget_manager/lazy_loading');
 	$body = elgg_view('graphics/ajax_loader', ['hidden' => false]);
 	$widget_class[] = 'lazy-loading';
 } else {

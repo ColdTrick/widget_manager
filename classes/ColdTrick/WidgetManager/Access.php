@@ -14,18 +14,18 @@ class Access {
 	 *
 	 * @param \Elgg\Event $event 'access:collections:write', 'all'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function setWriteAccess(\Elgg\Event $event) {
+	public static function setWriteAccess(\Elgg\Event $event): ?array {
 		
 		$input_params = $event->getParam('input_params', []);
 		if (elgg_extract('entity_type', $input_params) !== 'object' || elgg_extract('entity_subtype', $input_params) !== 'widget') {
-			return;
+			return null;
 		}
 		
 		$container = get_entity(elgg_extract('container_guid', $input_params));
 		if (!$container instanceof \ElggEntity) {
-			return;
+			return null;
 		}
 		
 		if ($container instanceof \ElggGroup) {
@@ -42,7 +42,7 @@ class Access {
 			
 			$widget = elgg_extract('entity', $input_params);
 			if (!$widget instanceof \ElggWidget) {
-				return;
+				return null;
 			}
 			
 			if (elgg_can_edit_widget_layout($widget->context)) {
@@ -54,6 +54,8 @@ class Access {
 				];
 			}
 		}
+		
+		return null;
 	}
 	
 	/**
@@ -61,29 +63,26 @@ class Access {
 	 *
 	 * @param \Elgg\Event $event 'permissions_check', 'site'
 	 *
-	 * @return array
+	 * @return null|bool
 	 */
-	public static function writeAccessForIndexManagers(\Elgg\Event $event) {
+	public static function writeAccessForIndexManagers(\Elgg\Event $event): ?bool {
 		$result = $event->getValue();
-		
 		if ($result) {
-			return;
+			return $result;
 		}
 		
 		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggSite) {
-			return;
+			return null;
 		}
 		
 		$user = $event->getUserParam();
 		if (!$user instanceof \ElggUser) {
-			return;
+			return null;
 		}
 		
 		$index_managers = explode(',', elgg_get_plugin_setting('index_managers', 'widget_manager', ''));
-		if (in_array($user->guid, $index_managers)) {
-			return true;
-		}
+		return in_array($user->guid, $index_managers) ?: null;
 	}
 	
 	/**
@@ -91,22 +90,18 @@ class Access {
 	 *
 	 * @param \Elgg\Event $event 'access:collections:read', 'user'
 	 *
-	 * @return array
+	 * @return null|array
 	 */
-	public static function addLoggedOutReadAccess(\Elgg\Event $event) {
+	public static function addLoggedOutReadAccess(\Elgg\Event $event): ?array {
 		
 		if (elgg_is_logged_in() && !elgg_is_admin_logged_in()) {
-			return;
+			return null;
 		}
 		
-		$return_value = $event->getValue();
+		$return_value = $event->getValue() ?: [];
 		
-		if (empty($return_value)) {
-			$return_value = [];
-		} else {
-			if (!is_array($return_value)) {
-				$return_value = [$return_value];
-			}
+		if (!is_array($return_value)) {
+			$return_value = [$return_value];
 		}
 		
 		$return_value[] = ACCESS_LOGGED_OUT;
@@ -119,25 +114,23 @@ class Access {
 	 *
 	 * @param \Elgg\Event $event 'permissions_check', 'object'
 	 *
-	 * @return boolean
+	 * @return null|bool
 	 */
-	public static function canEditWidgetOnManagedLayout(\Elgg\Event $event) {
+	public static function canEditWidgetOnManagedLayout(\Elgg\Event $event): ?bool {
 		$user = $event->getUserParam();
 		$entity = $event->getEntityParam();
 		
 		if ($event->getValue() || !$user instanceof \ElggUser || !$entity instanceof \ElggWidget) {
-			return;
+			return null;
 		}
 		
 		if (!$entity->getOwnerEntity() instanceof \ElggSite) {
 			// special permission is only for widget owned by site
-			return;
+			return null;
 		}
 		
 		$context = $entity->context;
-		if ($context) {
-			return elgg_can_edit_widget_layout($context, $user->guid);
-		}
+		return $context ? elgg_can_edit_widget_layout($context, $user->guid) : null;
 	}
 	
 	/**
@@ -147,7 +140,7 @@ class Access {
 	 *
 	 * @return void
 	 */
-	public static function moreRightsForWidgetManager(\Elgg\Event $event) {
+	public static function moreRightsForWidgetManager(\Elgg\Event $event): void {
 		if ($event->getType() === 'widgets/add') {
 			elgg_register_event_handler('permissions_check', 'site', '\ColdTrick\WidgetManager\Access::writeAccessForIndexManagers');
 			return;
@@ -171,7 +164,7 @@ class Access {
 			elgg_register_event_handler('get_sql', 'access', function(\Elgg\Event $event) use ($widget_guid) {
 				if ($event->getParam('ignore_access')) {
 					// no need to give extra access
-					return;
+					return null;
 				}
 				
 				/**

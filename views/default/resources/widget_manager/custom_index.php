@@ -20,7 +20,7 @@ switch ($layout) {
 		$classes[] = 'widgets-fluid-columns';
 		$num_columns = 1;
 		
-		elgg_require_js('widget_manager/fluid');
+		elgg_import_esm('widget_manager/fluid');
 		break;
 	case '33|33|33':
 		$classes[] = 'widgets-3-columns';

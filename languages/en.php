@@ -112,9 +112,4 @@ return [
 	'widget_manager:layout:content:hide' => "Hide widget content",
 	'widget_manager:layout:content:show' => "Show widget content",
 	
-	// upgrades
-	'widget_manager:upgrade:2018052400:title' => "Widget contexts to pages",
-	'widget_manager:upgrade:2018052400:description' => "Moves plugin settings for extra widget pages to actual entities",
-	'widget_manager:upgrade:2023051101:title' => "Migrate widget settings",
-	'widget_manager:upgrade:2023051101:description' => "Previously Widget Manager allows the saving of arrays as widget settings, this is now supported in Elgg core. This upgrade will migrate the old settings.",
 ];
