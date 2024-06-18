@@ -167,13 +167,13 @@ return [
 		],
 		'register' => [
 			'menu:admin_header' => [
-				'\ColdTrick\WidgetManager\Menus::registerAdminHeaderMenu' => [],
+				'\ColdTrick\WidgetManager\Menus\AdminHeader::registerAdminHeaderMenu' => [],
 			],
 			'menu:entity' => [
-				'\ColdTrick\WidgetManager\Menus::addWidgetPageEntityMenuItems' => [],
+				'\ColdTrick\WidgetManager\Menus\Entity::addWidgetPageEntityMenuItems' => [],
 			],
 			'menu:title:widgets' => [
-				'\ColdTrick\WidgetManager\Menus::addWidgetsContentToggle' => [],
+				'\ColdTrick\WidgetManager\Menus\Title::addWidgetsContentToggle' => [],
 			],
 		],
 		'seeds' => [

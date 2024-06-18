@@ -1,13 +1,13 @@
 <?php
 
-namespace ColdTrick\WidgetManager;
+namespace ColdTrick\WidgetManager\Menus;
 
 use Elgg\Menu\MenuItems;
 
 /**
- * Menu callbacks
+ * Admin Header menu callbacks
  */
-class Menus {
+class AdminHeader {
 	
 	/**
 	 * Event to register menu items on the admin pages
@@ -66,75 +66,5 @@ class Menus {
 		}
 		
 		return $return_value;
-	}
-
-	/**
-	 * Adds an optional fix link to the menu
-	 *
-	 * @param \Elgg\Event $event 'register', 'menu:entity'
-	 *
-	 * @return null|MenuItems
-	 */
-	public static function addWidgetPageEntityMenuItems(\Elgg\Event $event): ?MenuItems {
-		$entity = $event->getEntityParam();
-		if (!$entity instanceof \WidgetPage || !$entity->canEdit()) {
-			return null;
-		}
-		
-		$result = $event->getValue();
-			
-		$result[] = \ElggMenuItem::factory([
-			'name' => 'edit',
-			'text' => elgg_echo('edit'),
-			'icon' => 'edit',
-			'href' => "ajax/form/widget_manager/widget_page?guid={$entity->guid}",
-			'link_class' => 'elgg-lightbox',
-			'data-colorbox-opts' => json_encode([
-				'trapFocus' => false,
-			]),
-		]);
-	
-		return $result;
-	}
-
-	/**
-	 * Adds a toggle to show/hide widget contents
-	 *
-	 * @param \Elgg\Event $event 'register', 'title:widgets'
-	 *
-	 * @return null|MenuItems
-	 */
-	public static function addWidgetsContentToggle(\Elgg\Event $event): ?MenuItems {
-		
-		if (!elgg_get_plugin_setting('show_collapse_content', 'widget_manager')) {
-			return null;
-		}
-		
-		if (!$event->getParam('show_collapse_content', false)) {
-			return null;
-		}
-		
-		$result = $event->getValue();
-			
-		$result[] = \ElggMenuItem::factory([
-			'name' => 'hide-widget-contents',
-			'class' => 'elgg-more',
-			'text' => elgg_echo('widget_manager:layout:content:hide'),
-			'icon' => 'eye-slash',
-			'href' => false,
-			'priority' => 80,
-		]);
-			
-		$result[] = \ElggMenuItem::factory([
-			'name' => 'show-widget-contents',
-			'class' => 'elgg-more',
-			'item_class' => 'hidden',
-			'text' => elgg_echo('widget_manager:layout:content:show'),
-			'icon' => 'eye',
-			'href' => false,
-			'priority' => 81,
-		]);
-		
-		return $result;
 	}
 }
