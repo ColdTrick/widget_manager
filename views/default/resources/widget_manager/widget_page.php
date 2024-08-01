@@ -43,8 +43,7 @@ switch ($layout) {
 		break;
 }
 
-$title = $widget_page->title ?: false;
-if ($title && $widget_page->canEdit()) {
+if ($widget_page->canEdit()) {
 	$href = elgg_generate_url('widgets:add_panel', [
 		'context' => elgg_get_context(),
 		'context_stack' => elgg_get_context_stack(),
@@ -85,6 +84,8 @@ if ($title && $widget_page->canEdit()) {
 	]);
 }
 
+$title = $widget_page->title ?: false;
+
 $content = '';
 
 if ($widget_page->show_description !== false && !empty($widget_page->description)) {
@@ -96,10 +97,11 @@ $content .= elgg_view_layout('widgets', [
 	'num_columns' => $num_columns,
 	'column_classes' => $column_classes,
 	'exact_match' => true,
-	'show_add_widgets' => empty($title),
+	'show_add_widgets' => false,
 ]);
 
 echo elgg_view_page($widget_page->getDisplayName(), [
 	'title' => $title,
 	'content' => $content,
+	'entity' => $widget_page,
 ]);

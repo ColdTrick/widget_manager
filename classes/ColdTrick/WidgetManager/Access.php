@@ -212,4 +212,22 @@ class Access {
 			}
 		}
 	}
+	
+	/**
+	 * Only allow widget page delete by admins
+	 *
+	 * @param \Elgg\Event $event 'permissions_check:delete', 'object'
+	 *
+	 * @return boolean
+	 */
+	public static function onlyAdminsCanDeleteWidgetPages(\Elgg\Event $event) {
+		$user = $event->getUserParam();
+		$entity = $event->getEntityParam();
+		
+		if (!$user instanceof \ElggUser || !$entity instanceof \WidgetPage) {
+			return;
+		}
+		
+		return $user->isAdmin();
+	}
 }
