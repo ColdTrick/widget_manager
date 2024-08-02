@@ -17,6 +17,9 @@ if (empty($pages)) {
 
 $widget_page = $pages[0];
 
+elgg_push_context('index');
+elgg_set_page_owner_guid($widget_page->guid);
+
 if ($widget_page->canEdit()) {
 	$href = elgg_generate_url('widgets:add_panel', [
 		'context' => elgg_get_context(),

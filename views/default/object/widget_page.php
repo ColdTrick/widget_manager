@@ -16,9 +16,6 @@ if (!elgg_extract('full_view', $vars)) {
 	return;
 }
 
-elgg_push_context('index');
-elgg_set_page_owner_guid($entity->guid);
-
 $num_columns = $entity->getNumColumns();
 $layout = $entity->layout;
 
