@@ -20,31 +20,7 @@ $widget_page = $pages[0];
 elgg_push_context('index');
 elgg_set_page_owner_guid($widget_page->guid);
 
-$num_columns = $widget_page->getNumColumns();
-$layout = $widget_page->layout;
-
-$classes = [];
-$column_classes = [];
-
-switch ($layout) {
-	case '33|33|33':
-		$classes[] = 'widgets-3-columns';
-		break;
-	case '50|50':
-		$classes[] = 'widgets-2-columns';
-		break;
-	default:
-		$classes[] = "widgets-{$num_columns}-columns";
-		
-		$columns = array_reverse(explode('|', $layout));
-		foreach ($columns as $column_index => $column_width) {
-			$column_classes[$column_index + 1] = "col-width-{$column_width}";
-		}
-		break;
-}
-
-$title = $widget_page->title ?: false;
-if ($title && $widget_page->canEdit()) {
+if ($widget_page->canEdit()) {
 	$href = elgg_generate_url('widgets:add_panel', [
 		'context' => elgg_get_context(),
 		'context_stack' => elgg_get_context_stack(),
@@ -85,21 +61,8 @@ if ($title && $widget_page->canEdit()) {
 	]);
 }
 
-$content = '';
-
-if ($widget_page->show_description !== false && !empty($widget_page->description)) {
-	$content .= elgg_view('output/longtext', ['value' => $widget_page->description, 'class' => 'widget-page-description']);
-}
-
-$content .= elgg_view_layout('widgets', [
-	'class' => $classes,
-	'num_columns' => $num_columns,
-	'column_classes' => $column_classes,
-	'exact_match' => true,
-	'show_add_widgets' => empty($title),
-]);
-
 echo elgg_view_page($widget_page->getDisplayName(), [
-	'title' => $title,
-	'content' => $content,
+	'title' => $widget_page->title ?: false,
+	'content' => elgg_view_entity($widget_page),
+	'entity' => $widget_page,
 ]);

@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.2 (2024-08-07):
+
+- added: widget page manager can now edit page on the front end
+
 17.0 (2024-06-28):
 
 - changed: updated for Elgg 6.0

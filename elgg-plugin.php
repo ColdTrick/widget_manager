@@ -65,9 +65,7 @@ return [
 		'widget_manager/manage_widgets' => [
 			'access' => 'admin',
 		],
-		'widget_manager/widget_page' => [
-			'access' => 'admin',
-		],
+		'widget_manager/widget_page' => [],
 		'widget_manager/cleanup' => [
 			'access' => 'admin',
 		],
@@ -163,6 +161,11 @@ return [
 			],
 			'widget_layout' => [
 				'\ColdTrick\WidgetManager\Widgets::layoutPermissionsCheck' => [],
+			],
+		],
+		'permissions_check:delete' => [
+			'object' => [
+				'\ColdTrick\WidgetManager\Access::onlyAdminsCanDeleteWidgetPages' => [],
 			],
 		],
 		'register' => [

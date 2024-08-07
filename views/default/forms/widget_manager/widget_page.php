@@ -1,6 +1,9 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
+if (!$entity->canEdit()) {
+	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
+}
 
 echo elgg_format_element('div', ['class' => 'elgg-subtext mbm'], elgg_echo('widget_manager:settings:extra_contexts:description'));
 
@@ -10,13 +13,15 @@ echo elgg_view_field([
 	'value' => $entity?->guid,
 ]);
 
-echo elgg_view_field([
-	'#type' => 'text',
-	'#label' => elgg_echo('widget_manager:settings:extra_contexts:page'),
-	'name' => 'url',
-	'value' => $entity?->url,
-	'required' => true,
-]);
+if (elgg_is_admin_logged_in()) {
+	echo elgg_view_field([
+		'#type' => 'text',
+		'#label' => elgg_echo('widget_manager:settings:extra_contexts:page'),
+		'name' => 'url',
+		'value' => $entity?->url,
+		'required' => true,
+	]);
+}
 
 echo elgg_view_field([
 	'#type' => 'text',
@@ -47,6 +52,7 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('widget_manager:settings:extra_contexts:layout'),
+	'#help' => elgg_echo('widget_manager:settings:extra_contexts:layout:help'),
 	'name' => 'layout',
 	'options_values' => [
 		'33|33|33' => elgg_echo('widget_manager:settings:widget_layout:33|33|33'),
@@ -66,8 +72,10 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'userpicker',
 	'#label' => elgg_echo('widget_manager:settings:extra_contexts:manager'),
+	'#help' => elgg_echo('widget_manager:settings:extra_contexts:manager:help'),
 	'name' => 'manager',
 	'value' => $entity?->getManagers(),
+	'show_friends' => false,
 ]);
 
 $footer = elgg_view_field([

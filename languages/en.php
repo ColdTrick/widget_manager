@@ -69,7 +69,9 @@ return [
 	'widget_manager:settings:extra_contexts:description' => "Enter the page handler name of the new page which will get a layout similar to the index page. You can add as much pages as you need. Be sure not to add a page handler that is already in use. You can also configure the column layout for that page and optionally assign non-admin users as manager of the page.",
 	'widget_manager:settings:extra_contexts:page' => "Page",
 	'widget_manager:settings:extra_contexts:layout' => "Layout",
-	'widget_manager:settings:extra_contexts:manager' => "Manager",
+	'widget_manager:settings:extra_contexts:layout:help' => "Set the number of columns",
+	'widget_manager:settings:extra_contexts:manager' => "Managers",
+	'widget_manager:settings:extra_contexts:manager:help' => "Configure the users that are allowed to manage the page",
 
 	'widget_manager:settings:lazy_loading:enabled' => "Enable Lazy Loading",
 	'widget_manager:settings:lazy_loading:enabled:help' => "Globally enables the lazy loading feature",
