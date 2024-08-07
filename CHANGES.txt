@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.2 (2024-08-07):
+
+- added: widget page manager can now edit page on the front end
+
 16.1.1 (2024-06-05):
 
 - several small chores/fixes
