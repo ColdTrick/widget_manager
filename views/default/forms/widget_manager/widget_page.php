@@ -1,7 +1,7 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
-if (!$entity->canEdit()) {
+if ($entity instanceof \WidgetPage && !$entity->canEdit()) {
 	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
 }
 
