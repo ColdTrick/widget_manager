@@ -132,7 +132,8 @@ class Widgets {
 			return null;
 		}
 		
-		$cached_data = elgg_load_system_cache("widget_cache_{$widget->guid}");
+		$current_language = elgg_get_current_language();
+		$cached_data = elgg_load_system_cache("widget_cache_{$widget->guid}_{$current_language}");
 		if (empty($cached_data)) {
 			return null;
 		}
@@ -187,7 +188,8 @@ class Widgets {
 			return;
 		}
 		
-		elgg_save_system_cache("widget_cache_{$widget->guid}", $event->getValue());
+		$current_language = elgg_get_current_language();
+		elgg_save_system_cache("widget_cache_{$widget->guid}_{$current_language}", $event->getValue());
 	}
 	
 	/**
@@ -207,7 +209,10 @@ class Widgets {
 			return;
 		}
 	
-		elgg_delete_system_cache("widget_cache_{$widget->guid}");
+		$languages = elgg()->translator->getAllowedLanguages();
+		foreach ($languages as $language) {
+			elgg_delete_system_cache("widget_cache_{$widget->guid}_{$language}");
+		}
 	}
 	
 	/**
