@@ -193,36 +193,13 @@ class Widgets {
 	}
 	
 	/**
-	 * Unsets the cached data for cacheable widgets
-	 *
-	 * @param \Elgg\Event $event 'update:after', 'object'
-	 *
-	 * @return void
-	 */
-	public static function clearWidgetCacheOnUpdate(\Elgg\Event $event): void {
-		$widget = $event->getObject();
-		if (!$widget instanceof \ElggWidget) {
-			return;
-		}
-		
-		if (!self::isCacheableWidget($widget)) {
-			return;
-		}
-	
-		$languages = elgg()->translator->getAllowedLanguages();
-		foreach ($languages as $language) {
-			elgg_delete_system_cache("widget_cache_{$widget->guid}_{$language}");
-		}
-	}
-	
-	/**
 	 * Checks if the provide widget is registered as a cacheable widget
 	 *
 	 * @param \ElggWidget $widget widget to check
 	 *
 	 * @return bool
 	 */
-	protected static function isCacheableWidget(\ElggWidget $widget): bool {
+	public static function isCacheableWidget(\ElggWidget $widget): bool {
 		static $cacheable_handlers;
 		if (!isset($cacheable_handlers)) {
 			$cacheable_handlers = elgg_trigger_event_results('cacheable_handlers', 'widget_manager', [], []);

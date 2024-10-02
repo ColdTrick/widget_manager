@@ -199,11 +199,6 @@ return [
 				'\ColdTrick\WidgetManager\Groups::updateGroupWidgets' => [],
 			],
 		],
-		'update:after' => [
-			'object' => [
-				'\ColdTrick\WidgetManager\Widgets::clearWidgetCacheOnUpdate' => [],
-			],
-		],
 		'view' => [
 			'object/widget/body' => [
 				'\ColdTrick\WidgetManager\Widgets::saveContentInCache' => ['priority' => 9999],
