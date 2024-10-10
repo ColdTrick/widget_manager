@@ -1,6 +1,10 @@
 Version history
 ===============
 
+16.2.1 (2024-10-10):
+
+- fixed: unable to create new widget page
+
 16.2 (2024-08-07):
 
 - added: widget page manager can now edit page on the front end
