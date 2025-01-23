@@ -1,6 +1,10 @@
 Version history
 ===============
 
+17.1.1 (2025-01-23):
+
+- fixed: use flex grow strategy for different column sizes
+
 17.1 (2024-10-10):
 
 - added: widget cache now store cache per language
