@@ -2,6 +2,7 @@
 
 namespace ColdTrick\WidgetManager;
 
+use Elgg\Collections\Collection;
 use Elgg\Groups\Tool;
 
 /**
@@ -252,9 +253,9 @@ class Groups {
 	 *
 	 * @param \Elgg\Event $event 'tool_options', 'group'
 	 *
-	 * @return null|array
+	 * @return null|Collection
 	 */
-	public static function registerGroupWidgetsTool(\Elgg\Event $event): ?array {
+	public static function registerGroupWidgetsTool(\Elgg\Event $event): ?Collection {
 		$plugin = elgg_get_plugin_from_id('widget_manager');
 		if ($plugin->getSetting('group_enable') !== 'yes') {
 			return null;
