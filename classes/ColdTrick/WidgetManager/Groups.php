@@ -138,7 +138,7 @@ class Groups {
 					}
 						
 					foreach ($widgets as $order => $widget) {
-						// check if a widget which sould be enabled isn't already enabled
+						// check if a widget which should be enabled isn't already enabled
 						$enable_index = array_search($widget->handler, $enable_widget_handlers);
 						if ($enable_index !== false) {
 							// already enabled, do add duplicate
@@ -174,7 +174,7 @@ class Groups {
 						continue;
 					}
 					
-					// widget was removed manualy, don't add it automagicly
+					// widget was removed manually, don't add it automagically
 					unset($enable_widget_handlers[$enable_index]);
 				}
 			}
@@ -275,7 +275,7 @@ class Groups {
 	}
 
 	/**
-	 * Prepare for group widget blacklist update when adding a widget manualy
+	 * Prepare for group widget blacklist update when adding a widget manually
 	 *
 	 * @param \Elgg\Event $event 'create', 'object'
 	 *
@@ -315,7 +315,7 @@ class Groups {
 	}
 	
 	/**
-	 * Update the group widget blacklist when adding a widget manualy
+	 * Update the group widget blacklist when adding a widget manually
 	 *
 	 * @param \Elgg\Event $event 'shutdown', 'system'
 	 *
@@ -373,7 +373,7 @@ class Groups {
 	}
 	
 	/**
-	 * Update the group widget blacklist when removing a widget manualy
+	 * Update the group widget blacklist when removing a widget manually
 	 *
 	 * @param \Elgg\Event $event 'delete', 'object'
 	 *
