@@ -31,12 +31,12 @@ class WidgetsSettingsConfig {
 	/**
 	 * Returns all save settings for a widget
 	 *
-	 * @param string $handler Widget to retrieve settings for
-	 * @param string $context optional context to return settings for
+	 * @param string      $handler Widget to retrieve settings for
+	 * @param string|null $context optional context to return settings for
 	 *
 	 * @return array
 	 */
-	public function getAll(string $handler, string $context = null): array {
+	public function getAll(string $handler, ?string $context = null): array {
 		if (!isset($this->config[$handler]['contexts'])) {
 			if (!isset($context)) {
 				return [];
