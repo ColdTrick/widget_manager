@@ -94,25 +94,19 @@ if (elgg_is_active_plugin('groups')) {
 }
 
 $lazy_settings = elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('widget_manager:settings:lazy_loading:enabled'),
 	'#help' => elgg_echo('widget_manager:settings:lazy_loading:enabled:help'),
 	'name' => 'params[lazy_loading_enabled]',
-	'checked' => (bool) $plugin->lazy_loading_enabled,
-	'switch' => true,
-	'default' => 0,
-	'value' => 1,
+	'value' => $plugin->lazy_loading_enabled,
 ]);
 
 $lazy_settings .= elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_mobile_columns'),
 	'#help' => elgg_echo('widget_manager:settings:lazy_loading:lazy_loading_mobile_columns:help'),
 	'name' => 'params[lazy_loading_mobile_columns]',
-	'checked' => (bool) $plugin->lazy_loading_mobile_columns,
-	'switch' => true,
-	'default' => 0,
-	'value' => 1,
+	'value' => $plugin->lazy_loading_mobile_columns,
 ]);
 
 $lazy_settings .= elgg_view_field([
@@ -127,14 +121,11 @@ $lazy_settings .= elgg_view_field([
 echo elgg_view_module('info', elgg_echo('widget_manager:settings:lazy_loading'), $lazy_settings);
 
 $other_settings = elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('widget_manager:settings:show_collapse_content'),
 	'#help' => elgg_echo('widget_manager:settings:show_collapse_content:help'),
 	'name' => 'params[show_collapse_content]',
-	'checked' => (bool) $plugin->show_collapse_content,
-	'switch' => true,
-	'default' => 0,
-	'value' => 1,
+	'value' => $plugin->show_collapse_content,
 ]);
 
 echo elgg_view_module('info', elgg_echo('widget_manager:settings:other'), $other_settings);
