@@ -1,7 +1,7 @@
 <?php
 
 $widget_guid = (int) get_input('guid');
-$show_access = (boolean) get_input('show_access', false);
+$show_access = (bool) get_input('show_access', false);
 if (!$widget_guid) {
 	return;
 }
