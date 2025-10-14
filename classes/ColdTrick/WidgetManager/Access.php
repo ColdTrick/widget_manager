@@ -161,29 +161,7 @@ class Access {
 		
 		if ($widget->canEdit()) {
 			// the widgets action might not be able to get privately owned index widgets
-			elgg_register_event_handler('get_sql', 'access', function(\Elgg\Event $event) use ($widget_guid) {
-				if ($event->getParam('ignore_access')) {
-					// no need to give extra access
-					return null;
-				}
-				
-				/**
-				 * @var QueryBuilder $qb
-				 */
-				$qb = $event->getParam('query_builder');
-				$table_alias = $event->getParam('table_alias');
-				$guid_column = $event->getParam('guid_column');
-				
-				$alias = function ($column) use ($table_alias) {
-					return $table_alias ? "{$table_alias}.{$column}" : $column;
-				};
-				
-				$result = $event->getValue();
-				
-				$result['ors']['special_widget_access'] = $qb->compare($alias($guid_column), '=', $widget_guid);
-				
-				return $result;
-			});
+			self::registerSQLBypass($widget_guid);
 		}
 		
 		if ($event->getType() === 'widgets/move') {
@@ -205,6 +183,39 @@ class Access {
 			}
 		}
 	}
+
+	/**
+	 * Registers a bypass sql suffix
+	 *
+	 * @param int $guid GUID of the entity to register sql bypass for
+	 *
+	 * @return void
+	 */
+	protected static function registerSQLBypass(int $guid): void {
+		elgg_register_event_handler('get_sql', 'access', function(\Elgg\Event $event) use ($guid) {
+			if ($event->getParam('ignore_access')) {
+				// no need to give extra access
+				return null;
+			}
+
+			/**
+			 * @var QueryBuilder $qb
+			 */
+			$qb = $event->getParam('query_builder');
+			$table_alias = $event->getParam('table_alias');
+			$guid_column = $event->getParam('guid_column');
+
+			$alias = function ($column) use ($table_alias) {
+				return $table_alias ? "{$table_alias}.{$column}" : $column;
+			};
+
+			$result = $event->getValue();
+
+			$result['ors']['special_widget_access'] = $qb->compare($alias($guid_column), '=', $guid);
+
+			return $result;
+		});
+	}
 	
 	/**
 	 * Only allow widget page delete by admins
@@ -222,5 +233,31 @@ class Access {
 		}
 		
 		return $user->isAdmin();
+	}
+
+	/**
+	 * Only allow widget edit for private widgets
+	 *
+	 * @param \Elgg\Event $event 'view_vars', 'object/widget/edit'
+	 *
+	 * @return null|array
+	 */
+	public static function allowPrivateWidgetEdit(\Elgg\Event $event): ?array {
+		$result = $event->getValue();
+		if (elgg_extract('entity', $result) instanceof \ElggEntity) {
+			return $result;
+		}
+
+		$guid = (int) elgg_extract('guid', $result);
+		$entity = elgg_call(ELGG_IGNORE_ACCESS, function() use ($guid) {
+			return get_entity($guid);
+		});
+
+		if ($entity->canEdit()) {
+			$result['entity'] = $entity;
+			self::registerSQLBypass($guid);
+		}
+
+		return $result;
 	}
 }

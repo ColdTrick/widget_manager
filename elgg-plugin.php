@@ -211,6 +211,9 @@ return [
 			'object/widget/body' => [
 				'\ColdTrick\WidgetManager\Widgets::getContentFromCache' => [],
 			],
+			'object/widget/edit' => [
+				'\ColdTrick\WidgetManager\Access::allowPrivateWidgetEdit' => [],
+			],
 			'object/widget/elements/controls' => [
 				'\ColdTrick\WidgetManager\Widgets::preventControls' => [],
 			],
