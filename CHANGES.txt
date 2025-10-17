@@ -1,6 +1,12 @@
 Version history
 ===============
 
+17.1.2 (2025-10-17):
+
+- fixed: PHP implicit null declaration
+- fixed: use correct return type in group tool event handler
+- fixed: widget managers should be able to manage private widgets
+
 17.1.1 (2025-01-23):
 
 - fixed: use flex grow strategy for different column sizes
