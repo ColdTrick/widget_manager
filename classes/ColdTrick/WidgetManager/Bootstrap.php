@@ -62,7 +62,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 */
 	protected function getWidgetPagesUrls(): array {
 		$urls = elgg_load_system_cache('widget_pages');
-		if ($urls) {
+		if (is_array($urls)) {
 			return $urls;
 		}
 		

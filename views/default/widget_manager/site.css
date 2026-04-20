@@ -13,10 +13,10 @@
 .elgg-module-widget {
 	&.widget_manager_disable_widget_content_style {
 		background: none;
-		border: 0px;
+		border: 0;
 			
 		.elgg-widget-content {
-			padding: 0px;
+			padding: 0;
 		}
 		
 		&:hover {
@@ -30,13 +30,11 @@
 }
 
 .elgg-widgets-hide-content .elgg-module-widget {
-	>.elgg-head .elgg-widget-title {
-		display: block;
-	}
+	overflow: hidden;
 	
 	> .elgg-body {
 		visibility: hidden;
-		height: 0px;
+		height: 0;
 	}
 }
 
@@ -67,11 +65,11 @@
 	}
 	
 	.fluid-placeholder {
-		border: 3px dashed $(border-color-mild);
+		border: 3px dashed var(--elgg-border-color-mild);
 	}
 }
 
-@media $(media-desktop-up) {
+@media screen and (min-width: 80rem) {
 	.elgg-widgets {
 		flex-basis: 0;
 		

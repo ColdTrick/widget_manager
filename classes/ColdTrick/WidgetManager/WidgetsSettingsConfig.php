@@ -98,7 +98,7 @@ class WidgetsSettingsConfig {
 	 * Returns registered service name
 	 * @return string
 	 */
-	public static function name() {
+	public static function name(): string {
 		return 'widgets.settings';
 	}
 		

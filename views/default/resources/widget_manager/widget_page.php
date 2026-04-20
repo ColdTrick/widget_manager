@@ -21,13 +21,6 @@ elgg_push_context('index');
 elgg_set_page_owner_guid($widget_page->guid);
 
 if ($widget_page->canEdit()) {
-	$href = elgg_generate_url('widgets:add_panel', [
-		'context' => elgg_get_context(),
-		'context_stack' => elgg_get_context_stack(),
-		'show_access' => true,
-		'owner_guid' => elgg_get_page_owner_guid(),
-	]);
-
 	elgg_register_menu_item('title', [
 		'name' => 'widgets_add',
 		'href' => false,
@@ -35,7 +28,14 @@ if ($widget_page->canEdit()) {
 		'text' => elgg_echo('widgets:add'),
 		'link_class' => ['elgg-lightbox', 'elgg-button', 'elgg-button-action'],
 		'data-colorbox-opts' => json_encode([
-			'href' => $href,
+			'href' => elgg_generate_url('ajax', [
+				'type' => 'view',
+				'segments' => 'page/layouts/widgets/add_panel',
+				'context' => elgg_get_context(),
+				'context_stack' => elgg_get_context_stack(),
+				'show_access' => true,
+				'owner_guid' => elgg_get_page_owner_guid(),
+			]),
 			'maxWidth' => '900px',
 			'maxHeight' => '90%',
 		]),

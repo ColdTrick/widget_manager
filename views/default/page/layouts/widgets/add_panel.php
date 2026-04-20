@@ -10,7 +10,7 @@
 
 use ColdTrick\WidgetManager\WidgetsSettingsConfig;
 
-elgg_ajax_gatekeeper();
+elgg_gatekeeper();
 
 // restoring context stack
 $context_stack = get_input('context_stack');
@@ -18,16 +18,14 @@ if (!empty($context_stack) && is_array($context_stack)) {
 	elgg_set_context_stack($context_stack);
 }
 
-elgg_import_esm('resources/widgets/add_panel');
+elgg_import_esm('page/layouts/widgets/add_panel');
 
 $context = (string) elgg_extract('context', $vars, get_input('context'));
 $owner_guid = (int) elgg_extract('owner_guid', $vars, (int) get_input('owner_guid'));
 $new_widget_column = elgg_extract('new_widget_column', $vars, get_input('new_widget_column'));
 $new_widget_position = elgg_extract('new_widget_position', $vars, get_input('new_widget_position'));
 
-elgg_entity_gatekeeper($owner_guid);
-
-$owner = get_entity($owner_guid);
+$owner = elgg_entity_gatekeeper($owner_guid);
 
 elgg_set_page_owner_guid($owner->guid);
 
