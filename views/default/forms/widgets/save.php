@@ -28,6 +28,20 @@ if (elgg_extract('show_access', $vars, true)) {
 	]);
 }
 
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'guid',
+	'value' => $widget->guid,
+]);
+
+if (elgg_in_context('default_widgets')) {
+	echo elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'default_widgets',
+		'value' => 1,
+	]);
+}
+
 $basic_content = $custom_form_section . $access;
 
 $advanced_content = elgg_view('forms/widgets/advanced', [
@@ -56,20 +70,6 @@ if (empty($advanced_content)) {
 	]);
 	
 	elgg_import_esm('forms/widgets/advanced');
-}
-
-echo elgg_view_field([
-	'#type' => 'hidden',
-	'name' => 'guid',
-	'value' => $widget->guid,
-]);
-
-if (elgg_in_context('default_widgets')) {
-	echo elgg_view_field([
-		'#type' => 'hidden',
-		'name' => 'default_widgets',
-		'value' => 1,
-	]);
 }
 
 $footer = elgg_view_field([
