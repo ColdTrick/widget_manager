@@ -1,6 +1,10 @@
 Version history
 ===============
 
+18.0 (2026-05-29):
+
+- changed: updated for Elgg 7
+
 17.1.2 (2025-10-17):
 
 - fixed: PHP implicit null declaration
