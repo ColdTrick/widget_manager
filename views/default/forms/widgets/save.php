@@ -3,7 +3,6 @@
  * Elgg widget edit settings
  *
  * @uses $vars['entity']      The widget entity
- * @uses $vars['widget']      Deprecated; use 'entity' instead
  * @uses $vars['show_access'] (bool) should widget access setting be available default: true
  */
 
