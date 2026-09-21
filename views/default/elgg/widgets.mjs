@@ -98,22 +98,15 @@ function saveWidgetSettings(event) {
 	});
 };
 
-$('.elgg-layout-widgets').find('.elgg-widgets').each(function() {
-	
-	var opts = $(this).data().sortableOptions;
-	var defaults = {
-		items: '.elgg-module-widget.elgg-state-draggable',
-		connectWith: '.elgg-widgets',
-		handle: '.elgg-widget-handle',
-		forcePlaceholderSize: true,
-		placeholder: 'elgg-widget-placeholder',
-		opacity: 0.8,
-		revert: 500,
-		stop: moveWidget
-	};
-	var settings = $.extend({}, defaults, opts);
-	
-	$(this).sortable(settings);
+$('.elgg-widgets').sortable({
+	items: '.elgg-module-widget.elgg-state-draggable',
+	connectWith: '.elgg-widgets',
+	handle: '.elgg-widget-handle',
+	forcePlaceholderSize: true,
+	placeholder: 'elgg-widget-placeholder',
+	opacity: 0.8,
+	revert: 500,
+	stop: moveWidget
 });
 
 // regular layouts
