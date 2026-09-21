@@ -73,6 +73,9 @@ return [
 		'elements/widgets.css' => [
 			'widget_manager/site.css' => [],
 		],
+		'elgg/widgets.mjs' => [
+			'widget_manager/toggle_widgets.js' => [],
+		],
 		'groups/edit/settings' => [
 			'widget_manager/forms/groups_widget_access' => [],
 		],
