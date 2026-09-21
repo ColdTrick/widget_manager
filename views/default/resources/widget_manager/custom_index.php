@@ -15,13 +15,6 @@ $classes = [];
 $column_classes = [];
 
 switch ($layout) {
-	case 'fluid':
-		$classes[] = 'widgets-1-columns';
-		$classes[] = 'widgets-fluid-columns';
-		$num_columns = 1;
-		
-		elgg_import_esm('widget_manager/fluid');
-		break;
 	case '33|33|33':
 		$classes[] = 'widgets-3-columns';
 		break;

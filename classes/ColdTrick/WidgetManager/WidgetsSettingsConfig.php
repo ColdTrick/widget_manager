@@ -136,10 +136,6 @@ class WidgetsSettingsConfig {
 			// under the fold
 			$under_fold_limit = elgg_get_plugin_setting('lazy_loading_under_fold', 'widget_manager');
 			if (!elgg_is_empty($under_fold_limit) && !empty($widgets)) {
-				if (in_array('widgets-fluid-columns', elgg_extract('classes', $layout_info, []))) {
-					$under_fold_limit = $under_fold_limit * 3;
-				}
-				
 				// if invalid widgets are removed from the layout, the index could be messed up
 				$column_widgets = array_values((array) elgg_extract($widget->column, $widgets, []));
 				

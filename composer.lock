@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87560bb8b068382946cebe106e83ae1b",
+    "content-hash": "f54f33f1475a0be0de6e7680ef2dc57f",
     "packages": [
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -69,18 +69,6 @@
                 }
             ],
             "time": "2026-01-09T16:21:59+00:00"
-        },
-        {
-            "name": "npm-asset/muuri",
-            "version": "0.9.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/muuri/-/muuri-0.9.5.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "psr/simple-cache",

@@ -98,7 +98,7 @@ function saveWidgetSettings(event) {
 	});
 };
 
-$('.elgg-layout-widgets:not(.widgets-fluid-columns)').find('.elgg-widgets').each(function() {
+$('.elgg-layout-widgets').find('.elgg-widgets').each(function() {
 	
 	var opts = $(this).data().sortableOptions;
 	var defaults = {

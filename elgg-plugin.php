@@ -65,12 +65,6 @@ return [
 		'widget_manager/cleanup' => [
 			'access' => 'admin',
 		],
-		'widget_manager/fluid_order' => [],
-	],
-	'views' => [
-		'default' => [
-			'muuri.mjs' => $composer_path . 'vendor/npm-asset/muuri/dist/muuri.js',
-		],
 	],
 	'view_extensions' => [
 		'admin.css' => [

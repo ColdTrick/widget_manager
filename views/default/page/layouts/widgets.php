@@ -77,8 +77,6 @@ if ($widgets) {
 }
 
 if ($show_add_widgets && $can_edit_layout) {
-	$vars['show_collapse_content'] = !in_array('widgets-fluid-columns', $classes);
-	
 	$result .= elgg_view('page/layouts/widgets/add_button', $vars);
 }
 
