@@ -25,10 +25,6 @@
 	}
 }
 
-.elgg-widgets-grid {
-	flex-wrap: wrap;
-}
-
 .elgg-widgets-hide-content .elgg-module-widget {
 	overflow: hidden;
 	
