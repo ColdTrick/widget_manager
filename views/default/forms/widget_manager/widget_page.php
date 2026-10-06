@@ -39,14 +39,11 @@ echo elgg_view_field([
 ]);
 
 echo elgg_view_field([
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#label' => elgg_echo('widget_manager:widget_page:show_description'),
 	'#help' => elgg_echo('widget_manager:widget_page:show_description:help'),
 	'name' => 'show_description',
-	'checked' => $entity?->show_description !== false,
-	'switch' => true,
-	'default' => false,
-	'value' => true,
+	'value' => $entity?->show_description,
 ]);
 
 echo elgg_view_field([

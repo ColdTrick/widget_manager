@@ -23,11 +23,10 @@ foreach ($contexts as $context) {
 	$body .= '<tr><td>';
 	
 	$options = [
+		'#type' => 'switch',
+		'#label' => $context,
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][enabled]",
-		'label' => $context,
-		'value' => 1,
-		'switch' => true,
-		'checked' => in_array($context, $widget_definition->context),
+		'value' => in_array($context, $widget_definition->context),
 		'label_class' => [],
 	];
 	
@@ -45,7 +44,7 @@ foreach ($contexts as $context) {
 		$options['title'] = elgg_echo('widget_manager:forms:manage_widgets:non_default');
 	}
 
-	$body .= elgg_view('input/checkbox', $options);
+	$body .= elgg_view_field($options);
 	$body .= '</td><td class="center">';
 	$body .= elgg_view('input/checkbox', [
 		'name' => "widgets_config[{$widget_definition->id}][contexts][{$context}][can_add]",
@@ -73,13 +72,11 @@ $body .= '</table>';
 
 // multiple
 $multiple_options = [
-	'#type' => 'checkbox',
+	'#type' => 'switch',
 	'#class' => 'widget-manager-manage-widgets-toggle-multiple',
 	'#label' => elgg_echo('widget_manager:forms:manage_widgets:multiple'),
 	'name' => "widgets_config[{$widget_definition->id}][multiple]",
-	'value' => 1,
-	'switch' => true,
-	'checked' => $widget_definition->multiple,
+	'value' => $widget_definition->multiple,
 ];
 
 if ($widget_definition->multiple !== $originals['multiple']) {
