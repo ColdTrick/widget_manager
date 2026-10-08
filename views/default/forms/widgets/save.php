@@ -67,8 +67,6 @@ if (empty($advanced_content)) {
 			],
 		],
 	]);
-	
-	elgg_import_esm('forms/widgets/advanced');
 }
 
 $footer = elgg_view_field([
