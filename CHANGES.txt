@@ -1,6 +1,12 @@
 Version history
 ===============
 
+19.0 (2026-11-12):
+
+- changed: bumped minimal Elgg requirement to 7.1
+- removed: fluid layouts are no longer support on index pages
+- removed: no longer possible to pass sortable options to widget layouts
+
 18.0.1 (2026-07-30):
 
 - several small chores/fixes
