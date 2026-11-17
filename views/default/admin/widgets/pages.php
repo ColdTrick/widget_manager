@@ -2,10 +2,13 @@
 
 elgg_register_menu_item('title', [
 	'name' => 'add_widget_page',
-	'text' => elgg_echo('add'),
-	'href' => 'ajax/form/widget_manager/widget_page',
-	'class' => 'elgg-lightbox elgg-button elgg-button-action',
 	'icon' => 'plus',
+	'text' => elgg_echo('add'),
+	'href' => elgg_generate_url('ajax', [
+		'type' => 'form',
+		'segments' => 'widget_manager/widget_page',
+	]),
+	'class' => 'elgg-lightbox elgg-button elgg-button-action',
 ]);
 
 echo elgg_list_entities([
