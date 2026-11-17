@@ -24,7 +24,7 @@ class AdminHeader {
 		$return_value = $event->getValue();
 		foreach ($return_value as $menu_item) {
 			if ($menu_item->getName() == 'default_widgets') {
-				// move defaultwidgets menu item
+				// move default widgets menu item
 				$menu_item->setParentName('widgets');
 			}
 		}
@@ -38,20 +38,26 @@ class AdminHeader {
 		
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'widgets:manage',
-			'href' => 'admin/widgets/manage',
 			'text' => elgg_echo('admin:widgets:manage'),
+			'href' => elgg_generate_url('admin', [
+				'segments' => 'widgets/manage',
+			]),
 			'parent_name' => 'widgets',
 		]);
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'widgets:cleanup',
-			'href' => 'admin/widgets/cleanup',
 			'text' => elgg_echo('admin:widgets:cleanup'),
+			'href' => elgg_generate_url('admin', [
+				'segments' => 'widgets/cleanup',
+			]),
 			'parent_name' => 'widgets',
 		]);
 		$return_value[] = \ElggMenuItem::factory([
 			'name' => 'widgets:pages',
-			'href' => 'admin/widgets/pages',
 			'text' => elgg_echo('admin:widgets:pages'),
+			'href' => elgg_generate_url('admin', [
+				'segments' => 'widgets/pages',
+			]),
 			'parent_name' => 'widgets',
 		]);
 		
@@ -59,8 +65,8 @@ class AdminHeader {
 			// a special link to manage homepages that are only available if logged out
 			$return_value[] = \ElggMenuItem::factory([
 				'name' => 'admin:widgets:manage:index',
-				'href' => elgg_get_site_url() . '?override=true',
 				'text' => elgg_echo('admin:widgets:manage:index'),
+				'href' => elgg_get_site_url() . '?override=true',
 				'parent_name' => 'widgets',
 			]);
 		}
