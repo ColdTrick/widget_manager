@@ -49,7 +49,7 @@ if (elgg_is_active_plugin('groups')) {
 		'#label' => elgg_echo('widget_manager:settings:group:enable'),
 		'#help' => elgg_view('output/url', [
 			'text' => elgg_echo('widget_manager:settings:group:force_tool_widgets'),
-			'href' => 'action/widget_manager/force_tool_widgets',
+			'href' => elgg_generate_action_url('widget_manager/force_tool_widgets'),
 			'confirm' => elgg_echo('widget_manager:settings:group:force_tool_widgets:confirm'),
 		]),
 		'name' => 'params[group_enable]',
