@@ -406,7 +406,7 @@ class Groups {
 						continue;
 					}
 					
-					/* @var $widget \ElggWidget */
+					/** @var \ElggWidget $widget */
 					foreach ($widgets as $widget) {
 						if ($widget->guid === $object->guid) {
 							// don't add yourself
